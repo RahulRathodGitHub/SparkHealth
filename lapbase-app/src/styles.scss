@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+    --primary: #384A5A;
+    --primary-text: #B7B6C6;
+    
+    // Header
+    --header-bg-color: #17203B;
+
+    --side-menu-gradient: linear-gradient(#3E3D57, #15151F);;
+    --side-menu-width: 250px;
+    --side-menu-width-mobile: 60px;
+}
+
+// Menu Component
+$menu-item-color: #B7B6C6;
+$menu-item-active-color: white;
+$menu-item-active-background-color: #28273B;
+
+// This import should be last
+@import "../node_modules/bulma/bulma.sass";

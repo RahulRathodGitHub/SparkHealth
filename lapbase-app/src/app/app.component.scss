@@ -1,0 +1,12 @@
+$tablet: 769px;
+app-side-menu {
+    width: var(--side-menu-width);
+
+    @media screen and (max-width: $tablet - 1px) {
+        width: var(--side-menu-width-mobile);
+    }
+}
+
+app-main-content {
+    padding: 2em;
+}

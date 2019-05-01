@@ -1,0 +1,21 @@
+.side-menu {
+    position: fixed;
+    width: var(--side-menu-width);
+    height: 100vh;
+    padding: 1.5em 0 0 0.5em;
+    background: var(--side-menu-gradient);
+}
+
+.mobile-side-menu {
+    position: fixed;
+    width: var(--side-menu-width-mobile);
+    height: 100vh;
+    padding: 1.5em 0 0 0.5em;
+    background: var(--side-menu-gradient);
+}
+
+.menu-list {
+    i {
+        margin-right: 20px;
+    }
+}
