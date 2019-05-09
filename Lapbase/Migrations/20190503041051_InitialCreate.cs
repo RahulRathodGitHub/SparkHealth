@@ -12,7 +12,8 @@ namespace Lapbase.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
+                    ExternalId = table.Column<int>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
                     WhenCreated = table.Column<DateTimeOffset>(nullable: false)
                 },
                 constraints: table =>

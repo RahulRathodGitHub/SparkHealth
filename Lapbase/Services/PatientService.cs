@@ -17,9 +17,9 @@ namespace Lapbase.Services
             this.lapbaseContext = lapbaseContext;
         }
 
-        public Task<List<Patient>> GetPatients()
+        public async Task<List<Patient>> GetPatients()
         {
-            return lapbaseContext.Patient.ToListAsync();
+            return await lapbaseContext.Patient.ToListAsync();
         }
 
         public async Task<Patient> GetPatientById(Guid id)

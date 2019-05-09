@@ -51,7 +51,7 @@ namespace Lapbase.Controllers
         [HttpPost]
         public async Task<ActionResult> CreatePatient([FromBody]Patient patient)
         {
-            if (string.IsNullOrEmpty(patient.FirstName))
+            if (patient.ExternalId == default || String.IsNullOrEmpty(patient.UserName))
             {
                 return BadRequest();
             }
