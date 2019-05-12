@@ -32,7 +32,7 @@ namespace Lapbase
             services.AddTransient<PatientService>();
 
             services.AddDbContext<LapbaseContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("LapbaseNew")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

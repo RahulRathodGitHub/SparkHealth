@@ -28,6 +28,13 @@ namespace Lapbase.Controllers
             return await patientService.GetPatients();
         }
 
+        // GET: api/Patient/GetPatientsLapbase
+        [HttpGet("[Action]")]
+        public async Task<Object> GetPatientsLapbase()
+        {
+            return await patientService.GetPatientsLapbase();
+        }
+
         // GET api/Patient/{Guid}
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatient(Guid id)
@@ -60,5 +67,6 @@ namespace Lapbase.Controllers
 
             return CreatedAtAction(nameof(GetPatient), new { result.Id }, result);
         }
+
     }
 }
