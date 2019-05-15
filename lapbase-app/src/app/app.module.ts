@@ -5,14 +5,32 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { MainContentComponent } from './components/main-content/main-content.component';
+import {
+  AccountComponent,
+  AppointmentsComponent,
+  DashboardComponent,
+  TasksComponent,
+  TimelineComponent,
+  FeedbackComponent,
+  ReportsComponent,
+  LoginComponent
+} from './scenes';
+import { NotFoundComponent } from './scenes/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     SideMenuComponent,
-    MainContentComponent
+    AppointmentsComponent,
+    TimelineComponent,
+    TasksComponent,
+    ReportsComponent,
+    FeedbackComponent,
+    LoginComponent,
+    AccountComponent,
+    DashboardComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
