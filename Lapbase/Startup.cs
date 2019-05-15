@@ -19,6 +19,8 @@ namespace Lapbase
 {
     public class Startup
     {
+        readonly string AllowAllOrigins = "AllowAllOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -29,6 +31,15 @@ namespace Lapbase
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowAllOrigins,
+                builder =>
+                {
+                    builder.AllowAnyOrigin();
+                });
+            });
+
             services.AddTransient<PatientService>();
 
             services.AddDbContext<LapbaseContext>(options => 
@@ -49,7 +60,7 @@ namespace Lapbase
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseCors(AllowAllOrigins);
             app.UseHttpsRedirection();
             app.UseMvc();
         }
