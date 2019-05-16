@@ -13,7 +13,7 @@ namespace Lapbase.Services
     public class PatientService
     {
         private readonly LapbaseContext lapbaseContext;
-        private IConfiguration config;
+        private readonly IConfiguration config;
 
         public PatientService(
             IConfiguration config,
