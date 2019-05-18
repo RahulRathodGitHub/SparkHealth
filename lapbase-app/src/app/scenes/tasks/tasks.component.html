@@ -1,5 +1,6 @@
+<h1 class="has-text-centered has-text-weight-bold">Please Click any of the following tasks to get started</h1>
 <div class="tile is-ancestor">
-  <div class="tile is-vertical is-parent">
+  <div class="tile is-vertical is-parent listBody">
     <div class="tile is-child" *ngFor="let task of _tasks">
       <Task [task]="task"></Task>
     </div>
