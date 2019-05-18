@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
+import { TaskComponent } from './components/task/task.component';
 import {
   AccountComponent,
   AppointmentsComponent,
@@ -17,6 +18,7 @@ import {
   LoginComponent,
   NotFoundComponent
 } from './scenes';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {
     AccountComponent,
     DashboardComponent,
     NotFoundComponent,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,
