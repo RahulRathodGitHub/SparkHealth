@@ -46,7 +46,7 @@ namespace Lapbase.Services
             }
         }
 
-        public async Task<Patient> GetPatientById(Guid id)
+        public async Task<Patient> GetPatientById(int id)
         {
             return await lapbaseContext.Patient.SingleOrDefaultAsync(p => p.Id == id);
         }

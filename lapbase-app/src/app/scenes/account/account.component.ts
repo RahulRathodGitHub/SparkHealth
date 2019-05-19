@@ -16,7 +16,7 @@ export class AccountComponent implements OnInit {
     patientService.getPatients().then((result) =>
       this.patients = result
     );
-    patientService.getPatient('68cb71ba-1811-4665-986e-08d6d940c5b0').then((result) =>
+    patientService.getPatient('1').then((result) =>
       this.patient = result
     );
     patientService.getPatientsLapbase().then((result) =>

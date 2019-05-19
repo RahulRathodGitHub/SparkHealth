@@ -15,7 +15,7 @@ export class PatientService {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient').toPromise<any>();
   }
 
-  getPatient = async (id: string): Promise<IPatient> => {
+  getPatient = async (id: number): Promise<IPatient> => {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/' + id).toPromise<any>();
   }
 
