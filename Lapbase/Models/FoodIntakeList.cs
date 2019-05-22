@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lapbase.Models
 {
     public class FoodIntakeList : TaskInput
     {
-        public Guid[] Food { get; set; }
-        public int[] Quantity { get; set; }
+        public ICollection<Food> Food { get; set; }
+        // Quantity = int[]
+        public string Quantity { get; set; }
     }
 }

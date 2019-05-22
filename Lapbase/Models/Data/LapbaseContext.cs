@@ -12,6 +12,14 @@ namespace Lapbase.Models
         {
         }
 
+        public DbSet<Advisor> Advisor { get; set; }
+        public DbSet<Exercise> Exercise { get; set; }
+        public DbSet<ExerciseList> ExerciseList { get; set; }
+        public DbSet<Feedback> Feedback { get; set; }
+        public DbSet<Food> Food { get; set; }
+        public DbSet<FoodIntakeList> FoodIntakeList { get; set; }
         public DbSet<Patient> Patient { get; set; }
+        public DbSet<Task> Task { get; set; }
+        public DbSet<TaskInput> TaskInput { get; set; }
     }
 }
