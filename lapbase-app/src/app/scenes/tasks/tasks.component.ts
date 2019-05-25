@@ -1,3 +1,4 @@
+import { TaskService } from './../../services/task.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,28 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class TasksComponent implements OnInit {
 
   // The tasks below is just a dummy data array, remove it while working on services
-  _tasks = [
-    {
-      title: "Enter Data",
-      description: "gFASBFfwfrgreavegre,awrgaegeqrgeagegregeagrgwrfagreg,wrgaegargaer,ergr",
-      dueDate: "2019-07-17",
-      "isCompleted": false
-    },
-    {
-      title: "Enter Data nicely",
-      description: "gFASafawfaff__________argrgre,awrgaegeqrgeagegregeagrgwrfag",
-      dueDate: "2018-04-17",
-      "isCompleted": false
-    },
-    {
-      title: "Enter Data nicely",
-      description: "gFASafawfaff__________argrgre,awrgaegeqrgeagegregeagrgwrfag",
-      dueDate: "2019-05-17",
-      "isCompleted": true
-    }
-  ];
+  private _tasks;
 
-  /*constructor(private _tasks?: string[]) {
+  constructor(service: TaskService) {
+    this._tasks = service.getTasks();
   }
 
   get tasks() {
@@ -38,7 +21,7 @@ export class TasksComponent implements OnInit {
 
   set tasks(value) {
     this._tasks = value;
-  }*/
+  }
 
   ngOnInit() {
   }
