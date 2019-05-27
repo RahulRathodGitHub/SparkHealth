@@ -6,24 +6,13 @@
         <img src="assets/notepad-icon.png" />
       </figure>
     </div>
-    <div class="media-content" (click)="onClick()"><!--I think I will require two way binding in here-->
+    <div class="media-content">
       <div class="content">
-        <div>
+        <p>
           <strong>{{task.title}}</strong>
           <br>
-          {{ task.description }}
-          <br>
-            <small class="{{!(expanded && task.isCompleted)? '': 'notshowing'}}">Click to Explore</small>
-          <br>
-          <div class="panel {{(expanded && task.isCompleted)? '': 'notshowing'}}" >
-            <a class="panel-block">
-              Food Intake : 200 Calories
-            </a>
-            <a class="panel-block">
-              Calories Burned : 10 Calories
-            </a>
-          </div>
-        </div>
+          {{task.description}}
+        </p>
       </div>
     </div>
   </article>

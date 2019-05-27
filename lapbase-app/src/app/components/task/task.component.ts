@@ -9,19 +9,14 @@ export class TaskComponent implements OnInit {
 
   @Input('task') task: any;//This is the input for this component
   overDue: Boolean;
-  expanded: Boolean;
 
   constructor() {
   }
 
   ngOnInit() {
     this.overDue = new Date() > new Date(this.task.dueDate);
-    this.expanded = false;
   }
 
-  onClick(){
-    this.expanded = !this.expanded;
-  }
 
   /*constructor(public _title: String, public _description: String, public _dueDate: Date) {
   }
