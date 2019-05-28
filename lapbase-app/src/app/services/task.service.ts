@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ITask } from '../models';
 
 @Injectable({
   providedIn: 'root'
@@ -7,25 +8,31 @@ export class TaskService {
 
   constructor() { }
 
-  getTasks() {
+  getTasks(): ITask[] {
     return [
       {
-        title: "Enter Data",
-        description: "gFASBFfwfrgreavegre,awrgaegeqrgeagegregeagrgwrfagreg,wrgaegargaer,ergr",
-        dueDate: "2019-07-17",
-        "isCompleted": false
+        id: '1',
+        title: 'Enter Data',
+        description: 'gFASBFfwfrgreavegre,awrgaegeqrgeagegregeagrgwrfagreg,wrgaegargaer,ergr',
+        dueDate: new Date(2019, 7, 17),
+        isCompleted: false,
+        whenCreated: new Date(2019, 7, 17)
       },
       {
-        title: "Enter Data nicely",
-        description: "gFASafawfaff__________argrgre,awrgaegeqrgeagegregeagrgwrfag",
-        dueDate: "2018-04-17",
-        "isCompleted": false
+        id: '2',
+        title: 'Enter Data nicely',
+        description: 'gFASafawfaff__________argrgre,awrgaegeqrgeagegregeagrgwrfag',
+        dueDate: new Date(2018, 4, 17),
+        isCompleted: false,
+        whenCreated: new Date(2019, 7, 17)
       },
       {
-        title: "Enter Data nicely",
-        description: "gFASafawfaff__________argrgre,awrgaegeqrgeagegregeagrgwrfag",
-        dueDate: "2019-05-17",
-        "isCompleted": true
+        id: '3',
+        title: 'Enter Data nicely',
+        description: 'gFASafawfaff__________argrgre,awrgaegeqrgeagegregeagrgwrfag',
+        dueDate: new Date(2019, 5, 17),
+        isCompleted: true,
+        whenCreated: new Date(2019, 7, 17)
       }
     ];
   }

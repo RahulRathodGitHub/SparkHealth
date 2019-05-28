@@ -1,8 +1,8 @@
 <h1 class="has-text-centered has-text-weight-bold">Please Click any of the following tasks to get started</h1>
 <div class="tile is-ancestor">
   <div class="tile is-vertical is-parent listBody">
-    <div class="tile is-child" *ngFor="let task of _tasks">
-      <Task [task]="task"></Task>
+    <div class="tile is-child" *ngFor="let task of tasks">
+      <app-task [task]="task"></app-task>
     </div>
   </div>
   <!--Here we can directly pass ngFor in Task components, for styling sake, we make it into a list-->
