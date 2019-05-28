@@ -35,9 +35,9 @@ namespace Lapbase.Controllers
             return await patientService.GetPatientsLapbase();
         }
 
-        // GET api/Patient/{Guid}
+        // GET api/Patient/{int}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Patient>> GetPatient(Guid id)
+        public async Task<ActionResult<Patient>> GetPatient(int id)
         {
             if (id == default)
             {

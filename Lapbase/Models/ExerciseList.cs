@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lapbase.Models
 {
     public class ExerciseList : TaskInput
     {
-        public Guid[] Exercises { get; set; }
-        public int[] Reps { get; set; }
+        public ICollection<Exercise> Exercises { get; set; }
+        // Reps = int[]
+        public string Reps { get; set; }
     }
 }
