@@ -1,5 +1,6 @@
 import { TaskService } from './../../services/task.service';
 import { Component, OnInit } from '@angular/core';
+import { ITask } from 'src/app/models';
 
 @Component({
   selector: 'app-tasks',
@@ -9,18 +10,10 @@ import { Component, OnInit } from '@angular/core';
 export class TasksComponent implements OnInit {
 
   // The tasks below is just a dummy data array, remove it while working on services
-  private _tasks;
+  private tasks: ITask[];
 
   constructor(service: TaskService) {
-    this._tasks = service.getTasks();
-  }
-
-  get tasks() {
-    return this._tasks;
-  }
-
-  set tasks(value) {
-    this._tasks = value;
+    this.tasks = service.getTasks();
   }
 
   ngOnInit() {
