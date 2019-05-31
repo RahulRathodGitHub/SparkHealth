@@ -1,4 +1,4 @@
-<div class="box {{ task.isCompleted ? 'done' : (overDue ? 'overDue': '') }} ">
+<div class="box {{task.isCompleted && 'done' || (overDue && 'overDue')}}">
   <!-- late to make al this stuffs semantic, we can change this portion into a section-->
   <article class="media">
     <div class="media-left">
