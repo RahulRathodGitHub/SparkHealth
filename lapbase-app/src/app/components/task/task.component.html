@@ -9,9 +9,13 @@
     <div class="media-content" (click)="onClick()"><!--I think I will require two way binding in here-->
       <div class="content">
         <div>
-          <strong>{{task.title}}</strong>
+          <strong>
+          {{task.title}}
+          </strong>
           <br>
-          {{ task.description }}
+          <b>Status: </b>{{task.isCompleted && 'Done 👍' || (overDue && 'OVER DUE!' || 'Pending...') }}
+          <br>
+          <b>Description: </b>{{ task.description }}
           <br>
             <small class="{{!(expanded && task.isCompleted)? '': 'notshowing'}}">Click to Explore</small>
           <br>
