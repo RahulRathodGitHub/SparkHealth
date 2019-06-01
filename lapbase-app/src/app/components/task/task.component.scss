@@ -6,3 +6,11 @@
     background-color: rgba(243, 31, 66, 0.527);
 }
 
+.task-component {
+    cursor: pointer;
+    border: 1px solid transparent;
+
+    &:hover {
+        border: 1px solid black;
+    }
+}

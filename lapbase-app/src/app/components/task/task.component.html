@@ -1,4 +1,4 @@
-<div class="box {{task.isCompleted && 'done' || (overDue && 'overDue')}}">
+<div class="box {{task.isCompleted && 'done' || (overDue && 'overDue')}} task-component" (click)="onClick()">
   <!-- late to make al this stuffs semantic, we can change this portion into a section-->
   <article class="media">
     <div class="media-left">
@@ -6,7 +6,7 @@
         <img src="assets/notepad-icon.png" />
       </figure>
     </div>
-    <div class="media-content" (click)="onClick()"><!--I think I will require two way binding in here-->
+    <div class="media-content"><!--I think I will require two way binding in here-->
       <div class="content">
         <div>
           <strong>
@@ -17,9 +17,9 @@
           <br>
           <b>Description: </b>{{ task.description }}
           <br>
-            <small class="{{!(expanded && task.isCompleted)? '': 'notshowing'}}">Click to Explore</small>
+            <small *ngIf="!expanded && task.isCompleted">Click to expand</small>
           <br>
-          <div class="panel {{(expanded && task.isCompleted)? '': 'notshowing'}}" >
+          <div *ngIf="expanded && task.isCompleted">
             <a class="panel-block">
               Food Intake : 200 Calories
             </a>

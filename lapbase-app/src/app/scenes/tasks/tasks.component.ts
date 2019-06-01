@@ -8,13 +8,12 @@ import { ITask } from 'src/app/models';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
-
-  // The tasks below is just a dummy data array, remove it while working on services
   private tasks: ITask[];
 
   constructor(service: TaskService) {
-    this.tasks = service.getTasks();
+    service.getTasks().then(result => this.tasks = result);
   }
+
   ngOnInit() {
   }
 

@@ -6,9 +6,10 @@ import { Component, OnInit, Input } from '@angular/core';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss']
 })
-export class TaskComponent implements OnInit {
 
-  @Input() task: ITask;//This is the input for this component
+export class TaskComponent implements OnInit {
+  @Input() task: ITask;
+
   overDue: boolean;
   expanded: boolean;
 
@@ -20,10 +21,7 @@ export class TaskComponent implements OnInit {
     this.expanded = false;
   }
 
-  onClick(){
+  onClick() {
     this.expanded = !this.expanded;
   }
-
-
-
 }
