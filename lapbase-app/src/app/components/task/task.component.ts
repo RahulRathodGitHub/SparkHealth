@@ -24,32 +24,6 @@ export class TaskComponent implements OnInit {
     this.expanded = !this.expanded;
   }
 
-  /*constructor(public _title: String, public _description: String, public _dueDate: Date) {
-  }
-
-  get title() {
-    return this._title;
-  }
-
-  set title(value) {
-    this._title = value;
-  }
-
-  get description() {
-    return this._description;
-  }
-
-  set description(value) {
-    this._description = value;
-  }
-
-  get dueDate() {
-    return this._dueDate;
-  }
-
-  set dueDate(value) {
-    this._dueDate = value;
-  }*/
 
 
 }

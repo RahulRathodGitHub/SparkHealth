@@ -5,7 +5,7 @@ namespace Lapbase.Models
 {
     public class Patient
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         public string Username { get; set; }
         public DateTimeOffset WhenCreated { get; set; }

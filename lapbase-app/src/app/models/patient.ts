@@ -1,8 +1,11 @@
 
 export interface IPatient {
-    id: string;
-    externalId: number;
+    id: number;
 
     userName: string;
     whenCreated: Date;
+    validFrom: Date;
+    validTo: Date;
+    deleted: boolean;
+    advisorId: number;
 }
