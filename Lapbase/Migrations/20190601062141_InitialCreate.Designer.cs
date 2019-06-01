@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseContext))]
-    [Migration("20190522004307_InitialCreate")]
+    [Migration("20190601062141_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -194,12 +194,13 @@ namespace Lapbase.Migrations
                 {
                     b.HasOne("Lapbase.Models.ExerciseList")
                         .WithMany("Exercises")
-                        .HasForeignKey("ExerciseListId");
+                        .HasForeignKey("ExerciseListId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Lapbase.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Lapbase.Models.Feedback", b =>
@@ -207,19 +208,20 @@ namespace Lapbase.Migrations
                     b.HasOne("Lapbase.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Lapbase.Models.Food", b =>
                 {
                     b.HasOne("Lapbase.Models.FoodIntakeList")
                         .WithMany("Food")
-                        .HasForeignKey("FoodIntakeListId");
+                        .HasForeignKey("FoodIntakeListId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Lapbase.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Lapbase.Models.Patient", b =>
@@ -227,7 +229,7 @@ namespace Lapbase.Migrations
                     b.HasOne("Lapbase.Models.Advisor", "Advisor")
                         .WithMany("Patients")
                         .HasForeignKey("AdvisorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Lapbase.Models.Task", b =>
@@ -235,12 +237,12 @@ namespace Lapbase.Migrations
                     b.HasOne("Lapbase.Models.Advisor", "Advisor")
                         .WithMany()
                         .HasForeignKey("AdvisorId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Lapbase.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Lapbase.Models.TaskInput", b =>
@@ -248,7 +250,7 @@ namespace Lapbase.Migrations
                     b.HasOne("Lapbase.Models.Task", "Task")
                         .WithMany()
                         .HasForeignKey("TaskId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

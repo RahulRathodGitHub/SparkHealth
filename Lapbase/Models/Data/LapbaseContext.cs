@@ -12,6 +12,14 @@ namespace Lapbase.Models
         {
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+        }
+
         public DbSet<Advisor> Advisor { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<ExerciseList> ExerciseList { get; set; }
