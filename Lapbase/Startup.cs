@@ -41,6 +41,7 @@ namespace Lapbase
             });
 
             services.AddTransient<PatientService>();
+            services.AddTransient<TaskService>();
 
             services.AddDbContext<LapbaseContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("LapbaseNew")));

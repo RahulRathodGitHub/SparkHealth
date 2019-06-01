@@ -1,5 +1,11 @@
 export interface ITask {
-    id: string;
+    Id: string;
+    // StartDate: Date;
+    // Repetition: ;
+    // RepetitionInterval: ;
+    // Type: ;
+    // PatientId: ;
+    // AdvisorId: ;
     title: string;
     description: string;
     dueDate: Date;
