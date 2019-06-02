@@ -1,14 +1,9 @@
 export interface ITask {
-    Id: string;
-    // StartDate: Date;
-    // Repetition: ;
-    // RepetitionInterval: ;
-    // Type: ;
-    // PatientId: ;
-    // AdvisorId: ;
-    title: string;
-    description: string;
+    id: string;
     dueDate: Date;
-    isCompleted: boolean;
-    whenCreated: Date;
+    type: number;
+    completed: boolean;
+    overdue: boolean;
+    patientId: number;
+    advisorId: number; 
 }

@@ -23,9 +23,9 @@ namespace Lapbase.Controllers
 
         // GET: api/Task
         [HttpGet]
-        public async Task<ActionResult<List<Models.Task>>> GetTasks()
+        public async Task<ActionResult<List<Models.TaskDto>>> GetTasks()
         {
-            return await taskService.GetTasks();
+            return await taskService.GetTasks(1,1);
         }
 
         // GET api/Task/{int}
