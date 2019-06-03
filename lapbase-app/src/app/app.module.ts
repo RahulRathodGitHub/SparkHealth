@@ -16,8 +16,11 @@ import {
   FeedbackComponent,
   ReportsComponent,
   LoginComponent,
-  NotFoundComponent
+  NotFoundComponent,
 } from './scenes';
+import { FoodEntryComponent } from './scenes/food-entry/food-entry.component';
+import { FoodTableComponent } from './scenes/food-entry/food-table/food-table.component';
+import { ExerciseTableComponent } from './scenes/food-entry/exercise-table/exercise-table.component';
 
 
 @NgModule({
@@ -35,6 +38,9 @@ import {
     DashboardComponent,
     NotFoundComponent,
     TaskComponent,
+    FoodEntryComponent,
+    FoodTableComponent,
+    ExerciseTableComponent,
   ],
   imports: [
     BrowserModule,

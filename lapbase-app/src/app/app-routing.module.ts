@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { FoodEntryComponent } from './scenes/food-entry/food-entry.component';
+import { FoodTableComponent } from './scenes/food-entry/food-table/food-table.component';
+import { ExerciseTableComponent } from './scenes/food-entry/exercise-table/exercise-table.component';
 import {
   AccountComponent,
   AppointmentsComponent,
@@ -22,7 +25,10 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent },
   { path: 'tasks', component: TasksComponent },
   { path: 'timeline', component: TimelineComponent },
-  { path: '**', component: NotFoundComponent },
+  { path: 'foodentry', component: FoodEntryComponent },
+  { path: 'foodtable', component: FoodTableComponent},
+  { path: 'exercisetable', component: ExerciseTableComponent},
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

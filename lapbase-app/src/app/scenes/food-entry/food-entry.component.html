@@ -1,0 +1,91 @@
+
+<h3>Current Weight:</h3>
+<!-- Left side -->
+<div class="field has-addons">
+  <p class="control">
+    <input class="input" type="text" placeholder="0.00" />
+  </p>
+  <div class="select">
+    <select>
+      <option>Kg</option>
+      <option>Lb</option>
+    </select>
+  </div>
+</div>
+
+<h3>
+  Calories Intake:
+</h3>
+<div class="field">
+  <input id="switchRoundedSuccess" type="checkbox" name="switchRoundedSuccess" class="switch is-rounded is-success"
+    checked="checked">
+  <label for="switchRoundedSuccess">Enter Manually</label>
+</div>
+
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">Calories(KJ)</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <p class="control">
+        <input class="input" type="Calories" placeholder="0.00">
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Food Intake</label>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Food</th>
+        <th></th>
+        <th>Quantity</th>
+        <th></th>
+        <th>Calories Per Unit</th>
+      </tr>
+    </thead>
+    </table>
+</div>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link"  routerLink='/foodtable'>Add food Intake</button>
+  </div>
+</div>
+
+
+<h3>
+  Calories Burned:
+</h3>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">Calories(KJ)</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <p class="control">
+        <input class="input" type="Calories" placeholder="0.00">
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Exercises</label>
+  <div class="control">
+    <textarea class="textarea" placeholder="Textarea"></textarea>
+  </div>
+</div>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link"  routerLink='/exercisetable'>Add Exercises</button>
+  </div>
+</div>
+
+<div class="buttons">
+    <span class="button is-info">Submit</span>
+    <span class="button is-danger" routerLink='/tasks'>Cancel</span>
+  </div>
