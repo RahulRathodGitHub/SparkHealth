@@ -18,6 +18,7 @@
           <b>Description: </b>{{ task.description }}
           <br>
             <small *ngIf="!expanded && task.isCompleted">Click to expand</small>
+            <small *ngIf="!task.isCompleted && !overDue "><button (click)="onButtonClick()">enter data</button></small>
           <br>
           <div *ngIf="expanded && task.isCompleted">
             <a class="panel-block">

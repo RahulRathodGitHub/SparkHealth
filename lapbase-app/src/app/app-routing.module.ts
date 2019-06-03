@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'reports', component: ReportsComponent },
   { path: 'tasks', component: TasksComponent },
   { path: 'timeline', component: TimelineComponent },
-  { path: '**', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({

@@ -1,0 +1,47 @@
+<h3>
+  Calories Burned:
+</h3>
+<div class="field is-horizontal">
+  <div class="field-label is-normal">
+    <label class="label">Calories(KJ)</label>
+  </div>
+  <div class="field-body">
+    <div class="field">
+      <p class="control">
+        <input class="input" type="Calories" placeholder="0.00">
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <label class="label">Exercises</label>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Exercises</th>
+        <th></th>
+        <th>Quantity</th>
+        <th></th>
+        <th>Calories Burn Per Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr *ngFor="let exercise of exercises" >
+          <td><a class="delete"></a></td>
+          <td>{{exercise.name}}</td>
+          <td><a class="button is-danger is-rounded">-</a></td>
+          <td><input class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+          <td><a class="button is-success is-rounded">+</a></td>
+          <td>{{exercise.calorieCount}} {{exercise.unit}}</td>
+        </tr>
+  </tbody>
+    </table>
+</div>
+<div class="field is-grouped">
+  <div class="control">
+    <button class="button is-link"  routerLink='/exercisetable'>Add Exercises</button>
+  </div>
+</div>

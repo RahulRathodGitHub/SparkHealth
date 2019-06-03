@@ -1,9 +1,13 @@
-<h1 class="has-text-centered has-text-weight-bold">Please Click any of the following tasks to get started</h1>
-<div class="tile is-ancestor">
-  <div class="tile is-vertical is-parent listBody">
-    <div class="tile is-child" *ngFor="let task of tasks">
-      <app-task [task]="task"></app-task>
+<div *ngIf="step === 0">
+  <h1 class="has-text-centered has-text-weight-bold">Please Click any of the following tasks to get started</h1>
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-parent listBody">
+      <div class="tile is-child" *ngFor="let task of tasks">
+        <app-task (buttonHandler)="onButtonClick($event)" [task]="task"></app-task>
+      </div>
     </div>
+    <!--Here we can directly pass ngFor in Task components, for styling sake, we make it into a list-->
   </div>
-  <!--Here we can directly pass ngFor in Task components, for styling sake, we make it into a list-->
 </div>
+<app-food-entry *ngIf="step === 1 && selectedTaskType === 0" (nextHandler)="next($event)" (backHandler)="back($event)"></app-food-entry>
+<app-exercise-entry *ngIf="step === 1 && selectedTaskType === 1" (nextHandler)="next($event)" (backHandler)="back($event)"></app-exercise-entry>

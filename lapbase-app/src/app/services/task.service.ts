@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ITask } from '../models';
+import { ITask, TaskType } from '../models';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 
@@ -23,27 +23,30 @@ export class TaskService {
     return [
       {
         id: '1',
-        title: 'Enter Data',
-        description: 'This task is for entering your calories Intake',
+        type: TaskType.FoodIntake,
+        completed: false,
+        overdue: false,
         dueDate: new Date(2019, 7, 17),
-        isCompleted: false,
-        whenCreated: new Date(2019, 7, 17)
+        patientId: 1,
+        advisorId: 1,
       },
       {
         id: '2',
-        title: 'Enter Data nicely',
-        description: 'This task is for entering your Calories Burned',
+        type: TaskType.Exercise,
+        completed: false,
+        overdue: true,
         dueDate: new Date(2018, 4, 17),
-        isCompleted: false,
-        whenCreated: new Date(2019, 7, 17)
+        patientId: 1,
+        advisorId: 1,
       },
       {
         id: '3',
-        title: 'Enter Data very nicely',
-        description: 'Just another Task',
+        type: TaskType.Exercise,
+        completed: true,
+        overdue: false,
         dueDate: new Date(2019, 5, 17),
-        isCompleted: true,
-        whenCreated: new Date(2019, 7, 17)
+        patientId: 1,
+        advisorId: 1,
       }
     ];
   }

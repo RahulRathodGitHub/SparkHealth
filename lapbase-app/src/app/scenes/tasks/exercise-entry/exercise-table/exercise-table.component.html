@@ -1,0 +1,81 @@
+<table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Exercise</th>
+        <th>Calories Burn Per Unit</th>
+        <th>Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+        <tr *ngFor="let exercise of exercises" >
+            <td>
+                <label class="checkbox">
+                  <input type="checkbox">
+                </label></td>
+            <td><a class="delete"></a></td>
+            <td>{{exercise.name}}</td>
+            <td>{{exercise.calorieCount}}</td>
+            <td>{{exercise.unit}}</td>
+          </tr>
+    </tbody>
+    </table>
+    <article class="message is-link">
+        <div class="message-header">
+          <p>Add New Exercise</p>
+          <button class="delete" aria-label="delete"></button>
+        </div>
+        <div class="message-body">
+  
+  
+              <div class="field is-horizontal">
+                <div class="field-label is-normal">
+                  <label class="label">Name</label>
+                </div>
+                <div class="field-body">
+                  <div class="field">
+                    <p class="control">
+                      <input class="input" type="name"  placeholder="0.00">
+                    </p>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="field is-horizontal">
+                  <div class="field-label is-normal">
+                    <label class="label">Calories</label>
+                  </div>
+                  <div class="field-body">
+                    <div class="field">
+                      <p class="control">
+                        <input class="input" type="calories"  placeholder="0.00">
+                      </p>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                      <label class="label">Units</label>
+                    </div>
+                    <div class="field-body">
+                      <div class="field">
+                        <p class="control">
+                          <input class="input" type="units" placeholder="0.00">
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                 
+                  <span class="button is-success" onclick="addExercise()">ENTER</span>
+  
+        </div>
+      </article>
+      <div class="buttons">
+        <span class="button is-success">Add Selected Items to your Food Intake</span>
+        <span class="button is-danger" routerLink='/foodentry'>Cancel</span>
+      </div>
+
+  
