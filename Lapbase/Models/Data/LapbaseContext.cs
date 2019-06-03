@@ -19,8 +19,15 @@ namespace Lapbase.Models
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            modelBuilder.Entity<Advisor>().HasData(
-            new { Id = 1 });
+            modelBuilder.Entity<Advisor>().HasData(new Advisor {
+                Id = 1
+            });
+            modelBuilder.Entity<Patient>().HasData(new Patient {
+                Id = 1,
+                Username = "test@test.com",
+                AdvisorId = 1,
+                Deleted = false
+            });
         }
 
         public DbSet<Advisor> Advisor { get; set; }

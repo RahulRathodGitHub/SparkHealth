@@ -25,10 +25,12 @@ namespace Lapbase.Services
 
         public async Task<List<Models.TaskDto>> GetTasks(int patientId,int advisorId)
         {
-            return ToTaskDto(await lapbaseContext.Task.Where(x => x.PatientId == patientId && x.AdvisorId == advisorId).ToListAsync());
+            var taskDtos = ToTaskDto(await lapbaseContext.Task.Where(x => x.PatientId == patientId && x.AdvisorId == advisorId).ToListAsync());
+            taskDtos.Sort((x, y) => (x.DueDate >= y.DueDate) ? -1 : 1);
+            return taskDtos;
         }
 
-        public async Task<Models.Task> GetTaskById(int id)
+        public async Task<Models.Task> GetTaskById(Guid id)
         {
             return await lapbaseContext.Task.SingleOrDefaultAsync(p => p.Id.Equals(id));
         }

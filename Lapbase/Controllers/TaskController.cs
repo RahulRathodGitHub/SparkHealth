@@ -30,7 +30,7 @@ namespace Lapbase.Controllers
 
         // GET api/Task/{int}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Models.Task>> GetTask(int id)
+        public async Task<ActionResult<Models.Task>> GetTask(Guid id)
         {
             if (id == default)
             {
