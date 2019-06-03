@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services';
-import { IFood } from 'src/app/models';
+import { IFood, IExercise } from 'src/app/models';
 
 @Component({
   selector: 'app-food-entry',
@@ -9,9 +9,11 @@ import { IFood } from 'src/app/models';
 })
 export class FoodEntryComponent implements OnInit {
   foods: IFood[];
-
+  exercises:IExercise[];
+  myfoods: [];
   constructor(patientService: PatientService) { 
     this.foods = patientService.getFoodByPatients();
+    this.exercises = patientService.getExerciseByPatients();
   }
 
   ngOnInit() {

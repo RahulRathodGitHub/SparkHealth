@@ -13,5 +13,7 @@ export class ExerciseTableComponent implements OnInit {
   ngOnInit() {
    this.exercises = this.patientService.getExerciseByPatients();
   }
-
+  addExercise(){
+  //this.myExercise= new IExercise()
+  }
 }

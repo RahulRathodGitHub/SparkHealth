@@ -48,6 +48,17 @@
         <th>Calories Per Unit</th>
       </tr>
     </thead>
+    <tbody>
+    
+      <tr *ngFor="let food of foods" >
+          <td><a class="delete"></a></td>
+          <td>{{food.name}}</td>
+          <td><a class="button is-danger is-rounded">-</a></td>
+          <td><input class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+          <td><a class="button is-success is-rounded">+</a></td>
+          <td>{{food.calorieCount}} {{food.unit}}</td>
+        </tr>
+  </tbody>
     </table>
 </div>
 <div class="field is-grouped">
@@ -75,9 +86,29 @@
 
 <div class="field">
   <label class="label">Exercises</label>
-  <div class="control">
-    <textarea class="textarea" placeholder="Textarea"></textarea>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th></th>
+        <th>Exercises</th>
+        <th></th>
+        <th>Quantity</th>
+        <th></th>
+        <th>Calories Burn Per Unit</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr *ngFor="let exercise of exercises" >
+          <td><a class="delete"></a></td>
+          <td>{{exercise.name}}</td>
+          <td><a class="button is-danger is-rounded">-</a></td>
+          <td><input class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+          <td><a class="button is-success is-rounded">+</a></td>
+          <td>{{exercise.calorieCount}} {{exercise.unit}}</td>
+        </tr>
+  </tbody>
+    </table>
 </div>
 <div class="field is-grouped">
   <div class="control">
