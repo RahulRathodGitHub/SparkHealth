@@ -31,104 +31,40 @@ namespace Lapbase.Services
         public async Task<Models.Task> GetTaskById(int id)
         {
             return await lapbaseContext.Task.SingleOrDefaultAsync(p => p.Id.Equals(id));
-        } //This code is to get the actual task by id
+        }
 
-        public async Task<List<Models.TaskDto>> GetTasksById(int id)
+        private DateTimeOffset IncrementDate(DateTimeOffset date, RepetitionType repetitionType, int interval)
         {
-            return ToTaskDto(await lapbaseContext.Task.SingleOrDefaultAsync(p => p.Id.Equals(id)));
-        }//This code is to get the taskDtos of that particular task Id
-
-        private DateTimeOffset IncrementDate(DateTimeOffset date, Lapbase.Models.RepetitionType interval)
-        {
-            switch (interval)
+            switch (repetitionType)
             {
                 case Lapbase.Models.RepetitionType.Monthly:
-                    return date.AddMonths(1);
+                    return date.AddMonths(1 * interval);
                 case Lapbase.Models.RepetitionType.Weekly:
-                    return date.AddDays(7);
+                    return date.AddDays(7 * interval);
                 case Lapbase.Models.RepetitionType.Daily:
-                    return date.AddDays(1);
+                    return date.AddDays(1 * interval);
                 case Lapbase.Models.RepetitionType.Yearly:
-                    return date.AddYears(1);
+                    return date.AddYears(1 * interval);
                 default:
                     return date;
             }
         }
 
-        public List<Models.TaskDto> ToTaskDto(Models.Task task)
+        public List<TaskDto> ToTaskDto(List<Models.Task> tasks)
         {
-            List<Models.TaskDto> taskdtos = new List<TaskDto>();
-            var startDate = task.StartDate;
-
-            while (startDate < DateTimeOffset.UtcNow)
-            {
-                var endDate = IncrementDate(startDate, task.Repetition);
-                var enteredTask = lapbaseContext.TaskInput.SingleOrDefault(s => s.TaskId == task.Id && s.DateEntered > startDate && s.DateEntered < endDate);
-
-                if (enteredTask != null)
-                {
-                    taskdtos.Add(new TaskDto
-                    {
-                        DueDate = endDate,
-                        Overdue = false,
-                        Completed = true,
-                        Type = task.Type,
-                        Id = task.Id,
-                        PatientId = task.PatientId,
-                        AdvisorId = task.AdvisorId,
-                    });
-                }
-                else if (enteredTask == null && endDate > DateTimeOffset.UtcNow)
-                {
-                    taskdtos.Add(new TaskDto
-                    {
-                        DueDate = endDate,
-                        Overdue = false,
-                        Completed = false,
-                        Type = task.Type,
-                        Id = task.Id,
-                        PatientId = task.PatientId,
-                        AdvisorId = task.AdvisorId,
-                    });
-                }
-                else
-                {
-                    taskdtos.Add(new TaskDto
-                    {
-                        DueDate = endDate,
-                        Overdue = true,
-                        Completed = false,
-                        Type = task.Type,
-                        Id = task.Id,
-                        PatientId = task.PatientId,
-                        AdvisorId = task.AdvisorId,
-
-                    });
-
-                }
-
-                startDate = endDate;
-
-            }
-
-            return taskdtos;
-        }
-
-        public List<Models.TaskDto> ToTaskDto(List<Models.Task> tasks)
-        {
-            List<Models.TaskDto> taskdtos = new List<TaskDto>();
+            List<TaskDto> taskDtos = new List<TaskDto>();
 
             foreach(Models.Task task in tasks)
             {
                 var startDate = task.StartDate;
                 while(startDate < DateTimeOffset.UtcNow)
                 {
-                    var endDate = IncrementDate(startDate, task.Repetition);
+                    var endDate = IncrementDate(startDate, task.Repetition, task.RepetitionInterval);
                     var enteredTask = lapbaseContext.TaskInput.SingleOrDefault(s => s.TaskId == task.Id && s.DateEntered > startDate && s.DateEntered < endDate);
 
                     if (enteredTask != null)
                     {
-                        taskdtos.Add(new TaskDto
+                        taskDtos.Add(new TaskDto
                         {
                             DueDate = endDate,
                             Overdue = false,
@@ -141,7 +77,7 @@ namespace Lapbase.Services
                     }
                     else if(enteredTask == null && endDate > DateTimeOffset.UtcNow)
                     {
-                        taskdtos.Add(new TaskDto{
+                        taskDtos.Add(new TaskDto{
                             DueDate = endDate,
                             Overdue = false,
                             Completed = false,
@@ -153,7 +89,7 @@ namespace Lapbase.Services
                     }
                     else
                     {
-                        taskdtos.Add(new TaskDto
+                        taskDtos.Add(new TaskDto
                         {
                             DueDate = endDate,
                             Overdue = true,
@@ -164,22 +100,17 @@ namespace Lapbase.Services
                             AdvisorId = task.AdvisorId,
 
                         });
-
                     }
-                    
                     startDate = endDate;
-
                 }
             }
-            return taskdtos;
+            return taskDtos;
         }
 
         public async Task<Models.Task> CreateTask(Models.Task task)
         {
             var result = await lapbaseContext.Task.AddAsync(task);
-
             await lapbaseContext.SaveChangesAsync();
-
             return result.Entity;
         }
     }
