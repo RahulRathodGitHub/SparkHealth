@@ -18,6 +18,9 @@ namespace Lapbase.Models
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
+
+            modelBuilder.Entity<Advisor>().HasData(
+            new { Id = 1 });
         }
 
         public DbSet<Advisor> Advisor { get; set; }

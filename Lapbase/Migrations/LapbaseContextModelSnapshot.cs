@@ -28,6 +28,12 @@ namespace Lapbase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Advisor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1
+                        });
                 });
 
             modelBuilder.Entity("Lapbase.Models.Exercise", b =>

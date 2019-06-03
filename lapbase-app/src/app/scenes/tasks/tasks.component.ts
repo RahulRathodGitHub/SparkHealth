@@ -14,8 +14,7 @@ export class TasksComponent implements OnInit {
   private step: number;
 
   constructor(service: TaskService) {
-    // service.getTasks().then(result => this.tasks = result);
-    this.tasks = service.getTasks();
+    service.getTasks().then(result => this.tasks = result);
     this.step = 0;
   }
 

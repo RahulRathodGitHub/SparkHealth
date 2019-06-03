@@ -20,5 +20,40 @@ namespace Lapbase.Controllers
         {
             this.taskService = taskService;
         }
+
+        // GET: api/Task
+        [HttpGet]
+        public async Task<ActionResult<List<Models.TaskDto>>> GetTasks()
+        {
+            return await taskService.GetTasks(1,1);
+        }
+
+        // GET api/Task/{int}
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Models.Task>> GetTask(int id)
+        {
+            if (id == default)
+            {
+                return BadRequest();
+            }
+
+            var task = await taskService.GetTaskById(id);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
+        // POST api/Task
+        [HttpPost]
+        public async Task<ActionResult> CreateTask([FromBody]Models.Task task)
+        {
+            var result = await taskService.CreateTask(task);
+
+            return CreatedAtAction(nameof(GetTask), new { result.Id }, result);
+        }
     }
 }

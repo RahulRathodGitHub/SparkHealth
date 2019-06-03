@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseContext))]
-    [Migration("20190601062141_InitialCreate")]
+    [Migration("20190601122919_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -30,6 +30,12 @@ namespace Lapbase.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Advisor");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1
+                        });
                 });
 
             modelBuilder.Entity("Lapbase.Models.Exercise", b =>

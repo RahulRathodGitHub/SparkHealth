@@ -172,6 +172,11 @@ namespace Lapbase.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Advisor",
+                column: "Id",
+                value: 1);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Exercise_ExerciseListId",
                 table: "Exercise",
