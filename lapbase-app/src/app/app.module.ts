@@ -4,13 +4,20 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './components/header/header.component';
-import { SideMenuComponent } from './components/side-menu/side-menu.component';
-import { TaskComponent } from './components/task/task.component';
+
+import {
+  HeaderComponent,
+  SideMenuComponent,
+  TaskComponent
+} from './components';
 import {
   AccountComponent,
   AppointmentsComponent,
   DashboardComponent,
+  ExerciseEntryComponent,
+  ExerciseTableComponent,
+  FoodEntryComponent,
+  FoodTableComponent,
   TasksComponent,
   TimelineComponent,
   FeedbackComponent,
@@ -18,9 +25,6 @@ import {
   LoginComponent,
   NotFoundComponent,
 } from './scenes';
-import { FoodEntryComponent } from './scenes/food-entry/food-entry.component';
-import { FoodTableComponent } from './scenes/food-entry/food-table/food-table.component';
-import { ExerciseTableComponent } from './scenes/food-entry/exercise-table/exercise-table.component';
 
 
 @NgModule({
@@ -41,6 +45,7 @@ import { ExerciseTableComponent } from './scenes/food-entry/exercise-table/exerc
     FoodEntryComponent,
     FoodTableComponent,
     ExerciseTableComponent,
+    ExerciseEntryComponent,
   ],
   imports: [
     BrowserModule,

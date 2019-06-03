@@ -5,5 +5,5 @@ export * from './feedback/feedback.component';
 export * from './login/login.component';
 export * from './not-found/not-found.component';
 export * from './reports/reports.component';
-export * from './tasks/tasks.component';
+export * from './tasks';
 export * from './timeline/timeline.component';

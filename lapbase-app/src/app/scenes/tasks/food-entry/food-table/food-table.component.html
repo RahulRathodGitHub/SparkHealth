@@ -75,6 +75,6 @@
       </div>
     </article>
     <div class="buttons">
-      <span class="button is-success">Add Selected Items to your Food Intake</span>
-      <span class="button is-danger" routerLink='/foodentry'>Cancel</span>
+      <span class="button is-success" (click)="onSubmit()">Add Selected Items to your Food Intake</span>
+      <span class="button is-danger" (click)="onBack()">Cancel</span>
     </div>

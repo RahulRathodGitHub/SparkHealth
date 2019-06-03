@@ -1,0 +1,77 @@
+<div *ngIf="step === 0">
+  <h3>Current Weight:</h3>
+  <!-- Left side -->
+  <div class="field has-addons">
+    <p class="control">
+      <input class="input" type="text" placeholder="0.00" />
+    </p>
+    <div class="select">
+      <select>
+        <option>kg</option>
+        <option>lb</option>
+      </select>
+    </div>
+  </div>
+
+  <h3>
+    Calories Intake:
+  </h3>
+  <div class="field">
+    <input id="switchRoundedSuccess" type="checkbox" name="switchRoundedSuccess" class="switch is-rounded is-success"
+      checked="checked">
+    <label for="switchRoundedSuccess">Enter Manually</label>
+  </div>
+
+  <div class="field is-horizontal">
+    <div class="field-label is-normal">
+      <label class="label">Calories(KJ)</label>
+    </div>
+    <div class="field-body">
+      <div class="field">
+        <p class="control">
+          <input class="input" type="Calories" placeholder="0.00">
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Food Intake</label>
+    <table class="table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Food</th>
+          <th></th>
+          <th>Quantity</th>
+          <th></th>
+          <th>Calories Per Unit</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <tr *ngFor="let food of foods">
+          <td><a class="delete"></a></td>
+          <td>{{food.name}}</td>
+          <td><a class="button is-danger is-rounded">-</a></td>
+          <td><input class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+          <td><a class="button is-success is-rounded">+</a></td>
+          <td>{{food.calorieCount}} {{food.unit}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link" (click)="onNext()">Add food Intake</button>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <span class="button is-info" (click)="onSubmit()">Submit</span>
+    <span class="button is-danger" (click)="onBack()">Cancel</span>
+  </div>
+</div>
+
+<app-food-table *ngIf="step === 1" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
