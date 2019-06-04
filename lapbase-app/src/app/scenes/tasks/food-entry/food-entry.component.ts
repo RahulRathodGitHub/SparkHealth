@@ -24,10 +24,10 @@ export class FoodEntryComponent implements OnInit {
   ngOnInit() {
   }
 
-  onFoodSubmit(selectedFoodIds: string[]) {
-    selectedFoodIds.forEach(id =>
+  onFoodSubmit(selectedFoodIds: IFood[]) {
+    selectedFoodIds.forEach(f =>
       this.selectedFoodQuantity.push(
-          {food: this.foods.find(f => f.id === id), quantity: 0}
+          {food: f, quantity: 0}
         )
     );
     this.step--;
@@ -35,7 +35,9 @@ export class FoodEntryComponent implements OnInit {
 
   onSubmit() {
     // TODO Post entered data for task to api then (
-      this.backHandler.emit();
+    alert("Enter Success!");
+    
+    this.backHandler.emit();
     // )
   }
 
@@ -49,5 +51,11 @@ export class FoodEntryComponent implements OnInit {
 
   onBack() {
     this.backHandler.emit();
+  }
+  minusQuantity(selectedFoodQuantity){
+    selectedFoodQuantity.quantity=selectedFoodQuantity.quantity-1;
+  }
+  addQuantity(selectedFoodQuantity){
+    selectedFoodQuantity.quantity=selectedFoodQuantity.quantity+1;
   }
 }

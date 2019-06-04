@@ -13,7 +13,7 @@
       <tr *ngFor="let food of foods" >
           <td>
               <label class="checkbox">
-                <input type="checkbox">
+                <input type="checkbox" (change)="toggleFood(food)">
               </label></td>
           <td><a class="delete"></a></td>
           <td>{{food.name}}</td>
