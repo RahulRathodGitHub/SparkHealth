@@ -9,5 +9,5 @@
     <!--Here we can directly pass ngFor in Task components, for styling sake, we make it into a list-->
   </div>
 </div>
-<app-food-entry *ngIf="step === 1 && selectedTaskType === 0" (nextHandler)="next($event)" (backHandler)="back($event)"></app-food-entry>
+<app-food-entry *ngIf="step === 1 && selectedTaskType === 0" (nextHandler)="next($event)" (backHandler)="back($event)" [selectedTaskId]="selectedTaskId"></app-food-entry>
 <app-exercise-entry *ngIf="step === 1 && selectedTaskType === 1" (nextHandler)="next($event)" (backHandler)="back($event)"></app-exercise-entry>
