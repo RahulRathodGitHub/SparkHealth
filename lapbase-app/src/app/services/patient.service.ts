@@ -31,6 +31,10 @@ export class PatientService {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/Food/' + id).toPromise<any>();
   }
 
+  addFood = async (food: IFood): Promise<IFood> => {
+    return await this.httpClient.post(environment.LAPBASE_API_ADDRESS + 'Patient/Food/', food).toPromise<any>();
+  }
+
   getExerciseByPatients = (): IExercise[] =>
   [
     {
