@@ -1,3 +1,4 @@
+<div *ngIf="step === 0">
 <h3>
   Calories Burned:
 </h3>
@@ -45,3 +46,6 @@
     <button class="button is-link"  routerLink='/exercisetable'>Add Exercises</button>
   </div>
 </div>
+</div>
+
+<app-exercise-table *ngIf="step === 1" (submitHandler)="onExerciseSubmit($event)" (backHandler)="onCancel($event)"></app-exercise-table>

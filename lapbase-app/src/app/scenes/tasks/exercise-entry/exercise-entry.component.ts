@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
 
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { PatientService } from 'src/app/services';
+import { IExercise, IExerciseQuantity } from 'src/app/models';
 @Component({
   selector: 'app-exercise-entry',
   templateUrl: './exercise-entry.component.html',

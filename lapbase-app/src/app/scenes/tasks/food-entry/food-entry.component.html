@@ -50,13 +50,13 @@
       </thead>
       <tbody>
 
-        <tr *ngFor="let food of foods">
+        <tr *ngFor="let fq of selectedFoodQuantity">
           <td><a class="delete"></a></td>
-          <td>{{food.name}}</td>
-          <td><a class="button is-danger is-rounded">-</a></td>
-          <td><input class="input is-small is-rounded" type="text" placeholder="quantity"></td>
-          <td><a class="button is-success is-rounded">+</a></td>
-          <td>{{food.calorieCount}} {{food.unit}}</td>
+          <td>{{fq.food.name}}</td>
+          <td><a class="button is-danger is-rounded"(click)="minusQuantity(fq)">-</a></td>
+          <td><input value="{{fq.quantity}}" class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+          <td><a class="button is-success is-rounded"(click)="addQuantity(fq)">+</a></td>
+          <td>{{fq.food.calorieCount}} {{fq.food.unit}}</td>
         </tr>
       </tbody>
     </table>
@@ -75,3 +75,4 @@
 </div>
 
 <app-food-table *ngIf="step === 1" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
+
