@@ -74,5 +74,5 @@
   </div>
 </div>
 
-<app-food-table *ngIf="step === 1" (alreadySelected)="alreadySelectedFood()" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
+<app-food-table *ngIf="step === 1" (alreadySelectedFood)="alreadySelectedFood" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
 

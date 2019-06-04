@@ -20,9 +20,11 @@ export class FoodTableComponent implements OnInit {
 
   ngOnInit() {
     this.patientService.getFoodByPatients(1).then(result => {
-      console.log(result);
-      this.foods = result.filter(f => !(this.alreadySelectedFood && this.alreadySelectedFood.includes(f.id)));
-      console.log(this.foods);
+      if (this.alreadySelectedFood) {
+        this.foods = result.filter(f => !this.alreadySelectedFood.includes(f.id));
+      } else {
+        this.foods = result;
+      }
     });
   }
 
