@@ -1,4 +1,4 @@
-import { ITask } from './../../models/task';
+import { ITask, TaskType } from './../../models/task';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
@@ -13,6 +13,8 @@ export class TaskComponent implements OnInit {
 
   overDue: boolean;
   expanded: boolean;
+  taskType: string;
+  dueDate: string;
 
   constructor() {
   }
@@ -20,10 +22,15 @@ export class TaskComponent implements OnInit {
   ngOnInit() {
     this.overDue = new Date() > new Date(this.task.dueDate);
     this.expanded = false;
+    this.taskType = TaskType[this.task.type];
+    this.dueDate = this.task.dueDate.toString().substr(0,10);
   }
 
   onButtonClick() {
-    this.buttonHandler.emit(this.task.id);
+    if(!this.task.completed && !this.overDue)
+    {
+      this.buttonHandler.emit(this.task.id);
+    }
   }
 
   onClick() {

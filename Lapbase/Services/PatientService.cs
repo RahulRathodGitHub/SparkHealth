@@ -28,6 +28,16 @@ namespace Lapbase.Services
             return await lapbaseContext.Patient.ToListAsync();
         }
 
+        public async Task<List<Food>> GetPatientFood(int id)
+        {
+            return await lapbaseContext.Food.Where(x => x.PatientId == id).ToListAsync();
+        }
+
+        public async Task<FoodIntakeList> GetFoodIntake(int id)
+        {
+            return await lapbaseContext.FoodIntakeList.SingleOrDefaultAsync(x => x.TaskId.Equals(id));
+        }
+
         public async Task<Object> GetPatientsLapbase()
         {
             using (SqlConnection conn = new SqlConnection(config.GetConnectionString("Lapbase")))
@@ -55,6 +65,25 @@ namespace Lapbase.Services
         {
             patient.WhenCreated = DateTimeOffset.UtcNow;
             var result = await lapbaseContext.Patient.AddAsync(patient);
+
+            await lapbaseContext.SaveChangesAsync();
+
+            return result.Entity;
+        }
+
+        public async Task<FoodIntakeList> CreateFoodIntake(FoodIntakeList foodIntakeList)
+        {
+            var result = await lapbaseContext.FoodIntakeList.AddAsync(foodIntakeList);
+
+            await lapbaseContext.SaveChangesAsync();
+
+            return result.Entity;
+        }
+
+
+        public async Task<Food> CreatePatientFood(Food food)
+        {
+            var result = await lapbaseContext.Food.AddAsync(food);
 
             await lapbaseContext.SaveChangesAsync();
 

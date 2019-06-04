@@ -54,6 +54,57 @@ namespace Lapbase.Controllers
             return Ok(patient);
         }
 
+        [HttpGet("FQ/{id}")]
+        public async Task<ActionResult<FoodIntakeList>> GetFoodIntake(int id)
+        {
+            if(id == default)
+            {
+                return BadRequest();
+            }
+
+            var patientSelectedFood = await patientService.GetFoodIntake(id);
+
+            if (patientSelectedFood == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(patientSelectedFood);
+
+        }
+
+        // GET api/Patient/Food/{int}
+        [HttpGet("Food/{id}")]
+        public async Task<ActionResult<Food>> GetPatientFood(int id)
+        {
+            if (id == default)
+            {
+                return BadRequest();
+            }
+
+            var patientFood = await patientService.GetPatientFood(id);
+
+            if (patientFood == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(patientFood);
+        }
+
+        [HttpPost("Food")]
+        public async Task<ActionResult> CreatePatientFood([FromBody]Food food)
+        {
+            if(string.IsNullOrEmpty(food.Name))
+            {
+                return BadRequest();
+            }
+
+            var result = await patientService.CreatePatientFood(food);
+
+            return CreatedAtAction(nameof(GetPatientFood), new { result.Id }, result);
+        }
+
         // POST api/Patient
         [HttpPost]
         public async Task<ActionResult> CreatePatient([FromBody]Patient patient)
@@ -67,6 +118,21 @@ namespace Lapbase.Controllers
 
             return CreatedAtAction(nameof(GetPatient), new { result.Id }, result);
         }
+
+        [HttpPost("FoodIntake")]
+        public async Task<ActionResult> CreateFoodIntake([FromBody]FoodIntakeList foodIntakeList)
+        {
+            if(string.IsNullOrEmpty(foodIntakeList.Id.ToString()))
+            {
+                return BadRequest();
+            }
+
+            var result = await patientService.CreateFoodIntake(foodIntakeList);
+
+            return CreatedAtAction(nameof(GetFoodIntake), new { result.Id }, result);
+
+        }
+
 
     }
 }

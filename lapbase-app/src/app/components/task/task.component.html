@@ -1,4 +1,4 @@
-<div class="box {{task.completed && 'done' || (overDue && 'overDue')}} task-component" (click)="onClick()">
+<div class="box {{task.completed && 'done' || (overDue && 'overDue')}} task-component" (click)="onButtonClick()">
   <!-- late to make al this stuffs semantic, we can change this portion into a section-->
   <article class="media">
     <div class="media-left">
@@ -9,16 +9,15 @@
     <div class="media-content"><!--I think I will require two way binding in here-->
       <div class="content">
         <div>
-          <strong>
-           Enter Data
-          </strong>
-          <br>
+          <div class="level">
+           <strong class="level-left">Enter Data</strong>
+           <strong class="level-right">Due Date: {{dueDate}}</strong>
+          </div>
           <b>Status: </b>{{task.completed && 'Done 👍' || (overDue && 'OVER DUE!' || 'Pending...') }}
-          <br>
-          <b>Description: </b> This is to enter your data
+           <br>
+           <b>Description: </b> This is to enter your {{taskType}}
           <br *ngIf="!expanded && task.completed">
             <small *ngIf="!expanded && task.completed">Click to expand</small>
-			<small *ngIf="!task.isCompleted && !overDue "><button (click)="onButtonClick()">enter data</button></small>
           <br *ngIf="expanded && task.completed">
           <div *ngIf="expanded && task.completed">
             <a class="panel-block">
