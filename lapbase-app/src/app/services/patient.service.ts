@@ -2,7 +2,7 @@ import { IFoodIntakeList } from './../models/foodIntakeList';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IPatient,IFood,IExercise, IFoodQuantity } from '../models';
+import { IPatient, IFood, IExercise, IFoodQuantity } from '../models';
 import { async } from '@angular/core/testing';
 
 
@@ -30,43 +30,39 @@ export class PatientService {
   getFoodByPatients = async (id: number): Promise<IFood[]> => {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/Food/' + id).toPromise<any>();
   }
-  
-  sendFoodIntake = async (selectedFoodQuantity: IFoodIntakeList): Promise<IFoodIntakeList> => {
-    return await this.httpClient.post(environment.LAPBASE_API_ADDRESS + 'Patient/FoodIntake/', selectedFoodQuantity).toPromise<any>();
-  }
 
   getExerciseByPatients = (): IExercise[] =>
   [
     {
-      id: "1",
-      name:"Swimming",
-      calorieCount:100,
-      unit:"KJ/M",
-      patientId:1
+      id: '1',
+      name: 'Swimming',
+      calorieCount: 100,
+      unit: 'KJ/M',
+      patientId: 1
     },
-    {      
-    id: "2",
-    name:"Jogging",
-    calorieCount:300,
-    unit:"KJ/km",
-    patientId:1
+    {
+    id: '2',
+    name: 'Jogging',
+    calorieCount: 300,
+    unit: 'KJ/km',
+    patientId: 1
 
     },
-    {      
-      id: "3",
-      name:"Running",
-      calorieCount:120,
-      unit:"KJ/km",
-      patientId:1
-  
+    {
+      id: '3',
+      name: 'Running',
+      calorieCount: 120,
+      unit: 'KJ/km',
+      patientId: 1
+
       },
-      {      
-        id: "5",
-        name:"Boxing",
-        calorieCount:150,
-        unit:"KJ/hour",
-        patientId:1
-    
+      {
+        id: '5',
+        name: 'Boxing',
+        calorieCount: 150,
+        unit: 'KJ/hour',
+        patientId: 1
+
         },
 
   ]

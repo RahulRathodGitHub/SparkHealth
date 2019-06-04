@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { IFood } from '../../../../models';
 import { PatientService } from '../../../../services/patient.service';
 @Component({
@@ -7,6 +7,7 @@ import { PatientService } from '../../../../services/patient.service';
   styleUrls: ['./food-table.component.scss']
 })
 export class FoodTableComponent implements OnInit {
+  @Input() alreadySelectedFood: string[];
   @Output() backHandler = new EventEmitter();
   @Output() submitHandler = new EventEmitter<IFood[]>();
 
@@ -15,31 +16,31 @@ export class FoodTableComponent implements OnInit {
 
   constructor(private patientService: PatientService) {
     this.selectedFood = new Array<IFood>();
-    patientService.getFoodByPatients(1).then(result => 
-        this.foods = result
-      );
   }
-  
 
   ngOnInit() {
+    this.patientService.getFoodByPatients(1).then(result => {
+      console.log(result);
+      this.foods = result.filter(f => !(this.alreadySelectedFood && this.alreadySelectedFood.includes(f.id)));
+      console.log(this.foods);
+    });
   }
 
   onSubmit() {
     // TODO Post entered data for task to api then (
 
-      this.submitHandler.emit(this.selectedFood);
+    this.submitHandler.emit(this.selectedFood);
     // )
   }
 
   onBack() {
     this.backHandler.emit();
   }
-  toggleFood(food: IFood){
+  toggleFood(food: IFood) {
     if (this.selectedFood.includes(food)) {
-      this.selectedFood.splice(this.selectedFood.findIndex(fq => fq === food), 1); 
+      this.selectedFood.splice(this.selectedFood.findIndex(fq => fq === food), 1);
     } else {
       this.selectedFood.push(food);
     }
   }
-
 }

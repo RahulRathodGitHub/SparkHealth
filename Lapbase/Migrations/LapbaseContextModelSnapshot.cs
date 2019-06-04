@@ -102,6 +102,32 @@ namespace Lapbase.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Food");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("91a78610-c73b-4f50-93ba-abc9921ed841"),
+                            CalorieCount = 295,
+                            Name = "Burger",
+                            PatientId = 1,
+                            Unit = "piece"
+                        },
+                        new
+                        {
+                            Id = new Guid("8211c327-2da4-4233-8f85-a370db6d41ec"),
+                            CalorieCount = 40,
+                            Name = "Onion",
+                            PatientId = 1,
+                            Unit = "piece"
+                        },
+                        new
+                        {
+                            Id = new Guid("32c7ef7c-cb09-4550-b0cf-b4a041e4940b"),
+                            CalorieCount = 90,
+                            Name = "Uncle Keith's Kappuccino",
+                            PatientId = 1,
+                            Unit = "cup"
+                        });
                 });
 
             modelBuilder.Entity("Lapbase.Models.Patient", b =>
@@ -169,7 +195,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ecfeca5b-b7f3-41a9-ae4d-8e9504f91857"),
+                            Id = new Guid("ef067c43-89ef-42a9-9ec5-6202cca280f5"),
                             AdvisorId = 1,
                             PatientId = 1,
                             Repetition = 1,

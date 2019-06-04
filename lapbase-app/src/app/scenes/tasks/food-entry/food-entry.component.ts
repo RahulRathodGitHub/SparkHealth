@@ -1,6 +1,6 @@
 import { IFoodIntakeList } from './../../../models/foodIntakeList';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { PatientService } from 'src/app/services';
+import { PatientService, TaskService } from 'src/app/services';
 import { IFood } from 'src/app/models';
 import { dirtyParentQueries } from '@angular/core/src/view/query';
 
@@ -17,34 +17,32 @@ export class FoodEntryComponent implements OnInit {
   step: number;
   selectedFoodQuantity: IFoodIntakeList;
 
-  constructor(private patientService: PatientService) {
+  constructor(private taskService: TaskService) {
     this.step = 0;
   }
 
   ngOnInit() {
     this.selectedFoodQuantity = {
-      id: "00000000-0000-0000-0000-000000000000", // Make this an emty guid
+      id: '00000000-0000-0000-0000-000000000000', // Make this an emty guid
       food: [],
       quantity: [],
       dateEntered: new Date(),
       taskId: this.selectedTaskId
-     }
+     };
   }
 
   onFoodSubmit(selectedFoodIds: IFood[]) {
-    selectedFoodIds.forEach(f =>{
-      this.selectedFoodQuantity.food.push(f);
-      this.selectedFoodQuantity.quantity.push(0);
+    selectedFoodIds.forEach(f => {
+      if (!this.selectedFoodQuantity.food.find(food => food.id === f.id)) {
+        this.selectedFoodQuantity.food.push(f);
+        this.selectedFoodQuantity.quantity.push(0);
+      }
     });
     this.step--;
   }
 
   onSubmit() {
-    // TODO Post entered data for task to api then (
-    alert("Enter Success!");
-    this.patientService.sendFoodIntake(this.selectedFoodQuantity);
-    this.backHandler.emit();
-    // )
+    this.taskService.sendFoodIntake(this.selectedFoodQuantity).then(() => this.backHandler.emit());
   }
 
   onNext() {
@@ -58,15 +56,23 @@ export class FoodEntryComponent implements OnInit {
   onBack() {
     this.backHandler.emit();
   }
-  
-  findIndexOfFood(foodId: string){
+
+  findIndexOfFood(foodId: string) {
     return this.selectedFoodQuantity.food.findIndex(f => f.id === foodId);
   }
 
-  minusQuantity(foodId: string){
+  minusQuantity(foodId: string) {
     this.selectedFoodQuantity.quantity[this.findIndexOfFood(foodId)]--;
   }
-  addQuantity(foodId: string){
+  addQuantity(foodId: string) {
     this.selectedFoodQuantity.quantity[this.findIndexOfFood(foodId)]++;
   }
+
+  removeFood(foodId: string) {
+    const index = this.selectedFoodQuantity.food.findIndex(f => f.id === foodId);
+    this.selectedFoodQuantity.food.splice(index, 1);
+    this.selectedFoodQuantity.quantity.splice(index, 1);
+  }
+
+  alreadySelectedFood = () => this.selectedFoodQuantity.food.map(f => f.id);
 }

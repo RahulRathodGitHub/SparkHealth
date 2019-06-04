@@ -40,6 +40,35 @@ namespace Lapbase.Models
                 PatientId = 1,
                 AdvisorId = 1
             });
+
+            var foodList = new List<Food>
+            {
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Burger",
+                    CalorieCount = 295,
+                    Unit = "piece",
+                    PatientId = 1,
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Onion",
+                    CalorieCount = 40,
+                    Unit = "piece",
+                    PatientId = 1,
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Uncle Keith's Kappuccino",
+                    CalorieCount = 90,
+                    Unit = "cup",
+                    PatientId = 1,
+                }
+            };
+            modelBuilder.Entity<Food>().HasData(foodList);
         }
 
         public DbSet<Advisor> Advisor { get; set; }

@@ -51,7 +51,7 @@
       <tbody>
 
         <tr *ngFor="let fq of selectedFoodQuantity.food">
-          <td><a class="delete"></a></td>
+          <td><a (click)="removeFood(fq.id)" class="delete"></a></td>
           <td>{{fq.name}}</td>
           <td><a class="button is-danger is-rounded"(click)="minusQuantity(fq.id)">-</a></td>
           <td><input value="{{selectedFoodQuantity.quantity[findIndexOfFood(fq.id)]}}" class="input is-small is-rounded" type="text" placeholder="quantity"></td>
@@ -74,5 +74,5 @@
   </div>
 </div>
 
-<app-food-table *ngIf="step === 1" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
+<app-food-table *ngIf="step === 1" (alreadySelected)="alreadySelectedFood()" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
 

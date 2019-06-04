@@ -115,5 +115,19 @@ namespace Lapbase.Services
             await lapbaseContext.SaveChangesAsync();
             return result.Entity;
         }
+
+        public async Task<FoodIntakeList> GetFoodIntake(int id)
+        {
+            return await lapbaseContext.FoodIntakeList.SingleOrDefaultAsync(x => x.TaskId.Equals(id));
+        }
+
+        public async Task<FoodIntakeList> CreateFoodIntake(FoodIntakeList foodIntakeList)
+        {
+            var result = await lapbaseContext.FoodIntakeList.AddAsync(foodIntakeList);
+
+            await lapbaseContext.SaveChangesAsync();
+
+            return result.Entity;
+        }
     }
 }

@@ -55,5 +55,40 @@ namespace Lapbase.Controllers
 
             return CreatedAtAction(nameof(GetTask), new { result.Id }, result);
         }
+
+        // GET api/Task/FoodIntake
+        [HttpGet("GetFoodIntake/{id}")]
+        public async Task<ActionResult<FoodIntakeList>> GetFoodIntake(int id)
+        {
+            if (id == default)
+            {
+                return BadRequest();
+            }
+
+            var patientSelectedFood = await taskService.GetFoodIntake(id);
+
+            if (patientSelectedFood == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(patientSelectedFood);
+
+        }
+
+        // POST api/Task/FoodIntake
+        [HttpPost("FoodIntake")]
+        public async Task<ActionResult> CreateFoodIntake([FromBody]FoodIntakeList foodIntakeList)
+        {
+            if (string.IsNullOrEmpty(foodIntakeList.Id.ToString()))
+            {
+                return BadRequest();
+            }
+
+            var result = await taskService.CreateFoodIntake(foodIntakeList);
+
+            return CreatedAtAction(nameof(GetFoodIntake), new { result.Id }, result);
+
+        }
     }
 }

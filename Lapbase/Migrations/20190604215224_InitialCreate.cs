@@ -183,9 +183,19 @@ namespace Lapbase.Migrations
                 values: new object[] { 1, 1, false, "test@test.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
 
             migrationBuilder.InsertData(
+                table: "Food",
+                columns: new[] { "Id", "CalorieCount", "FoodIntakeListId", "Name", "PatientId", "Unit" },
+                values: new object[,]
+                {
+                    { new Guid("91a78610-c73b-4f50-93ba-abc9921ed841"), 295, null, "Burger", 1, "piece" },
+                    { new Guid("8211c327-2da4-4233-8f85-a370db6d41ec"), 40, null, "Onion", 1, "piece" },
+                    { new Guid("32c7ef7c-cb09-4550-b0cf-b4a041e4940b"), 90, null, "Uncle Keith's Kappuccino", 1, "cup" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Task",
                 columns: new[] { "Id", "AdvisorId", "PatientId", "Repetition", "RepetitionInterval", "StartDate", "Type" },
-                values: new object[] { new Guid("ecfeca5b-b7f3-41a9-ae4d-8e9504f91857"), 1, 1, 1, 1, new DateTimeOffset(new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 0 });
+                values: new object[] { new Guid("ef067c43-89ef-42a9-9ec5-6202cca280f5"), 1, 1, 1, 1, new DateTimeOffset(new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exercise_ExerciseListId",

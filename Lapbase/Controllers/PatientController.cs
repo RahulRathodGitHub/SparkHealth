@@ -54,25 +54,6 @@ namespace Lapbase.Controllers
             return Ok(patient);
         }
 
-        [HttpGet("FQ/{id}")]
-        public async Task<ActionResult<FoodIntakeList>> GetFoodIntake(int id)
-        {
-            if(id == default)
-            {
-                return BadRequest();
-            }
-
-            var patientSelectedFood = await patientService.GetFoodIntake(id);
-
-            if (patientSelectedFood == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(patientSelectedFood);
-
-        }
-
         // GET api/Patient/Food/{int}
         [HttpGet("Food/{id}")]
         public async Task<ActionResult<Food>> GetPatientFood(int id)
@@ -118,21 +99,5 @@ namespace Lapbase.Controllers
 
             return CreatedAtAction(nameof(GetPatient), new { result.Id }, result);
         }
-
-        [HttpPost("FoodIntake")]
-        public async Task<ActionResult> CreateFoodIntake([FromBody]FoodIntakeList foodIntakeList)
-        {
-            if(string.IsNullOrEmpty(foodIntakeList.Id.ToString()))
-            {
-                return BadRequest();
-            }
-
-            var result = await patientService.CreateFoodIntake(foodIntakeList);
-
-            return CreatedAtAction(nameof(GetFoodIntake), new { result.Id }, result);
-
-        }
-
-
     }
 }
