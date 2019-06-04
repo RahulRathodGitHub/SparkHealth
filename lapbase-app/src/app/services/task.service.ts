@@ -22,6 +22,6 @@ export class TaskService {
   }
 
   sendFoodIntake = async (selectedFoodQuantity: IFoodIntakeList): Promise<IFoodIntakeList> => {
-    return await this.httpClient.post(environment.LAPBASE_API_ADDRESS + 'Patient/FoodIntake/', selectedFoodQuantity).toPromise<any>();
+    return await this.httpClient.post(environment.LAPBASE_API_ADDRESS + 'Task/FoodIntake/', selectedFoodQuantity).toPromise<any>();
   }
 }
