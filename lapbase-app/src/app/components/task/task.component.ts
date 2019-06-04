@@ -23,12 +23,11 @@ export class TaskComponent implements OnInit {
     this.overDue = new Date() > new Date(this.task.dueDate);
     this.expanded = false;
     this.taskType = TaskType[this.task.type];
-    this.dueDate = this.task.dueDate.toString().substr(0,10);
+    this.dueDate = this.task.dueDate.toString().substr(0, 10);
   }
 
   onButtonClick() {
-    if(!this.task.completed && !this.overDue)
-    {
+    if (!this.task.completed && !this.overDue) {
       this.buttonHandler.emit(this.task.id);
     }
   }

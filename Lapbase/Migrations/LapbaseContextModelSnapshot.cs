@@ -15,7 +15,7 @@ namespace Lapbase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -165,6 +165,18 @@ namespace Lapbase.Migrations
                     b.HasIndex("PatientId");
 
                     b.ToTable("Task");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ecfeca5b-b7f3-41a9-ae4d-8e9504f91857"),
+                            AdvisorId = 1,
+                            PatientId = 1,
+                            Repetition = 1,
+                            RepetitionInterval = 1,
+                            StartDate = new DateTimeOffset(new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            Type = 0
+                        });
                 });
 
             modelBuilder.Entity("Lapbase.Models.TaskInput", b =>
