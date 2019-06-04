@@ -16,7 +16,6 @@ export class FoodEntryComponent implements OnInit {
 
   step: number;
   selectedFoodQuantity: IFoodIntakeList;
-  alreadySelectedFood: string[];
 
   constructor(private taskService: TaskService) {
     this.step = 0;
@@ -37,7 +36,6 @@ export class FoodEntryComponent implements OnInit {
       if (!this.selectedFoodQuantity.food.find(food => food.id === f.id)) {
         this.selectedFoodQuantity.food.push(f);
         this.selectedFoodQuantity.quantity.push(0);
-        this.alreadySelectedFood = this.selectedFoodQuantity.food.map(food => food.id);
       }
     });
     this.step--;
@@ -75,4 +73,6 @@ export class FoodEntryComponent implements OnInit {
     this.selectedFoodQuantity.food.splice(index, 1);
     this.selectedFoodQuantity.quantity.splice(index, 1);
   }
+
+  alreadySelectedFood = () => this.selectedFoodQuantity.food.map(food => food.id);
 }
