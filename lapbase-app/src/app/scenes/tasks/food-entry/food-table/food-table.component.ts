@@ -15,10 +15,13 @@ export class FoodTableComponent implements OnInit {
 
   constructor(private patientService: PatientService) {
     this.selectedFood = new Array<IFood>();
+    patientService.getFoodByPatients(1).then(result => 
+        this.foods = result
+      );
   }
+  
 
   ngOnInit() {
-   this.foods = this.patientService.getFoodByPatients();
   }
 
   onSubmit() {
