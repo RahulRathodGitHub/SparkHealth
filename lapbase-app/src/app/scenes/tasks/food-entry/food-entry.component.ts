@@ -2,6 +2,7 @@ import { IFoodIntakeList } from './../../../models/foodIntakeList';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { PatientService } from 'src/app/services';
 import { IFood } from 'src/app/models';
+import { dirtyParentQueries } from '@angular/core/src/view/query';
 
 @Component({
   selector: 'app-food-entry',
@@ -26,7 +27,7 @@ export class FoodEntryComponent implements OnInit {
       food: [],
       quantity: [],
       dateEntered: new Date(),
-      taskId: this.selectedTaskId,
+      taskId: this.selectedTaskId
      }
   }
 
@@ -41,7 +42,6 @@ export class FoodEntryComponent implements OnInit {
   onSubmit() {
     // TODO Post entered data for task to api then (
     alert("Enter Success!");
-    console.log(this.selectedFoodQuantity)
     this.patientService.sendFoodIntake(this.selectedFoodQuantity);
     this.backHandler.emit();
     // )
@@ -64,9 +64,9 @@ export class FoodEntryComponent implements OnInit {
   }
 
   minusQuantity(foodId: string){
-    this.selectedFoodQuantity.quantity[this.findIndexOfFood(foodId)]++;
+    this.selectedFoodQuantity.quantity[this.findIndexOfFood(foodId)]--;
   }
   addQuantity(foodId: string){
-    this.selectedFoodQuantity.quantity[this.findIndexOfFood(foodId)]--;
+    this.selectedFoodQuantity.quantity[this.findIndexOfFood(foodId)]++;
   }
 }

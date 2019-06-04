@@ -54,7 +54,7 @@
           <td><a class="delete"></a></td>
           <td>{{fq.name}}</td>
           <td><a class="button is-danger is-rounded"(click)="minusQuantity(fq.id)">-</a></td>
-          <td><input value="{{fq.quantity}}" class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+          <td><input value="{{selectedFoodQuantity.quantity[findIndexOfFood(fq.id)]}}" class="input is-small is-rounded" type="text" placeholder="quantity"></td>
           <td><a class="button is-success is-rounded"(click)="addQuantity(fq.id)">+</a></td>
           <td>{{fq.calorieCount}} {{fq.unit}}</td>
         </tr>
