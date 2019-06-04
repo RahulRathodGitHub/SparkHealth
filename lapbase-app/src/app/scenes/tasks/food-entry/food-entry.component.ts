@@ -1,8 +1,7 @@
 import { IFoodIntakeList } from './../../../models/foodIntakeList';
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { PatientService, TaskService } from 'src/app/services';
-import { IFood } from 'src/app/models';
-import { dirtyParentQueries } from '@angular/core/src/view/query';
+import { TaskService } from 'src/app/services';
+import { IFood, IFoodIntakeListDto } from 'src/app/models';
 
 @Component({
   selector: 'app-food-entry',
@@ -42,7 +41,7 @@ export class FoodEntryComponent implements OnInit {
   }
 
   onSubmit() {
-    this.taskService.sendFoodIntake(this.selectedFoodQuantity).then(() => this.backHandler.emit());
+    this.taskService.sendFoodIntake(this.mapToDto(this.selectedFoodQuantity)).then(() => this.backHandler.emit());
   }
 
   onNext() {
@@ -75,4 +74,15 @@ export class FoodEntryComponent implements OnInit {
   }
 
   alreadySelectedFood = () => this.selectedFoodQuantity.food.map(food => food.id);
+
+  mapToDto = (selectedFoodQuantity: IFoodIntakeList): IFoodIntakeListDto => {
+    const list: IFoodIntakeListDto = {
+      id: this.selectedFoodQuantity.id,
+      taskId: this.selectedFoodQuantity.taskId,
+      dateEntered: selectedFoodQuantity.dateEntered,
+      food: selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.food[0].id),
+      quantity: selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.quantity[0].toString())
+    };
+    return list;
+  }
 }

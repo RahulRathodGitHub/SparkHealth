@@ -13,7 +13,7 @@ export class TasksComponent implements OnInit {
   private selectedTaskType: TaskType;
   private step: number;
 
-  constructor(service: TaskService) {
+  constructor(private service: TaskService) {
     service.getTasks().then(result => this.tasks = result);
     this.step = 0;
   }
@@ -30,6 +30,9 @@ export class TasksComponent implements OnInit {
 
   back() {
     this.step--;
+    if (this.step === 0) {
+      this.service.getTasks().then(result => this.tasks = result);
+    }
   }
 
   ngOnInit() {

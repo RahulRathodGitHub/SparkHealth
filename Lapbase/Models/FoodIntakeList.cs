@@ -5,8 +5,7 @@ namespace Lapbase.Models
 {
     public class FoodIntakeList : TaskInput
     {
-        public ICollection<Food> Food { get; set; }
-        // Quantity = int[]
+        public string Food { get; set; }
         public string Quantity { get; set; }
     }
 }

@@ -1,6 +1,6 @@
 import { IFoodQuantity } from './../models/foodQuantity';
 import { Injectable } from '@angular/core';
-import { ITask, TaskType } from '../models';
+import { ITask, TaskType, IFoodIntakeListDto } from '../models';
 import { environment } from './../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { IFoodIntakeList } from '../models/foodIntakeList';
@@ -21,7 +21,7 @@ export class TaskService {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Task/' + id).toPromise<any>();
   }
 
-  sendFoodIntake = async (selectedFoodQuantity: IFoodIntakeList): Promise<IFoodIntakeList> => {
+  sendFoodIntake = async (selectedFoodQuantity: IFoodIntakeListDto): Promise<IFoodIntakeListDto> => {
     return await this.httpClient.post(environment.LAPBASE_API_ADDRESS + 'Task/FoodIntake/', selectedFoodQuantity).toPromise<any>();
   }
 }

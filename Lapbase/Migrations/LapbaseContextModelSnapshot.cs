@@ -87,8 +87,6 @@ namespace Lapbase.Migrations
 
                     b.Property<int>("CalorieCount");
 
-                    b.Property<Guid?>("FoodIntakeListId");
-
                     b.Property<string>("Name");
 
                     b.Property<int>("PatientId");
@@ -97,8 +95,6 @@ namespace Lapbase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FoodIntakeListId");
-
                     b.HasIndex("PatientId");
 
                     b.ToTable("Food");
@@ -106,7 +102,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("91a78610-c73b-4f50-93ba-abc9921ed841"),
+                            Id = new Guid("a4f68d9d-9cbc-45cd-8aed-c48317f695f5"),
                             CalorieCount = 295,
                             Name = "Burger",
                             PatientId = 1,
@@ -114,7 +110,7 @@ namespace Lapbase.Migrations
                         },
                         new
                         {
-                            Id = new Guid("8211c327-2da4-4233-8f85-a370db6d41ec"),
+                            Id = new Guid("83148ac3-1d56-43fe-a26f-92a204e7cdf6"),
                             CalorieCount = 40,
                             Name = "Onion",
                             PatientId = 1,
@@ -122,7 +118,7 @@ namespace Lapbase.Migrations
                         },
                         new
                         {
-                            Id = new Guid("32c7ef7c-cb09-4550-b0cf-b4a041e4940b"),
+                            Id = new Guid("b430aa96-3eae-4c2e-9447-79863b8187c6"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             PatientId = 1,
@@ -195,7 +191,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ef067c43-89ef-42a9-9ec5-6202cca280f5"),
+                            Id = new Guid("cca29548-2bd8-4630-b0be-52be35d6dd74"),
                             AdvisorId = 1,
                             PatientId = 1,
                             Repetition = 1,
@@ -239,6 +235,8 @@ namespace Lapbase.Migrations
                 {
                     b.HasBaseType("Lapbase.Models.TaskInput");
 
+                    b.Property<string>("Food");
+
                     b.Property<string>("Quantity");
 
                     b.HasDiscriminator().HasValue("FoodIntakeList");
@@ -267,11 +265,6 @@ namespace Lapbase.Migrations
 
             modelBuilder.Entity("Lapbase.Models.Food", b =>
                 {
-                    b.HasOne("Lapbase.Models.FoodIntakeList")
-                        .WithMany("Food")
-                        .HasForeignKey("FoodIntakeListId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Lapbase.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
