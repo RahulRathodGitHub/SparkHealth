@@ -15,7 +15,7 @@
               <label class="checkbox">
                 <input type="checkbox" (change)="toggleFood(food)">
               </label></td>
-          <td><a class="delete"></a></td>
+          <td><a (click)="removeFood(food.id)" class="delete"></a></td>
           <td>{{food.name}}</td>
           <td>{{food.calorieCount}}</td>
           <td>{{food.unit}}</td>
@@ -25,7 +25,7 @@
   <article class="message is-link">
       <div class="message-header">
         <p>Add New Food</p>
-        <button class="delete" aria-label="delete"></button>
+        <button  class="delete" aria-label="delete"></button>
       </div>
       <div class="message-body">
 
@@ -37,7 +37,7 @@
               <div class="field-body">
                 <div class="field">
                   <p class="control">
-                    <input class="input" type="name" placeholder="0.00">
+                    <input [(ngModel)]="name" type="text" class="form-control" placeholder="Name" required>
                   </p>
                 </div>
               </div>
@@ -51,7 +51,7 @@
                 <div class="field-body">
                   <div class="field">
                     <p class="control">
-                      <input class="input" type="calories" placeholder="0.00">
+                      <input [(ngModel)]="calories" type="text" class="form-control" placeholder="0.00" required>
                     </p>
                   </div>
                 </div>
@@ -64,13 +64,13 @@
                   <div class="field-body">
                     <div class="field">
                       <p class="control">
-                        <input class="input" type="units" placeholder="0.00">
+                        <input [(ngModel)]="unit" class="form-control" type="text" placeholder="Kg" requried>
                       </p>
                     </div>
                   </div>
                 </div>
                
-                <span class="button is-success">ENTER</span>
+                <span class="button is-success" (click)="addFood()">ENTER</span>
 
       </div>
     </article>

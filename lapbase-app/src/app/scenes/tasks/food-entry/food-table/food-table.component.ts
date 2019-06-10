@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { IFood } from '../../../../models';
 import { PatientService } from '../../../../services/patient.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-food-table',
   templateUrl: './food-table.component.html',
@@ -13,6 +14,9 @@ export class FoodTableComponent implements OnInit {
 
   foods: IFood[];
   selectedFood: IFood[];
+  name: string = '';
+  calories: number= 0;
+  unit: string ='';
 
   constructor(private patientService: PatientService) {
     this.selectedFood = new Array<IFood>();
@@ -35,6 +39,21 @@ export class FoodTableComponent implements OnInit {
     // )
   }
 
+  addFood(){
+    this.patientService.addFood(
+      {
+        id: "00000000-0000-0000-0000-000000000000",
+        name: this.name,
+        calorieCount: this.calories,
+        unit: this.unit,
+        patientId: 1,
+      }
+    ).then(food => this.foods.push(food));
+    this.name = '';
+    this.calories = 0;
+    this.unit = '';
+  }
+
   onBack() {
     this.backHandler.emit();
   }
@@ -44,5 +63,10 @@ export class FoodTableComponent implements OnInit {
     } else {
       this.selectedFood.push(food);
     }
+  }
+  removeFood(foodId: string) {
+    const index = this.foods.findIndex(f => f.id === foodId);
+    this.foods.splice(index, 1);
+
   }
 }
