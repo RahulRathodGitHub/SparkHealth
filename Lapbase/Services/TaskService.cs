@@ -12,27 +12,27 @@ namespace Lapbase.Services
 {
     public class TaskService
     {
-        private readonly LapbaseContext lapbaseContext;
+        private readonly LapbaseNewContext lapbaseNewContext;
         private readonly IConfiguration config;
 
         public TaskService(
             IConfiguration config,
-            LapbaseContext lapbaseContext)
+            LapbaseNewContext lapbaseNewContext)
         {
-            this.lapbaseContext = lapbaseContext;
+            this.lapbaseNewContext = lapbaseNewContext;
             this.config = config;
         }
 
         public async Task<List<Models.TaskDto>> GetTasks(int patientId,int advisorId)
         {
-            var taskDtos = ToTaskDto(await lapbaseContext.Task.Where(x => x.PatientId == patientId && x.AdvisorId == advisorId).ToListAsync());
+            var taskDtos = ToTaskDto(await lapbaseNewContext.Task.Where(x => x.PatientId == patientId && x.AdvisorId == advisorId).ToListAsync());
             taskDtos.Sort((x, y) => (x.DueDate >= y.DueDate) ? -1 : 1);
             return taskDtos;
         }
 
         public async Task<Models.Task> GetTaskById(Guid id)
         {
-            return await lapbaseContext.Task.SingleOrDefaultAsync(p => p.Id.Equals(id));
+            return await lapbaseNewContext.Task.SingleOrDefaultAsync(p => p.Id.Equals(id));
         }
 
         private DateTimeOffset IncrementDate(DateTimeOffset date, RepetitionType repetitionType, int interval)
@@ -62,7 +62,7 @@ namespace Lapbase.Services
                 while(startDate < DateTimeOffset.UtcNow)
                 {
                     var endDate = IncrementDate(startDate, task.Repetition, task.RepetitionInterval);
-                    var enteredTask = lapbaseContext.TaskInput.SingleOrDefault(s => s.TaskId == task.Id && s.DateEntered > startDate && s.DateEntered < endDate);
+                    var enteredTask = lapbaseNewContext.TaskInput.SingleOrDefault(s => s.TaskId == task.Id && s.DateEntered > startDate && s.DateEntered < endDate);
 
                     if (enteredTask != null)
                     {
@@ -111,21 +111,23 @@ namespace Lapbase.Services
 
         public async Task<Models.Task> CreateTask(Models.Task task)
         {
-            var result = await lapbaseContext.Task.AddAsync(task);
-            await lapbaseContext.SaveChangesAsync();
+            if (task.StartDate < DateTimeOffset.UtcNow) return null;
+
+            var result = await lapbaseNewContext.Task.AddAsync(task);
+            await lapbaseNewContext.SaveChangesAsync();
             return result.Entity;
         }
 
         public async Task<FoodIntakeList> GetFoodIntake(int id)
         {
-            return await lapbaseContext.FoodIntakeList.SingleOrDefaultAsync(x => x.TaskId.Equals(id));
+            return await lapbaseNewContext.FoodIntakeList.SingleOrDefaultAsync(x => x.TaskId.Equals(id));
         }
 
         public async Task<FoodIntakeList> CreateFoodIntake(FoodIntakeList foodIntakeList)
         {
-            var result = await lapbaseContext.FoodIntakeList.AddAsync(foodIntakeList);
+            var result = await lapbaseNewContext.FoodIntakeList.AddAsync(foodIntakeList);
 
-            await lapbaseContext.SaveChangesAsync();
+            await lapbaseNewContext.SaveChangesAsync();
 
             return result.Entity;
         }
