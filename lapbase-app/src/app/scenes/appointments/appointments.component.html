@@ -1,3 +1,13 @@
-<p>
-  appointments works!
-</p>
+<full-calendar 
+  defaultView="dayGridMonth" 
+  [header]="{
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+  }"
+  [plugins]="calendarPlugins"
+  [events]="calendarEvents"
+  (eventClick)="handleDateClick($event)"
+></full-calendar>
+
+<!--deepChangeDetection="true" this can be applied if we want to detect deep changes and not just replace the arrays-->
