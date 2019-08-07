@@ -12,7 +12,8 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {}
 
   chartOptions = {
-    responsive: true
+    responsive: true,
+    maintainAspectRatio: false
   };
 
   chartDatas = {
@@ -27,7 +28,7 @@ export class ReportsComponent implements OnInit {
   };
 
   chartData = [{ data: [330, 600, 260, 700], label: "Weight Loss" }];
-  chartLabels = ["January", "February", "Mars", "April"];
+  chartLabels = ["January", "February", "March", "April"];
 
   onChartClick(event) {
     console.log(event);
