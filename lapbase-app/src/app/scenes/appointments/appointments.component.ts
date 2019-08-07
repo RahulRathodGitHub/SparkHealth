@@ -1,9 +1,12 @@
+import { AppointmentService } from './../../services/appointment.service';
 import { Component, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
 import CalendarComponent from '@fullcalendar/core/CalendarComponent';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { IAppointment } from 'src/app/models';
+
 
 @Component({
   selector: 'app-appointments',
@@ -12,11 +15,13 @@ import { FullCalendarComponent } from '@fullcalendar/angular';
 })
 export class AppointmentsComponent{
 
-  constructor(){
-    
+  constructor(private appointmentService: AppointmentService){
+    this.calendarEvents = this.appointmentService.getAppointmentsDemo();
   }
 
   calendarTitle;
+
+  calendarEvents: IAppointment[];
 
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
@@ -33,13 +38,9 @@ export class AppointmentsComponent{
                      interactionPlugin
                     ];
 
-  calendarEvents = [
-    {title: 'Event 1', date: '2019-08-01'},
-    {title: 'Event 2', date: '2019-08-02'}
-  ];
 
   handleDateClick(event){
-    alert("You have an appointment on "+ event.event.start);
+    alert("You have "+event.event.title+" on "+ event.event.start);
   }
 
  /*addEvent() {

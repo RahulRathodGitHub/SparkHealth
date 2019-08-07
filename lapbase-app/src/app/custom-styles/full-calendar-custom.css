@@ -16,7 +16,8 @@ Docs & License: https://fullcalendar.io/
 
     @media only screen and (max-width: 480px){
       .fc-center{
-        display: none;
+        /*display: none;*/
+        /*The above line is temporarily commented to get rid of responsive modifications*/
       }
     }
 
