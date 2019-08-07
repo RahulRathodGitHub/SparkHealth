@@ -1,5 +1,8 @@
-<full-calendar 
+<div class="CalendarTitle">{{calendarTitle}}</div>
+<full-calendar
+  #calendar
   defaultView="dayGridMonth" 
+  [aspectRatio] = "0.20"
   [header]="{
     left: 'prev,next today',
     center: 'title',
@@ -8,6 +11,7 @@
   [plugins]="calendarPlugins"
   [events]="calendarEvents"
   (eventClick)="handleDateClick($event)"
+  (windowResize)="getCalendarTitle()"
 ></full-calendar>
 
 <!--deepChangeDetection="true" this can be applied if we want to detect deep changes and not just replace the arrays-->

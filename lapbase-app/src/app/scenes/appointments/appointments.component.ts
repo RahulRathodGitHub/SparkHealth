@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
+import CalendarComponent from '@fullcalendar/core/CalendarComponent';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-appointments',
@@ -9,6 +11,21 @@ import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
   styleUrls: ['./appointments.component.scss']
 })
 export class AppointmentsComponent{
+
+  constructor(){
+    
+  }
+
+  calendarTitle;
+
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent;
+
+  getCalendarTitle(){
+    let calendarApi = this.calendarComponent.getApi();
+    //Using this API I can recreate the design using Bulma
+
+    this.calendarTitle = calendarApi.view.title;
+  }
 
   //The plugins can be added if we want more calendar functionality
   calendarPlugins = [dayGridPlugin,      //For normal Day Grid Calendar View

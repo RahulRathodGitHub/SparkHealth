@@ -14,9 +14,19 @@ Docs & License: https://fullcalendar.io/
     /* extra precedence to overcome jqui */
     font-size: 1em; }
 
+    @media only screen and (max-width: 480px){
+      .fc-center{
+        display: none;
+      }
+    }
+
     @media only screen and (max-width: 650px){
         .fc-left {
             font-size: x-small;
+        }
+
+        .fc-view-container{
+          box-sizing: unset;
         }
 
         .fc-center{
@@ -24,8 +34,9 @@ Docs & License: https://fullcalendar.io/
         }
 
         .fc-right{
-            display:none;
-            /*instead of display:none, I want to display it on the top*/
+            font-size: x-small;
+            text-align: right;
+            /*I want to display it on the top*/
         }
     }
 
@@ -38,8 +49,8 @@ Docs & License: https://fullcalendar.io/
 
         .fc-body{
             font-size: smaller;
+            line-height: 2;
         }
-    
     }
 
   /* Colors
