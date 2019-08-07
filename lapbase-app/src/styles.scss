@@ -1,18 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     --primary: #384A5A;
-    --primary-text: #B7B6C6;
+    --primary-text: #333333;
     
     // Header
-    --header-bg-color: #17203B;
+    --header-bg-color: #000000;
 
-    --side-menu-gradient: linear-gradient(#3E3D57, #15151F);
+    --side-menu-gradient: linear-gradient(#000000, #333333);
     --side-menu-width: 250px;
     --side-menu-width-mobile: 60px;
+    background-color: #CCCCCC;
 }
 
 // Menu Component
-$menu-item-color: #B7B6C6;
+$menu-item-color: #FFFFFF;
 $menu-item-active-color: white;
 $menu-item-active-background-color: #28273B;
 
