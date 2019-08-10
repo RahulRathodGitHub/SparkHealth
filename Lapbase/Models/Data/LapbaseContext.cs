@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Lapbase.Models
 {
-    public class LapbaseContext : DbContext
+    public class LapbaseNewContext : DbContext
     {
-        public LapbaseContext(DbContextOptions<LapbaseContext> options) : base(options)
+        public LapbaseNewContext(DbContextOptions<LapbaseNewContext> options) : base(options)
         {
         }
 

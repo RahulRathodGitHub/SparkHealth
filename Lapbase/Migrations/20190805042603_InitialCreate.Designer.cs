@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lapbase.Migrations
 {
-    [DbContext(typeof(LapbaseContext))]
-    [Migration("20190604234231_InitialCreate")]
+    [DbContext(typeof(LapbaseNewContext))]
+    [Migration("20190805042603_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,7 +104,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a4f68d9d-9cbc-45cd-8aed-c48317f695f5"),
+                            Id = new Guid("581f0299-0320-466c-bf34-8e38f9b7c0a6"),
                             CalorieCount = 295,
                             Name = "Burger",
                             PatientId = 1,
@@ -112,7 +112,7 @@ namespace Lapbase.Migrations
                         },
                         new
                         {
-                            Id = new Guid("83148ac3-1d56-43fe-a26f-92a204e7cdf6"),
+                            Id = new Guid("dc194663-6107-4c52-967e-0320967aba1d"),
                             CalorieCount = 40,
                             Name = "Onion",
                             PatientId = 1,
@@ -120,7 +120,7 @@ namespace Lapbase.Migrations
                         },
                         new
                         {
-                            Id = new Guid("b430aa96-3eae-4c2e-9447-79863b8187c6"),
+                            Id = new Guid("f050049f-a7b4-4a35-91ba-e29f5c3538d5"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             PatientId = 1,
@@ -193,7 +193,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("cca29548-2bd8-4630-b0be-52be35d6dd74"),
+                            Id = new Guid("5823f527-72f4-47fb-a87d-7cb6f9a8b87a"),
                             AdvisorId = 1,
                             PatientId = 1,
                             Repetition = 1,

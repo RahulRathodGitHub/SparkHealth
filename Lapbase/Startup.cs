@@ -14,6 +14,7 @@ using Microsoft.Extensions.Options;
 
 using Lapbase.Models;
 using Lapbase.Services;
+using Lapbase.LapbaseModels;
 
 namespace Lapbase
 {
@@ -45,8 +46,10 @@ namespace Lapbase
             services.AddTransient<PatientService>();
             services.AddTransient<TaskService>();
 
-            services.AddDbContext<LapbaseContext>(options => 
-                options.UseSqlServer(Configuration.GetConnectionString("LapbaseNew")));
+            services.AddDbContext<LapbaseNewContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("LapbaseNew")))
+                    .AddDbContext<LapbaseContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Lapbase")));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
