@@ -15,21 +15,26 @@ import { IAppointment } from 'src/app/models';
 })
 export class AppointmentsComponent{
 
+  calendarTitle;
+  calendarEvents: IAppointment[];
+
+  eventClicked = false;
+  eventTitle = "Empty Event";
+  eventDescription = "Empty Description";
+
   constructor(private appointmentService: AppointmentService){
     this.calendarEvents = this.appointmentService.getAppointmentsDemo();
   }
 
-  calendarTitle;
-
-  calendarEvents: IAppointment[];
-
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   getCalendarTitle(){
+
     let calendarApi = this.calendarComponent.getApi();
     //Using this API I can recreate the design using Bulma
 
-    this.calendarTitle = calendarApi.view.title;
+    if(calendarApi) return calendarApi.view.title;
+    else return "";
   }
 
   //The plugins can be added if we want more calendar functionality
@@ -40,7 +45,11 @@ export class AppointmentsComponent{
 
 
   handleDateClick(event){
-    alert("You have "+event.event.title+" on "+ event.event.start);
+    this.eventClicked = true;
+    this.eventTitle = event.event.title;
+    this.eventDescription = "You have "+event.event.title+" on "+ event.event.start.toDateString()+ 
+                            "\n From "+ event.event.start.toLocaleTimeString() + 
+                            " to " + event.event.end.toLocaleTimeString();
   }
 
  /*addEvent() {

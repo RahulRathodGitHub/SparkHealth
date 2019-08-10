@@ -14,46 +14,7 @@ Docs & License: https://fullcalendar.io/
     /* extra precedence to overcome jqui */
     font-size: 1em; }
 
-    @media only screen and (max-width: 480px){
-      .fc-center{
-        /*display: none;*/
-        /*The above line is temporarily commented to get rid of responsive modifications*/
-      }
-    }
-
-    @media only screen and (max-width: 650px){
-        .fc-left {
-            font-size: x-small;
-        }
-
-        .fc-view-container{
-          box-sizing: unset;
-        }
-
-        .fc-center{
-            font-size: x-small;
-        }
-
-        .fc-right{
-            font-size: x-small;
-            text-align: right;
-            /*I want to display it on the top*/
-        }
-    }
-
-    @media only screen and (max-width: 476px){
-
-        .fc-head{
-            font-size: xx-small;
-            /*instead of this I would like to change it to single lettered week characters like S M T W Th F Sa*/
-        }
-
-        .fc-body{
-            font-size: smaller;
-            line-height: 2;
-        }
-    }
-
+    
   /* Colors
   --------------------------------------------------------------------------------------------------*/
   .fc-highlight {
@@ -939,3 +900,55 @@ Docs & License: https://fullcalendar.io/
       display: none;
       /* don't display any button-related controls */ } }
   
+
+  /*Custom Changes*/
+  @media only screen and (max-width: 480px){
+    .fc-center{
+     /* display: none;*/
+     /*This is to remove the component generated title*/
+    }
+
+    .fc-right .fc-button-group {
+      position: relative;
+      display: -webkit-inline-box;
+      display: -ms-inline-flexbox;
+      display: inline-flex;
+      vertical-align: middle; 
+      flex-direction: column;
+      border-radius: 0em; 
+      padding: 0;
+    }
+  }
+
+  @media only screen and (max-width: 650px){
+      .fc-left {
+          font-size: x-small;
+      }
+
+      .fc-view-container{
+        box-sizing: unset;
+      }
+
+      .fc-center{
+          font-size: x-small;
+      }
+
+      .fc-right{
+          font-size: x-small;
+          text-align: right;
+          /*I want to display it on the top*/
+      }
+  }
+
+  @media only screen and (max-width: 476px){
+
+      .fc-head{
+          font-size: xx-small;
+          /*instead of this I would like to change it to single lettered week characters like S M T W Th F Sa*/
+      }
+
+      .fc-body{
+          font-size: smaller;
+          line-height: 2;
+      }
+  }
