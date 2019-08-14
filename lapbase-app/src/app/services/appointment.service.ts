@@ -22,7 +22,7 @@ export class AppointmentService {
 
   getAppointmentsDemo = (): IAppointment[] => {
     return [
-      {id: "1", title: 'Appointment with Dr. A', start: new Date('2019-08-01T11:30:00'), end:new Date('2019-08-01T12:30:00'), patientId: 1},
+      {id: "1", title: 'Appointment with Dr. A', start: new Date('2019-08-01T11:30:00'), end: new Date('2019-08-01T12:30:00'), patientId: 1},
       {id: "2", title: 'Routine checkup', start: new Date('2019-08-02T13:05:00'), end: new Date('2019-08-02T13:20:00'), patientId: 1}
     ];
   }

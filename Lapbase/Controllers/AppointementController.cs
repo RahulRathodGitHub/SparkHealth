@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lapbase.LapbaseModels;
+using Lapbase.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,18 +13,25 @@ namespace Lapbase.Controllers
     [ApiController]
     public class AppointementController : Controller
     {
+        private readonly AppointmentService appointmentService;
+
+        public AppointementController(AppointmentService appointmentService)
+        {
+            this.appointmentService = appointmentService;
+        }
+
         // GET: api/Appointement
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<List<TblPatientConsult>>> GetPatients()
         {
-            return new string[] { "value1", "value2" };
+            return await appointmentService.GetAppointments();
         }
 
         // GET: api/Appointement/5
-        [HttpGet("{id}", Name = "Get")]
-        public string Get(int id)
+        [HttpGet("{id}")]
+        public async Task<TblPatientConsult> GetAsync(int id)
         {
-            return "value";
+            return await appointmentService.GetAppointmentById(id);
         }
 
         // POST: api/Appointement

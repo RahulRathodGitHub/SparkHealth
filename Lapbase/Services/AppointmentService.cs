@@ -1,5 +1,6 @@
 ﻿using Lapbase.LapbaseModels;
 using Lapbase.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -24,9 +25,14 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-        public async Task<List<Appointment>> GetAppointments()
+        public async Task<List<TblPatientConsult>> GetAppointments()
         {
-            return await lapbaseContext.Patient.ToListAsync();
+            return await lapbaseContext.TblPatientConsult.ToListAsync();
+        }
+
+        public async Task<TblPatientConsult> GetAppointmentById(int id)
+        {
+            return await lapbaseContext.TblPatientConsult.SingleOrDefaultAsync(p => p.ConsultId == id);
         }
     }
 }
