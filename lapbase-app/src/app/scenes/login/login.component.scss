@@ -1,0 +1,63 @@
+.header {
+  height: 110px;
+  background-color: #384a5a;
+  display: block;
+}
+
+.body {
+  background-color: #e1e1e1;
+}
+button,
+button:hover {
+  background-color: #384a5a;
+  width: 23.5rem;
+  height: 3.7rem;
+  color: white;
+  border-radius: 28px;
+  margin-top: 90px;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.checkbox {
+  position: absolute;
+  right: 798px;
+}
+h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
+}
+
+input,
+input:focus {
+  border: 0;
+  box-shadow: none;
+  text-align: center;
+  padding-left: 0;
+}
+
+.input-line {
+  border: 0.4px solid black;
+  width: 23.5rem;
+  margin: 8px auto;
+}
+.login {
+  margin: 0 auto;
+  width: 55%;
+  text-align: center;
+  margin-top: 80px;
+  border: 1px solid black;
+  border-radius: 54px;
+  height: 530px;
+  padding: 25px 0 0;
+  background-color: white;
+}
+.login-title {
+  margin-bottom: 65px;
+}
+
+.login-title p {
+  font-size: 1rem;
+}
+
+
