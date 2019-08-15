@@ -40,7 +40,16 @@ write-Output "Time taken: $((Get-Date).Subtract($start_time).Seconds) second(s)"
 
 # Install Git
 write-host "Installing Git"
-Start-Process $git_exe -Wait
+Start-Process $git_filename -Wait
+
+# Fetch website
+
+
+# Npm install
+
+
+# Npm run
+
 
 # Done
 write-host "Done"
