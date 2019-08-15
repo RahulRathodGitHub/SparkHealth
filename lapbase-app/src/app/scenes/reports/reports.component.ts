@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ACTIVE_INDEX } from '@angular/core/src/render3/interfaces/container';
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -6,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class ReportsComponent implements OnInit {
   chartType = "";
+  dropdownActive = false; 
   weightLossData = [{}];
   constructor() {}
 
@@ -39,4 +41,24 @@ export class ReportsComponent implements OnInit {
     this.chartData = [];
     this.chartData.push(this.chartDatas[this.chartType]);
   }
+  public lineChartColors:Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'  
+    },]
+
+//   public dropdown(){
+//     var dropdown = document.querySelector('.dropdown');
+//   dropdown.addEventListener('click', function(event) {
+//   event.stopPropagation();
+//   dropdown.classList.toggle('is-active');
+// });
+//   }
+    public drop(){
+      this.dropdownActive = !this.dropdownActive;
+    }
 }
