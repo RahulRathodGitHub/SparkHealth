@@ -30,7 +30,7 @@ namespace Lapbase.Controllers
 
         // GET: api/Patient/GetPatientsLapbase
         [HttpGet("[Action]")]
-        public async Task<Object> GetPatientsLapbase()
+        public async Task<List<string>> GetPatientsLapbase()
         {
             return await patientService.GetPatientsLapbase();
         }

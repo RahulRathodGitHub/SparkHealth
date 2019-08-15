@@ -181,15 +181,15 @@ namespace Lapbase.Migrations
                 columns: new[] { "Id", "CalorieCount", "Name", "PatientId", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("a4f68d9d-9cbc-45cd-8aed-c48317f695f5"), 295, "Burger", 1, "piece" },
-                    { new Guid("83148ac3-1d56-43fe-a26f-92a204e7cdf6"), 40, "Onion", 1, "piece" },
-                    { new Guid("b430aa96-3eae-4c2e-9447-79863b8187c6"), 90, "Uncle Keith's Kappuccino", 1, "cup" }
+                    { new Guid("581f0299-0320-466c-bf34-8e38f9b7c0a6"), 295, "Burger", 1, "piece" },
+                    { new Guid("dc194663-6107-4c52-967e-0320967aba1d"), 40, "Onion", 1, "piece" },
+                    { new Guid("f050049f-a7b4-4a35-91ba-e29f5c3538d5"), 90, "Uncle Keith's Kappuccino", 1, "cup" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Task",
                 columns: new[] { "Id", "AdvisorId", "PatientId", "Repetition", "RepetitionInterval", "StartDate", "Type" },
-                values: new object[] { new Guid("cca29548-2bd8-4630-b0be-52be35d6dd74"), 1, 1, 1, 1, new DateTimeOffset(new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 0 });
+                values: new object[] { new Guid("5823f527-72f4-47fb-a87d-7cb6f9a8b87a"), 1, 1, 1, 1, new DateTimeOffset(new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exercise_ExerciseListId",
