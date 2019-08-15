@@ -25,14 +25,57 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-        public async Task<List<TblPatientConsult>> GetAppointments()
+        public async Task<List<Appointment>> GetAppointments()
         {
-            return await lapbaseContext.TblPatientConsult.ToListAsync();
+            return ToAppointment(await lapbaseContext.TblPatientConsult.ToListAsync());
         }
 
-        public async Task<TblPatientConsult> GetAppointmentById(int id)
+        public async Task<List<Appointment>> GetAppointmentById(int id)
         {
-            return await lapbaseContext.TblPatientConsult.SingleOrDefaultAsync(p => p.ConsultId == id);
+            return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id).ToListAsync());
+        }
+
+        public Appointment ToAppointment(TblPatientConsult PatientConsult)
+        {
+            Appointment appointment = new Appointment();
+            appointment.Id = PatientConsult.ConsultId;
+            appointment.Title = PatientConsult.ConsultType;
+            appointment.PatientId = PatientConsult.PatientId;
+            appointment.Start = PatientConsult.DateSeen;
+            appointment.End = PatientConsult.DateSeen;
+
+            return appointment;
+        }
+
+        public List<Appointment> ToAppointment(List<TblPatientConsult> PatientConsults)
+        {
+            //List<TblPatientConsult> patientConsults = PatientConsults.OrderBy(TblPatientConsult[0]);
+            List<Appointment> appointments = new List<Appointment>();
+
+            foreach(TblPatientConsult consult in PatientConsults){
+
+                Appointment appointment = new Appointment();
+                appointment.Id = consult.ConsultId;
+                appointment.Title = "Appointment";
+                appointment.PatientId = consult.PatientId;
+                appointment.Start = consult.DateSeen;
+                appointment.End = consult.DateSeen;
+
+                appointments.Add(appointment);   
+
+            }
+
+            TblPatientConsult lastConsult = PatientConsults.Last();
+            Appointment futureAppointment = new Appointment();
+            futureAppointment.Id = lastConsult.ConsultId;
+            futureAppointment.Title = "Appointment";
+            futureAppointment.PatientId = lastConsult.PatientId;
+            futureAppointment.Start = lastConsult.DateNextVisit;
+            futureAppointment.End = lastConsult.DateNextVisit;
+
+            appointments.Add(futureAppointment);
+
+            return appointments;
         }
     }
 }

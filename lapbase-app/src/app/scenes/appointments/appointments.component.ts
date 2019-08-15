@@ -23,7 +23,10 @@ export class AppointmentsComponent{
   eventDescription = "Empty Description";
 
   constructor(private appointmentService: AppointmentService){
-    this.calendarEvents = this.appointmentService.getAppointmentsDemo();
+    //this.calendarEvents = this.appointmentService.getAppointmentsDemo();
+    this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
+    //this.appointmentService.getAppointment(2756).then(result => this.calendarEvents = result);
+    //console.log(this.calendarEvents);
   }
 
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;

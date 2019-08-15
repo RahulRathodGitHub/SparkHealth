@@ -13,11 +13,11 @@ export class AppointmentService {
   }
 
   getAppointments = async (): Promise<IAppointment[]> => {
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointments/').toPromise<any>();
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/').toPromise<any>();
   }
 
-  getAppointment = async (id: number): Promise<IAppointment> => {
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointments/' + id).toPromise<any>();
+  getAppointment = async (id: number): Promise<IAppointment[]> => {
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/' + id).toPromise<any>();
   }
 
   getAppointmentsDemo = (): IAppointment[] => {
