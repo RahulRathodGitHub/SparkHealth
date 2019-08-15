@@ -55,7 +55,7 @@ import { FullCalendarModule } from '@fullcalendar/angular'; //For incorporating 
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ChartsModule
+    ChartsModule,
     FullCalendarModule
   ],
   providers: [],
