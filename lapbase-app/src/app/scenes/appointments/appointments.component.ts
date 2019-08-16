@@ -24,8 +24,10 @@ export class AppointmentsComponent{
 
   constructor(private appointmentService: AppointmentService){
     //this.calendarEvents = this.appointmentService.getAppointmentsDemo();
-    this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
-    //this.appointmentService.getAppointment(2756).then(result => this.calendarEvents = result);
+    //this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
+    this.appointmentService.getAppointmentsById(107057612).then(result => this.calendarEvents = result);
+    //107068092 -> Another good patient ID with a description.
+    //The description is provided in the notes part of the DB; especially deleted by wayne
     //console.log(this.calendarEvents);
   }
 
@@ -50,9 +52,19 @@ export class AppointmentsComponent{
   handleDateClick(event){
     this.eventClicked = true;
     this.eventTitle = event.event.title;
-    this.eventDescription = "You have "+event.event.title+" on "+ event.event.start.toDateString()+ 
-                            "\n From "+ event.event.start.toLocaleTimeString() + 
-                            " to " + event.event.end.toLocaleTimeString();
+    if(event.event){
+      if(event.event.extendedProps.description.length != 0)
+      {
+        this.eventDescription = event.event.extendedProps.description;
+      }
+      else
+      {
+        this.eventDescription = "You have "+event.event.title+" on "+ event.event.start.toDateString()+ 
+                              "\n From "+ event.event.start.toLocaleTimeString(); /*+ 
+                              " to " + event.event.end.toLocaleTimeString();*/
+      }
+    }
+  
   }
 
  /*addEvent() {

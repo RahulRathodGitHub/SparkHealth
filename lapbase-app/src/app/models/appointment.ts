@@ -4,4 +4,5 @@ export interface IAppointment {
     start: Date;
     end: Date;
     patientId: number;
+    description: string;
 }

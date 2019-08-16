@@ -35,18 +35,6 @@ namespace Lapbase.Services
             return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id).ToListAsync());
         }
 
-        public Appointment ToAppointment(TblPatientConsult PatientConsult)
-        {
-            Appointment appointment = new Appointment();
-            appointment.Id = PatientConsult.ConsultId;
-            appointment.Title = PatientConsult.ConsultType;
-            appointment.PatientId = PatientConsult.PatientId;
-            appointment.Start = PatientConsult.DateSeen;
-            appointment.End = PatientConsult.DateSeen;
-
-            return appointment;
-        }
-
         public List<Appointment> ToAppointment(List<TblPatientConsult> PatientConsults)
         {
             //List<TblPatientConsult> patientConsults = PatientConsults.OrderBy(TblPatientConsult[0]);
@@ -60,6 +48,7 @@ namespace Lapbase.Services
                 appointment.PatientId = consult.PatientId;
                 appointment.Start = consult.DateSeen;
                 appointment.End = consult.DateSeen;
+                appointment.description = consult.Notes;
 
                 appointments.Add(appointment);   
 
@@ -72,6 +61,7 @@ namespace Lapbase.Services
             futureAppointment.PatientId = lastConsult.PatientId;
             futureAppointment.Start = lastConsult.DateNextVisit;
             futureAppointment.End = lastConsult.DateNextVisit;
+            futureAppointment.description = lastConsult.Notes;
 
             appointments.Add(futureAppointment);
 

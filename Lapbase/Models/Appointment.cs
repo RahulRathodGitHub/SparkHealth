@@ -17,6 +17,7 @@ namespace Lapbase.Models
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         public int PatientId { get; set; }
+        public string description { get; set; }
 
     }
 
