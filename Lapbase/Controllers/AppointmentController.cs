@@ -35,11 +35,5 @@ namespace Lapbase.Controllers
             return await appointmentService.GetAppointmentById(id);
         }
 
-        // POST: api/Appointment
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
     }
 }

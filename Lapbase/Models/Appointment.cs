@@ -5,10 +5,6 @@ using System.Threading.Tasks;
 
 namespace Lapbase.Models
 {
-    /*public enum AppointmentType
-    {
-        //As in the lapbase website there were various visit types
-    }*/
 
     public class Appointment
     {
@@ -17,7 +13,7 @@ namespace Lapbase.Models
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         public int PatientId { get; set; }
-        public string description { get; set; }
+        public string Description { get; set; }
 
     }
 

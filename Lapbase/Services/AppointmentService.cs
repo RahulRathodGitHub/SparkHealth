@@ -48,7 +48,7 @@ namespace Lapbase.Services
                 appointment.PatientId = consult.PatientId;
                 appointment.Start = consult.DateSeen;
                 appointment.End = consult.DateSeen;
-                appointment.description = consult.Notes;
+                appointment.Description = consult.Notes;
 
                 appointments.Add(appointment);   
 
@@ -61,7 +61,7 @@ namespace Lapbase.Services
             futureAppointment.PatientId = lastConsult.PatientId;
             futureAppointment.Start = lastConsult.DateNextVisit;
             futureAppointment.End = lastConsult.DateNextVisit;
-            futureAppointment.description = lastConsult.Notes;
+            futureAppointment.Description = lastConsult.Notes;
 
             appointments.Add(futureAppointment);
 
