@@ -1,26 +1,10 @@
-[CmdletBinding()]
-param(
-    [Parameter(Mandatory=$true)]
-    [string] $ServicePrincipal_App_ID,
-
-    [Parameter(Mandatory=$true)]
-    [string] $ServicePrincipal_TENANT_ID,
-
-    [Parameter(Mandatory=$true)]
-    [SecureString] $ServicePrincipal_PASSWORD,
-    
-    [Parameter(Mandatory=$true)]
-    [string] $DbUsername,
-
-    [Parameter(Mandatory=$true)]
-    [SecureString] $DbPassword,
-
-    [Parameter(Mandatory=$false)]
-    [string] $AppNameSuffix,
-
-    [Parameter(Mandatory=$false)]
-    [string] $Location = 'australiaeast'
-)
+$ServicePrincipal_App_ID="61ff10ba-5b86-4b20-8dde-9ca53c6a6586"
+$ServicePrincipal_TENANT_ID="9aee26d8-97c2-4fad-8900-96735f6dc73f"
+$ServicePrincipal_PASSWORD="69ef97df-d5c1-491c-a888-d2289d21dd9e"
+$DbUsername="bestusername"
+$DbPassword=ConvertTo-SecureString -String "Bestpassword1" -AsPlainText -Force
+$AppNameSuffix="test"
+$Location = "australiaeast"
 
 function Get-UniqueString ([string] $Id, $Length=13)
 {
@@ -39,17 +23,17 @@ $DbName = $BaseAppName
 # Component Names
 # TEMPLATE: $ComponentName = "$($ResourceGroupName)ComponentName"
 
-Write-Verbose "------------------------Resource Group Provisioning [Started]------------------------"
+Write-Output "------------------------Resource Group Provisioning [Started]------------------------"
 # Login to Azure
-Write-Verbose "Logging in to Azure [Started]"
-&az login --service-principal --username $SP_App_ID --password $SP_PASSWORD --tenant $SP_TENANT_ID
-Write-Verbose "Logging in to Azure [Done]"
+Write-Output "Logging in to Azure [Started]"
+az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
+Write-Output "Logging in to Azure [Done]"
 
 # Create a resource group
-Write-Verbose "Creating Resource Group $($ResourceGroupName) [Started]"
-&az group create --location $Location --name $ResourceGroupName
-
-Write-Verbose "------------------------Resource Group Provisioning [Done]------------------------"
+Write-Output "Creating Resource Group $($ResourceGroupName) [Started]"
+az group create --location $Location --name $ResourceGroupName
+Write-Output "Creating Resource Group $($ResourceGroupName) [Done]"
+Write-Output "------------------------Resource Group Provisioning [Done]------------------------"
 
 $ResourceGroupId = &az group show --name "$ResourceGroupName" --query 'id' --output tsv
 $UniquePrefix = Get-UniqueString($ResourceGroupId)
@@ -66,58 +50,58 @@ $DbPasswordText = (New-Object PSCredential $DbUsername, $DbPassword).GetNetworkC
 
 $DbConnectionString = "Server=tcp:$($SqlServerName).database.windows.net,1433;Database=$($DbName);User ID=$($DbUsername);Password=$($DbPasswordText);Encrypt=true;Connection Timeout=30;"
 
-Write-Verbose "------------------------Provisioning [Started]------------------------"
+Write-Output "------------------------Provisioning [Started]------------------------"
 
 # Create a SQL Database logical server
-Write-Verbose "Creating SQL Server $($SqlServerName) [Started]"
+Write-Output "Creating SQL Server $($SqlServerName) [Started]"
 &az sql server create --name $SqlServerName --resource-group $ResourceGroupName --location $Location --admin-user """$DbUsername""" --admin-password """$DbPasswordText"""
-Write-Verbose "Creating SQL Server $($SqlServerName) [Done]"
+Write-Output "Creating SQL Server $($SqlServerName) [Done]"
 
 # Configure a server firewall rule
-Write-Verbose "Configuring SQL Server Firewall Rule [Started]"
+Write-Output "Configuring SQL Server Firewall Rule [Started]"
 &az sql server firewall-rule create --resource-group $ResourceGroupName --server $SqlServerName --name $DbFirewallRuleName --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
-Write-Verbose "Configuring SQL Server Firewall Rule [Done]"
+Write-Output "Configuring SQL Server Firewall Rule [Done]"
 
 # Create a database
-Write-Verbose "Creating Database [Started]"
+Write-Output "Creating Database [Started]"
 &az sql db create --resource-group $ResourceGroupName --server $SqlServerName --name $DbName --service-objective "Basic"
-Write-Verbose "Creating Database [Done]"
+Write-Output "Creating Database [Done]"
 
 # Create an App Service plan
-Write-Verbose "Creating App Service Plan $($WebAppServicePlan) [Started]"
+Write-Output "Creating App Service Plan $($WebAppServicePlan) [Started]"
 &az appservice plan create --name $WebAppServicePlan --resource-group $ResourceGroupName --sku "F1"
-Write-Verbose "Creating App Service Plan $($WebAppServicePlan) [Done]"
+Write-Output "Creating App Service Plan $($WebAppServicePlan) [Done]"
 
 # Create an App Resource for the WebApp
-Write-Verbose "Creating App Service Resource $($WebAppName) [Started]"
+Write-Output "Creating App Service Resource $($WebAppName) [Started]"
 &az webapp create --resource-group $ResourceGroupName --plan $WebAppServicePlan --name $WebAppName
-Write-Verbose "Creating App Service Resource $($WebAppName) [Done]"
+Write-Output "Creating App Service Resource $($WebAppName) [Done]"
 
 # Create an App Resource for the WebApi
-Write-Verbose "Creating App Service Resource $($WebApiName) [Started]"
+Write-Output "Creating App Service Resource $($WebApiName) [Started]"
 &az webapp create --resource-group $ResourceGroupName --plan $WebAppServicePlan --name $WebApiName
-Write-Verbose "Creating App Service Resource $($WebApiName) [Done]"
+Write-Output "Creating App Service Resource $($WebApiName) [Done]"
 
-Write-Verbose "------------------------Provisioning [Done]------------------------"
+Write-Output "------------------------Provisioning [Done]------------------------"
 
-Write-Verbose "------------------------Injecting Environment Variables [Started]------------------------"
+Write-Output "------------------------Injecting Environment Variables [Started]------------------------"
 $WebAppNameList = @(
     $WebAppName
     $WebApiName
 )
 
 foreach ($WebAppToConfigureName in $WebAppNameList) {
-    Write-Verbose "Injecting Connection String for $WebAppToConfigureName [Started]"
+    Write-Output "Injecting Connection String for $WebAppToConfigureName [Started]"
     &az webapp config connection-string set --resource-group $ResourceGroupName --name $WebAppToConfigureName --connection-string-type "SQLServer" --settings "DefaultConnection=$($DbConnectionString)"
-    Write-Verbose "Injecting Connection String [Done]"
+    Write-Output "Injecting Connection String [Done]"
 }
-Write-Verbose "------------------------Injecting Environment Variables [Done]------------------------"
+Write-Output "------------------------Injecting Environment Variables [Done]------------------------"
 
-Write-Verbose "------------------------Setting Up Error Logs [Started]------------------------"
-Write-Verbose "Setting Up Error Logs for $WebApiName [Started]"
+Write-Output "------------------------Setting Up Error Logs [Started]------------------------"
+Write-Output "Setting Up Error Logs for $WebApiName [Started]"
 &az webapp log config --name $WebApiName --resource-group $ResourceGroupName --application-logging true --level error
-Write-Verbose "Setting Up Error Logs for $WebApiName [Done]"
-Write-Verbose "------------------------Setting Up Error Logs [Done]------------------------"
+Write-Output "Setting Up Error Logs for $WebApiName [Done]"
+Write-Output "------------------------Setting Up Error Logs [Done]------------------------"
 
 $Results = [Ordered] @{
     BaseAppName = $BaseAppName
@@ -136,6 +120,6 @@ $Results = [Ordered] @{
     DbConnectionString = $DbConnectionString
 }
 
-Write-Verbose ($Results | Format-Table | Out-String)
+Write-Output ($Results | Format-Table | Out-String)
 
 Return $Results
