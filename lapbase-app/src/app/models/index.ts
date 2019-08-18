@@ -5,3 +5,4 @@ export * from './foodQuantity';
 export * from './exercise';
 export * from './foodIntakeList';
 export * from './foodIntakeListDto';
+export * from './appointment';

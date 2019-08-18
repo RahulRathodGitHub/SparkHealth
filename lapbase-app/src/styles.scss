@@ -1,4 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
+
+/*Below written two lines are for the calendar styling (Appointment Component)*/
+// @import '../node_modules/@fullcalendar/core/main.css';
+// @import '../node_modules/@fullcalendar/daygrid/main.css';
+// @import '../node_modules/@fullcalendar/timegrid/main.css';
+
+@import './app/custom-styles/full-calendar-custom.css';
+@import './app/custom-styles/full-calendar-daygird-custom.css';
+@import './app/custom-styles/full-calendar-timegrid-custom.css';
+
+
+
 :root {
     --primary: #384A5A;
     --primary-text: #B7B6C6;

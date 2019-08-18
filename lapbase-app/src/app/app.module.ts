@@ -27,6 +27,9 @@ import {
   NotFoundComponent,
 } from './scenes';
 
+import { FullCalendarModule } from '@fullcalendar/angular'; //For incorporating the Calendar for Appointment functinality
+
+
 
 @NgModule({
   declarations: [
@@ -52,7 +55,8 @@ import {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
