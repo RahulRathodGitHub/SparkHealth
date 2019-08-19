@@ -18,7 +18,7 @@ $WebAppServicePlan = $DeployedResources.WebAppServicePlan
 $DbName = $DeployedResources.DbName
 
 $WebAppName = $DeployedResources.WebAppName
-$ServiceHostApiName = $DeployedResources.ServiceHostApiName
+$WebApiName = $DeployedResources.WebApiName
 
 $SqlServerName = $DeployedResources.SqlServerName
 
@@ -47,16 +47,16 @@ Write-Output "Generate Web App Environment Settings [Started]"
 Push-Location $WebAppPath
 $ReactConfig = @"
 export const environment = {
-    production: true
-    LAPBASE_API_ADDRESS: $($DeployedResources.WebApiAddress)
+    production: true,
+    LAPBASE_API_ADDRESS: '$($DeployedResources.WebApiAddress)'
 };
 "@
 Out-File -FilePath "src\environments\environment.prod.ts" -InputObject $ReactConfig -Encoding "UTF8"
 
 Write-Output "Generate Web App Environment Settings [Done]"
-& npm install
-(& cmd.exe /c 'npm run build --loglevel=error') 2> $null
-Compress-Archive -Path "build\*" -DestinationPath "$($BuildArtifactsPath)\$($WebAppName).zip" -Force
+npm install --loglevel=error
+npm run build --loglevel=error
+Compress-Archive -Path "dist\lapbaseApp\*" -DestinationPath "$($BuildArtifactsPath)\$($WebAppName).zip" -Force
 Pop-Location
 Write-Output "Building WebApp [Done]"
 Write-Output "------------------------Building [Done]------------------------"
@@ -64,20 +64,25 @@ Write-Output "------------------------Building [Done]------------------------"
 Write-Output "------------------------Deploying [Started]------------------------"
 # Login to Azure
 Write-Output "Logging in to Azure [Started]"
-&az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
+az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
 Write-Output "Logging in to Azure [Done]"
 
 Write-Output "------------------------Force SSL Only [Started]------------------------"
-&az webapp update --https-only true --resource-group $ResourceGroupName --name $WebAppName
+az webapp update --https-only true --resource-group $ResourceGroupName --name $WebAppName
 Write-Output "------------------------Force SSL Only [Done]------------------------"
 
+$old_ErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = 'SilentlyContinue'
+
 Write-Output "Deploying WebApi [Started]"
-&az webapp deployment source config-zip --src "$($BuildArtifactsPath)\$($WebApiName).zip" --resource-group $ResourceGroupName --name $WebApiName
+az webapp deployment source config-zip --src "$($BuildArtifactsPath)\$($WebApiName).zip" --resource-group $ResourceGroupName --name $WebApiName
 Write-Output "Deploying WebApi [Done]"
 
 Write-Output "Deploying WebApp [Started]"
-&az webapp deployment source config-zip --src "$($BuildArtifactsPath)\$($WebAppName).zip" --resource-group $ResourceGroupName --name $WebAppName
+az webapp deployment source config-zip --src "$($BuildArtifactsPath)\$($WebAppName).zip" --resource-group $ResourceGroupName --name $WebAppName
 Write-Output "Deploying WebApp [Done]"
+
+$ErrorActionPreference = $old_ErrorActionPreference
 Write-Output "------------------------Deploying [Done]------------------------"
 
 Write-Output "Restarting WebApi [Started]"
