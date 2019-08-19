@@ -53,15 +53,18 @@ export class AppointmentsComponent{
     this.eventClicked = true;
     this.eventTitle = event.event.title;
     if(event.event){
-      if(event.event.extendedProps.description.length != 0)
+      if(event.event.extendedProps.description.length != 0)//Implies that the doctor have written notes
       {
-        this.eventDescription = event.event.extendedProps.description;
+        this.eventDescription = "You have an Appointment with "+event.event.extendedProps.doctorName+
+                                " at "+event.event.extendedProps.location+
+                                "\n NOTES: "+event.event.extendedProps.description;
       }
       else
       {
-        this.eventDescription = "You have "+event.event.title+" on "+ event.event.start.toDateString()+ 
-                              "\n From "+ event.event.start.toLocaleTimeString(); /*+ 
-                              " to " + event.event.end.toLocaleTimeString();*/
+        this.eventDescription = "You have "+event.event.title+" with "+ event.event.extendedProps.doctorName+
+                                "\nAt "+event.event.extendedProps.location+
+                                "\non "+ event.event.start.toDateString()+ 
+                                "\nFrom "+ event.event.start.toLocaleTimeString();
       }
     }
   
