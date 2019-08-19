@@ -43,10 +43,10 @@ export class ReportsComponent implements OnInit {
   }
   public lineChartColors:Array<any> = [
     { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
+      backgroundColor: '#ff9999',
+      borderColor: '#cc0033',
+      pointBackgroundColor: '#ff9999',
+      pointBorderColor: '#cc0033',
       pointHoverBackgroundColor: '#fff',
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'  
     },]
