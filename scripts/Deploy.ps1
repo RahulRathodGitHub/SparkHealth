@@ -20,6 +20,10 @@ $DbName = $DeployedResources.DbName
 $WebAppName = $DeployedResources.WebAppName
 $WebApiName = $DeployedResources.WebApiName
 
+$StorageAccountName = $DeployedResources.StorageAccountName
+$StorageAccountKey = $DeployedResources.StorageAccountKey
+$StorageContainerName = $DeployedResources.StorageContainerName
+Write-Output "---------------------------------Storage container name $StorageContainerName---------------------------------"
 $SqlServerName = $DeployedResources.SqlServerName
 
 $WebAppAddress = $DeployedResources.WebAppAddress
@@ -30,6 +34,8 @@ $DbConnectionString = $DeployedResources.DbConnectionString
 $BuildArtifactsPath = (New-Item -Path '..\publish' -ItemType 'Directory' -Force).FullName
 $WebAppPath = '..\lapbase-app'
 $WebApiPath = '..\Lapbase'
+
+$BacpacFileName = 'Lapbase.bacpac'
 
 Write-Output "Publish Directory: $BuildArtifactsPath"
 
@@ -45,13 +51,13 @@ Write-Output "Building WebApi [Done]"
 Write-Output "Building WebApp [Started]"
 Write-Output "Generate Web App Environment Settings [Started]"
 Push-Location $WebAppPath
-$ReactConfig = @"
+$AngularConfig = @"
 export const environment = {
     production: true,
     LAPBASE_API_ADDRESS: '$($DeployedResources.WebApiAddress)'
 };
 "@
-Out-File -FilePath "src\environments\environment.prod.ts" -InputObject $ReactConfig -Encoding "UTF8"
+Out-File -FilePath "src\environments\environment.prod.ts" -InputObject $AngularConfig -Encoding "UTF8"
 
 Write-Output "Generate Web App Environment Settings [Done]"
 npm install --loglevel=error
@@ -66,6 +72,20 @@ Write-Output "------------------------Deploying [Started]-----------------------
 Write-Output "Logging in to Azure [Started]"
 az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
 Write-Output "Logging in to Azure [Done]"
+
+# Upload database to blob storage
+Write-Output "Upload database to blob storage container $StorageContainerName [Started]"
+$old_ErrorActionPreference = $ErrorActionPreference
+$ErrorActionPreference = 'SilentlyContinue'
+az storage blob upload --container-name $StorageContainerName --name $BacpacFileName --file ($PSScriptRoot + ".\$BacpacFileName") --account-name $StorageAccountName --account-key $StorageAccountKey
+$ErrorActionPreference = $old_ErrorActionPreference
+Write-Output "Upload database to blob storage $StorageContainerName [Done]"
+
+# Import bacpac into database
+Write-Output "Importing bacpac into database $DbName [Started]"
+az sql db import --server $SqlServerName --name $DbName -g $ResourceGroupName -p $DbPassword -u $DbName --storage-key $StorageAccountKey `
+	--storage-key-type StorageAccessKey --storage-uri "https://$StorageAccountName.blob.core.windows.net/$StorageContainerName/$BacpacFileName"
+Write-Output "Importing bacpac into database $DbName [Done]"
 
 Write-Output "------------------------Force SSL Only [Started]------------------------"
 az webapp update --https-only true --resource-group $ResourceGroupName --name $WebAppName

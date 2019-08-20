@@ -35,13 +35,15 @@ az group create --location $Location --name $ResourceGroupName
 Write-Output "Creating Resource Group $($ResourceGroupName) [Done]"
 Write-Output "------------------------Resource Group Provisioning [Done]------------------------"
 
-$ResourceGroupId = &az group show --name "$ResourceGroupName" --query 'id' --output tsv
+$ResourceGroupId = az group show --name "$ResourceGroupName" --query 'id' --output tsv
 $UniquePrefix = Get-UniqueString($ResourceGroupId)
 
 $WebAppName = 'app-' + $UniquePrefix
 $WebApiName = 'api-' + $UniquePrefix
 
 $DbFirewallRuleName = 'sqlsvrfirewallrule-' + $UniquePrefix
+$StorageAccountName = 'storage' + $UniquePrefix
+$StorageContainerName = 'storagec' + $UniquePrefix
 $SqlServerName = 'sqlserver-' + $UniquePrefix
 
 $WebAppAddress = "https://$($WebAppName).azurewebsites.net"
@@ -54,32 +56,47 @@ Write-Output "------------------------Provisioning [Started]--------------------
 
 # Create a SQL Database logical server
 Write-Output "Creating SQL Server $($SqlServerName) [Started]"
-&az sql server create --name $SqlServerName --resource-group $ResourceGroupName --location $Location --admin-user """$DbUsername""" --admin-password """$DbPasswordText"""
+az sql server create --name $SqlServerName --resource-group $ResourceGroupName --location $Location --admin-user """$DbUsername""" --admin-password """$DbPasswordText"""
 Write-Output "Creating SQL Server $($SqlServerName) [Done]"
 
 # Configure a server firewall rule
 Write-Output "Configuring SQL Server Firewall Rule [Started]"
-&az sql server firewall-rule create --resource-group $ResourceGroupName --server $SqlServerName --name $DbFirewallRuleName --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
+az sql server firewall-rule create --resource-group $ResourceGroupName --server $SqlServerName --name $DbFirewallRuleName --start-ip-address 0.0.0.0 --end-ip-address 0.0.0.0
 Write-Output "Configuring SQL Server Firewall Rule [Done]"
+
+# Create a storage account
+Write-Output "Creating storage account [Started]"
+az storage account create --name $StorageAccountName --resource-group $ResourceGroupName --location $Location --sku Standard_LRS --encryption blob
+Write-Output "Creating storage account [Done]"
+
+Write-Output "Getting storage account key [Started]"
+$KeyList = az storage account keys list --account-name $StorageAccountName | ConvertFrom-Json
+$StorageAccountKey = $KeyList[0].value
+Write-Output "Getting storage account key [Done]"
+
+# Create a storage container
+Write-Output "Creating storage container [Started]"
+az storage container create --name $StorageContainerName --account-name $StorageAccountName --account-key $StorageAccountKey
+Write-Output "Creating storage container [Done]"
 
 # Create a database
 Write-Output "Creating Database [Started]"
-&az sql db create --resource-group $ResourceGroupName --server $SqlServerName --name $DbName --service-objective "Basic"
+az sql db create --resource-group $ResourceGroupName --server $SqlServerName --name $DbName --service-objective "Basic"
 Write-Output "Creating Database [Done]"
 
 # Create an App Service plan
 Write-Output "Creating App Service Plan $($WebAppServicePlan) [Started]"
-&az appservice plan create --name $WebAppServicePlan --resource-group $ResourceGroupName --sku "F1"
+az appservice plan create --name $WebAppServicePlan --resource-group $ResourceGroupName --sku "F1"
 Write-Output "Creating App Service Plan $($WebAppServicePlan) [Done]"
 
 # Create an App Resource for the WebApp
 Write-Output "Creating App Service Resource $($WebAppName) [Started]"
-&az webapp create --resource-group $ResourceGroupName --plan $WebAppServicePlan --name $WebAppName
+az webapp create --resource-group $ResourceGroupName --plan $WebAppServicePlan --name $WebAppName
 Write-Output "Creating App Service Resource $($WebAppName) [Done]"
 
 # Create an App Resource for the WebApi
 Write-Output "Creating App Service Resource $($WebApiName) [Started]"
-&az webapp create --resource-group $ResourceGroupName --plan $WebAppServicePlan --name $WebApiName
+az webapp create --resource-group $ResourceGroupName --plan $WebAppServicePlan --name $WebApiName
 Write-Output "Creating App Service Resource $($WebApiName) [Done]"
 
 Write-Output "------------------------Provisioning [Done]------------------------"
@@ -112,6 +129,9 @@ $Results = [Ordered] @{
     WebAppName = $WebAppName
     WebApiName = $WebApiName
 
+	StorageAccountName = $StorageAccountName
+	StorageContainerName = $StorageContainerName
+	StorageAccountKey = $StorageAccountKey
     SqlServerName = $SqlServerName
 
     WebAppAddress = $WebAppAddress
