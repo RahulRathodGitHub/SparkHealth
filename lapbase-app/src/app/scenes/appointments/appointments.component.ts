@@ -20,7 +20,10 @@ export class AppointmentsComponent{
 
   eventClicked = false;
   eventTitle = "Empty Event";
-  eventDescription = "Empty Description";
+  eventDescription = "";
+  eventDoctorName = "";
+  eventLocation = "";
+  eventTime = "";
 
   constructor(private appointmentService: AppointmentService){
     //this.calendarEvents = this.appointmentService.getAppointmentsDemo();
@@ -50,30 +53,24 @@ export class AppointmentsComponent{
 
 
   handleDateClick(event){
+
     this.eventClicked = true;
     this.eventTitle = event.event.title;
+    this.eventDoctorName = event.event.extendedProps.doctorName;
+    this.eventLocation = event.event.extendedProps.location;
+    this.eventTime = event.event.start.toDateString();
+
     if(event.event){
       if(event.event.extendedProps.description.length != 0)//Implies that the doctor have written notes
       {
-        this.eventDescription = "You have an Appointment with "+event.event.extendedProps.doctorName+
-                                " at "+event.event.extendedProps.location+
-                                "\n NOTES: "+event.event.extendedProps.description;
+        this.eventDescription = event.event.extendedProps.description;   
       }
       else
       {
-        this.eventDescription = "You have "+event.event.title+" with "+ event.event.extendedProps.doctorName+
-                                "\nAt "+event.event.extendedProps.location+
-                                "\non "+ event.event.start.toDateString()+ 
-                                "\nFrom "+ event.event.start.toLocaleTimeString();
+        this.eventDescription = "";
       }
     }
   
   }
-
- /*addEvent() {
-    this.calendarEvents = this.calendarEvents.concat({ // creates a new array!
-      { title: 'Event 3', date: '2019-04-02' }
-    });
-  }*/
 
 }
