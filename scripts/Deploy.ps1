@@ -2,7 +2,8 @@ $ServicePrincipal_App_ID="61ff10ba-5b86-4b20-8dde-9ca53c6a6586"
 $ServicePrincipal_TENANT_ID="9aee26d8-97c2-4fad-8900-96735f6dc73f"
 $ServicePrincipal_PASSWORD="69ef97df-d5c1-491c-a888-d2289d21dd9e"
 $DbUsername="bestusername"
-$DbPassword="bestpassword"
+$DbPassword=ConvertTo-SecureString -String "Bestpassword1" -AsPlainText -Force
+$DbPasswordText = (New-Object PSCredential $DbUsername, $DbPassword).GetNetworkCredential().Password
 $AppNameSuffix="test"
 $Location = "australiaeast"
 
@@ -83,8 +84,7 @@ Write-Output "Upload database to blob storage $StorageContainerName [Done]"
 
 # Import bacpac into database
 Write-Output "Importing bacpac into database $DbName [Started]"
-az sql db import --server $SqlServerName --name $DbName -g $ResourceGroupName -p $DbPassword -u $DbName --storage-key $StorageAccountKey `
-	--storage-key-type StorageAccessKey --storage-uri "https://$StorageAccountName.blob.core.windows.net/$StorageContainerName/$BacpacFileName"
+az sql db import --server $SqlServerName --name $DbName -g $ResourceGroupName -p $DbPasswordText -u $DbUsername --storage-key $StorageAccountKey --storage-key-type StorageAccessKey --storage-uri "https://$StorageAccountName.blob.core.windows.net/$StorageContainerName/$BacpacFileName"
 Write-Output "Importing bacpac into database $DbName [Done]"
 
 Write-Output "------------------------Force SSL Only [Started]------------------------"
@@ -106,5 +106,5 @@ $ErrorActionPreference = $old_ErrorActionPreference
 Write-Output "------------------------Deploying [Done]------------------------"
 
 Write-Output "Restarting WebApi [Started]"
-&az webapp restart --resource-group $ResourceGroupName --name $WebApiName
+az webapp restart --resource-group $ResourceGroupName --name $WebApiName
 Write-Output "Restarting WebApi [Done]"
