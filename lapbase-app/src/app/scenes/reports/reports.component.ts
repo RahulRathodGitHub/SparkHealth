@@ -39,10 +39,6 @@ export class ReportsComponent implements OnInit {
     maintainAspectRatio: false
   };
 
-  chartDatas = {
-    weightLoss: { data: this.report.weight, label: "Weight Loss" }
-  };
-
   chartData = [{ data: this.report.weight, label: "Weight Loss" }];
 
   onChartClick(event) {
@@ -52,8 +48,8 @@ export class ReportsComponent implements OnInit {
   setChartType(chartType) {
     this.chartType = chartType;
 
-    this.chartData = [];
-    this.chartData.push(this.chartDatas[this.chartType]);
+    // this.chartData = [];
+    // this.chartData.push(this.chartDatas[this.chartType]);
   }
   public lineChartColors: Array<any> = [
     {
