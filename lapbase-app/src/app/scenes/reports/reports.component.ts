@@ -1,17 +1,38 @@
 import { Component, OnInit } from "@angular/core";
-import { ACTIVE_INDEX } from '@angular/core/src/render3/interfaces/container';
+import { ACTIVE_INDEX } from "@angular/core/src/render3/interfaces/container";
+import { ReportService } from "src/app/services/report.service";
+import { reporttype, WeightReport } from "src/app/models/report";
+import { getLocaleDateTimeFormat } from "@angular/common";
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
   styleUrls: ["./reports.component.scss"]
 })
 export class ReportsComponent implements OnInit {
-  chartType = "";
-  dropdownActive = false; 
-  weightLossData = [{}];
-  constructor() {}
+  report: WeightReport;
 
-  ngOnInit() {}
+  chartType = "";
+  chartLabels;
+  dropdownActive = false;
+  weightLossData = [{}];
+  constructor(private reportService: ReportService) {}
+
+  ngOnInit() {
+    //Retrieving weight data as default data when users visit the Report page
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear() - 4;
+    this.reportService
+      .getReportsById(
+        27,
+        reporttype.Weight,
+        new Date(yyyy + "-" + mm + "-" + dd),
+        today
+      )
+      .then(p => (this.report = p));
+    this.chartLabels = this.report.weightRecordedTime;
+  }
 
   chartOptions = {
     responsive: true,
@@ -19,18 +40,10 @@ export class ReportsComponent implements OnInit {
   };
 
   chartDatas = {
-    weightLoss: { data: [330, 600, 260, 700], label: "Weight Loss" },
-    bmi: { data: [120, 455, 100, 340], label: "BMI" },
-    adverseEventSummary: {
-      data: [45, 67, 800, 500],
-      label: "Adverse Event Summary"
-    },
-    operationDetails: { data: [45, 67, 800, 500], label: "Operation Details" },
-    progress: { data: [45, 67, 800, 500], label: "Progress" }
+    weightLoss: { data: this.report.weight, label: "Weight Loss" }
   };
 
-  chartData = [{ data: [330, 600, 260, 700], label: "Weight Loss" }];
-  chartLabels = ["January", "February", "March", "April"];
+  chartData = [{ data: this.report.weight, label: "Weight Loss" }];
 
   onChartClick(event) {
     console.log(event);
@@ -38,27 +51,30 @@ export class ReportsComponent implements OnInit {
 
   setChartType(chartType) {
     this.chartType = chartType;
+
     this.chartData = [];
     this.chartData.push(this.chartDatas[this.chartType]);
   }
-  public lineChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'  
-    },]
-
-//   public dropdown(){
-//     var dropdown = document.querySelector('.dropdown');
-//   dropdown.addEventListener('click', function(event) {
-//   event.stopPropagation();
-//   dropdown.classList.toggle('is-active');
-// });
-//   }
-    public drop(){
-      this.dropdownActive = !this.dropdownActive;
+  public lineChartColors: Array<any> = [
+    {
+      // grey
+      backgroundColor: "rgba(148,159,177,0.2)",
+      borderColor: "rgba(148,159,177,1)",
+      pointBackgroundColor: "rgba(148,159,177,1)",
+      pointBorderColor: "#fff",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(148,159,177,0.8)"
     }
+  ];
+
+  //   public dropdown(){
+  //     var dropdown = document.querySelector('.dropdown');
+  //   dropdown.addEventListener('click', function(event) {
+  //   event.stopPropagation();
+  //   dropdown.classList.toggle('is-active');
+  // });
+  //   }
+  public drop() {
+    this.dropdownActive = !this.dropdownActive;
+  }
 }
