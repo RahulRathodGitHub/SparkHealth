@@ -27,45 +27,49 @@ namespace Lapbase.Services
 
         public async Task<List<Appointment>> GetAppointments()
         {
-            return ToAppointment(await lapbaseContext.TblPatientConsult.ToListAsync());
+            return ToAppointment(await lapbaseContext.TblPatientConsult.ToListAsync(), 
+                                 await lapbaseContext.TblDoctors.ToListAsync());
         }
 
         public async Task<List<Appointment>> GetAppointmentById(int id)
         {
-            return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id).ToListAsync());
+            return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id).ToListAsync(),
+                                 await lapbaseContext.TblDoctors.ToListAsync());
         }
 
-        public List<Appointment> ToAppointment(List<TblPatientConsult> PatientConsults)
+        public List<Appointment> ToAppointment(List<TblPatientConsult> PatientConsults, List<TblDoctors> Doctors)
         {
-            //List<TblPatientConsult> patientConsults = PatientConsults.OrderBy(TblPatientConsult[0]);
-            List<Appointment> appointments = new List<Appointment>();
+            PatientConsults.OrderBy(t => t.DateSeen);
 
-            foreach(TblPatientConsult consult in PatientConsults){
+            var query =  from consult in PatientConsults
+                         join doctor in Doctors
+                         on consult.Seenby equals doctor.DoctorId into docPatientConsult // I want to add another condition for matching Organisation Code
+                         from dpconsult in docPatientConsult.DefaultIfEmpty()
+                         select new Appointment
+                         {
+                             Id = consult.ConsultId,
+                             Title = "Appointment",
+                             PatientId = consult.PatientId,
+                             Start = consult.DateSeen,
+                             End = consult.DateSeen,
+                             Description = consult.Notes,// == null ? "No Notes were provided" : consult.Notes,
+                             DoctorName = dpconsult.DoctorName,
+                             Location = dpconsult.Address1+", "+dpconsult.Suburb+", "+dpconsult.Country
+                         };
 
-                Appointment appointment = new Appointment();
-                appointment.Id = consult.ConsultId;
-                appointment.Title = "Appointment";
-                appointment.PatientId = consult.PatientId;
-                appointment.Start = consult.DateSeen;
-                appointment.End = consult.DateSeen;
-                appointment.Description = consult.Notes;
+            List<Appointment> appointments = query.ToList();
 
-                appointments.Add(appointment);   
-
-            }
-
+            //Below logic needs to be cleaned
             TblPatientConsult lastConsult = PatientConsults.Last();
-            Appointment futureAppointment = new Appointment();
-            futureAppointment.Id = lastConsult.ConsultId;
-            futureAppointment.Title = "Appointment";
-            futureAppointment.PatientId = lastConsult.PatientId;
+            Appointment futureAppointment = appointments.Last();
             futureAppointment.Start = lastConsult.DateNextVisit;
             futureAppointment.End = lastConsult.DateNextVisit;
-            futureAppointment.Description = lastConsult.Notes;
+            futureAppointment.Description = "";
 
             appointments.Add(futureAppointment);
 
             return appointments;
         }
+
     }
 }
