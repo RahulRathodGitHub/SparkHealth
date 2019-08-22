@@ -1,6 +1,7 @@
 $ServicePrincipal_App_ID="61ff10ba-5b86-4b20-8dde-9ca53c6a6586"
 $ServicePrincipal_TENANT_ID="9aee26d8-97c2-4fad-8900-96735f6dc73f"
 $ServicePrincipal_PASSWORD="69ef97df-d5c1-491c-a888-d2289d21dd9e"
+$SQLServerAdminUsername="bestuser"
 $DbUsername="bestusername"
 $DbPassword=ConvertTo-SecureString -String "Bestpassword1" -AsPlainText -Force
 $AppNameSuffix="test"
@@ -49,6 +50,7 @@ $SqlServerName = 'sqlserver-' + $UniquePrefix
 $WebAppAddress = "https://$($WebAppName).azurewebsites.net"
 $WebApiAddress = "https://$($WebApiName).azurewebsites.net"
 $DbPasswordText = (New-Object PSCredential $DbUsername, $DbPassword).GetNetworkCredential().Password
+$SQLServerAdminPasswordText = (New-Object PSCredential $SQLServerAdminUsername, $DbPassword).GetNetworkCredential().Password
 
 $DbConnectionString = "Server=tcp:$($SqlServerName).database.windows.net,1433;Database=$($DbName);User ID=$($DbUsername);Password=$($DbPasswordText);Encrypt=true;Connection Timeout=30;"
 
@@ -56,7 +58,7 @@ Write-Output "------------------------Provisioning [Started]--------------------
 
 # Create a SQL Database logical server
 Write-Output "Creating SQL Server $($SqlServerName) [Started]"
-az sql server create --name $SqlServerName --resource-group $ResourceGroupName --location $Location --admin-user """$DbUsername""" --admin-password """$DbPasswordText"""
+az sql server create --name $SqlServerName --resource-group $ResourceGroupName --location $Location --admin-user """$SQLServerAdminUsername""" --admin-password """$SQLServerAdminPasswordText"""
 Write-Output "Creating SQL Server $($SqlServerName) [Done]"
 
 # Configure a server firewall rule
