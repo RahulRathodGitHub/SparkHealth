@@ -135,6 +135,7 @@ $Results = [Ordered] @{
 	StorageContainerName = $StorageContainerName
 	StorageAccountKey = $StorageAccountKey
     SqlServerName = $SqlServerName
+    SQLServerAdminUsername=$SQLServerAdminUsername
 
     WebAppAddress = $WebAppAddress
     WebApiAddress = $WebApiAddress

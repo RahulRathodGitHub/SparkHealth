@@ -18,6 +18,8 @@ $ResourceGroupName = $DeployedResources.ResourceGroupName
 $WebAppServicePlan = $DeployedResources.WebAppServicePlan
 $DbName = $DeployedResources.DbName
 
+$SQLServerAdminUsername = $DeployedResources.SQLServerAdminUsername
+
 $WebAppName = $DeployedResources.WebAppName
 $WebApiName = $DeployedResources.WebApiName
 
@@ -31,6 +33,8 @@ $WebAppAddress = $DeployedResources.WebAppAddress
 $WebApiAddress = $DeployedResources.WebApiAddress
 
 $DbConnectionString = $DeployedResources.DbConnectionString
+
+$SQLServerAdminPasswordText = (New-Object PSCredential $SQLServerAdminUsername, $DbPassword).GetNetworkCredential().Password
 
 $BuildArtifactsPath = (New-Item -Path '..\publish' -ItemType 'Directory' -Force).FullName
 $WebAppPath = '..\lapbase-app'
@@ -55,7 +59,7 @@ Push-Location $WebAppPath
 $AngularConfig = @"
 export const environment = {
     production: true,
-    LAPBASE_API_ADDRESS: '$($DeployedResources.WebApiAddress)'
+    LAPBASE_API_ADDRESS: '$($DeployedResources.WebApiAddress)/api/'
 };
 "@
 Out-File -FilePath "src\environments\environment.prod.ts" -InputObject $AngularConfig -Encoding "UTF8"
@@ -84,7 +88,7 @@ Write-Output "Upload database to blob storage $StorageContainerName [Done]"
 
 # Import bacpac into database
 Write-Output "Importing bacpac into database $DbName [Started]"
-az sql db import --server $SqlServerName --name $DbName -g $ResourceGroupName -p $DbPasswordText -u $DbUsername --storage-key $StorageAccountKey --storage-key-type StorageAccessKey --storage-uri "https://$StorageAccountName.blob.core.windows.net/$StorageContainerName/$BacpacFileName"
+az sql db import --server $SqlServerName --name $DbName -g $ResourceGroupName -p $SQLServerAdminPasswordText -u $SQLServerAdminUsername --storage-key $StorageAccountKey --storage-key-type StorageAccessKey --storage-uri "https://$StorageAccountName.blob.core.windows.net/$StorageContainerName/$BacpacFileName"
 Write-Output "Importing bacpac into database $DbName [Done]"
 
 Write-Output "------------------------Force SSL Only [Started]------------------------"
