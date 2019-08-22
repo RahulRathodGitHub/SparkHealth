@@ -1,21 +1,29 @@
-<div class="body">
-  <div class="header"></div>
+<!-- <div class="body">
+  <div [ngClass]="{ header: screenWidth > 375 }"></div>
 
-  <div class="login">
-    <form>
+  <div class="login ">
+    <div *ngIf="screenWidth <= 375"><h1>Lapbase Logo</h1></div>
+    <form (ngSubmit)="onSubmit()">
       <div class="login-title">
         <h1>SIGN IN</h1>
-        <p>Welcome to LapBase. Please login to continue</p>
+        <p *ngIf="screenWidth > 375; else shortenSentence">
+          Welcome to LapBase. Please login to continue
+        </p>
+        <ng-template #shortenSentence>
+          <p>Welcome to LapBase. Please login</p>
+        </ng-template>
+      </div>
+      <div class="input-area">
+        <div class="control ">
+          <input placeholder="username" class="input" type="email" ngModel />
+        </div>
+        <div class="input-line"></div>
+
+        <div class="control ">
+          <input placeholder="password" class="input" type="password" ngModel />
+        </div>
       </div>
 
-      <div class="control ">
-        <input placeholder="username" class="input" type="email" ngModel />
-      </div>
-      <div class="input-line"></div>
-
-      <div class="control ">
-        <input placeholder="password" class="input" type="password" ngModel />
-      </div>
       <div class="login-buttons">
         <button class="button ">LOGIN</button>
         <br />
@@ -25,5 +33,59 @@
         </label>
       </div>
     </form>
+  </div>
+</div> -->
+
+<div class="body">
+  <div class="hero" [ngClass]="{ header: screenWidth > 375 }">
+    <h1 class="title">LapBase</h1>
+  </div>
+
+  <div class="columns is-mobile is-centered">
+    <div
+      class="column is-half "
+      [ngClass]="{ 'login is-half': screenWidth > 760 }"
+    >
+      <form (ngSubmit)="onSubmit()">
+        <div class="field login-title">
+          <h1 class=" is-hidden-mobile">SIGN IN</h1>
+          <p class="" *ngIf="screenWidth > 760; else shortenSentence">
+            Welcome to LapBase. Please login to continue
+          </p>
+          <ng-template #shortenSentence>
+            <p>Welcome to LapBase. Please login</p>
+          </ng-template>
+        </div>
+
+        <div class="field input-area">
+          <div class="control ">
+            <input placeholder="username" class="input" type="email" ngModel />
+          </div>
+          <div class="input-line is-hidden-mobile"></div>
+
+          <div class="control ">
+            <input
+              placeholder="password"
+              class="input"
+              type="password"
+              ngModel
+            />
+          </div>
+        </div>
+
+        <div class="columns is-mobile is-centered">
+          <div class="field submit">
+            <div class="login-buttons">
+              <button class="button ">LOGIN</button>
+              <br />
+              <label class="checkbox">
+                <input type="checkbox" />
+                Remember me
+              </label>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

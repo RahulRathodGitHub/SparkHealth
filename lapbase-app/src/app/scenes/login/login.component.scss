@@ -1,12 +1,7 @@
-.header {
-  height: 110px;
-  background-color: #384a5a;
-  display: block;
-}
-
 .body {
   background-color: #e1e1e1;
 }
+
 button,
 button:hover {
   background-color: #384a5a;
@@ -14,26 +9,20 @@ button:hover {
   height: 3.7rem;
   color: white;
   border-radius: 28px;
-  margin-top: 90px;
+  margin-top: 70px;
   margin-bottom: 10px;
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
-.checkbox {
-  position: absolute;
-  right: 798px;
-}
-h1 {
-  font-size: 3.5rem;
-  font-weight: bold;
+.header {
+  height: 110px;
+  background-color: #384a5a;
 }
 
-input,
-input:focus {
+.input {
   border: 0;
   box-shadow: none;
   text-align: center;
-  padding-left: 0;
 }
 
 .input-line {
@@ -41,9 +30,9 @@ input:focus {
   width: 23.5rem;
   margin: 8px auto;
 }
+
 .login {
   margin: 0 auto;
-  width: 55%;
   text-align: center;
   margin-top: 80px;
   border: 1px solid black;
@@ -52,12 +41,50 @@ input:focus {
   padding: 25px 0 0;
   background-color: white;
 }
+
 .login-title {
   margin-bottom: 65px;
+}
+
+.login-title h1 {
+  font-size: 3.5rem;
+  font-weight: bold;
 }
 
 .login-title p {
   font-size: 1rem;
 }
 
+@media only screen and (max-width: 768px) {
+  .body {
+    background-color: white;
+  }
 
+  button,
+  button:hover {
+    width: 17.5rem;
+    height: 3rem;
+    border-radius: 9px;
+    margin-bottom: 20px;
+  }
+
+  .header {
+    margin-bottom: 50px;
+  }
+
+  .input {
+    border-radius: 0;
+    border-bottom: 1px solid black;
+    margin-bottom: 30px;
+  }
+
+  .input-area {
+    width: 17rem;
+    margin: 0 auto;
+  }
+
+  .login-title p {
+    text-align: center;
+    font-size: 0.75rem;
+  }
+}
