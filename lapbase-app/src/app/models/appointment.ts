@@ -5,4 +5,6 @@ export interface IAppointment {
     end: Date;
     patientId: number;
     description: string;
+    doctorName: string;
+    location: string;
 }

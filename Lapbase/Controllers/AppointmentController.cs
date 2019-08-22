@@ -21,13 +21,6 @@ namespace Lapbase.Controllers
             this.appointmentService = appointmentService;
         }
 
-        // GET: api/Appointment
-        [HttpGet]
-        public async Task<ActionResult<List<Appointment>>> GetAppointments()
-        {
-            return await appointmentService.GetAppointments();
-        }
-
         // GET: api/Appointment/5
         [HttpGet("{id}")]
         public async Task<ActionResult<List<Appointment>>> GetAppointmentsById(int id)
