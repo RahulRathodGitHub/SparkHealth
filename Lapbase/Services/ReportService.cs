@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 
 namespace Lapbase.Services
 {
+    public enum ReportType
+    {
+       Weight
+    }
+
     public class ReportService
     {
         private readonly LapbaseContext lapbaseContext;
@@ -26,18 +31,54 @@ namespace Lapbase.Services
         }
 
         
-        public async Task<List<decimal>> GetReports()
+        //public async Task<WeightReport> GetReports()
+        //{
+        //    //This is the demo list of the weights
+        //    var patientId = 1;
+        //    WeightReport weightReport = new WeightReport(1, DateTime.UtcNow, patientId);
+        //    await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == 1).ForEachAsync(p =>{
+
+        //        weightReport.Weight.Add(p.Weight);
+        //        weightReport.weightRecordedTime.Add(p.DateSeen);
+
+        //    });
+
+        //    return weightReport;
+
+        //    /*
+        //    List<WeightTime> wtArray =  await lapbaseContext.TblPatientConsult.Select(p => new WeightTime(p.Weight, p.DateSeen)).ToListAsync();
+        //    return new WeightReport(1, DateTime.UtcNow, 1, wtArray );
+        //    */
+            
+        //}
+         
+        public async Task<IReport> GetReportById(int patientId, DateTime startDate, DateTime endDate, ReportType reportType)
         {
-            //This is the demo list of the weights
-            return await lapbaseContext.TblPatientConsult.Select(p => p.Weight).ToListAsync();
+            //if (reportType == ReportType.Weight) {
+                return await GetWeightReport(patientId, startDate, endDate);
+           // }
+           // else
+
+           // return null;
+            
+
         }
 
-        /*
-         
-        public async Task<List<>> GetReportById(int id)
+        public async Task<WeightReport> GetWeightReport(int patientId, DateTime startDate, DateTime endDate)
         {
-            return await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id).ToListAsync();
+            //This is the demo list of the weights
+            WeightReport weightReport = new WeightReport();
+            //var consults = await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && (p.DateSeen >= startDate && p.DateSeen <= endDate)).ToListAsync();
+            await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && (p.DateSeen >= startDate && p.DateSeen <= endDate))
+                                                  .ForEachAsync(p => {
+
+                                                      weightReport.Weight.Add(p.Weight);
+                                                      weightReport.weightRecordedTime.Add(p.DateSeen);
+
+                                                  });
+
+            return weightReport;
         }
-        */
+        
     }
 }

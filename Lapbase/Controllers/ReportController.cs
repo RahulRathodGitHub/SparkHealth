@@ -23,17 +23,17 @@ namespace Lapbase.Controllers
         }
 
         // GET: api/Report
-        [HttpGet]
-        public async Task<ActionResult<List<decimal>>> GetReports()
+        /*[HttpGet]
+        public async Task<ActionResult<WeightReport>> GetReports()
         {
             return await reportService.GetReports();
-        }
+        }*/
 
         // GET: api/Report/5
         [HttpGet("{id}")]
-        public string GetReport(int id)
+        public async Task<IReport> GetReport([FromRoute] int id, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
         {
-            return "value";
+            return await reportService.GetReportById(id, startDate, endDate, reportType);
         }
 
     }
