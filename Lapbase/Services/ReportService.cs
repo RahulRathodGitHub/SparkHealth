@@ -54,13 +54,17 @@ namespace Lapbase.Services
          
         public async Task<IReport> GetReportById(int patientId, DateTime startDate, DateTime endDate, ReportType reportType)
         {
-            //if (reportType == ReportType.Weight) {
+            //if (reportType == ReportType.Weight)
+            //{
                 return await GetWeightReport(patientId, startDate, endDate);
-           // }
-           // else
+            //}
+            //else if (reportType == ReportType.PatientProgress)
+            //{
+            //    return await GetPatientProgressReport(2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1)
+            //}
 
-           // return null;
-            
+
+
 
         }
 
@@ -79,6 +83,40 @@ namespace Lapbase.Services
 
             return weightReport;
         }
-        
+
+        public async Task<List<PatientProgressReport>> GetPatientProgressReport(string OrganizationCode, decimal SurgeonId, 
+                                                                                string HospitalCode,     string RegionId, 
+                                                                                string FDate,            string TDate, 
+                                                                                byte ImperialFlag,       decimal FAge, 
+                                                                                decimal TAge,            decimal FBMI, 
+                                                                                decimal TBMI,            string GroupCode, 
+                                                                                string SurgeryType,      string BandType, 
+                                                                                string Approach,         string Category, 
+                                                                                string BandSize,         int reportType)
+        {
+            List<PatientProgressReport> patientProgressReport = lapbaseNewContext.PatientProgressReport.FromSql("Lapbase.RPT.sp_Rep_PatientProgress @p0, @p1, @p2, " +
+                                                                                                                "@p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, " +
+                                                                                                                "@p13, @p14, @p15, @p16, @p17", 
+
+                                                                                                                new object[] { OrganizationCode, SurgeonId, HospitalCode,
+                                                                                                                               RegionId, FDate, TDate, ImperialFlag, FAge,
+                                                                                                                               TAge,FBMI, TBMI, GroupCode, SurgeryType,
+                                                                                                                               BandType, Approach, Category, BandSize, reportType }
+
+                                                                                                                ).ToList();
+            patientProgressReport.ForEach(p => Console.WriteLine(">>>>> " + p.ToString()));
+
+            return patientProgressReport;
+
+            //  Following is the dummy data being used.
+            //  OrganizationCode, SurgeonId, HospitalCode, RegionId, FDate, TDate, ImperialFlag, FAge, TAge, FBMI, TBMI, GroupCode, SurgeryType, BandType, Approach, Category, BandSize, ReportType
+            //  @OrganizationCode, @SurgeonId, @HospitalCode, @RegionId, @FDate, @TDate, "@ImperialFlag, @FAge,@TAge,@FBMI,@TBMI,@GroupCode,@SurgeryType,@BandType,@Approach, @Category,@BandSize,@ReportType
+            //  2 , 418, "2", "mel",null , null , 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1
+
+            //  The function below returns an integer.
+            //  Console.WriteLine("ahhahahah: "+lapbaseContext.Database.ExecuteSqlCommand("RPT.sp_Rep_PatientProgress @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17", parameters: new object[] { 2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1 }));
+
+        }
+
     }
 }
