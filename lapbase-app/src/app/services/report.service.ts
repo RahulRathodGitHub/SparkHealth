@@ -17,21 +17,13 @@ export class ReportService {
 
   getReportsById = async (
     id: Number,
-    reportType: reporttype,
-    startDate: Date,
-    endDate: Date
+    reportType: Number,
+    startDate: String,
+    endDate: String
   ): Promise<WeightReport> => {
     return await this.httpClient
       .get(
-        environment.LAPBASE_API_ADDRESS +
-          "Report/" +
-          id +
-          "?startDate=" +
-          startDate +
-          "?endDate=" +
-          endDate +
-          "?reportType=" +
-          reportType
+        "https://localhost:5001/api/Report/35?startDate=1995-12-10T00:00:00&endDate=1999-02-14T00:00:00&reportType=0"
       )
       .toPromise<any>();
   };

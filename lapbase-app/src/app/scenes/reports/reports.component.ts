@@ -2,7 +2,8 @@ import { Component, OnInit } from "@angular/core";
 import { ACTIVE_INDEX } from "@angular/core/src/render3/interfaces/container";
 import { ReportService } from "src/app/services/report.service";
 import { reporttype, WeightReport } from "src/app/models/report";
-import { getLocaleDateTimeFormat } from "@angular/common";
+import { DatePipe } from "@angular/common";
+
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -10,28 +11,17 @@ import { getLocaleDateTimeFormat } from "@angular/common";
 })
 export class ReportsComponent implements OnInit {
   report: WeightReport;
-
-  chartType = "";
-  chartLabels;
+  chartData = {};
+  chartLabels = {};
   dropdownActive = false;
   weightLossData = [{}];
-  constructor(private reportService: ReportService) {}
+  constructor(
+    private datepipe: DatePipe,
+    private reportService: ReportService
+  ) {}
 
   ngOnInit() {
-    //Retrieving weight data as default data when users visit the Report page
-    var today = new Date();
-    var dd = String(today.getDate()).padStart(2, "0");
-    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-    var yyyy = today.getFullYear() - 4;
-    this.reportService
-      .getReportsById(
-        27,
-        reporttype.Weight,
-        new Date(yyyy + "-" + mm + "-" + dd),
-        today
-      )
-      .then(p => (this.report = p));
-    this.chartLabels = this.report.weightRecordedTime;
+    this.setChartType("weightLoss");
   }
 
   chartOptions = {
@@ -39,21 +29,42 @@ export class ReportsComponent implements OnInit {
     maintainAspectRatio: false
   };
 
-  chartDatas = {
-    weightLoss: { data: this.report.weight, label: "Weight Loss" }
-  };
-
-  chartData = [{ data: this.report.weight, label: "Weight Loss" }];
-
   onChartClick(event) {
     console.log(event);
   }
 
   setChartType(chartType) {
-    this.chartType = chartType;
+    var number: Number;
+    switch (chartType) {
+      case "weightLoss":
+        number = reporttype["Weight"];
+        break;
+      // case "bmi" : number = reporttype['Bmi'];break;
+      // case "ewl" : number = reporttype['Ewl'];break;
+      // case "twl" : number = reporttype['Twl'];break;
+      // case "progress" : number = reporttype['Progress'];break;
+    }
 
-    this.chartData = [];
-    this.chartData.push(this.chartDatas[this.chartType]);
+    //Retrieving weight data as default data when users visit the Report page
+    var today = new Date();
+
+    var twoYearsAgo = new Date();
+    twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
+
+    this.reportService
+      .getReportsById(
+        27,
+        number,
+        this.datepipe.transform(twoYearsAgo, "yyyy-MM-dd"),
+        this.datepipe.transform(today, "yyyy-MM-dd")
+      )
+      .then(p => {
+        this.report = p;
+        console.log(p);
+
+        this.chartData = [{ data: this.report.weight, label: "Weight Loss" }];
+        this.chartLabels = this.report.weightRecordedTime;
+      });
   }
   public lineChartColors: Array<any> = [
     {
