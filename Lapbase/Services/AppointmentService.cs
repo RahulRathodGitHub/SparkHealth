@@ -1,9 +1,8 @@
 ﻿using Lapbase.LapbaseModels;
 using Lapbase.Models;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -25,47 +24,36 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-        public async Task<List<Appointment>> GetAppointments()
+        public async Task<List<Appointment>> GetAppointmentById(int id)
         {
-            return ToAppointment(await lapbaseContext.TblPatientConsult.ToListAsync());
-        }
+            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id);
+            var result = await patientAppointments.Join(
+                    lapbaseContext.TblDoctors,
+                    c => c.Seenby,
+                    d => d.DoctorId,
+                    (consult, doctor) => new Appointment()
+                    {
+                        Id = consult.ConsultId,
+                        Title = "Appointment",
+                        PatientId = consult.PatientId,
+                        Start = consult.DateSeen,
+                        End = consult.DateSeen,
+                        Description = consult.Notes,// == null ? "No Notes were provided" : consult.Notes,
+                        DoctorName = doctor.DoctorName,
+                        Location = doctor.Address1 + ", " + doctor.Suburb + ", " + doctor.Country
+                    }
+                ).ToListAsync();
 
-        public async Task<List<Appointment>> GetAppointmentById(int id, int organizationCode)
-        {
-            return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).ToListAsync());
-        }
-
-        public List<Appointment> ToAppointment(List<TblPatientConsult> PatientConsults)
-        {
-            //List<TblPatientConsult> patientConsults = PatientConsults.OrderBy(TblPatientConsult[0]);
-            List<Appointment> appointments = new List<Appointment>();
-
-            foreach(TblPatientConsult consult in PatientConsults){
-
-                Appointment appointment = new Appointment();
-                appointment.Id = consult.ConsultId;
-                appointment.Title = "Appointment";
-                appointment.PatientId = consult.PatientId;
-                appointment.Start = consult.DateSeen;
-                appointment.End = consult.DateSeen;
-                appointment.Description = consult.Notes;
-
-                appointments.Add(appointment);   
-
-            }
-
-            TblPatientConsult lastConsult = PatientConsults.Last();
-            Appointment futureAppointment = new Appointment();
-            futureAppointment.Id = lastConsult.ConsultId;
-            futureAppointment.Title = "Appointment";
-            futureAppointment.PatientId = lastConsult.PatientId;
+            //Below logic needs to be cleaned
+            TblPatientConsult lastConsult = patientAppointments.Last();
+            Appointment futureAppointment = result.Last();
             futureAppointment.Start = lastConsult.DateNextVisit;
             futureAppointment.End = lastConsult.DateNextVisit;
-            futureAppointment.Description = lastConsult.Notes;
+            futureAppointment.Description = "";
 
-            appointments.Add(futureAppointment);
+            result.Add(futureAppointment);
 
-            return appointments;
+            return result;
         }
     }
 }

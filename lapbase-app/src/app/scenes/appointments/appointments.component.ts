@@ -3,7 +3,6 @@ import { Component, ViewChild } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
-import CalendarComponent from '@fullcalendar/core/CalendarComponent';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { IAppointment } from 'src/app/models';
 
@@ -13,16 +12,19 @@ import { IAppointment } from 'src/app/models';
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.scss']
 })
-export class AppointmentsComponent{
+export class AppointmentsComponent {
 
   calendarTitle;
   calendarEvents: IAppointment[];
 
   eventClicked = false;
   eventTitle = 'Empty Event';
-  eventDescription = 'Empty Description';
+  eventDescription = "Empty Description";
+  eventDoctorName = '';
+  eventLocation = '';
+  eventTime = '';
 
-  constructor(private appointmentService: AppointmentService){
+  constructor(private appointmentService: AppointmentService) {
     // Currently the below mentioned variables are hardCoded
     const patientId = 107057612; // 107068092 -> Another good patient ID with a description.
     const organizationCode = 2;
@@ -32,44 +34,27 @@ export class AppointmentsComponent{
 
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
-  getCalendarTitle() {
-
-    let calendarApi = this.calendarComponent.getApi();
-    // Using this API I can recreate the design using Bulma
-
-    if(calendarApi) return calendarApi.view.title;
-    else return "";
-  }
-
   // The plugins can be added if we want more calendar functionality
   calendarPlugins = [dayGridPlugin,      // For normal Day Grid Calendar View
-                     timeGrigPlugin, 
-                     interactionPlugin
-                    ];
+    timeGrigPlugin,
+    interactionPlugin
+  ];
 
 
-  handleDateClick(event){
+  handleDateClick(event) {
     this.eventClicked = true;
     this.eventTitle = event.event.title;
-    if(event.event){
-      if(event.event.extendedProps.description.length != 0)
-      {
-        this.eventDescription = event.event.extendedProps.description;
-      }
-      else
-      {
-        this.eventDescription = "You have "+event.event.title+" on "+ event.event.start.toDateString()+ 
-                              "\n From "+ event.event.start.toLocaleTimeString(); /*+ 
-                              " to " + event.event.end.toLocaleTimeString();*/
+    this.eventDoctorName = event.event.extendedProps.doctorName;
+    this.eventLocation = event.event.extendedProps.location;
+    this.eventTime = event.event.start.toDateString();
+
+    if (event.event) {
+      if (event.event.extendedProps.description.length !== 0) {
+          this.eventDescription = event.event.extendedProps.description;
+        } else {
+        this.eventDescription = '';
       }
     }
-  
   }
-
- /*addEvent() {
-    this.calendarEvents = this.calendarEvents.concat({ // creates a new array!
-      { title: 'Event 3', date: '2019-04-02' }
-    });
-  }*/
 
 }
