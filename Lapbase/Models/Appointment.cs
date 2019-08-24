@@ -16,6 +16,8 @@ namespace Lapbase.Models
         public string Description { get; set; }
         public string DoctorName { get; set; }
         public string Location { get; set; }
+        public decimal Weight { get; set; }
+        public decimal Bmi { get; set; }
 
     }
 
