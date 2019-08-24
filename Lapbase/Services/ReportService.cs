@@ -1,5 +1,6 @@
 ﻿using Lapbase.LapbaseModels;
 using Lapbase.Models;
+using Lapbase.OutputModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -41,7 +42,7 @@ namespace Lapbase.Services
             {
                 return await GetPatientProgressReport(2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1);
             }
-            else if(reportType == ReportType.WeightLoss)
+            else if (reportType == ReportType.WeightLoss)
             {
                 return await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
             }
@@ -78,7 +79,7 @@ namespace Lapbase.Services
                                                                                 string Approach, string Category,
                                                                                 string BandSize, int reportType)
         {
-            PatientProgressReport patientProgressReport = await lapbaseNewContext.PatientProgressReport.FromSql("Lapbase.RPT.sp_Rep_PatientProgress @p0, @p1, @p2, " +
+            PatientProgressReport patientProgressReport = await lapbaseContext.Query<PatientProgressReport>().FromSql("Lapbase.RPT.sp_Rep_PatientProgress @p0, @p1, @p2, " +
                                                                                                                 "@p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, " +
                                                                                                                 "@p13, @p14, @p15, @p16, @p17",
 
@@ -106,7 +107,7 @@ namespace Lapbase.Services
         {
             var userPracticeCode = 418;
 
-            return await lapbaseNewContext.EWL_WL_GraphReport.FromSql("Lapbase.RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2, @p3",
+            return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2, @p3",
                                                                        new object[] { organizationCode, userPracticeCode, patientId, imperialFlag})
                                                                        .FirstOrDefaultAsync();
         }

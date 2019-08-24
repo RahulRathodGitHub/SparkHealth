@@ -80,7 +80,6 @@ namespace Lapbase.Models
         public DbSet<Patient> Patient { get; set; }
         public DbSet<Models.Task> Task { get; set; }
         public DbSet<TaskInput> TaskInput { get; set; }
-        public DbSet<PatientProgressReport> PatientProgressReport { get; set; }
-        public DbSet<EWL_WL_GraphReport> EWL_WL_GraphReport { get; set; }
+
     }
 }

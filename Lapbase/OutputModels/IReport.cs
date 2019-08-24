@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Lapbase.Models
+namespace Lapbase.OutputModels
 {
     public interface IReport
     {

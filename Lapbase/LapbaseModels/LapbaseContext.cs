@@ -1,4 +1,5 @@
 ﻿using System;
+using Lapbase.OutputModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -125,6 +126,12 @@ namespace Lapbase.LapbaseModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("ProductVersion", "2.2.3-servicing-35854");
+
+            // Custom queries
+            #region Custom Queries
+            modelBuilder.Query<EWL_WL_GraphReport>();
+            modelBuilder.Query<PatientProgressReport>();
+            #endregion
 
             modelBuilder.Entity<TblActionLog>(entity =>
             {

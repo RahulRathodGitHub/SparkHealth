@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Lapbase.LapbaseModels;
+using Lapbase.OutputModels;
 using Lapbase.Models;
 using Lapbase.Services;
 using Microsoft.AspNetCore.Http;
