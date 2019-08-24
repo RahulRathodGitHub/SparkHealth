@@ -26,7 +26,8 @@ import {
   NotFoundComponent,
 } from './scenes';
 
-import { FullCalendarModule } from '@fullcalendar/angular'; //For incorporating the Calendar for Appointment functinality
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { TimelineEventComponent } from './components/timeline-event/timeline-event.component'; //For incorporating the Calendar for Appointment functinality
 
 
 
@@ -49,6 +50,7 @@ import { FullCalendarModule } from '@fullcalendar/angular'; //For incorporating 
     FoodTableComponent,
     ExerciseTableComponent,
     ExerciseEntryComponent,
+    TimelineEventComponent,
   ],
   imports: [
     BrowserModule,

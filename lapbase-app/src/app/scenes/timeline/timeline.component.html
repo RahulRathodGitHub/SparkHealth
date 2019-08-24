@@ -1,3 +1,13 @@
-<p>
-  timeline works!
-</p>
+<div class="timeline">
+
+  <header class="timeline-header">
+    <span class="tag is-medium is-primary">Start</span>
+  </header>
+
+  <app-timeline-event *ngFor="let timelineEvent of timelineEvents" [date]="timelineEvent.title" [description]="(timelineEvent.description.length > 0)? timelineEvent.description : description"></app-timeline-event>
+
+  <div class="timeline-header">
+    <span class="tag is-medium is-primary">End</span>
+  </div>
+
+</div>
