@@ -14,6 +14,8 @@ export class TimelineComponent implements OnInit {
   @Input() timelineEvents: IAppointment[];
 
   description:string = 'Next Appointment';
+  start: Date = new Date('1900-01-01T00:00:00');
+  
 
   constructor(private service: AppointmentService) {
     const patientId = 107057612;

@@ -4,7 +4,11 @@
     <span class="tag is-medium is-primary">Start</span>
   </header>
 
-  <app-timeline-event *ngFor="let timelineEvent of timelineEvents" [date]="timelineEvent.title" [description]="(timelineEvent.description.length > 0)? timelineEvent.description : description"></app-timeline-event>
+  <app-timeline-event *ngFor="let timelineEvent of timelineEvents" 
+                      [date]="timelineEvent.start.toLocaleString()" 
+                      [description]="(timelineEvent.description.length > 0)? timelineEvent.description : description"
+                      [break]="(timelineEvent.start.getYear() > start.getYear())? (start.setDate(timelineEvent.start)) : null ">
+  </app-timeline-event>
 
   <div class="timeline-header">
     <span class="tag is-medium is-primary">End</span>

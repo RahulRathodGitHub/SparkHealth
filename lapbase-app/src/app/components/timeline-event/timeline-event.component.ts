@@ -11,6 +11,7 @@ export class TimelineEventComponent implements OnInit {
 
   @Input() date: string;
   @Input() description: string = 'Next Appointment';
+  @Input() break: Date;
 
   descriptionVisible = false;
   
