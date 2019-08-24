@@ -24,9 +24,9 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-        public async Task<List<Appointment>> GetAppointmentById(int id)
+        public async Task<List<Appointment>> GetAppointmentById(int id, int organizationCode)
         {
-            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id);
+            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id && c.OrganizationCode == organizationCode);
             var result = await patientAppointments.Join(
                     lapbaseContext.TblDoctors,
                     c => c.Seenby,

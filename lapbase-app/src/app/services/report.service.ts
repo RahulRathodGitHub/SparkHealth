@@ -17,6 +17,7 @@ export class ReportService {
 
   getReportsById = async (
     id: Number,
+    organizationCode: Number,
     reportType: Number,
     startDate: String,
     endDate: String
@@ -26,6 +27,8 @@ export class ReportService {
         environment.LAPBASE_API_ADDRESS +
           "Report/" +
           id +
+          "/"+
+          organizationCode+
           "?startDate=" +
           startDate +
           "T00:00:00&endDate=" +

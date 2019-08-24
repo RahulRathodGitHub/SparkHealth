@@ -38,10 +38,11 @@ export class ReportsComponent implements OnInit {
 
   setChartType(chartType) {
     this.loading = true;
-    var number: Number;
+    var typeOfReport: reporttype;
+
     switch (chartType) {
       case "weightLoss":
-        number = reporttype["Weight"];
+        typeOfReport = reporttype["Weight"];
         break;
       // case "bmi" : number = reporttype['Bmi'];break;
       // case "ewl" : number = reporttype['Ewl'];break;
@@ -58,7 +59,8 @@ export class ReportsComponent implements OnInit {
     this.reportService
       .getReportsById(
         35,
-        number,
+        2,
+        typeOfReport,
         "1995-12-10",
         //this.datepipe.transform(twoYearsAgo, "yyyy-MM-dd")
         "1999-02-14"
