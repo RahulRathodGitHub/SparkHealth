@@ -23,7 +23,15 @@ export class ReportService {
   ): Promise<WeightReport> => {
     return await this.httpClient
       .get(
-        "https://localhost:5001/api/Report/35?startDate=1995-12-10T00:00:00&endDate=1999-02-14T00:00:00&reportType=0"
+        environment.LAPBASE_API_ADDRESS +
+          "Report/" +
+          id +
+          "?startDate=" +
+          startDate +
+          "T00:00:00&endDate=" +
+          endDate +
+          "T00:00:00&reportType=" +
+          reportType
       )
       .toPromise<any>();
   };

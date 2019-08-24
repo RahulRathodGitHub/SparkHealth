@@ -17,7 +17,11 @@
   </ul>
 </div>
 
-<div class="dropdown is-hidden-tablet" [class.is-active]="dropdownActive" (click)="drop()">
+<div
+  class="dropdown is-hidden-tablet"
+  [class.is-active]="dropdownActive"
+  (click)="drop()"
+>
   <div class="dropdown-trigger">
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
       <span>Select a Report and click generate</span>
@@ -34,22 +38,31 @@
       <a class="dropdown-item" (click)="setChartType('adverseEventSummary')">
         Adverse Event Summary
       </a>
-      <a  class="dropdown-item is-active" (click)="setChartType('bmi')">
+      <a class="dropdown-item is-active" (click)="setChartType('bmi')">
         BMI, %EWL, and %TWL Graph
       </a>
-      <a  class="dropdown-item" (click)="setChartType('operationDetails')">
+      <a class="dropdown-item" (click)="setChartType('operationDetails')">
         Operation Details
       </a>
-      <a  class="dropdown-item" (click)="setChartType('progress')">
+      <a class="dropdown-item" (click)="setChartType('progress')">
         Progress
       </a>
-    
     </div>
   </div>
 </div>
 
+<div class="lds-dual-ring"></div>
+
 <div class="graph">
-  <canvas baseChart [chartType]="'line'" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions"
-    [legend]="true" (chartClick)="onChartClick($event)" [colors]="lineChartColors">
+  <canvas
+    baseChart
+    [chartType]="'line'"
+    [datasets]="chartData"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    [legend]="true"
+    (chartClick)="onChartClick($event)"
+    [colors]="lineChartColors"
+  >
   </canvas>
 </div>

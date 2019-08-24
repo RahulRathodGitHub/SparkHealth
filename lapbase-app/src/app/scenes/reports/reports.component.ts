@@ -13,6 +13,9 @@ export class ReportsComponent implements OnInit {
   report: WeightReport;
   chartData = {};
   chartLabels = {};
+
+  loading = false;
+
   dropdownActive = false;
   weightLossData = [{}];
   constructor(
@@ -34,6 +37,7 @@ export class ReportsComponent implements OnInit {
   }
 
   setChartType(chartType) {
+    this.loading = true;
     var number: Number;
     switch (chartType) {
       case "weightLoss":
@@ -53,10 +57,12 @@ export class ReportsComponent implements OnInit {
 
     this.reportService
       .getReportsById(
-        27,
+        35,
         number,
-        this.datepipe.transform(twoYearsAgo, "yyyy-MM-dd"),
-        this.datepipe.transform(today, "yyyy-MM-dd")
+        "1995-12-10",
+        //this.datepipe.transform(twoYearsAgo, "yyyy-MM-dd")
+        "1999-02-14"
+        //this.datepipe.transform(today, "yyyy-MM-dd")
       )
       .then(p => {
         this.report = p;
@@ -64,6 +70,7 @@ export class ReportsComponent implements OnInit {
 
         this.chartData = [{ data: this.report.weight, label: "Weight Loss" }];
         this.chartLabels = this.report.weightRecordedTime;
+        this.loading = false;
       });
   }
   public lineChartColors: Array<any> = [
