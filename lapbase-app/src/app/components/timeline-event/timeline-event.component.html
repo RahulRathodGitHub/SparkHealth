@@ -1,13 +1,35 @@
-<header *ngIf="break" class="timeline-header">
+<!-- <header *ngIf="break" class="timeline-header">
     <span class="tag is-primary">{{ break }}</span>
-</header>
+</header> -->
 <div class="timeline-item">
   <div class="timeline-marker"></div>
   <div class="timeline-content">
+      <!-- <article class="message">
+          <div class="message-header heading">
+            <p>Appointment: {{ date }}</p>
+            <a aria-label="more options">
+                <span class="icon">
+                  <i *ngIf="!descriptionVisible" class="fas fa-angle-down" aria-hidden="true" (click)="descriptionVisible = !descriptionVisible"></i>
+                  <i *ngIf="descriptionVisible" class="fas fa-angle-up" aria-hidden="true" (click)="descriptionVisible = !descriptionVisible"></i>
+                </span>
+            </a>
+            
+          </div>
+          
+          <div *ngIf="descriptionVisible" class="message-body">
+              <div class="content">
+                {{ description }}
+              </div>
+          </div>
+          
+      </article> -->
+
+
+
     <div class="card">
       <header class="card-header">
-        <p class="card-header-title">
-          {{ date }}
+        <p class="card-header-title heading">
+          {{ date.toLocaleDateString() }}
         </p>
         <a class="card-header-icon" aria-label="more options">
           <span class="icon">
