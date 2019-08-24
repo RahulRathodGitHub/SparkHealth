@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { ACTIVE_INDEX } from '@angular/core/src/render3/interfaces/container';
+import {IMyDrpOptions} from 'mydaterangepicker';
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -9,6 +10,16 @@ export class ReportsComponent implements OnInit {
   chartType = "";
   dropdownActive = false; 
   weightLossData = [{}];
+  myDateRangePickerOptions: IMyDrpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+};
+
+// For example initialize to specific date (09.10.2018 - 19.10.2018). It is also possible
+// to set initial date range value using the selDateRange attribute.
+today = Date.now;
+private model: any = {beginDate: {year: 2019, month: 8, day: 24},
+                         endDate: {year: 2019, month: 8, day: 24}};
   constructor() {}
 
   ngOnInit() {}

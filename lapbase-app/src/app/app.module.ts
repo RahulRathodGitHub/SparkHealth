@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import {FormsModule} from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
+import { MyDateRangePickerModule } from 'mydaterangepicker';
 import {
   HeaderComponent,
   SideMenuComponent,
@@ -56,9 +57,11 @@ import { FullCalendarModule } from '@fullcalendar/angular'; //For incorporating 
     HttpClientModule,
     FormsModule,
     ChartsModule,
-    FullCalendarModule
+    FullCalendarModule,
+    MyDateRangePickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+export class MyTestAppModule {}
