@@ -30,9 +30,9 @@ namespace Lapbase.Services
             return ToAppointment(await lapbaseContext.TblPatientConsult.ToListAsync());
         }
 
-        public async Task<List<Appointment>> GetAppointmentById(int id)
+        public async Task<List<Appointment>> GetAppointmentById(int id, int organizationCode)
         {
-            return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id).ToListAsync());
+            return ToAppointment(await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).ToListAsync());
         }
 
         public List<Appointment> ToAppointment(List<TblPatientConsult> PatientConsults)

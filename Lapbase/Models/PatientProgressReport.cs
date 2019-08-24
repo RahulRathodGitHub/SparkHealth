@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Lapbase.Models
 {
     [Table("PatientProgressReport")]
-    public class PatientProgressReport
+    public class PatientProgressReport: IReport
     {
         [Key]
         public string PatientID { get; set; }

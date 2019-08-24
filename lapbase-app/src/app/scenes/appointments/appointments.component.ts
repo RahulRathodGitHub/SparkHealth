@@ -19,31 +19,30 @@ export class AppointmentsComponent{
   calendarEvents: IAppointment[];
 
   eventClicked = false;
-  eventTitle = "Empty Event";
-  eventDescription = "Empty Description";
+  eventTitle = 'Empty Event';
+  eventDescription = 'Empty Description';
 
   constructor(private appointmentService: AppointmentService){
-    //this.calendarEvents = this.appointmentService.getAppointmentsDemo();
-    //this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
-    this.appointmentService.getAppointmentsById(107057612).then(result => this.calendarEvents = result);
-    //107068092 -> Another good patient ID with a description.
-    //The description is provided in the notes part of the DB; especially deleted by wayne
-    //console.log(this.calendarEvents);
+    // Currently the below mentioned variables are hardCoded
+    const patientId = 107057612; // 107068092 -> Another good patient ID with a description.
+    const organizationCode = 2;
+
+    this.appointmentService.getAppointmentsById(patientId, organizationCode).then(result => this.calendarEvents = result);
   }
 
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
-  getCalendarTitle(){
+  getCalendarTitle() {
 
     let calendarApi = this.calendarComponent.getApi();
-    //Using this API I can recreate the design using Bulma
+    // Using this API I can recreate the design using Bulma
 
     if(calendarApi) return calendarApi.view.title;
     else return "";
   }
 
-  //The plugins can be added if we want more calendar functionality
-  calendarPlugins = [dayGridPlugin,      //For normal Day Grid Calendar View
+  // The plugins can be added if we want more calendar functionality
+  calendarPlugins = [dayGridPlugin,      // For normal Day Grid Calendar View
                      timeGrigPlugin, 
                      interactionPlugin
                     ];
