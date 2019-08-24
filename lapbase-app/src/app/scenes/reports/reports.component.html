@@ -51,9 +51,9 @@
   </div>
 </div>
 
-<div class="lds-dual-ring"></div>
+<div *ngIf="loading == true" class="lds-dual-ring"></div>
 
-<div class="graph">
+<div *ngIf="loading == false" class="graph">
   <canvas
     baseChart
     [chartType]="'line'"
