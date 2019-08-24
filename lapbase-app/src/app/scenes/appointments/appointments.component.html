@@ -1,14 +1,58 @@
 <div *ngIf="eventClicked" class="modal is-active">
   <div class="modal-background" (click)="eventClicked = false;"></div>
     <div class="modal-content">
-      <article class="message is-link">
-        <div class="message-header">
-          <p>{{ eventTitle }}</p>
+
+      <div class="box">
+
+        <div class="media-content">
+          <p>
+            <span class = "icon is-large">
+              <i class="fas fa-square fa-lg"></i>
+            </span>
+            <strong>{{ eventTitle }}</strong>
+          </p>
+          <p>
+              <small>{{ eventDescription }}</small>
+          </p>
+          <p>
+              <span class = "icon is-large">
+                <i class="fas fa-map-marker-alt fa-lg"></i>
+              </span>
+              <strong>Location</strong>
+            </p>
+            <p>
+              <small>
+                  Location:
+                  Hospital of Galactic Empire,
+                  Level 2, Room 201
+              </small>
+            </p>
+            <p>
+                <span class = "icon is-large">
+                  <i class="fas fa-calendar-alt fa-lg"></i>
+                </span>
+                <strong>Date & Time</strong>
+                <p>
+                <small>
+                    Staff: Dr. Palpatine
+                </small>
+         
+              </p>
+              <p>
+                <span class = "icon is-large">
+                  <i class="fas fa-user-md fa-lg"></i>
+                </span>
+                <strong>Doctor</strong>
+                <p>
+                <small>
+                    Staff: Dr. Palpatine
+                </small>
+         
+              </p>
         </div>
-        <div class="message-body">
-          {{ eventDescription }}
-        </div>
-      </article>
+
+        
+      </div>
     </div>
   <button class="modal-close is-large" 
           aria-label="close" 
