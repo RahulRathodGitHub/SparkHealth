@@ -7,4 +7,6 @@ export interface IAppointment {
     description: string;
     doctorName: string;
     location: string;
+    weight: number;
+    bmi: number;
 }

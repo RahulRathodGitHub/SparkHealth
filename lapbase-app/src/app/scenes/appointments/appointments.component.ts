@@ -23,6 +23,8 @@ export class AppointmentsComponent {
   eventDoctorName = '';
   eventLocation = '';
   eventTime = '';
+  eventBmi = 0;
+  eventWeight = 0;
 
   constructor(private appointmentService: AppointmentService) {
     // this.calendarEvents = this.appointmentService.getAppointmentsDemo();
@@ -48,6 +50,8 @@ export class AppointmentsComponent {
     this.eventDoctorName = event.event.extendedProps.doctorName;
     this.eventLocation = event.event.extendedProps.location;
     this.eventTime = event.event.start.toDateString();
+    this.eventBmi = event.event.extendedProps.bmi;
+    this.eventWeight = event.event.extendedProps.weight;
 
     if (event.event) {
       if (event.event.extendedProps.description.length !== 0) {

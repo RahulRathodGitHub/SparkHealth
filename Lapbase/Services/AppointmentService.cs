@@ -40,7 +40,9 @@ namespace Lapbase.Services
                         End = consult.DateSeen,
                         Description = consult.Notes,// == null ? "No Notes were provided" : consult.Notes,
                         DoctorName = doctor.DoctorName,
-                        Location = doctor.Address1 + ", " + doctor.Suburb + ", " + doctor.Country
+                        Location = doctor.Address1 + ", " + doctor.Suburb + ", " + doctor.Country,
+                        Weight = consult.Weight,
+                        Bmi = consult.Bmiweight
                     }
                 ).ToListAsync();
 
