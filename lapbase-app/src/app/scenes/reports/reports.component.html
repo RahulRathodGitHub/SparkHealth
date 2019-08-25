@@ -1,12 +1,21 @@
 <div class="columns is-mobile">
-    <div class="column">
-      
-<form #myForm="ngForm" novalidate>
-    <my-date-range-picker name="mydaterange" [options]="myDateRangePickerOptions"
-                    [(ngModel)]="model" required></my-date-range-picker>
-</form>
-      </div>
-      </div>
+
+  <div class="column">
+    <form #myForm="ngForm" novalidate>
+      <my-date-picker name="startDate" [options]="startDateOptions"
+      [placeholder]="startDatePlaceholder"
+      (dateChanged)="onStartDateChanged($event)"></my-date-picker>
+
+  </form>
+  </div>
+  <div class="column">
+    <form #myForm="ngForm" novalidate>
+      <my-date-picker name="endDate"[options]="endDateOptions" 
+      [placeholder]="endDatePlaceholder"
+      (dateChanged)="onEndDateChanged($event)"></my-date-picker>
+  </form>
+  </div>
+</div>
 <div class="tabs is-centered is-hidden-mobile">
   <ul class="options">
     <li (click)="setChartType('weightLoss')"><a>Weight Loss</a></li>
@@ -36,16 +45,16 @@
       <a class="dropdown-item" (click)="setChartType('adverseEventSummary')">
         Adverse Event Summary
       </a>
-      <a  class="dropdown-item is-active" (click)="setChartType('bmi')">
+      <a class="dropdown-item is-active" (click)="setChartType('bmi')">
         BMI, %EWL, and %TWL Graph
       </a>
-      <a  class="dropdown-item" (click)="setChartType('operationDetails')">
+      <a class="dropdown-item" (click)="setChartType('operationDetails')">
         Operation Details
       </a>
-      <a  class="dropdown-item" (click)="setChartType('progress')">
+      <a class="dropdown-item" (click)="setChartType('progress')">
         Progress
       </a>
-    
+
     </div>
   </div>
 </div>
