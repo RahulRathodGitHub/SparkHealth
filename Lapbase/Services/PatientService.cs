@@ -47,6 +47,17 @@ namespace Lapbase.Services
             return await lapbaseNewContext.Patient.SingleOrDefaultAsync(p => p.Id == id);
         }
 
+        public string[] GetPatientLapbaseById(int id, int organizationCode)
+        {
+            string[] patientFullName = new string[2];
+
+            return lapbaseContext.TblPatients.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).Select(p => {
+                patientFullName[0] = p.Firstname;
+                patientFullName[1] = p.Surname;
+            });
+        }
+
+
         public async Task<Patient> CreatePatient(Patient patient)
         {
             patient.WhenCreated = DateTimeOffset.UtcNow;
