@@ -10,8 +10,8 @@ import { ITask, TaskType } from 'src/app/models';
 export class TasksComponent implements OnInit {
   private tasks: ITask[];
   private selectedTaskId: string;
-  private selectedTaskType: TaskType;
-  private step: number;
+  selectedTaskType: TaskType;
+  step: number;
 
   constructor(private service: TaskService) {
     service.getTasks().then(result => this.tasks = result);
