@@ -46,7 +46,9 @@ namespace Lapbase.Services
             }
             else if (reportType == ReportType.BMI)
             {
-                 await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode).ForEachAsync(res => result.AddEntry(res.Bmiweight, res.DateSeen.ToString()));
+                 await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateSeen >= startDate && p.DateSeen <= endDate)
+                                                       .OrderBy(p => p.DateSeen)
+                                                       .ForEachAsync(res => result.AddEntry(res.Bmiweight, res.DateSeen.ToString()));
                 //GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag)
                 return result;
             }
@@ -85,6 +87,7 @@ namespace Lapbase.Services
             return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
                                                                        new object[] { organizationCode, patientId, imperialFlag})
                                                                        .Where(p => p.DateSeen >= startDate && p.DateSeen <= endDate)
+                                                                       .OrderBy(p => p.DateSeen)
                                                                        .ToListAsync();
         }
 
