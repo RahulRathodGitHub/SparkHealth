@@ -1,8 +1,18 @@
 <div class="columns reports">
   <div class="column">
-    <h1 class="bd-notification is-info is-centered top">
-      Select a Report and click generate
-    </h1>
+    <form #myForm="ngForm" novalidate>
+      <my-date-picker name="startDate" [options]="startDateOptions"
+      [placeholder]="startDatePlaceholder"
+      (dateChanged)="onStartDateChanged($event)"></my-date-picker>
+
+  </form>
+  </div>
+  <div class="column">
+    <form #myForm="ngForm" novalidate>
+      <my-date-picker name="endDate"[options]="endDateOptions" 
+      [placeholder]="endDatePlaceholder"
+      (dateChanged)="onEndDateChanged($event)"></my-date-picker>
+  </form>
   </div>
 </div>
 <div class="tabs is-centered is-hidden-mobile">
@@ -47,6 +57,7 @@
       <a class="dropdown-item" (click)="setChartType('progress')">
         Progress
       </a>
+
     </div>
   </div>
 </div>

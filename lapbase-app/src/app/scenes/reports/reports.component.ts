@@ -1,9 +1,15 @@
 import { Component, OnInit } from "@angular/core";
+<<<<<<< HEAD
 import { ACTIVE_INDEX } from "@angular/core/src/render3/interfaces/container";
 import { ReportService } from "src/app/services/report.service";
 import { reporttype, IReport } from "src/app/models/report";
 import { DatePipe } from "@angular/common";
 
+=======
+import { ACTIVE_INDEX } from '@angular/core/src/render3/interfaces/container';
+import {IMyDrpOptions} from 'mydaterangepicker';
+import {IMyDpOptions} from 'mydatepicker';
+>>>>>>> origin/TEAMD-120_Date_Pick_In_Report_Page
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -18,6 +24,10 @@ export class ReportsComponent implements OnInit {
 
   dropdownActive = false;
   weightLossData = [{}];
+<<<<<<< HEAD
+=======
+                       constructor() {}
+>>>>>>> origin/TEAMD-120_Date_Pick_In_Report_Page
 
   constructor(
     private datepipe: DatePipe,
@@ -50,6 +60,7 @@ export class ReportsComponent implements OnInit {
       // case "twl" : number = reporttype['Twl'];break;
       // case "progress" : number = reporttype['Progress'];break;
     }
+<<<<<<< HEAD
 
     //Retrieving weight data as default data when users visit the Report page
     var today = new Date();
@@ -98,4 +109,23 @@ export class ReportsComponent implements OnInit {
   public drop() {
     this.dropdownActive = !this.dropdownActive;
   }
+=======
+    public startDateOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'dd.mm.yyyy',
+  };
+  public endDateOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+};
+  public onStartDateChanged (event){
+    console.log(new Date(event.jsdate));
+
+  }
+  public onEndDateChanged (event){
+    console.log(event);
+  }
+  private startDatePlaceholder: string = 'Start date';
+  private endDatePlaceholder: string = 'End date';
+>>>>>>> origin/TEAMD-120_Date_Pick_In_Report_Page
 }
