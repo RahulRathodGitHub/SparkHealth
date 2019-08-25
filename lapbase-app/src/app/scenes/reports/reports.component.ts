@@ -10,6 +10,7 @@ import { DatePipe } from "@angular/common";
   styleUrls: ["./reports.component.scss"]
 })
 export class ReportsComponent implements OnInit {
+  
   report: WeightReport;
   chartData = {};
   chartLabels = {};
@@ -68,10 +69,15 @@ export class ReportsComponent implements OnInit {
       )
       .then(p => {
         this.report = p;
-        console.log(p);
+        if(typeOfReport == reporttype.Weight)
+        {
+          this.chartData = [{ data: this.report.weight, label: "Weight Loss" }];
+          this.chartLabels = this.report.weightRecordedTime;
 
-        this.chartData = [{ data: this.report.weight, label: "Weight Loss" }];
-        this.chartLabels = this.report.weightRecordedTime;
+        }else if(typeOfReport == reporttype.WeightLoss)
+        {
+          this.chart
+        }
         this.loading = false;
       });
   }
