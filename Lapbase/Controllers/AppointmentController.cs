@@ -22,10 +22,10 @@ namespace Lapbase.Controllers
         }
 
         // GET: api/Appointment/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<Appointment>>> GetAppointmentsById(int id)
+        [HttpGet("{id}/{organizationCode}")]
+        public async Task<ActionResult<List<Appointment>>> GetAppointmentsById(int id, int organizationCode)
         {
-            return await appointmentService.GetAppointmentById(id);
+            return await appointmentService.GetAppointmentById(id, organizationCode);
         }
 
     }

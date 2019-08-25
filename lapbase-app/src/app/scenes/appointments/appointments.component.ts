@@ -27,9 +27,11 @@ export class AppointmentsComponent {
   eventWeight = 0;
 
   constructor(private appointmentService: AppointmentService) {
+    const organizationCode = 2;
+    const patientId = 107057612;
     // this.calendarEvents = this.appointmentService.getAppointmentsDemo();
     // this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
-    this.appointmentService.getAppointmentsById(107057612).then(result => this.calendarEvents = result);
+    this.appointmentService.getAppointmentsById(patientId, organizationCode).then(result => this.calendarEvents = result);
     // 107068092 -> Another good patient ID with a description.
     // The description is provided in the notes part of the DB; especially deleted by wayne
     // console.log(this.calendarEvents);
