@@ -32,7 +32,7 @@ namespace Lapbase.Controllers
 
         // GET: api/Report/5
         [HttpGet("{id}/{organizationCode}")] 
-        public async Task<List<IReport>> GetReport([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
+        public async Task<Report> GetReport([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
         {
             return await reportService.GetReportById(id, organizationCode, startDate, endDate, reportType);
         }

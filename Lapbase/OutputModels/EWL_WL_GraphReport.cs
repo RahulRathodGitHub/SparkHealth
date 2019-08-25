@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Lapbase.OutputModels
 {
-    public class EWL_WL_GraphReport : IReport
+    public class EWL_WL_GraphReport
     {
         public Nullable<DateTime> DateSeen { get; set; }
         public string DateSeen_MY { get; set; }

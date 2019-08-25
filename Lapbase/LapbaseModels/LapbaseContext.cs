@@ -130,7 +130,6 @@ namespace Lapbase.LapbaseModels
             // Custom queries
             #region Custom Queries
             modelBuilder.Query<EWL_WL_GraphReport>();
-            modelBuilder.Query<PatientProgressReport>();
             #endregion
 
             modelBuilder.Entity<TblActionLog>(entity =>

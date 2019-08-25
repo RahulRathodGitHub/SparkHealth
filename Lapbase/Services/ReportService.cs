@@ -12,8 +12,8 @@ namespace Lapbase.Services
 {
     public enum ReportType
     {
-       Weight,
-       WeightLoss
+       WeightLoss,
+       EWL
     }
 
     public class ReportService
@@ -33,19 +33,23 @@ namespace Lapbase.Services
         }
 
 
-        public async Task<List<IReport>> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
+        public async Task<Report> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
         {
             byte imperialFlag = 0;
-
-            //if (reportType == ReportType.WeightLoss)
-            //{
-                var result = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                return result.ToList<IReport>();
-            // }
-            //else // reportType == ReportType.Weight
-            //{
-            //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
-            //}
+            Report result = new Report();
+            if (reportType == ReportType.EWL)
+            {
+                var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
+                graphDetails.ForEach(res =>  result.AddEntry(res.EWL, res.strDateSeen)); //ToList<IReport>();
+                return result;
+            }
+            else// (reportType == ReportType.WeightLoss)
+            {
+                var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
+                graphDetails.ForEach(res => result.AddEntry(res.Weight, res.strDateSeen)); //ToList<IReport>();
+                return result;
+                //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
+            }
 
         }
 
@@ -65,39 +69,7 @@ namespace Lapbase.Services
             return weightReport;
         }
 
-        public async Task<PatientProgressReport> GetPatientProgressReport(int OrganizationCode, decimal SurgeonId,
-                                                                                string HospitalCode, string RegionId,
-                                                                                string FDate, string TDate,
-                                                                                byte ImperialFlag, decimal FAge,
-                                                                                decimal TAge, decimal FBMI,
-                                                                                decimal TBMI, string GroupCode,
-                                                                                string SurgeryType, string BandType,
-                                                                                string Approach, string Category,
-                                                                                string BandSize, int reportType)
-        {
-            PatientProgressReport patientProgressReport = await lapbaseContext.Query<PatientProgressReport>().FromSql("Lapbase.RPT.sp_Rep_PatientProgress @p0, @p1, @p2, " +
-                                                                                                                "@p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, " +
-                                                                                                                "@p13, @p14, @p15, @p16, @p17",
-
-                                                                                                                new object[] { OrganizationCode, SurgeonId, HospitalCode,
-                                                                                                                               RegionId, FDate, TDate, ImperialFlag, FAge,
-                                                                                                                               TAge,FBMI, TBMI, GroupCode, SurgeryType,
-                                                                                                                               BandType, Approach, Category, BandSize, reportType }
-
-                                                                                                                ).FirstOrDefaultAsync();
-            // patientProgressReport.ForEach(p => Console.WriteLine(">>>>> " + p.ToString()));
-
-            return patientProgressReport;
-
-            //  Following is the dummy data being used.
-            //  @OrganizationCode, @SurgeonId, @HospitalCode, @RegionId, @FDate, @TDate, "@ImperialFlag, @FAge,@TAge,@FBMI,@TBMI,@GroupCode,@SurgeryType,@BandType,@Approach, @Category,@BandSize,@ReportType
-            //  2 , 418, "2", "mel",null , null , 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1
-
-            //  The function below returns an integer.
-            //  Console.WriteLine("ahhahahah: "+lapbaseContext.Database.ExecuteSqlCommand("RPT.sp_Rep_PatientProgress @p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7, @p8, @p9, @p10, @p11, @p12, @p13, @p14, @p15, @p16, @p17", parameters: new object[] { 2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1 }));
-
-
-        }
+        
 
         public async Task<List<EWL_WL_GraphReport>> GetPatientEWL_WL_GraphReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
         {

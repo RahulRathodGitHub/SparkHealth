@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lapbase.Models
 {
-    public class WeightReport: IReport
+    public class WeightReport
     {
         public List<decimal> Weight { get; set; }
         public List<DateTime?> weightRecordedTime { get; set; }
