@@ -19,6 +19,25 @@ namespace Lapbase.Models
         public decimal Weight { get; set; }
         public decimal Bmi { get; set; }
 
+        public Appointment(Appointment anotherAppointment)
+        {
+            this.Id = 0;
+            this.Title = anotherAppointment.Title;
+            this.Start = anotherAppointment.Start;
+            this.End = anotherAppointment.End;
+            this.PatientId = anotherAppointment.PatientId;
+            this.Description = anotherAppointment.Description;
+            this.DoctorName = anotherAppointment.DoctorName;
+            this.Location = anotherAppointment.Location;
+            this.Weight = anotherAppointment.Weight;
+            this.Bmi = anotherAppointment.Bmi;
+        }
+
+        public Appointment()
+        {
+            
+        }
+
     }
 
 }

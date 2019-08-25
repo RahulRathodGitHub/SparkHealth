@@ -11,9 +11,6 @@
           </span>
           <strong>{{ eventTitle }}</strong>
         </p>
-        <p>
-          <small>{{ eventDescription }}</small>
-        </p>
 
         <div class="columns is-desktop">
           <div class="column">
@@ -59,7 +56,7 @@
 
               </p>
           </div>
-          <div class="column">
+          <div *ngIf="eventWeight !== 0" class="column">
 
               <span class="icon is-large">
                 <i class="fas fa-weight fa-lg"></i>
@@ -77,16 +74,19 @@
 
           </div>
         </div>
-        <p>
-          <span class="icon is-large">
-            <i class="fas fa-notes-medical fa-lg"></i>
-          </span>
-          <strong>Notes</strong>
-        </p>
-        <p>
-          <small>Here should be some notes</small>
-        </p>
+        <div *ngIf="eventDescription !== ''">
 
+          <p>
+            <span class="icon is-large">
+              <i class="fas fa-notes-medical fa-lg"></i>
+            </span>
+            <strong>Notes</strong>
+          </p>
+          <p>
+            <small>{{ eventDescription }}</small>
+          </p>
+          
+        </div>
         
       </div>
 
@@ -95,7 +95,13 @@
   <button class="modal-close is-large" aria-label="close" (click)="eventClicked = false;"></button>
 </div>
 
-<full-calendar #calendar defaultView="dayGridMonth" [aspectRatio]="0.9" [header]="{
+<full-calendar class="is-hidden-mobile" #calendar defaultView="dayGridMonth" [aspectRatio]="1.8" [header]="{
+    left: 'prev,next today',
+    center: 'title',
+    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+  }" [plugins]="calendarPlugins" [events]="calendarEvents" (eventClick)="handleDateClick($event)"></full-calendar>
+
+  <full-calendar class="is-hidden-tablet" defaultView="dayGridMonth" [contentHeight]="auto" [height]="500" [header]="{
     left: 'prev,next today',
     center: 'title',
     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
