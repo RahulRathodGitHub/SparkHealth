@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ACTIVE_INDEX } from "@angular/core/src/render3/interfaces/container";
 import { ReportService } from "src/app/services/report.service";
-import { reporttype, WeightReport } from "src/app/models/report";
+import { reporttype, IReport } from "src/app/models/report";
 import { DatePipe } from "@angular/common";
 
 @Component({
@@ -10,7 +10,7 @@ import { DatePipe } from "@angular/common";
   styleUrls: ["./reports.component.scss"]
 })
 export class ReportsComponent implements OnInit {
-  report: WeightReport;
+  report: IReport;
   chartData = {};
   chartLabels = {};
 
@@ -18,6 +18,7 @@ export class ReportsComponent implements OnInit {
 
   dropdownActive = false;
   weightLossData = [{}];
+
   constructor(
     private datepipe: DatePipe,
     private reportService: ReportService
@@ -70,8 +71,8 @@ export class ReportsComponent implements OnInit {
         this.report = p;
         console.log(p);
 
-        this.chartData = [{ data: this.report.weight, label: "Weight Loss" }];
-        this.chartLabels = this.report.weightRecordedTime;
+        this.chartData = [{ data: this.report.data, label: "Weight Loss" }];
+        this.chartLabels = this.report.label;
         this.loading = false;
       });
   }

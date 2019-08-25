@@ -21,14 +21,14 @@ export class ReportService {
     reportType: Number,
     startDate: String,
     endDate: String
-  ): Promise<WeightReport> => {
+  ): Promise<IReport[]> => {
     return await this.httpClient
       .get(
         environment.LAPBASE_API_ADDRESS +
           "Report/" +
           id +
-          "/"+
-          organizationCode+
+          "/" +
+          organizationCode +
           "?startDate=" +
           startDate +
           "T00:00:00&endDate=" +
