@@ -34,22 +34,22 @@ namespace Lapbase.Services
         }
 
 
-        public async Task<IReport> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
+        public async Task<List<EWL_WL_GraphReport>> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
         {
             byte imperialFlag = 0;
 
-            if (reportType == ReportType.PatientProgress)
-            {
-                return await GetPatientProgressReport(2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1);
-            }
-            else if (reportType == ReportType.WeightLoss)
-            {
+            //if (reportType == ReportType.PatientProgress)
+            //{
+            //    return await GetPatientProgressReport(2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1);
+            //}
+            //else if (reportType == ReportType.WeightLoss)
+            //{
                 return await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-            }
-            else // reportType == ReportType.Weight
-            {
-                return await GetWeightReport(patientId, organizationCode, startDate, endDate);
-            }
+            //}
+            //else // reportType == ReportType.Weight
+            //{
+            //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
+            //}
 
         }
 
@@ -103,13 +103,12 @@ namespace Lapbase.Services
 
         }
 
-        public async Task<EWL_WL_GraphReport> GetPatientEWL_WL_GraphReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
+        public async Task<List<EWL_WL_GraphReport>> GetPatientEWL_WL_GraphReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
         {
-            var userPracticeCode = 418;
 
-            return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2, @p3",
-                                                                       new object[] { organizationCode, userPracticeCode, patientId, imperialFlag})
-                                                                       .FirstOrDefaultAsync();
+            return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
+                                                                       new object[] { organizationCode, patientId, imperialFlag})
+                                                                       .ToListAsync();
         }
 
     }

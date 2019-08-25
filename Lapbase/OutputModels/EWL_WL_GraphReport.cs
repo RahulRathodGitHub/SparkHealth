@@ -16,9 +16,9 @@ namespace Lapbase.OutputModels
         public Nullable<decimal> EWL { get; set; }
         public string PatientName { get; set; }
         public Nullable<decimal> InitBMI { get; set; }
-        public Nullable<decimal> AGE { get; set; }
+        public Nullable<int> AGE { get; set; }
         public string strLapBandDate { get; set; }
-        public Nullable<byte> ImperialFlag { get; set; }
+        public Nullable<Boolean> ImperialFlag { get; set; }
         public Nullable<decimal> Weight { get; set; }
         public Nullable<decimal> CurrentWeight { get; set; }
         public Nullable<decimal> TargetWeight { get; set; }
@@ -26,6 +26,8 @@ namespace Lapbase.OutputModels
         public Nullable<decimal> StartWeight { get; set; }
         public string HeightMeasurment { get; set; }
         public string WeightMeasurment { get; set; }
+        public Nullable<int> visitWeeksFlag { get; set; }
+        public string strZeroDate { get; set; }
     }
 }
     
