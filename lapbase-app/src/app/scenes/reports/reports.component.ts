@@ -3,8 +3,8 @@ import { ACTIVE_INDEX } from "@angular/core/src/render3/interfaces/container";
 import { ReportService } from "src/app/services/report.service";
 import { reporttype, IReport } from "src/app/models/report";
 import { DatePipe } from "@angular/common";
-import {IMyDrpOptions} from 'mydaterangepicker';
-import {IMyDpOptions} from 'mydatepicker';
+import { IMyDrpOptions } from "mydaterangepicker";
+import { IMyDpOptions } from "mydatepicker";
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -14,7 +14,9 @@ export class ReportsComponent implements OnInit {
   report: IReport;
   chartData = {};
   chartLabels = {};
-
+  chartType;
+  startDate: String;
+  endDate: String;
   loading = false;
 
   dropdownActive = false;
@@ -26,6 +28,14 @@ export class ReportsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //Setting default dates
+    var twoYearsAgo = new Date();
+    twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
+
+    this.startDate = this.changeDateFormat(twoYearsAgo);
+    this.endDate = this.changeDateFormat(new Date());
+
+    //Retrieving weight data as default data when users visit the Report page
     this.setChartType("weightLoss");
   }
 
@@ -39,24 +49,19 @@ export class ReportsComponent implements OnInit {
   }
 
   setChartType(chartType) {
+    this.chartType = chartType;
     this.loading = true;
     var typeOfReport: reporttype;
 
     switch (chartType) {
-      case "weightLoss":
-        typeOfReport = reporttype["Weight"];
+      case "Weight Loss":
+        typeOfReport = reporttype["EWL"];
         break;
-      // case "bmi" : number = reporttype['Bmi'];break;
-      // case "ewl" : number = reporttype['Ewl'];break;
-      // case "twl" : number = reporttype['Twl'];break;
-      // case "progress" : number = reporttype['Progress'];break;
+      // case "BMI" : number = reporttype['Bmi'];break;
+      // case "EWL" : number = reporttype['Ewl'];break;
+      // case "TWL" : number = reporttype['Twl'];break;
+      // case "Progress" : number = reporttype['Progress'];break;
     }
-
-    //Retrieving weight data as default data when users visit the Report page
-    var today = new Date();
-
-    var twoYearsAgo = new Date();
-    twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
 
     this.reportService
       .getReportsById(
@@ -64,18 +69,22 @@ export class ReportsComponent implements OnInit {
         2,
         typeOfReport,
         "1995-12-10",
-        //this.datepipe.transform(twoYearsAgo, "yyyy-MM-dd")
+        //this.startDate
         "1999-02-14"
-        //this.datepipe.transform(today, "yyyy-MM-dd")
+        //this.endDate
       )
       .then(p => {
         this.report = p;
         console.log(p);
 
-        this.chartData = [{ data: this.report.data, label: "Weight Loss" }];
+        this.chartData = [{ data: this.report.data, label: this.chartType }];
         this.chartLabels = this.report.label;
         this.loading = false;
       });
+  }
+
+  changeDateFormat(date: Date) {
+    return this.datepipe.transform(date, "yyyy-MM-dd");
   }
   public lineChartColors: Array<any> = [
     {
@@ -99,21 +108,24 @@ export class ReportsComponent implements OnInit {
   public drop() {
     this.dropdownActive = !this.dropdownActive;
   }
-    public startDateOptions: IMyDpOptions = {
-      // other options...
-      dateFormat: 'dd.mm.yyyy',
+  public startDateOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: "dd.mm.yyyy"
   };
   public endDateOptions: IMyDpOptions = {
     // other options...
-    dateFormat: 'dd.mm.yyyy',
-};
-  public onStartDateChanged (event){
-    console.log(new Date(event.jsdate));
-
+    dateFormat: "dd.mm.yyyy"
+  };
+  public onStartDateChanged(event) {
+    //console.log(this.changeDateFormat(new Date(event.jsdate)));
+    this.startDate = this.changeDateFormat(new Date(event.jsdate));
+    this.setChartType(this.chartType);
   }
-  public onEndDateChanged (event){
-    console.log(event);
+  public onEndDateChanged(event) {
+    //console.log(this.changeDateFormat(new Date(event.jsdate)));
+    this.endDate = this.changeDateFormat(new Date(event.jsdate));
+    this.setChartType(this.chartType);
   }
-  private startDatePlaceholder: string = 'Start date';
-  private endDatePlaceholder: string = 'End date';
+  private startDatePlaceholder: string = "Start date";
+  private endDatePlaceholder: string = "End date";
 }

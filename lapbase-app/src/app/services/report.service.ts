@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { environment } from "src/environments/environment";
 import { HttpClient } from "@angular/common/http";
-import { IReport, reporttype, WeightReport } from "../models/report";
+import { IReport, reporttype } from "../models/report";
 
 @Injectable({
   providedIn: "root"
@@ -21,7 +21,7 @@ export class ReportService {
     reportType: Number,
     startDate: String,
     endDate: String
-  ): Promise<IReport[]> => {
+  ): Promise<IReport> => {
     return await this.httpClient
       .get(
         environment.LAPBASE_API_ADDRESS +

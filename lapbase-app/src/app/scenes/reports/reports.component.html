@@ -1,29 +1,34 @@
 <div class="columns reports">
   <div class="column">
     <form #myForm="ngForm" novalidate>
-      <my-date-picker name="startDate" [options]="startDateOptions"
-      [placeholder]="startDatePlaceholder"
-      (dateChanged)="onStartDateChanged($event)"></my-date-picker>
-
-  </form>
+      <my-date-picker
+        name="startDate"
+        [options]="startDateOptions"
+        [placeholder]="startDatePlaceholder"
+        (dateChanged)="onStartDateChanged($event)"
+      ></my-date-picker>
+    </form>
   </div>
   <div class="column">
     <form #myForm="ngForm" novalidate>
-      <my-date-picker name="endDate"[options]="endDateOptions" 
-      [placeholder]="endDatePlaceholder"
-      (dateChanged)="onEndDateChanged($event)"></my-date-picker>
-  </form>
+      <my-date-picker
+        name="endDate"
+        [options]="endDateOptions"
+        [placeholder]="endDatePlaceholder"
+        (dateChanged)="onEndDateChanged($event)"
+      ></my-date-picker>
+    </form>
   </div>
 </div>
 <div class="tabs is-centered is-hidden-mobile">
   <ul class="options">
-    <li (click)="setChartType('weightLoss')"><a>Weight Loss</a></li>
+    <li (click)="setChartType('Weight Loss')"><a>Weight Loss</a></li>
     <li (click)="setChartType('adverseEventSummary')">
       <a>Adverse Event Summary</a>
     </li>
-    <li (click)="setChartType('bmi')"><a>BMI, %EWL, and %TWL Graph</a></li>
+    <li (click)="setChartType('BMI')"><a>BMI, %EWL, and %TWL Graph</a></li>
     <li (click)="setChartType('operationDetails')"><a>Operation Details</a></li>
-    <li (click)="setChartType('progress')"><a>Progress</a></li>
+    <li (click)="setChartType('Progress')"><a>Progress</a></li>
   </ul>
 </div>
 
@@ -42,22 +47,21 @@
   </div>
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
     <div class="dropdown-content">
-      <a class="dropdown-item" (click)="setChartType('weightLoss')">
+      <a class="dropdown-item" (click)="setChartType('Weight Loss')">
         Weight Loss
       </a>
       <a class="dropdown-item" (click)="setChartType('adverseEventSummary')">
         Adverse Event Summary
       </a>
-      <a class="dropdown-item is-active" (click)="setChartType('bmi')">
+      <a class="dropdown-item is-active" (click)="setChartType('BMI')">
         BMI, %EWL, and %TWL Graph
       </a>
       <a class="dropdown-item" (click)="setChartType('operationDetails')">
         Operation Details
       </a>
-      <a class="dropdown-item" (click)="setChartType('progress')">
+      <a class="dropdown-item" (click)="setChartType('Progress')">
         Progress
       </a>
-
     </div>
   </div>
 </div>
