@@ -52,6 +52,9 @@ namespace Lapbase
                     .AddDbContext<LapbaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Lapbase")));
 
+            // Automatically perform database migration
+            services.BuildServiceProvider().GetService<LapbaseNewContext>().Database.Migrate();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

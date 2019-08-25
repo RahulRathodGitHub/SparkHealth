@@ -20,6 +20,7 @@ $BaseAppName = "Lapbase"
 $ResourceGroupName = $BaseAppName + $AppNameSuffix
 $WebAppServicePlan = "$($ResourceGroupName)ServicePlan"
 $DbName = $BaseAppName
+$DbNewName = $BaseAppName + "New"
 
 # Component Names
 # TEMPLATE: $ComponentName = "$($ResourceGroupName)ComponentName"
@@ -53,6 +54,7 @@ $DbPasswordText = (New-Object PSCredential $DbUsername, $DbPassword).GetNetworkC
 $SQLServerAdminPasswordText = (New-Object PSCredential $SQLServerAdminUsername, $DbPassword).GetNetworkCredential().Password
 
 $DbConnectionString = "Server=tcp:$($SqlServerName).database.windows.net,1433;Database=$($DbName);User ID=$($DbUsername);Password=$($DbPasswordText);Encrypt=true;Connection Timeout=30;"
+$DbNewConnectionString = "Server=tcp:$($SqlServerName).database.windows.net,1433;Database=$($DbNewName);User ID=$($SQLServerAdminUsername);Password=$($SQLServerAdminPasswordText);Encrypt=true;Connection Timeout=30;"
 
 Write-Output "------------------------Provisioning [Started]------------------------"
 
@@ -81,10 +83,14 @@ Write-Output "Creating storage container [Started]"
 az storage container create --name $StorageContainerName --account-name $StorageAccountName --account-key $StorageAccountKey
 Write-Output "Creating storage container [Done]"
 
-# Create a database
-Write-Output "Creating Database [Started]"
+# Create a database for Lapbase and one for LapbaseNew
+Write-Output "Creating Database $DbName [Started]"
 az sql db create --resource-group $ResourceGroupName --server $SqlServerName --name $DbName --service-objective "Basic"
-Write-Output "Creating Database [Done]"
+Write-Output "Creating Database $DbName [Done]"
+
+Write-Output "Creating Database $DbNewName [Started]"
+az sql db create --resource-group $ResourceGroupName --server $SqlServerName --name $DbNewName --service-objective "Basic"
+Write-Output "Creating Database $DbNewName [Done]"
 
 # Create an App Service plan
 Write-Output "Creating App Service Plan $($WebAppServicePlan) [Started]"
@@ -111,7 +117,8 @@ $WebAppNameList = @(
 
 foreach ($WebAppToConfigureName in $WebAppNameList) {
     Write-Output "Injecting Connection String for $WebAppToConfigureName [Started]"
-    &az webapp config connection-string set --resource-group $ResourceGroupName --name $WebAppToConfigureName --connection-string-type "SQLServer" --settings "DefaultConnection=$($DbConnectionString)"
+    az webapp config connection-string set --resource-group $ResourceGroupName --name $WebAppToConfigureName --connection-string-type "SQLServer" --settings "Lapbase=$($DbConnectionString)"
+    az webapp config connection-string set --resource-group $ResourceGroupName --name $WebAppToConfigureName --connection-string-type "SQLServer" --settings "LapbaseNew=$($DbNewConnectionString)"
     Write-Output "Injecting Connection String [Done]"
 }
 Write-Output "------------------------Injecting Environment Variables [Done]------------------------"
