@@ -44,11 +44,14 @@ export class ReportsComponent implements OnInit {
   public lineChartColors:Array<any> = [
     { // grey
       backgroundColor: '#ff9999',
-      borderColor: '#cc0033',
+      borderColor: '#cc003355',
       pointBackgroundColor: '#ff9999',
       pointBorderColor: '#cc0033',
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'  
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      borderWidth: '1',
+      radius:'2',
+      hoverRadius:'2'
     },]
 
 //   public dropdown(){
