@@ -13,7 +13,8 @@ namespace Lapbase.Services
     public enum ReportType
     {
        WeightLoss,
-       EWL
+       EWL,
+       BMI
     }
 
     public class ReportService
@@ -40,7 +41,13 @@ namespace Lapbase.Services
             if (reportType == ReportType.EWL)
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res =>  result.AddEntry(res.EWL, res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.EWL, res.strDateSeen)); //ToList<IReport>();
+                return result;
+            }
+            else if (reportType == ReportType.BMI)
+            {
+                 await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode).ForEachAsync(res => result.AddEntry(res.Bmiweight, res.DateSeen.ToString()));
+                //GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag)
                 return result;
             }
             else// (reportType == ReportType.WeightLoss)

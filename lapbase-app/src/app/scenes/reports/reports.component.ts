@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ACTIVE_INDEX } from "@angular/core/src/render3/interfaces/container";
 import { ReportService } from "src/app/services/report.service";
-import { reporttype, WeightReport } from "src/app/models/report";
+import { reporttype} from "src/app/models/report";
 import { DatePipe } from "@angular/common";
 
 @Component({
