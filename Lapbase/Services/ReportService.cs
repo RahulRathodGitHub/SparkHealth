@@ -13,7 +13,6 @@ namespace Lapbase.Services
     public enum ReportType
     {
        Weight,
-       PatientProgress,
        WeightLoss
     }
 
@@ -34,18 +33,15 @@ namespace Lapbase.Services
         }
 
 
-        public async Task<List<EWL_WL_GraphReport>> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
+        public async Task<List<IReport>> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
         {
             byte imperialFlag = 0;
 
-            //if (reportType == ReportType.PatientProgress)
+            //if (reportType == ReportType.WeightLoss)
             //{
-            //    return await GetPatientProgressReport(2, 418, "2", "mel", null, null, 0, 0, 100, 0, 1000, "9", "BAA1061", "", "BAA1061", "1", "2", 1);
-            //}
-            //else if (reportType == ReportType.WeightLoss)
-            //{
-                return await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-            //}
+                var result = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
+                return result.ToList<IReport>();
+            // }
             //else // reportType == ReportType.Weight
             //{
             //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);

@@ -5,27 +5,6 @@ export class WeightReport implements IReport {
   weightRecordedTime: String[];
 }
 
-export class PatientProgressReport implements IReport {
-  PatientID: String;
-  PatientName: String;
-  PatientTitle: String;
-  FirstName: String;
-  Surname: String;
-  AGE: Number;
-  dateseen: String;
-  LapbandDate: String;
-  StartEW: Number;
-  WeightMeasurement: String;
-  StartWeight: Number;
-  IdealWeight: Number;
-  BMIHeight: Number;
-  Weight: Number;
-  InitBMI: Number;
-  BMI: Number;
-  EWLL: Number;
-  TWL: Number;
-  ReportDate: Date;
-}
 
 export class EWLReport implements IReport {
   DateSeen: String;
@@ -37,16 +16,19 @@ export class EWLReport implements IReport {
   InitBMI: Number;
   AGE: Number;
   strLapBandDate: String;
+  ImperialFlag: Number;
   Weight: Number;
   CurrentWeight: Number;
   TargetWeight: Number;
   IdealWeight: Number;
   StartWeight: Number;
-  ImperialFlag: Number;
   HeightMeasurement: Number;
   WeightMeasurement: Number;
+  visitWeeksFlag: Number;
+  strZeroDate: String;
 }
 
 export enum reporttype {
-  Weight
+  Weight,
+  WeightLoss
 }

@@ -58,7 +58,7 @@ export class ReportsComponent implements OnInit {
 
     this.reportService
       .getReportsById(
-        35,
+        2,
         2,
         typeOfReport,
         "1995-12-10",
