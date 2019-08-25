@@ -58,10 +58,10 @@ export class ReportsComponent implements OnInit {
         typeOfReport = reporttype["WeightLoss"];
         break;
       case "BMI":
-        typeOfReport = reporttype["Bmi"];
+        typeOfReport = reporttype["BMI"];
         break;
       case "EWL":
-        typeOfReport = reporttype["Ewl"];
+        typeOfReport = reporttype["EWL"];
         break;
       // case "TWL" : number = reporttype['Twl'];break;
       // case "Progress" : number = reporttype['Progress'];break;
