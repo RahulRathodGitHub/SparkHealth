@@ -15,7 +15,8 @@ export class TimelineComponent implements OnInit {
 
   constructor(private service: AppointmentService) {
     const patientId = 107057612;
-    this.service.getAppointmentsById(patientId).then(result => this.timelineEvents = result);
+    const organizationCode = 2;
+    this.service.getAppointmentsById(patientId,organizationCode).then(result => this.timelineEvents = result);
   }
 
   ngOnInit() {
