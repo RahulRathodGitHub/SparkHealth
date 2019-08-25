@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ACTIVE_INDEX } from '@angular/core/src/render3/interfaces/container';
+import {IMyDrpOptions} from 'mydaterangepicker';
+import {IMyDpOptions} from 'mydatepicker';
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -9,7 +11,7 @@ export class ReportsComponent implements OnInit {
   chartType = "";
   dropdownActive = false; 
   weightLossData = [{}];
-  constructor() {}
+                       constructor() {}
 
   ngOnInit() {}
 
@@ -61,4 +63,21 @@ export class ReportsComponent implements OnInit {
     public drop(){
       this.dropdownActive = !this.dropdownActive;
     }
+    public startDateOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'dd.mm.yyyy',
+  };
+  public endDateOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+};
+  public onStartDateChanged (event){
+    console.log(new Date(event.jsdate));
+
+  }
+  public onEndDateChanged (event){
+    console.log(event);
+  }
+  private startDatePlaceholder: string = 'Start date';
+  private endDatePlaceholder: string = 'End date';
 }
