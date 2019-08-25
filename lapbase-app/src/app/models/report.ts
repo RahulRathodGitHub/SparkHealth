@@ -1,15 +1,8 @@
 export interface IReport {
-<<<<<<< HEAD
-
-}
-
-
-=======
   data: [];
-  label: [];
+  labels: [];
 }
 
->>>>>>> origin/Reoprt_frontend
 export enum reporttype {
   WeightLoss,
   EWL,

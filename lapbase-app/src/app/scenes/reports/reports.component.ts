@@ -36,7 +36,7 @@ export class ReportsComponent implements OnInit {
     this.endDate = this.changeDateFormat(new Date());
 
     //Retrieving weight data as default data when users visit the Report page
-    this.setChartType("weightLoss");
+    this.setChartType("Weight Loss");
   }
 
   chartOptions = {
@@ -55,10 +55,14 @@ export class ReportsComponent implements OnInit {
 
     switch (chartType) {
       case "Weight Loss":
-        typeOfReport = reporttype["EWL"];
+        typeOfReport = reporttype["WeightLoss"];
         break;
-      // case "BMI" : number = reporttype['Bmi'];break;
-      // case "EWL" : number = reporttype['Ewl'];break;
+      case "BMI":
+        typeOfReport = reporttype["Bmi"];
+        break;
+      case "EWL":
+        typeOfReport = reporttype["Ewl"];
+        break;
       // case "TWL" : number = reporttype['Twl'];break;
       // case "Progress" : number = reporttype['Progress'];break;
     }
@@ -68,17 +72,20 @@ export class ReportsComponent implements OnInit {
         2,
         2,
         typeOfReport,
-        "1995-12-10",
-        //this.startDate
-        "1999-02-14"
-        //this.endDate
+        //"1995-12-10",
+        this.startDate,
+        //"2005-02-14"
+        this.endDate
       )
       .then(p => {
         this.report = p;
         console.log(p);
 
+        console.log(this.report.data);
+        console.log(this.report.labels);
+
         this.chartData = [{ data: this.report.data, label: this.chartType }];
-        this.chartLabels = this.report.label;
+        this.chartLabels = this.report.labels;
         this.loading = false;
       });
   }
