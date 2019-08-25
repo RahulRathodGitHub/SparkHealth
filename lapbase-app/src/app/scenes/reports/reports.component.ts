@@ -5,6 +5,7 @@ import { reporttype, IReport } from "src/app/models/report";
 import { DatePipe } from "@angular/common";
 import { IMyDrpOptions } from "mydaterangepicker";
 import { IMyDpOptions } from "mydatepicker";
+import { SwitchView } from "@angular/common/src/directives/ng_switch";
 @Component({
   selector: "app-reports",
   templateUrl: "./reports.component.html",
@@ -14,7 +15,7 @@ export class ReportsComponent implements OnInit {
   report: IReport;
   chartData = {};
   chartLabels = {};
-  chartType;
+  typeOfReport: Number;
   startDate: String;
   endDate: String;
   loading = false;
@@ -28,7 +29,7 @@ export class ReportsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //Setting default dates
+    //Setting default dates for when patient first visit page
     var twoYearsAgo = new Date();
     twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
 
@@ -36,7 +37,7 @@ export class ReportsComponent implements OnInit {
     this.endDate = this.changeDateFormat(new Date());
 
     //Retrieving weight data as default data when users visit the Report page
-    this.setChartType("Weight Loss");
+    this.setChartType("WeightLoss");
   }
 
   chartOptions = {
@@ -48,30 +49,20 @@ export class ReportsComponent implements OnInit {
     console.log(event);
   }
 
-  setChartType(chartType) {
-    this.chartType = chartType;
+  setChartType(selectedChartType) {
+    this.typeOfReport = +reporttype[selectedChartType];
+    console.log(typeof this.typeOfReport);
+
+    this.getReport();
+  }
+
+  getReport() {
     this.loading = true;
-    var typeOfReport: reporttype;
-
-    switch (chartType) {
-      case "Weight Loss":
-        typeOfReport = reporttype["WeightLoss"];
-        break;
-      case "BMI":
-        typeOfReport = reporttype["BMI"];
-        break;
-      case "EWL":
-        typeOfReport = reporttype["EWL"];
-        break;
-      // case "TWL" : number = reporttype['Twl'];break;
-      // case "Progress" : number = reporttype['Progress'];break;
-    }
-
     this.reportService
       .getReportsById(
         2,
         2,
-        typeOfReport,
+        this.typeOfReport,
         //"1995-12-10",
         this.startDate,
         //"2005-02-14"
@@ -84,7 +75,20 @@ export class ReportsComponent implements OnInit {
         console.log(this.report.data);
         console.log(this.report.labels);
 
-        this.chartData = [{ data: this.report.data, label: this.chartType }];
+        var chartType;
+        switch (this.typeOfReport) {
+          case 0:
+            chartType = "Weigth Loss";
+            break;
+          case 1:
+            chartType = "EWL";
+            break;
+          case 2:
+            chartType = "BMI";
+            break;
+        }
+
+        this.chartData = [{ data: this.report.data, label: chartType }];
         this.chartLabels = this.report.labels;
         this.loading = false;
       });
@@ -126,12 +130,12 @@ export class ReportsComponent implements OnInit {
   public onStartDateChanged(event) {
     //console.log(this.changeDateFormat(new Date(event.jsdate)));
     this.startDate = this.changeDateFormat(new Date(event.jsdate));
-    this.setChartType(this.chartType);
+    this.getReport();
   }
   public onEndDateChanged(event) {
     //console.log(this.changeDateFormat(new Date(event.jsdate)));
     this.endDate = this.changeDateFormat(new Date(event.jsdate));
-    this.setChartType(this.chartType);
+    this.getReport();
   }
   private startDatePlaceholder: string = "Start date";
   private endDatePlaceholder: string = "End date";
