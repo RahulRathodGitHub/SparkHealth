@@ -30,6 +30,11 @@ export class FoodEntryComponent implements OnInit {
      };
   }
 
+  log(x)
+  {
+    console.log(x);
+  }
+
   onFoodSubmit(selectedFoodIds: IFood[]) {
     selectedFoodIds.forEach(f => {
       if (!this.selectedFoodQuantity.food.find(food => food.id === f.id)) {
