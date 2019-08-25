@@ -80,9 +80,11 @@ namespace Lapbase.Services
 
         public async Task<List<EWL_WL_GraphReport>> GetPatientEWL_WL_GraphReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
         {
+            //Create a var that stores the output from the logic and then run a foreach loop 
 
             return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
                                                                        new object[] { organizationCode, patientId, imperialFlag})
+                                                                       .Where(p => p.DateSeen >= startDate && p.DateSeen <= endDate)
                                                                        .ToListAsync();
         }
 
