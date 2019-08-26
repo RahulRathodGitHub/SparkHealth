@@ -60,7 +60,7 @@ export class ReportsComponent implements OnInit {
     this.loading = true;
     this.reportService
       .getReportsById(
-        2,
+        2756,
         2,
         this.typeOfReport,
         //"1995-12-10",

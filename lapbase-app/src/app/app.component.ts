@@ -15,7 +15,7 @@ export class AppComponent {
 
   constructor(private patientService: PatientService) {
     const organizationCode = 2;
-    const patientId = 107057612;
+    const patientId = 2756;
   
     this.patientService.getPatientLapbaseById(patientId, organizationCode).then(result =>{
         this.patientFirstName = result[0]; 
