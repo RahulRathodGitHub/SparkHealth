@@ -35,6 +35,12 @@ namespace Lapbase.Controllers
             return await patientService.GetPatientsLapbase();
         }
 
+        [HttpGet("[Action]/{id}/{organizationCode}")]
+        public async Task<string[]> GetPatientLapbaseById(int id ,int organizationCode)
+        {
+            return await patientService.GetPatientLapbaseById(id, organizationCode);
+        }
+
         // GET api/Patient/{int}
         [HttpGet("{id}")]
         public async Task<ActionResult<Patient>> GetPatient(int id)
