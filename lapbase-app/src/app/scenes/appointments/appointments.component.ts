@@ -34,7 +34,8 @@ export class AppointmentsComponent{
 
   constructor(private appointmentService: AppointmentService) {
     const organizationCode = 2;
-    const patientId = 107057612;
+    const patientId = 2756; //Ricky Perez
+    //107057612;
     // this.calendarEvents = this.appointmentService.getAppointmentsDemo();
     // this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
     this.appointmentService.getAppointmentsById(patientId, organizationCode).then(result => this.calendarEvents = result);
