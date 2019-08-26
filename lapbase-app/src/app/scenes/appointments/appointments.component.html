@@ -95,14 +95,30 @@
   <button class="modal-close is-large" aria-label="close" (click)="eventClicked = false;"></button>
 </div>
 
-<full-calendar class="is-hidden-mobile" #calendar defaultView="dayGridMonth" [aspectRatio]="1.8" [header]="{
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-  }" [plugins]="calendarPlugins" [events]="calendarEvents" (eventClick)="handleDateClick($event)"></full-calendar>
+<full-calendar class="is-hidden-mobile"
+              #calendar 
+              defaultView="dayGridMonth" 
+              [aspectRatio]="1.8" 
+              [header]="{
+                  left: 'prev,next today prevYear nextYear',
+                  center: 'title',
+                  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                }" 
+              [plugins]="calendarPlugins" 
+              [events]="calendarEvents" 
+              (eventClick)="handleDateClick($event)"
+  ></full-calendar>
 
-  <full-calendar class="is-hidden-tablet" defaultView="dayGridMonth" [contentHeight]="auto" [height]="500" [header]="{
-    left: 'prev,next today',
-    center: 'title',
-    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-  }" [plugins]="calendarPlugins" [events]="calendarEvents" (eventClick)="handleDateClick($event)"></full-calendar>
+  <full-calendar class="is-hidden-tablet" 
+                 defaultView="dayGridMonth" 
+                 [contentHeight]="auto" 
+                 [height]="500" 
+                 [header]="{
+                    left: 'prev,next today prevYear nextYear',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+                  }" 
+                  [plugins]="calendarPlugins" 
+                  [events]="calendarEvents" 
+                  (eventClick)="handleDateClick($event)"
+    ></full-calendar>
