@@ -22,7 +22,7 @@
 </div>
 <div class="tabs is-centered is-hidden-mobile">
   <ul class="options">
-    <li (click)="setChartType('WeightLoss')"><a>Weight Loss</a></li>
+    <li (click)="setChartType('WeightLoss')"><a>Weight</a></li>
     <!-- <li (click)="setChartType('adverseEventSummary')">
       <a>Adverse Event Summary</a>
     </li> -->
@@ -50,12 +50,12 @@
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
     <div class="dropdown-content">
       <a class="dropdown-item" (click)="setChartType('WeightLoss')">
-        Weight Loss
+        Weight
       </a>
       <!-- <a class="dropdown-item" (click)="setChartType('adverseEventSummary')">
         Adverse Event Summary
       </a> -->
-      <a class="dropdown-item is-active" (click)="setChartType('EWL')">
+      <a class="dropdown-item" (click)="setChartType('EWL')">
         EWL
       </a>
       <!-- <a class="dropdown-item" (click)="setChartType('operationDetails')">
