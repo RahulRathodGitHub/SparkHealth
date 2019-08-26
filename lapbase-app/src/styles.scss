@@ -12,23 +12,26 @@
 
 
 :root {
-    --primary: #384A5A;
-    --primary-text: #333333;
+    --primary: #cc0033;
+    --primary-text: #000000;
     
     // Header
-    --header-bg-color: #000000;
+    --header-bg-color: #cc0033;
 
-    --side-menu-gradient: linear-gradient(#000000, #333333);
+    --side-menu-gradient: linear-gradient(#000000, #000000);
     --side-menu-width: 250px;
     --side-menu-width-mobile: 60px;
-    background-color: #CCCCCC;
+    background-color: #ffffff;
 }
 
 // Menu Component
-$menu-item-color: #FFFFFF;
-$menu-item-active-color: white;
-$menu-item-active-background-color: #28273B;
+$menu-item-color: #ffffff;
+$menu-item-active-color: #ffffff;
+$menu-item-active-background-color: #cc0033;
+$menu-item-hover-background-color: #cc0033;
+$menu-item-hover-color: #FFFFcc;
 
+$menu-item-radius: 2px;
 // This import should be last
 @import '~bulma';
 @import '~bulma-switch';

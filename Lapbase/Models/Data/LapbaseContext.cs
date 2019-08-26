@@ -105,5 +105,6 @@ namespace Lapbase.Models
         public DbSet<Patient> Patient { get; set; }
         public DbSet<Models.Task> Task { get; set; }
         public DbSet<TaskInput> TaskInput { get; set; }
+
     }
 }
