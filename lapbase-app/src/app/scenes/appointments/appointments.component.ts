@@ -14,7 +14,7 @@ import CalendarComponent from '@fullcalendar/core/CalendarComponent';
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.scss']
 })
-export class AppointmentsComponent{
+export class AppointmentsComponent {
 
   options: any;
   calendarTitle;
@@ -24,7 +24,7 @@ export class AppointmentsComponent{
 
   eventClicked = false;
   eventTitle = 'Empty Event';
-  eventDescription = '';
+  eventDescription = "Empty Description";
   eventDoctorName = '';
   eventLocation = '';
   eventTime = '';

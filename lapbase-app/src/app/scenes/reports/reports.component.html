@@ -1,34 +1,44 @@
-<div class="columns is-mobile">
-
+<div class="columns reports">
   <div class="column">
     <form #myForm="ngForm" novalidate>
-      <my-date-picker name="startDate" [options]="startDateOptions"
-      [placeholder]="startDatePlaceholder"
-      (dateChanged)="onStartDateChanged($event)"></my-date-picker>
-
-  </form>
+      <my-date-picker
+        name="startDate"
+        [options]="startDateOptions"
+        [placeholder]="startDatePlaceholder"
+        (dateChanged)="onStartDateChanged($event)"
+      ></my-date-picker>
+    </form>
   </div>
   <div class="column">
     <form #myForm="ngForm" novalidate>
-      <my-date-picker name="endDate"[options]="endDateOptions" 
-      [placeholder]="endDatePlaceholder"
-      (dateChanged)="onEndDateChanged($event)"></my-date-picker>
-  </form>
+      <my-date-picker
+        name="endDate"
+        [options]="endDateOptions"
+        [placeholder]="endDatePlaceholder"
+        (dateChanged)="onEndDateChanged($event)"
+      ></my-date-picker>
+    </form>
   </div>
 </div>
 <div class="tabs is-centered is-hidden-mobile">
   <ul class="options">
-    <li (click)="setChartType('weightLoss')"><a>Weight Loss</a></li>
-    <li (click)="setChartType('adverseEventSummary')">
+    <li (click)="setChartType('WeightLoss')"><a>Weight Loss</a></li>
+    <!-- <li (click)="setChartType('adverseEventSummary')">
       <a>Adverse Event Summary</a>
-    </li>
-    <li (click)="setChartType('bmi')"><a>BMI, %EWL, and %TWL Graph</a></li>
-    <li (click)="setChartType('operationDetails')"><a>Operation Details</a></li>
-    <li (click)="setChartType('progress')"><a>Progress</a></li>
+    </li> -->
+    <li (click)="setChartType('EWL')"><a>EWL</a></li>
+
+    <li (click)="setChartType('BMI')"><a>BMI</a></li>
+    <!-- <li (click)="setChartType('operationDetails')"><a>Operation Details</a></li>
+    <li (click)="setChartType('Progress')"><a>Progress</a></li> -->
   </ul>
 </div>
 
-<div class="dropdown is-hidden-tablet" [class.is-active]="dropdownActive" (click)="drop()">
+<div
+  class="dropdown is-hidden-tablet"
+  [class.is-active]="dropdownActive"
+  (click)="drop()"
+>
   <div class="dropdown-trigger">
     <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
       <span>Select a Report and click generate</span>
@@ -39,30 +49,40 @@
   </div>
   <div class="dropdown-menu" id="dropdown-menu" role="menu">
     <div class="dropdown-content">
-      <a class="dropdown-item" (click)="setChartType('weightLoss')">
+      <a class="dropdown-item" (click)="setChartType('WeightLoss')">
         Weight Loss
       </a>
-      <a class="dropdown-item" (click)="setChartType('adverseEventSummary')">
+      <!-- <a class="dropdown-item" (click)="setChartType('adverseEventSummary')">
         Adverse Event Summary
+      </a> -->
+      <a class="dropdown-item is-active" (click)="setChartType('EWL')">
+        EWL
       </a>
-      <a class="dropdown-item is-active" (click)="setChartType('bmi')">
-        BMI, %EWL, and %TWL Graph
-      </a>
-      <a class="dropdown-item" (click)="setChartType('operationDetails')">
+      <!-- <a class="dropdown-item" (click)="setChartType('operationDetails')">
         Operation Details
+      </a> -->
+      <a class="dropdown-item" (click)="setChartType('BMI')">
+        BMI
       </a>
-      <a class="dropdown-item" (click)="setChartType('progress')">
+      <!-- <a class="dropdown-item" (click)="setChartType('Progress')">
         Progress
-      </a>
-
+      </a> -->
     </div>
   </div>
 </div>
 
+<div *ngIf="loading == true" class="lds-dual-ring"></div>
 
-
-<div class="graph">
-  <canvas baseChart [chartType]="'line'" [datasets]="chartData" [labels]="chartLabels" [options]="chartOptions"
-    [legend]="true" (chartClick)="onChartClick($event)" [colors]="lineChartColors">
+<div *ngIf="loading == false" class="graph">
+  <canvas
+    baseChart
+    [chartType]="'line'"
+    [datasets]="chartData"
+    [labels]="chartLabels"
+    [options]="chartOptions"
+    [legend]="true"
+    (chartClick)="onChartClick($event)"
+    [colors]="lineChartColors"
+  >
   </canvas>
 </div>
