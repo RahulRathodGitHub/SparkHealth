@@ -1,10 +1,12 @@
 import { AppointmentService } from './../../services/appointment.service';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGrigPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { IAppointment } from 'src/app/models';
+import { asRoughYears } from '@fullcalendar/core/datelib/duration';
+import CalendarComponent from '@fullcalendar/core/CalendarComponent';
 
 
 @Component({
@@ -12,10 +14,13 @@ import { IAppointment } from 'src/app/models';
   templateUrl: './appointments.component.html',
   styleUrls: ['./appointments.component.scss']
 })
-export class AppointmentsComponent {
+export class AppointmentsComponent{
 
+  options: any;
   calendarTitle;
   calendarEvents: IAppointment[];
+
+
 
   eventClicked = false;
   eventTitle = 'Empty Event';
@@ -25,6 +30,7 @@ export class AppointmentsComponent {
   eventTime = '';
   eventBmi = 0;
   eventWeight = 0;
+  
 
   constructor(private appointmentService: AppointmentService) {
     const organizationCode = 2;
@@ -63,5 +69,7 @@ export class AppointmentsComponent {
       }
     }
   }
+
+  
 
 }
