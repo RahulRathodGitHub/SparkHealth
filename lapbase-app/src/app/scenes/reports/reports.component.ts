@@ -88,7 +88,7 @@ export class ReportsComponent implements OnInit {
             break;
         }
 
-        this.chartData = [{ data: this.report.data, label: chartType }];
+        this.chartData = [{ data: this.report.data, label: chartType + " (kg)" }];
         this.chartLabels = this.report.labels;
         this.loading = false;
       });
