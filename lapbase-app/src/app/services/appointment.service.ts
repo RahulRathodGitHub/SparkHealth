@@ -19,5 +19,4 @@ export class AppointmentService {
   getAppointmentsById = async (id: number, organizationCode: number): Promise<IAppointment[]> => {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/' + id + '/' + organizationCode).toPromise<any>();
   }
- 
 }

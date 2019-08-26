@@ -22,12 +22,14 @@ namespace Lapbase
     {
         readonly string AllowAllOrigins = "AllowAllOrigins";
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            CurrentEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
+        private IHostingEnvironment CurrentEnvironment { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -51,6 +53,11 @@ namespace Lapbase
                 options.UseSqlServer(Configuration.GetConnectionString("LapbaseNew")))
                     .AddDbContext<LapbaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Lapbase")));
+            if (CurrentEnvironment.IsProduction())
+            {
+                // Automatically perform database migration
+                services.BuildServiceProvider().GetService<LapbaseNewContext>().Database.Migrate();
+            }
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

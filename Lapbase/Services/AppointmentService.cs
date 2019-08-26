@@ -48,10 +48,12 @@ namespace Lapbase.Services
 
             //Below logic needs to be cleaned
             TblPatientConsult lastConsult = patientAppointments.Last();
-            Appointment futureAppointment = result.Last();
+            Appointment futureAppointment = new Appointment(result.Last());
             futureAppointment.Start = lastConsult.DateNextVisit;
             futureAppointment.End = lastConsult.DateNextVisit;
             futureAppointment.Description = "";
+            futureAppointment.Weight = 0;
+            futureAppointment.Bmi = 0;
 
             result.Add(futureAppointment);
 

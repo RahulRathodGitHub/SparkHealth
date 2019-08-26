@@ -1,17 +1,17 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { ACTIVE_INDEX } from '@angular/core/src/render3/interfaces/container';
+import {IMyDrpOptions} from 'mydaterangepicker';
+import {IMyDpOptions} from 'mydatepicker';
 @Component({
-  selector: "app-reports",
-  templateUrl: "./reports.component.html",
-  styleUrls: ["./reports.component.scss"]
+  selector: 'app-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
-  chartType = "";
-  dropdownActive = false; 
+                       constructor() {}
+  chartType = '';
+  dropdownActive = false;
   weightLossData = [{}];
-  constructor() {}
-
-  ngOnInit() {}
 
   chartOptions = {
     responsive: true,
@@ -19,18 +19,39 @@ export class ReportsComponent implements OnInit {
   };
 
   chartDatas = {
-    weightLoss: { data: [330, 600, 260, 700], label: "Weight Loss" },
-    bmi: { data: [120, 455, 100, 340], label: "BMI" },
+    weightLoss: { data: [330, 600, 260, 700], label: 'Weight Loss' },
+    bmi: { data: [120, 455, 100, 340], label: 'BMI' },
     adverseEventSummary: {
       data: [45, 67, 800, 500],
-      label: "Adverse Event Summary"
+      label: 'Adverse Event Summary'
     },
-    operationDetails: { data: [45, 67, 800, 500], label: "Operation Details" },
-    progress: { data: [45, 67, 800, 500], label: "Progress" }
+    operationDetails: { data: [45, 67, 800, 500], label: 'Operation Details' },
+    progress: { data: [45, 67, 800, 500], label: 'Progress' }
   };
 
-  chartData = [{ data: [330, 600, 260, 700], label: "Weight Loss" }];
-  chartLabels = ["January", "February", "March", "April"];
+  chartData = [{ data: [330, 600, 260, 700], label: 'Weight Loss' }];
+  chartLabels = ['January', 'February', 'March', 'April'];
+  startDatePlaceholder = 'Start date';
+  endDatePlaceholder = 'End date';
+  public lineChartColors: Array<any> = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }];
+    public startDateOptions: IMyDpOptions = {
+      // other options...
+      dateFormat: 'dd.mm.yyyy',
+  };
+  public endDateOptions: IMyDpOptions = {
+    // other options...
+    dateFormat: 'dd.mm.yyyy',
+};
+
+  ngOnInit() {}
 
   onChartClick(event) {
     console.log(event);
@@ -41,15 +62,6 @@ export class ReportsComponent implements OnInit {
     this.chartData = [];
     this.chartData.push(this.chartDatas[this.chartType]);
   }
-  public lineChartColors:Array<any> = [
-    { // grey
-      backgroundColor: 'rgba(148,159,177,0.2)',
-      borderColor: 'rgba(148,159,177,1)',
-      pointBackgroundColor: 'rgba(148,159,177,1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)'  
-    },]
 
 //   public dropdown(){
 //     var dropdown = document.querySelector('.dropdown');
@@ -58,7 +70,14 @@ export class ReportsComponent implements OnInit {
 //   dropdown.classList.toggle('is-active');
 // });
 //   }
-    public drop(){
+    public drop() {
       this.dropdownActive = !this.dropdownActive;
     }
+  public onStartDateChanged(event) {
+    console.log(new Date(event.jsdate));
+
+  }
+  public onEndDateChanged(event) {
+    console.log(event);
+  }
 }

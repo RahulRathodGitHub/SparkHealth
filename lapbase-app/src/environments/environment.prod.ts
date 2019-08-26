@@ -1,3 +1,4 @@
-export const environment = {
-  production: true
+﻿export const environment = {
+    production: true,
+    LAPBASE_API_ADDRESS: 'https://api-uctkjtueysffa.azurewebsites.net/api/'
 };
