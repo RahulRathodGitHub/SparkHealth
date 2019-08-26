@@ -9,12 +9,12 @@ import { ITask, TaskType } from 'src/app/models';
 })
 export class TasksComponent implements OnInit {
   private tasks: ITask[];
-  private selectedTaskId: string;
+  selectedTaskId: string;
   selectedTaskType: TaskType;
   step: number;
 
-  constructor(private service: TaskService) {
-    service.getTasks().then(result => this.tasks = result);
+  constructor(private taskService: TaskService) {
+    taskService.getTasks().then(result => this.tasks = result);
     this.step = 0;
   }
 
@@ -31,7 +31,7 @@ export class TasksComponent implements OnInit {
   back() {
     this.step--;
     if (this.step === 0) {
-      this.service.getTasks().then(result => this.tasks = result);
+      this.taskService.getTasks().then(result => this.tasks = result);
     }
   }
 

@@ -27,12 +27,8 @@ export class PatientService {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/GetPatientsLapbase').toPromise<any>();
   }
 
-  getFoodByPatients = async (id: number): Promise<IFood[]> => {
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/Food/' + id).toPromise<any>();
-  }
-
-  addFood = async (food: IFood): Promise<IFood> => {
-    return await this.httpClient.post(environment.LAPBASE_API_ADDRESS + 'Patient/Food/', food).toPromise<any>();
+  getFoodList = async (): Promise<IFood[]> => {
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/Food/').toPromise<any>();
   }
 
   getExerciseByPatients = (): IExercise[] =>

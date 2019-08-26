@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { IFood } from '../../../../models';
 import { PatientService } from '../../../../services/patient.service';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
   selector: 'app-food-table',
   templateUrl: './food-table.component.html',
@@ -14,16 +13,16 @@ export class FoodTableComponent implements OnInit {
 
   foods: IFood[];
   selectedFood: IFood[];
-  name: string = '';
-  calories: number= 0;
-  unit: string ='';
+  name = '';
+  calories = 0;
+  unit = '';
 
   constructor(private patientService: PatientService) {
     this.selectedFood = new Array<IFood>();
   }
 
   ngOnInit() {
-    this.patientService.getFoodByPatients(1).then(result => {
+    this.patientService.getFoodList().then(result => {
       if (this.alreadySelectedFood) {
         this.foods = result.filter(f => !this.alreadySelectedFood.includes(f.id));
       } else {
@@ -37,21 +36,6 @@ export class FoodTableComponent implements OnInit {
 
     this.submitHandler.emit(this.selectedFood);
     // )
-  }
-
-  addFood(){
-    this.patientService.addFood(
-      {
-        id: "00000000-0000-0000-0000-000000000000",
-        name: this.name,
-        calorieCount: this.calories,
-        unit: this.unit,
-        patientId: 1,
-      }
-    ).then(food => this.foods.push(food));
-    this.name = '';
-    this.calories = 0;
-    this.unit = '';
   }
 
   onBack() {

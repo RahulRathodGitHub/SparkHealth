@@ -33,7 +33,7 @@ namespace Lapbase.Models
             modelBuilder.Entity<Models.Task>().HasData(new Models.Task
             {
                 Id = Guid.NewGuid(),
-                StartDate = new DateTimeOffset(2019, 05, 05, 0, 0, 0, new TimeSpan()),
+                StartDate = new DateTimeOffset(2019, 07, 05, 0, 0, 0, new TimeSpan()),
                 Repetition = RepetitionType.Weekly,
                 RepetitionInterval = 1,
                 Type = TaskType.FoodIntakeInput,
@@ -48,24 +48,49 @@ namespace Lapbase.Models
                     Id = Guid.NewGuid(),
                     Name = "Burger",
                     CalorieCount = 295,
-                    Unit = "piece",
-                    PatientId = 1,
+                    Unit = "piece"
                 },
                 new Food
                 {
                     Id = Guid.NewGuid(),
                     Name = "Onion",
                     CalorieCount = 40,
-                    Unit = "piece",
-                    PatientId = 1,
+                    Unit = "piece"
                 },
                 new Food
                 {
                     Id = Guid.NewGuid(),
                     Name = "Uncle Keith's Kappuccino",
                     CalorieCount = 90,
-                    Unit = "cup",
-                    PatientId = 1,
+                    Unit = "cup"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "White bread",
+                    CalorieCount = 96,
+                    Unit = "slice"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Apple",
+                    CalorieCount = 44,
+                    Unit = "apple"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Banana",
+                    CalorieCount = 107,
+                    Unit = "banana"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Tomato",
+                    CalorieCount = 30,
+                    Unit = "tomato"
                 }
             };
             modelBuilder.Entity<Food>().HasData(foodList);

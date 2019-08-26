@@ -9,72 +9,20 @@
     </tr>
   </thead>
   <tbody>
-    
-      <tr *ngFor="let food of foods" >
-          <td>
-              <label class="checkbox">
-                <input type="checkbox" (change)="toggleFood(food)">
-              </label></td>
-          <td><a (click)="removeFood(food.id)" class="delete"></a></td>
-          <td>{{food.name}}</td>
-          <td>{{food.calorieCount}}</td>
-          <td>{{food.unit}}</td>
-        </tr>
+
+    <tr *ngFor="let food of foods">
+      <td>
+        <label class="checkbox">
+          <input type="checkbox" (change)="toggleFood(food)">
+        </label></td>
+      <td><a (click)="removeFood(food.id)" class="delete"></a></td>
+      <td>{{food.name}}</td>
+      <td>{{food.calorieCount}}</td>
+      <td>{{food.unit}}</td>
+    </tr>
   </tbody>
-  </table>
-  <!-- <article class="message is-link">
-      <div class="message-header">
-        <p>Add New Food</p>
-        <button  class="delete" aria-label="delete"></button>
-      </div>
-      <div class="message-body">
-
-
-            <div class="field is-horizontal">
-              <div class="field-label is-normal">
-                <label class="label">Name</label>
-              </div>
-              <div class="field-body">
-                <div class="field">
-                  <p class="control">
-                    <input [(ngModel)]="name" type="text" class="form-control" placeholder="Name" required>
-                  </p>
-                </div>
-              </div>
-            </div>
-        
-
-            <div class="field is-horizontal">
-                <div class="field-label is-normal">
-                  <label class="label">Calories</label>
-                </div>
-                <div class="field-body">
-                  <div class="field">
-                    <p class="control">
-                      <input [(ngModel)]="calories" type="text" class="form-control" placeholder="0.00" required>
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="field is-horizontal">
-                  <div class="field-label is-normal">
-                    <label class="label">Units</label>
-                  </div>
-                  <div class="field-body">
-                    <div class="field">
-                      <p class="control">
-                        <input [(ngModel)]="unit" class="form-control" type="text" placeholder="Kg" requried>
-                      </p>
-                    </div>
-                  </div>
-                </div>
-               
-                <span class="button is-success" (click)="addFood()">ENTER</span>
-
-      </div>
-    </article> -->
-    <div class="buttons">
-      <span class="button is-success" (click)="onSubmit()">Add Selected Items to your Food Intake</span>
-      <span class="button is-danger" (click)="onBack()">Cancel</span>
-    </div>
+</table>
+<div class="buttons">
+  <span class="button is-success" (click)="onSubmit()">Add Selected Items to your Food Intake</span>
+  <span class="button is-danger" (click)="onBack()">Cancel</span>
+</div>

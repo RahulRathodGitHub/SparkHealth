@@ -54,36 +54,19 @@ namespace Lapbase.Controllers
             return Ok(patient);
         }
 
-        // GET api/Patient/Food/{int}
-        [HttpGet("Food/{id}")]
-        public async Task<ActionResult<Food>> GetPatientFood(int id)
+        // GET api/Patient/Food
+        [HttpGet("Food")]
+        public async Task<ActionResult<Food>> GetFoodList()
         {
-            if (id == default)
-            {
-                return BadRequest();
-            }
 
-            var patientFood = await patientService.GetPatientFood(id);
+            var FoodList = await patientService.GetPatientFood();
 
-            if (patientFood == null)
+            if (FoodList == null)
             {
                 return NotFound();
             }
 
-            return Ok(patientFood);
-        }
-
-        [HttpPost("Food")]
-        public async Task<ActionResult> CreatePatientFood([FromBody]Food food)
-        {
-            if(string.IsNullOrEmpty(food.Name))
-            {
-                return BadRequest();
-            }
-
-            var result = await patientService.CreatePatientFood(food);
-
-            return CreatedAtAction(nameof(GetPatientFood), new { result.Id }, result);
+            return Ok(FoodList);
         }
 
         // POST api/Patient

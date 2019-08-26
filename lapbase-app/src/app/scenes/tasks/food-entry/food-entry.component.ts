@@ -22,17 +22,12 @@ export class FoodEntryComponent implements OnInit {
 
   ngOnInit() {
     this.selectedFoodQuantity = {
-      id: '00000000-0000-0000-0000-000000000000', // Make this an emty guid
+      id: '00000000-0000-0000-0000-000000000000', // Make this an emtpy guid
       food: [],
       quantity: [],
       dateEntered: new Date(),
       taskId: this.selectedTaskId
      };
-  }
-
-  log(x)
-  {
-    console.log(x);
   }
 
   onFoodSubmit(selectedFoodIds: IFood[]) {

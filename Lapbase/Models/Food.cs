@@ -9,8 +9,5 @@ namespace Lapbase.Models
         public string Name { get; set; }
         public int CalorieCount { get; set; }
         public string Unit { get; set; }
-
-        public int PatientId { get; set; }
-        public Patient Patient { get; set; }
     }
 }

@@ -32,9 +32,9 @@ namespace Lapbase.Services
             return await lapbaseNewContext.Patient.ToListAsync();
         }
 
-        public async Task<List<Food>> GetPatientFood(int id)
+        public async Task<List<Food>> GetPatientFood()
         {
-            return await lapbaseNewContext.Food.Where(x => x.PatientId == id).ToListAsync();
+            return await lapbaseNewContext.Food.ToListAsync();
         }
 
         public async Task<List<string>> GetPatientsLapbase()
