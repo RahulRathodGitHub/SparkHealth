@@ -78,17 +78,17 @@ export class ReportsComponent implements OnInit {
         var chartType;
         switch (this.typeOfReport) {
           case 0:
-            chartType = "Weigth Loss";
+            chartType = "Weigth Loss (kg)";
             break;
           case 1:
-            chartType = "EWL";
+            chartType = "EWL (kg)";
             break;
           case 2:
             chartType = "BMI";
             break;
         }
 
-        this.chartData = [{ data: this.report.data, label: chartType + " (kg)" }];
+        this.chartData = [{ data: this.report.data, label: chartType }];
         this.chartLabels = this.report.labels;
         this.loading = false;
       });
