@@ -138,6 +138,6 @@ export class ReportsComponent implements OnInit {
     this.endDate = this.changeDateFormat(new Date(event.jsdate));
     this.getReport();
   }
-  private startDatePlaceholder: string = "Start date";
-  private endDatePlaceholder: string = "End date";
+  startDatePlaceholder: string = "Start date";
+  endDatePlaceholder: string = "End date";
 }
