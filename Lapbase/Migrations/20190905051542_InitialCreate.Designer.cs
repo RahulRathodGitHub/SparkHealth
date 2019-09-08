@@ -4,14 +4,16 @@ using Lapbase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseNewContext))]
-    partial class LapbaseNewContextModelSnapshot : ModelSnapshot
+    [Migration("20190905051542_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,49 +100,49 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2577969d-93da-4a17-94bf-0b984855f7c9"),
+                            Id = new Guid("29288a5f-c974-4a26-b653-d7d6785e4704"),
                             CalorieCount = 295,
                             Name = "Burger",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("7223eb94-fe59-4f62-b082-b216d5622b0f"),
+                            Id = new Guid("1ab813e8-3422-45c0-874e-305f5fe98670"),
                             CalorieCount = 40,
                             Name = "Onion",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("6b6c9e33-3d86-44a2-b97d-c50c1cefbcab"),
+                            Id = new Guid("0f2d789a-8396-4f16-998e-572df3127bbe"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("09fea5c9-e328-4e6a-85fa-8e2af924699d"),
+                            Id = new Guid("f189b875-11de-407c-9785-8efa3e076f82"),
                             CalorieCount = 96,
                             Name = "White bread",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("7437ee36-e38f-4526-bf1a-78f2ba19436f"),
+                            Id = new Guid("3c170f21-8e83-4bd9-9f7f-13282c178d59"),
                             CalorieCount = 44,
                             Name = "Apple",
                             Unit = "apple"
                         },
                         new
                         {
-                            Id = new Guid("ba2a7b79-7fab-4bed-b22f-b2d0e5c47007"),
+                            Id = new Guid("3a4a2766-e6e9-421e-b192-b2a228f44806"),
                             CalorieCount = 107,
                             Name = "Banana",
                             Unit = "banana"
                         },
                         new
                         {
-                            Id = new Guid("66ab8883-68ec-434b-af05-66f2c2256245"),
+                            Id = new Guid("408141ce-5fc7-4d4d-9f45-0f175a84a649"),
                             CalorieCount = 30,
                             Name = "Tomato",
                             Unit = "tomato"
@@ -212,7 +214,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ac2fbfe3-5557-4c52-95d6-a9f2655f9a36"),
+                            Id = new Guid("3183825e-2297-43f8-9785-16ccdfbe1b0e"),
                             AdvisorId = 1,
                             PatientId = 1,
                             Repetition = 1,
@@ -256,13 +258,9 @@ namespace Lapbase.Migrations
                 {
                     b.HasBaseType("Lapbase.Models.TaskInput");
 
-                    b.Property<decimal>("Calories");
-
                     b.Property<string>("Food");
 
                     b.Property<string>("Quantity");
-
-                    b.Property<decimal>("Weight");
 
                     b.HasDiscriminator().HasValue("FoodIntakeList");
                 });

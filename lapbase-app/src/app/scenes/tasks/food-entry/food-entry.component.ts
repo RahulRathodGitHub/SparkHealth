@@ -15,16 +15,23 @@ export class FoodEntryComponent implements OnInit {
 
   step: number;
   selectedFoodQuantity: IFoodIntakeList;
+  caloriesEntered: number;
+  weight: number;
+  addFoodButtonIsTouched: boolean;
 
   constructor(private taskService: TaskService) {
     this.step = 0;
+    this.addFoodButtonIsTouched = false;
   }
 
   ngOnInit() {
+
     this.selectedFoodQuantity = {
       id: '00000000-0000-0000-0000-000000000000', // Make this an emtpy guid
       food: [],
       quantity: [],
+      weight: 0,
+      calories: 0,
       dateEntered: new Date(),
       taskId: this.selectedTaskId
      };
@@ -41,10 +48,24 @@ export class FoodEntryComponent implements OnInit {
   }
 
   onSubmit() {
+
+    if (this.caloriesEntered == null )
+    {
+      const fooditemCount = this.selectedFoodQuantity.food.length;
+      this.caloriesEntered = 0;
+
+      for (let i = 0; i < fooditemCount; i++) {
+        this.caloriesEntered += (this.selectedFoodQuantity.food[i].calorieCount * this.selectedFoodQuantity.quantity[i]);
+      }
+    }
+
+    this.selectedFoodQuantity.calories = this.caloriesEntered;
+    this.selectedFoodQuantity.weight = this.weight;
     this.taskService.sendFoodIntake(this.mapToDto(this.selectedFoodQuantity)).then(() => this.backHandler.emit());
   }
 
   onNext() {
+    this.addFoodButtonIsTouched = true;
     this.step++;
   }
 
@@ -73,6 +94,10 @@ export class FoodEntryComponent implements OnInit {
     this.selectedFoodQuantity.quantity.splice(index, 1);
   }
 
+  onManualCaloriesSwitchChange(){
+    this.caloriesEntered = null;
+  }
+
   alreadySelectedFood = () => this.selectedFoodQuantity.food.map(food => food.id);
 
   mapToDto = (selectedFoodQuantity: IFoodIntakeList): IFoodIntakeListDto => {
@@ -80,8 +105,12 @@ export class FoodEntryComponent implements OnInit {
       id: this.selectedFoodQuantity.id,
       taskId: this.selectedFoodQuantity.taskId,
       dateEntered: selectedFoodQuantity.dateEntered,
-      food: selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.food[0].id),
-      quantity: selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.quantity[0].toString())
+      calories: selectedFoodQuantity.calories,
+      weight: selectedFoodQuantity.weight,
+      food: (selectedFoodQuantity.food.length > 0 ) ?
+              selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.food[0].id) : null,
+      quantity: (selectedFoodQuantity.food.length > 0 ) ?
+                   selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.quantity[0].toString()) : null
     };
     return list;
   }

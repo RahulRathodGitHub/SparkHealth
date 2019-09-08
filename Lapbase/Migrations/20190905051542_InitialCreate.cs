@@ -21,6 +21,20 @@ namespace Lapbase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Food",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    CalorieCount = table.Column<int>(nullable: false),
+                    Unit = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Food", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Patient",
                 columns: table => new
                 {
@@ -59,27 +73,6 @@ namespace Lapbase.Migrations
                     table.PrimaryKey("PK_Feedback", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Feedback_Patient_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Food",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    CalorieCount = table.Column<int>(nullable: false),
-                    Unit = table.Column<string>(nullable: true),
-                    PatientId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Food", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Food_Patient_PatientId",
                         column: x => x.PatientId,
                         principalTable: "Patient",
                         principalColumn: "Id",
@@ -172,24 +165,28 @@ namespace Lapbase.Migrations
                 value: 1);
 
             migrationBuilder.InsertData(
+                table: "Food",
+                columns: new[] { "Id", "CalorieCount", "Name", "Unit" },
+                values: new object[,]
+                {
+                    { new Guid("29288a5f-c974-4a26-b653-d7d6785e4704"), 295, "Burger", "piece" },
+                    { new Guid("1ab813e8-3422-45c0-874e-305f5fe98670"), 40, "Onion", "piece" },
+                    { new Guid("0f2d789a-8396-4f16-998e-572df3127bbe"), 90, "Uncle Keith's Kappuccino", "cup" },
+                    { new Guid("f189b875-11de-407c-9785-8efa3e076f82"), 96, "White bread", "slice" },
+                    { new Guid("3c170f21-8e83-4bd9-9f7f-13282c178d59"), 44, "Apple", "apple" },
+                    { new Guid("3a4a2766-e6e9-421e-b192-b2a228f44806"), 107, "Banana", "banana" },
+                    { new Guid("408141ce-5fc7-4d4d-9f45-0f175a84a649"), 30, "Tomato", "tomato" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Patient",
                 columns: new[] { "Id", "AdvisorId", "Deleted", "Username", "ValidFrom", "ValidTo", "WhenCreated" },
                 values: new object[] { 1, 1, false, "test@test.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
 
             migrationBuilder.InsertData(
-                table: "Food",
-                columns: new[] { "Id", "CalorieCount", "Name", "PatientId", "Unit" },
-                values: new object[,]
-                {
-                    { new Guid("581f0299-0320-466c-bf34-8e38f9b7c0a6"), 295, "Burger", 1, "piece" },
-                    { new Guid("dc194663-6107-4c52-967e-0320967aba1d"), 40, "Onion", 1, "piece" },
-                    { new Guid("f050049f-a7b4-4a35-91ba-e29f5c3538d5"), 90, "Uncle Keith's Kappuccino", 1, "cup" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Task",
                 columns: new[] { "Id", "AdvisorId", "PatientId", "Repetition", "RepetitionInterval", "StartDate", "Type" },
-                values: new object[] { new Guid("5823f527-72f4-47fb-a87d-7cb6f9a8b87a"), 1, 1, 1, 1, new DateTimeOffset(new DateTime(2019, 5, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 0 });
+                values: new object[] { new Guid("3183825e-2297-43f8-9785-16ccdfbe1b0e"), 1, 1, 1, 1, new DateTimeOffset(new DateTime(2019, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), 0 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Exercise_ExerciseListId",
@@ -204,11 +201,6 @@ namespace Lapbase.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Feedback_PatientId",
                 table: "Feedback",
-                column: "PatientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Food_PatientId",
-                table: "Food",
                 column: "PatientId");
 
             migrationBuilder.CreateIndex(

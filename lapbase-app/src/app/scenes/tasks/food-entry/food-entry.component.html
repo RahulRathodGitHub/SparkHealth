@@ -1,56 +1,98 @@
 <div *ngIf="step === 0">
-  <form #f="ngForm">
-    <!-- <h3>Current Weight: </h3>
-    <div class="field has-addons">
-      <div class="control">
-        <input required ngModel name="currentWeight" id="currentWeight" #currentWeight="ngModel" class="input"
-          pattern="-?\d+(?:\.\d+)?" [class.is-danger]="currentWeight.touched && !currentWeight.valid"
-          [class.is-success]="currentWeight.touched && currentWeight.valid" type="text" placeholder="0.00" />
-        <div class="help is-danger" *ngIf="currentWeight.touched && !currentWeight.valid">
-          <div *ngIf="currentWeight.errors.required">Current Weight is Required</div>
-          <div *ngIf="currentWeight.errors.pattern">The input is invalid</div>
-        </div>
-      </div>
 
-      <div class="select" [class.is-danger]="currentWeight.touched && !currentWeight.valid"
-        [class.is-success]="currentWeight.touched && currentWeight.valid">
-        <select>
-          <option>kg</option>
-          <option>lb</option>
-        </select>
+  <form #f="ngForm">
+
+    <h3>Current Weight: </h3>
+    <div class="field has-addons">
+  
+      <div class="control">
+        <input required
+               [(ngModel)]="weight"
+               name="currentWeight" 
+               id="currentWeight" 
+               #currentWeight="ngModel"
+               class="input" 
+               pattern="-?\d+(?:\.\d+)?"
+               [class.is-danger]="currentWeight.touched && !currentWeight.valid"
+               [class.is-success]="currentWeight.touched && currentWeight.valid"
+               type="text" 
+               placeholder="0.00" />
+         <div class="help is-danger" *ngIf="currentWeight.touched && !currentWeight.valid">
+           <div *ngIf="currentWeight.errors.required">Current Weight is Required</div> 
+           <div *ngIf="currentWeight.errors.pattern">The input is invalid</div>
+         </div>
       </div>
-    </div> -->
+  
+      <div class="select"
+          [class.is-danger]="currentWeight.touched && !currentWeight.valid"
+          [class.is-success]="currentWeight.touched && currentWeight.valid" >
+
+          <select>
+            <option>kg</option>
+            <option>lb</option>
+          </select>
+
+      </div>
+  
+    </div>
+    
+    <br>
 
     <h3>
       Calories Intake:
     </h3>
-    <div class="control">
-      <input ngModel #switchRoundedSuccess="ngModel" (change)="log(switchRoundedSuccess)" id="switchRoundedSuccess"
-        type="checkbox" name="switchRoundedSuccess" class="switch is-rounded is-success" checked="checked">
-      <label for="switchRoundedSuccess">Enter Manually</label>
-    </div>
 
+    <br>
+
+    <div class="control">
+  
+      <input
+          ngModel
+          (change)="onManualCaloriesSwitchChange()"
+          #switchRoundedSuccess = "ngModel"
+          id="switchRoundedSuccess" 
+          type="checkbox" 
+          name="switchRoundedSuccess" 
+          class="switch is-rounded is-success"
+          checked="checked">
+  
+      <label for="switchRoundedSuccess">Enter Manually</label>
+  
+    </div>
+  
     <div class="field is-horizontal">
       <div class="field-label is-normal">
-        <label class="label" [class.has-text-grey]="!switchRoundedSuccess.value">Calories(KJ)</label>
+        <label class="label"
+                [class.has-text-grey]="!switchRoundedSuccess.value">Calories(KJ)</label>
       </div>
       <div class="field-body">
         <div class="field">
           <div class="control">
-            <input class="input" ngModel #calories="ngModel" name="calories" id="calories" type="calories"
-              placeholder="0.00" pattern="-?\d+(?:\.\d+)?"
-              [class.is-danger]="switchRoundedSuccess.value && calories.touched && !calories.valid"
-              [class.is-success]="calories.touched && calories.valid" [required]="switchRoundedSuccess.value"
-              [disabled]="!switchRoundedSuccess.value">
-            <div *ngIf="switchRoundedSuccess.value && !calories.valid">
-              <!-- <div *ngIf="calories.errors.required">Current Weight is Required</div>  -->
-              <div *ngIf="calories.errors.pattern">The input is invalid</div>
+            <input class="input" 
+                   [(ngModel)]="caloriesEntered"
+                   #calories="ngModel"
+                   name ="calories" 
+                   id="calories"
+                   type="calories" 
+                   placeholder="0.00" 
+                   pattern="-?\d+(?:\.\d+)?"
+                   [class.is-danger]="switchRoundedSuccess.value && calories.touched && !calories.valid"
+                   [class.is-success]="calories.touched && calories.valid"
+                   [required]="switchRoundedSuccess.value"
+                   [disabled]="!switchRoundedSuccess.value">
+
+            <div *ngIf="switchRoundedSuccess.value && calories.touched && !calories.valid" 
+                 [class.is-danger]="!calories.valid"
+                 [class.is-success]="calories.valid">
+              <div *ngIf="calories.errors.required" class="help is-danger">REQUIRED: Enter Calories or Add Food </div> 
+              <div *ngIf="calories.errors.pattern" class="help is-danger">The input is invalid</div>
             </div>
+
           </div>
         </div>
       </div>
     </div>
-
+  
     <div class="field" *ngIf="!switchRoundedSuccess.value && ( selectedFoodQuantity.food.length > 0 )">
       <label class="label">Food Intake</label>
       <table class="table">
@@ -65,31 +107,50 @@
           </tr>
         </thead>
         <tbody>
+  
           <tr *ngFor="let fq of selectedFoodQuantity.food">
             <td><a (click)="removeFood(fq.id)" class="delete"></a></td>
             <td>{{fq.name}}</td>
-            <td><a class="button is-danger is-rounded" (click)="minusQuantity(fq.id)">-</a></td>
-            <td><input value="{{selectedFoodQuantity.quantity[findIndexOfFood(fq.id)]}}"
-                class="input is-small is-rounded" type="text" placeholder="quantity"></td>
-            <td><a class="button is-success is-rounded" (click)="addQuantity(fq.id)">+</a></td>
+            <td><a class="button is-danger is-rounded"(click)="minusQuantity(fq.id)">-</a></td>
+            <td><input value="{{selectedFoodQuantity.quantity[findIndexOfFood(fq.id)]}}" class="input is-small is-rounded" type="text" placeholder="quantity"></td>
+            <td><a class="button is-success is-rounded"(click)="addQuantity(fq.id)">+</a></td>
             <td>{{fq.calorieCount}} {{fq.unit}}</td>
           </tr>
         </tbody>
       </table>
     </div>
-
+  
     <div class="field is-grouped" *ngIf="!switchRoundedSuccess.value">
       <div class="control">
-        <button class="button is-link" (click)="onNext()">Add food Intake</button>
+        <button class="button is-link" (click)="onNext()">
+            Add food Intake
+        </button>
+        <!-- If food selection is active and the button is touched but nothing is selected then display the following. -->
+        <div *ngIf="!switchRoundedSuccess.value && addFoodButtonIsTouched && (selectedFoodQuantity.food.length == 0)"  class="help is-danger">
+            Add food or enter calories manually
+        </div>
       </div>
     </div>
-
+  
     <div class="buttons">
-      <button class="button is-info" (click)="onSubmit()" [disabled]="!f.valid">Submit</button>
+
+      <!-- submit button is diabled if the form is not valid and 
+           if there is no food selected then the submit butotn will be disabled 
+       -->
+      <button 
+        class="button is-info" 
+        (click)="onSubmit()" 
+        [disabled]="!f.valid && !switchRoundedSuccess.value && (selectedFoodQuantity.food.length == 0)">Submit</button>
+       
       <button class="button is-danger" (click)="onBack()">Cancel</button>
     </div>
+
+    <p>
+      {{ f.value | json}}
+    </p>
+
   </form>
 </div>
 
-<app-food-table *ngIf="step === 1" [alreadySelectedFood]="alreadySelectedFood()" (submitHandler)="onFoodSubmit($event)"
-  (backHandler)="onCancel($event)"></app-food-table>
+<app-food-table *ngIf="step === 1" [alreadySelectedFood]="alreadySelectedFood()" (submitHandler)="onFoodSubmit($event)" (backHandler)="onCancel($event)"></app-food-table>
+

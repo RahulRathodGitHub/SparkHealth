@@ -4,14 +4,16 @@ using Lapbase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseNewContext))]
-    partial class LapbaseNewContextModelSnapshot : ModelSnapshot
+    [Migration("20190908044832_Calories")]
+    partial class Calories
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,49 +100,49 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("2577969d-93da-4a17-94bf-0b984855f7c9"),
+                            Id = new Guid("e5ebdf1c-1454-47cd-a4cf-a2e2aec1bb8d"),
                             CalorieCount = 295,
                             Name = "Burger",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("7223eb94-fe59-4f62-b082-b216d5622b0f"),
+                            Id = new Guid("559b001e-4155-4b3d-bc5c-38d680f819e3"),
                             CalorieCount = 40,
                             Name = "Onion",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("6b6c9e33-3d86-44a2-b97d-c50c1cefbcab"),
+                            Id = new Guid("563fd512-bcc0-4b41-95aa-9c5b0a7dc602"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("09fea5c9-e328-4e6a-85fa-8e2af924699d"),
+                            Id = new Guid("b6936473-3f91-4d92-b9b9-78974a7a898c"),
                             CalorieCount = 96,
                             Name = "White bread",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("7437ee36-e38f-4526-bf1a-78f2ba19436f"),
+                            Id = new Guid("5df631a6-33be-4244-918e-6c34bd03dcb3"),
                             CalorieCount = 44,
                             Name = "Apple",
                             Unit = "apple"
                         },
                         new
                         {
-                            Id = new Guid("ba2a7b79-7fab-4bed-b22f-b2d0e5c47007"),
+                            Id = new Guid("8201cc59-33be-4c29-9dc1-028bbaea79b3"),
                             CalorieCount = 107,
                             Name = "Banana",
                             Unit = "banana"
                         },
                         new
                         {
-                            Id = new Guid("66ab8883-68ec-434b-af05-66f2c2256245"),
+                            Id = new Guid("e53c6f1a-bbef-4b34-91ce-4627a91a23f1"),
                             CalorieCount = 30,
                             Name = "Tomato",
                             Unit = "tomato"
@@ -212,7 +214,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("ac2fbfe3-5557-4c52-95d6-a9f2655f9a36"),
+                            Id = new Guid("46468ae6-5d81-4de2-a962-9595629d5b1e"),
                             AdvisorId = 1,
                             PatientId = 1,
                             Repetition = 1,
