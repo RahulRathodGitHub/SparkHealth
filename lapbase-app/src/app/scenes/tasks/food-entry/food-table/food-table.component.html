@@ -1,27 +1,40 @@
-<table class="table">
-  <thead>
-    <tr>
-      <th></th>
-      <th></th>
-      <th>Food</th>
-      <th>Calories Per Unit</th>
-      <th>Unit</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="tabs is-centered">
+    <ul class="options">
+      <li><a>Frequently Had Foods</a></li>
+      <li><a>Others</a></li>
+    </ul>
+  </div>
 
-    <tr *ngFor="let food of foods">
-      <td>
-        <label class="checkbox">
-          <input type="checkbox" (change)="toggleFood(food)">
-        </label></td>
-      <td><a (click)="removeFood(food.id)" class="delete"></a></td>
-      <td>{{food.name}}</td>
-      <td>{{food.calorieCount}}</td>
-      <td>{{food.unit}}</td>
-    </tr>
-  </tbody>
-</table>
+
+
+<div *ngFor="let food of foods">
+
+  <div class="box" (click)="toggleFood(food)">
+    <article class="media">
+      <div class="media-left">
+        <figure class="image is-64x64">
+          <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+        </figure>
+      </div>
+      <div class="media-content">
+        <div class="content">
+          <div>
+            <div class="level">
+              <strong class="level-left">{{food.name}}</strong>
+              <strong class="level-right"> <a (click)="removeFood(food.id)" class="delete"></a></strong>
+            </div>
+            <div>
+              <br><b>Calories Per Unit: </b>
+              {{food.calorieCount}}
+              {{food.unit}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
 <div class="buttons">
   <span class="button is-success" (click)="onSubmit()">Add Selected Items to your Food Intake</span>
   <span class="button is-danger" (click)="onBack()">Cancel</span>
