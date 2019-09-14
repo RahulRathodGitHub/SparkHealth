@@ -85,34 +85,13 @@ namespace Lapbase.Services
         }
 
         // Creates a TaskInput by taking a taskInput instance as an argumnet.
-        public async Task<TaskInput> CreateTaskInput(TaskInput taskInput)
+        public async Task<TaskInput> UpdateTaskInput(TaskInput taskInput)
         {
             var result = await lapbaseNewContext.TaskInput.AddAsync(taskInput);
             await lapbaseNewContext.SaveChangesAsync();
             return result.Entity;
         } 
 
-        //public async Task<TaskInput> UpdateTaskInput(DateTimeOffset dateAssigned,
-        //                                                   decimal calories, decimal weight, 
-        //                                                   string foods, string exercises)
-        //{
-
-        //    // Once the task is already present, you can just query using the task's Id.
-        //    var result = await lapbaseNewContext.TaskInput.Where(t => t.DateAssigned == dateAssigned).FirstOrDefaultAsync();
-
-
-        //    result.Calories = calories;
-        //    result.Weight = weight;
-        //    result.FoodIntakes = foodIntakes;
-        //    result.Exercises = exercises;
-
-        //    lapbaseNewContext.TaskInput.Update(result);
-
-        //    await lapbaseNewContext.SaveChangesAsync();
-
-        //    return result;
-
-        //    // Every time a modification has been made on the front-end, the entire data of the session will be passed. As for checking individual changes and creating different services would be a lot. Or maybe not
-        //}
+        
     }
 }
