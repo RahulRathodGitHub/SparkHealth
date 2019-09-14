@@ -32,7 +32,7 @@ namespace Lapbase.Controllers
 
         // GET api/TaskInput/{int}
         [HttpGet("{id}")]
-        public async Task<ActionResult<Models.Task>> GetTaskInputById(Guid id)
+        public async Task<ActionResult<TaskInput>> GetTaskInputById(Guid id)
         {
             if (id == default)
             {
