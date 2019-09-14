@@ -51,7 +51,7 @@ namespace Lapbase.Controllers
 
         // POST api/TaskInput
         [HttpPost]
-        public async Task<ActionResult> CreateTaskInput([FromBody]TaskInput taskInput)
+        public async Task<ActionResult> UpdateTaskInput([FromBody]TaskInput taskInput)
         {
             var result = await taskInputService.UpdateTaskInput(taskInput);
 

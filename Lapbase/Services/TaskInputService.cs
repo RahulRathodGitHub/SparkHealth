@@ -70,12 +70,20 @@ namespace Lapbase.Services
 
             while (taskInputs.Count() == 0 || taskInputs.Last().DateAssigned < today)
             {
-                taskInputs.Add(new TaskInput(patientId, organizationCode, lastDateOfInput.AddDays(1)));
+                TaskInput newTaskInput = new TaskInput(patientId, organizationCode, lastDateOfInput.AddDays(1));
+                taskInputs.Add(await CreateTaskInput(newTaskInput));
                 lastDateOfInput = taskInputs.Last().DateAssigned;
             }
 
             return taskInputs;
 
+        }
+
+        public async Task<TaskInput> CreateTaskInput(TaskInput taskInput)
+        {
+            var result = await lapbaseNewContext.TaskInput.AddAsync(taskInput);
+            await lapbaseNewContext.SaveChangesAsync();
+            return result.Entity;
         }
 
         // Get Tasks by the task's Id (May be for development purposes)
@@ -87,7 +95,7 @@ namespace Lapbase.Services
         // Creates a TaskInput by taking a taskInput instance as an argumnet.
         public async Task<TaskInput> UpdateTaskInput(TaskInput taskInput)
         {
-            var result = await lapbaseNewContext.TaskInput.AddAsync(taskInput);
+            var result = lapbaseNewContext.TaskInput.Update(taskInput);
             await lapbaseNewContext.SaveChangesAsync();
             return result.Entity;
         } 
