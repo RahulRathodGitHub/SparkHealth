@@ -3,10 +3,17 @@ using System.Collections.Generic;
 
 namespace Lapbase.Models
 {
-    public class FoodIntakeList : TaskInput
+    public enum IntakeTime
     {
-        public decimal Calories { get; set; }
-        public decimal Weight { get; set; }
+        BREAKFAST,
+        LUNCH,
+        DINNER
+    }
+
+    public class FoodIntakeList
+    {
+        public Guid Id { get; set; }
+        public IntakeTime intakeTime { get; set; }
         public string Food { get; set; }
         public string Quantity { get; set; }
     }

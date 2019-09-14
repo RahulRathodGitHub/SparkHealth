@@ -46,7 +46,7 @@ namespace Lapbase
             });
 
             services.AddTransient<PatientService>();
-            services.AddTransient<TaskService>();
+            services.AddTransient<TaskInputService>();
             services.AddTransient<AppointmentService>();
             services.AddTransient<ReportService>();
 
