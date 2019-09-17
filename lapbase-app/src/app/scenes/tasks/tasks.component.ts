@@ -1,7 +1,7 @@
 import { TaskService } from './../../services/task.service';
 import { Component, OnInit } from '@angular/core';
 import { ITask, TaskType } from 'src/app/models';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-tasks',
@@ -13,7 +13,9 @@ export class TasksComponent implements OnInit {
   selectedTaskId: string;
   selectedTaskType: TaskType;
   step: number;
-
+  date:Date;
+  yesterdayDate:Date;
+  tomorrowDate:Date;
 //   data: {
 //     "id": "db225c97-8515-4087-aeb9-f519cea4edea",
 //     "patientId": 1,
@@ -42,8 +44,7 @@ export class TasksComponent implements OnInit {
   constructor(private taskService: TaskService) {
     taskService.getTasks().then(result => this.tasks = result);
     this.step = 0;
-
-    
+    this.date = new Date();
   }
 
   onButtonClick(taskId: string) {
@@ -62,7 +63,16 @@ export class TasksComponent implements OnInit {
       this.taskService.getTasks().then(result => this.tasks = result);
     }
   }
-
+  dateAfter()
+  {
+    this.tomorrowDate = new Date(this.date.setDate(this.date.getDate() + 1));
+    this.date = this.tomorrowDate;
+  }
+  dateBefore()
+  {
+    this.yesterdayDate = new Date(this.date.setDate(this.date.getDate() - 1));
+    this.date = this.yesterdayDate;
+  }
   ngOnInit() {
    
   }

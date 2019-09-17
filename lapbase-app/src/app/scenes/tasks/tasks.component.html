@@ -12,9 +12,22 @@
 <app-exercise-entry *ngIf="step === 1 && selectedTaskType === 1" (nextHandler)="next($event)" (backHandler)="back($event)"></app-exercise-entry> -->
 <div class="columns is-mobile">
   <div class="column is-12 has-text-centered">
-    <h1 class="title ">Should be today's date here</h1>
+    <h1 class="title ">
+        <a class="button is-medium is-pulled-left"(click)="dateBefore()">
+            <span class="icon is-medium">
+              <i class="fas fa-chevron-left fa-2x"></i>
+            </span>
+          </a>
+          {{date  | date:'yyyy-MM-dd'}}
+          <a class="button is-medium is-pulled-right"(click)="dateAfter()">
+              <span class="icon is-medium">
+                <i class="fas fa-chevron-right fa-2x"></i>
+              </span>
+            </a>
+          </h1>
   </div>
 </div>
+
 
 
 <nav class="breadcrumb is-medium has-bullet-separator is-centered" aria-label="breadcrumbs">
