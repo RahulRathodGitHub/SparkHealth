@@ -1,10 +1,10 @@
 <div
   class="columns is-mobile is-gapless"
-  *ngFor="let foodChoices of foodChoicesArray"
+  *ngFor="let foodChoices of foodChoicesSelection"
 >
   <div class="column is-one-fifth " *ngFor="let foodChoice of foodChoices">
     <app-food-choice
-      [foodName]="foodChoice"
+      [foodChoice]="foodChoice"
       (increasedCount)="increaseQuantity($event)"
       (decreasedCount)="decreaseQuantity($event)"
     ></app-food-choice>

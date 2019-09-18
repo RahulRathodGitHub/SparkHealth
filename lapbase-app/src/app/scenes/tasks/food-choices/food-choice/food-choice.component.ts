@@ -6,7 +6,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
   styleUrls: ["./food-choice.component.scss"]
 })
 export class FoodChoiceComponent implements OnInit {
-  @Input() foodName: string;
+  @Input() foodChoice: string;
   @Output() decreasedCount = new EventEmitter();
   @Output() increasedCount = new EventEmitter();
   count: number = 0;
@@ -16,11 +16,11 @@ export class FoodChoiceComponent implements OnInit {
 
   increaseCount() {
     this.count++;
-    this.increasedCount.emit(this.foodName);
+    this.increasedCount.emit(this.foodChoice);
   }
 
   decreaseCount() {
     this.count--;
-    this.decreasedCount.emit(this.foodName);
+    this.decreasedCount.emit(this.foodChoice);
   }
 }

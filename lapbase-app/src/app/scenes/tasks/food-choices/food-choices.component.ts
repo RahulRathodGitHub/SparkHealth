@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { IFood } from "src/app/models";
 
 @Component({
   selector: "app-food-choices",
@@ -7,67 +8,46 @@ import { Component, OnInit, Output, EventEmitter } from "@angular/core";
 })
 export class FoodChoicesComponent implements OnInit {
   @Output() submitFoodSelection = new EventEmitter();
-  foodChoicesArray = [
-    ["Roti", "Rice", "Halal Pork"],
-    ["Habibi-Style Shwarma", "Meat platter", "Apple"],
-    ["Mooncake", "HSP", "McD"]
-  ];
+  @Input() foodChoicesSelection: [];
 
-  selectedFood: {
-    name: string;
-    quantity: number;
-  }[] = [];
+  // foodChoicesArray = [
+  //   // ["Roti", "Rice", "Halal Pork"],
+  //   // ["Habibi-Style Shwarma", "Meat platter", "Apple"],
+  //   // ["Mooncake", "HSP", "McD"]
+  // ];
+
+  selectedFood = [];
 
   constructor() {}
 
   ngOnInit() {}
 
-  increaseQuantity(name) {
+  increaseQuantity(foodChoice) {
     if (this.selectedFood === null) {
-      this.selectedFood.push({ name: name, quantity: 1 });
+      this.selectedFood.push({ food: foodChoice, quantity: 1 });
     } else {
-      var index = this.findFood(name);
+      var index = this.findFood(foodChoice.name);
       if (index > -1) {
         this.selectedFood[index].quantity++;
       } else {
-        this.selectedFood.push({ name: name, quantity: 1 });
+        this.selectedFood.push({ food: foodChoice, quantity: 1 });
       }
     }
-    // loop: for (var i = 0; i < this.foodChoicesArray.length; i++) {
-    //   for (var j = 0; j < this.foodChoicesArray[i].length; j++) {
-    //     if (this.foodChoicesArray[i][j] === name) {
-    //       console.log("increased");
-
-    //       this.foodChoicesQuantity[i][j]++;
-    //       break loop;
-    //     }
-    //   }
-    // }
   }
 
-  decreaseQuantity(name) {
-    var index = this.findFood(name);
+  decreaseQuantity(foodChoice) {
+    var index = this.findFood(foodChoice.name);
 
     if (this.selectedFood[index].quantity < 2) {
       this.selectedFood.splice(index, 1);
     } else {
       this.selectedFood[index].quantity--;
     }
-
-    // loop: for (var i = 0; i < this.foodChoicesArray.length; i++) {
-    //   for (var j = 0; j < this.foodChoicesArray[i].length; j++) {
-    //     if (this.foodChoicesArray[i][j] === name) {
-    //       console.log("decreased");
-    //       this.foodChoicesQuantity[i][j]--;
-    //       break loop;
-    //     }
-    //   }
-    // }
   }
 
-  findFood(foodName) {
+  findFood(foodChoiceName) {
     for (var i = 0; i < this.selectedFood.length; i++) {
-      if (this.selectedFood[i].name == foodName) return i;
+      if (this.selectedFood[i].food.name == foodChoiceName) return i;
     }
 
     return -1;

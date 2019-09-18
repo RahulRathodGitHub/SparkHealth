@@ -51,13 +51,13 @@
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
-    <div *ngFor="let breakfast of meals['Breakfast']">
-      {{ breakfast.name }}
+    <div *ngFor="let breakfast of selectedMeals['Breakfast']">
+      {{ breakfast.food.name + "  Cal:" + breakfast.food.calorieCount }}
     </div>
   </div>
   <div class="column is-offset-1">
     column 2
-    <div *ngFor="let breakfast of meals['Breakfast']">
+    <div *ngFor="let breakfast of selectedMeals['Breakfast']">
       {{ breakfast.quantity }}
     </div>
   </div>
@@ -76,13 +76,13 @@
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
-    <div *ngFor="let lunch of meals['Lunch']">
-      {{ lunch.name }}
+    <div *ngFor="let lunch of selectedMeals['Lunch']">
+      {{ lunch.food.name + "  Cal:" + lunch.food.calorieCount }}
     </div>
   </div>
   <div class="column is-offset-1">
     column 2
-    <div *ngFor="let lunch of meals['Lunch']">
+    <div *ngFor="let lunch of selectedMeals['Lunch']">
       {{ lunch.quantity }}
     </div>
   </div>
@@ -101,13 +101,13 @@
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
-    <div *ngFor="let dinner of meals['Dinner']">
-      {{ dinner.name }}
+    <div *ngFor="let dinner of selectedMeals['Dinner']">
+      {{ dinner.food.name + "  Cal:" + dinner.food.calorieCount }}
     </div>
   </div>
   <div class="column is-offset-1">
     column 2
-    <div *ngFor="let dinner of meals['Dinner']">
+    <div *ngFor="let dinner of selectedMeals['Dinner']">
       {{ dinner.quantity }}
     </div>
   </div>
@@ -115,6 +115,7 @@
 
 <app-food-choices
   *ngIf="selectedFood != true"
+  [foodChoicesSelection]="foodChoicesArray"
   (submitFoodSelection)="getFoodSelection($event)"
 ></app-food-choices>
 
