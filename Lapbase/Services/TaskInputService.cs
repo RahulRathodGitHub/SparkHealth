@@ -26,7 +26,7 @@ namespace Lapbase.Services
         }
 
         // Returns all the TaskInputs for the users to enter or check.
-        public async Task<List<TaskInput>> GetTaskInputs(int patientId, int organizationCode)
+        public async Task<List<TaskInputDto>> GetTaskInputs(int patientId, int organizationCode)
         {
             Console.WriteLine("Inside GetTaskInputs service");
             // Today's Date
@@ -75,7 +75,15 @@ namespace Lapbase.Services
                 lastDateOfInput = taskInputs.Last().DateAssigned;
             }
 
-            return taskInputs;
+            List<TaskInputDto> taskInputDtos = new List<TaskInputDto>();
+
+
+            foreach(TaskInput t in taskInputs)
+            {
+                taskInputDtos.Add(new TaskInputDto(t));
+            }
+
+            return taskInputDtos;
 
         }
 
@@ -87,18 +95,20 @@ namespace Lapbase.Services
         }
 
         // Get Tasks by the task's Id (May be for development purposes)
-        public async Task<TaskInput> GetTaskInputById(Guid taskId)
+        public async Task<TaskInputDto> GetTaskInputById(Guid taskId)
         {
-            return await lapbaseNewContext.TaskInput.Where(t => t.Id == taskId).FirstOrDefaultAsync();
+            return new TaskInputDto(await lapbaseNewContext.TaskInput.Where(t => t.Id == taskId).FirstOrDefaultAsync());
         }
 
         // Creates a TaskInput by taking a taskInput instance as an argumnet.
-        public async Task<TaskInput> UpdateTaskInput(TaskInput taskInput)
+        public async Task<TaskInputDto> UpdateTaskInput(TaskInput taskInput)
         {
             var result = lapbaseNewContext.TaskInput.Update(taskInput);
             await lapbaseNewContext.SaveChangesAsync();
-            return result.Entity;
+            return new TaskInputDto(result.Entity);
         } 
+
+ 
 
         
     }
