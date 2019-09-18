@@ -30,6 +30,8 @@ import {
 
 import { FullCalendarModule } from "@fullcalendar/angular"; //For incorporating the Calendar for Appointment functinality
 import { DatePipe } from "@angular/common";
+import { FoodChoicesComponent } from './scenes/tasks/food-choices/food-choices.component';
+import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/food-choice.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +51,9 @@ import { DatePipe } from "@angular/common";
     FoodEntryComponent,
     FoodTableComponent,
     ExerciseTableComponent,
-    ExerciseEntryComponent
+    ExerciseEntryComponent,
+    FoodChoicesComponent,
+    FoodChoiceComponent
   ],
   imports: [
     BrowserModule,

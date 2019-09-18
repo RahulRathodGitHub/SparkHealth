@@ -1,0 +1,16 @@
+<div
+  class="columns is-mobile is-gapless"
+  *ngFor="let foodChoices of foodChoicesArray"
+>
+  <div class="column is-one-fifth " *ngFor="let foodChoice of foodChoices">
+    <app-food-choice
+      [foodName]="foodChoice"
+      (increasedCount)="increaseQuantity($event)"
+      (decreasedCount)="decreaseQuantity($event)"
+    ></app-food-choice>
+  </div>
+</div>
+
+<div>
+  <a class="button is-primary" (click)="save()">Save</a>
+</div>

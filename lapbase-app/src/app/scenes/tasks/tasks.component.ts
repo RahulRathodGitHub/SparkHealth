@@ -1,48 +1,36 @@
-import { TaskService } from './../../services/task.service';
-import { Component, OnInit } from '@angular/core';
-import { ITask, TaskType } from 'src/app/models';
-import { DatePipe } from '@angular/common';
+import { TaskService } from "./../../services/task.service";
+import { Component, OnInit } from "@angular/core";
+import { ITask, TaskType, TaskInput } from "src/app/models";
+import { DatePipe } from "@angular/common";
 
 @Component({
-  selector: 'app-tasks',
-  templateUrl: './tasks.component.html',
-  styleUrls: ['./tasks.component.scss']
+  selector: "app-tasks",
+  templateUrl: "./tasks.component.html",
+  styleUrls: ["./tasks.component.scss"]
 })
 export class TasksComponent implements OnInit {
   private tasks: ITask[];
   selectedTaskId: string;
   selectedTaskType: TaskType;
   step: number;
-  date:Date;
-  yesterdayDate:Date;
-  tomorrowDate:Date;
-//   data: {
-//     "id": "db225c97-8515-4087-aeb9-f519cea4edea",
-//     "patientId": 1,
-//     "organizationCode": 1,
-//     "dateAssigned": "2019-09-12T09:24:44.0948073+00:00",
-//     "calories": 3000.00,
-//     "weight": 70.00,
-//     "foods": [
-//                 {
-//                     "name": "Food1,Food 2,Food 3",
-//                     "quantity": "1,2,3",
-//                     "mealTime": "Breakfast"
-//                 },
-//                 {
-//                     "name": "Food1,Food 2,Food 3",
-//                     "quantity": "1,2,3",
-//                     "mealTime": "Lunch"
-//                 }
-//     ],
-//     "exercises": {
-//         "name": "push ups, Ex 2"
-//         "quantity": "10, 20"
-//     }
-// }
+
+  date: Date;
+  yesterdayDate: Date;
+  tomorrowDate: Date;
+
+  //Eric's addition
+  selectedFood = true;
+  selectedMealTime: string;
+  meals = {
+    Breakfast: [],
+    Lunch: [],
+    Dinner: []
+  };
+
+  taskData: TaskInput;
 
   constructor(private taskService: TaskService) {
-    taskService.getTasks().then(result => this.tasks = result);
+    taskService.getTasks().then(result => (this.tasks = result));
     this.step = 0;
     this.date = new Date();
   }
@@ -60,22 +48,31 @@ export class TasksComponent implements OnInit {
   back() {
     this.step--;
     if (this.step === 0) {
-      this.taskService.getTasks().then(result => this.tasks = result);
+      this.taskService.getTasks().then(result => (this.tasks = result));
     }
   }
-  dateAfter()
-  {
+  dateAfter() {
     this.tomorrowDate = new Date(this.date.setDate(this.date.getDate() + 1));
     this.date = this.tomorrowDate;
   }
-  dateBefore()
-  {
+  dateBefore() {
     this.yesterdayDate = new Date(this.date.setDate(this.date.getDate() - 1));
     this.date = this.yesterdayDate;
   }
   ngOnInit() {
-   
+    console.log(this.selectedFood);
   }
 
-  
+  //Eric's method
+  selectFood(mealtime) {
+    this.selectedFood = false;
+    this.selectedMealTime = mealtime;
+  }
+
+  getFoodSelection(foodSelection) {
+    for (var i = 0; i < foodSelection.length; i++) {
+      this.meals[this.selectedMealTime].push(foodSelection[i]);
+    }
+    this.selectedFood = true;
+  }
 }

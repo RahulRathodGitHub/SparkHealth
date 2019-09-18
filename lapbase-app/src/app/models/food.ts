@@ -1,9 +1,21 @@
 export interface IFood {
-    id: string;
+  id: string;
 
-    name: string;
-    calorieCount: number;
-    unit: string;
+  name: string;
+  calorieCount: number;
+  unit: string;
 
-    patientId: number;
+  patientId: number;
+}
+
+export class Food {
+  name: string;
+  quantity: string;
+  mealTime: string;
+}
+
+export enum MealTime {
+  BREAKFAST,
+  LUNCH,
+  DINNER
 }

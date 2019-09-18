@@ -13,24 +13,25 @@
 <div class="columns is-mobile">
   <div class="column is-12 has-text-centered">
     <h1 class="title ">
-        <a class="button is-medium is-pulled-left"(click)="dateBefore()">
-            <span class="icon is-medium">
-              <i class="fas fa-chevron-left fa-2x"></i>
-            </span>
-          </a>
-          {{date  | date:'yyyy-MM-dd'}}
-          <a class="button is-medium is-pulled-right"(click)="dateAfter()">
-              <span class="icon is-medium">
-                <i class="fas fa-chevron-right fa-2x"></i>
-              </span>
-            </a>
-          </h1>
+      <a class="button is-medium is-pulled-left" (click)="dateBefore()">
+        <span class="icon is-medium">
+          <i class="fas fa-chevron-left fa-2x"></i>
+        </span>
+      </a>
+      {{ date | date: "yyyy-MM-dd" }}
+      <a class="button is-medium is-pulled-right" (click)="dateAfter()">
+        <span class="icon is-medium">
+          <i class="fas fa-chevron-right fa-2x"></i>
+        </span>
+      </a>
+    </h1>
   </div>
 </div>
 
-
-
-<nav class="breadcrumb is-medium has-bullet-separator is-centered" aria-label="breadcrumbs">
+<nav
+  class="breadcrumb is-medium has-bullet-separator is-centered"
+  aria-label="breadcrumbs"
+>
   <ul>
     <li><a href="#">Foods</a></li>
     <li class="is-active"><a href="#" aria-current="page">Exercises</a></li>
@@ -39,44 +40,82 @@
 
 <div class="columns is-mobile">
   <div class="column is-12">
-    <h2 class="subtitle">Breakfast <a class="button is-pulled-right">Add food for breakfast</a></h2>
+    <h2 class="subtitle">
+      Breakfast
+      <a class="button is-pulled-right" (click)="selectFood('Breakfast')"
+        >Add food for breakfast</a
+      >
+    </h2>
   </div>
 </div>
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
+    <div *ngFor="let breakfast of meals['Breakfast']">
+      {{ breakfast.name }}
+    </div>
   </div>
   <div class="column is-offset-1">
     column 2
+    <div *ngFor="let breakfast of meals['Breakfast']">
+      {{ breakfast.quantity }}
+    </div>
   </div>
 </div>
 
 <div class="columns is-mobile">
   <div class="column is-12">
-    <h2 class="subtitle">Lunch <a class="button is-pulled-right">Add food for lunch</a></h2>
+    <h2 class="subtitle">
+      Lunch
+      <a class="button is-pulled-right" (click)="selectFood('Lunch')"
+        >Add food for lunch</a
+      >
+    </h2>
   </div>
 </div>
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
+    <div *ngFor="let lunch of meals['Lunch']">
+      {{ lunch.name }}
+    </div>
   </div>
   <div class="column is-offset-1">
     column 2
+    <div *ngFor="let lunch of meals['Lunch']">
+      {{ lunch.quantity }}
+    </div>
   </div>
 </div>
 
 <div class="columns is-mobile">
   <div class="column is-12">
-    <h2 class="subtitle">Dinner <a class="button is-pulled-right">Add food for dinner</a></h2>
+    <h2 class="subtitle">
+      Dinner
+      <a class="button is-pulled-right" (click)="selectFood('Dinner')"
+        >Add food for dinner</a
+      >
+    </h2>
   </div>
 </div>
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
+    <div *ngFor="let dinner of meals['Dinner']">
+      {{ dinner.name }}
+    </div>
   </div>
   <div class="column is-offset-1">
     column 2
+    <div *ngFor="let dinner of meals['Dinner']">
+      {{ dinner.quantity }}
+    </div>
   </div>
 </div>
 
-<a class="button is-success is-pulled-right" >Save</a>
+<app-food-choices
+  *ngIf="selectedFood != true"
+  (submitFoodSelection)="getFoodSelection($event)"
+></app-food-choices>
+
+<a class="button is-success is-pulled-right">Save</a>
