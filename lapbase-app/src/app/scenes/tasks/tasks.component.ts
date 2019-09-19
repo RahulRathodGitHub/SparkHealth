@@ -82,9 +82,10 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private patientService: PatientService
+    private patientService: PatientService,
+    private datepipe: DatePipe
   ) {
-    taskService.getTasks().then(result => (this.tasks = result));
+    // taskService.getTasks().then(result => (this.tasks = result));
     this.step = 0;
     this.date = new Date();
   }
@@ -112,6 +113,18 @@ export class TasksComponent implements OnInit {
   dateBefore() {
     this.yesterdayDate = new Date(this.date.setDate(this.date.getDate() - 1));
     this.date = this.yesterdayDate;
+    console.log(this.changeDateFormat(this.date));
+
+    this.taskService
+      .getTaskByDate(this.changeDateFormat(this.date))
+      .then(task => {
+        console.log("here");
+        console.log(task.calories);
+      });
+  }
+
+  changeDateFormat(date: Date) {
+    return this.datepipe.transform(date, "yyyy-MM-dd");
   }
 
   //Eric's method

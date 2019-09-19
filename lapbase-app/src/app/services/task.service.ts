@@ -64,9 +64,14 @@ export class TaskService {
       .toPromise<any>();
   };
 
-  getTaskByDate = async (date: Date): Promise<TaskInput> => {
+  getTaskByDate = async (date: string): Promise<TaskInput> => {
     return await this.httpClient
-      .get(environment.LAPBASE_API_ADDRESS + "/TaskInput")
+      .get(
+        environment.LAPBASE_API_ADDRESS +
+          "TaskInput/Date/" +
+          date +
+          "T00:00:00.0000000+00:00"
+      )
       .toPromise<any>();
   };
 }
