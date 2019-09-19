@@ -101,9 +101,19 @@ namespace Lapbase.Services
         }
 
         // Get Task Inputs by date and patientId.
-        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organzationCode)
+        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organizationCode)
         {
-            return new TaskInputDto(await lapbaseNewContext.TaskInput.Where(t => t.DateAssigned.Date.Equals(date) && t.PatientId.Equals(patientId) && t.OrganizationCode.Equals(organzationCode)).FirstOrDefaultAsync());
+            
+            TaskInput taskInput = await lapbaseNewContext.TaskInput.Where(t => t.DateAssigned.Date.Equals(date) && t.PatientId.Equals(patientId) && t.OrganizationCode.Equals(organizationCode)).FirstOrDefaultAsync();
+
+            if(taskInput == default)
+            {
+                taskInput = await CreateTaskInput(new TaskInput(patientId, organizationCode, date));
+            }
+
+            TaskInputDto taskInputDto =  new TaskInputDto(taskInput);
+
+            return taskInputDto;
         }
 
         // Creates a TaskInput by taking a taskInput instance as an argumnet.
