@@ -100,16 +100,29 @@ namespace Lapbase.Services
             return new TaskInputDto(await lapbaseNewContext.TaskInput.Where(t => t.Id == taskId).FirstOrDefaultAsync());
         }
 
+        // Get Task Inputs by date and patientId.
+        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organzationCode)
+        {
+            return new TaskInputDto(await lapbaseNewContext.TaskInput.Where(t => t.DateAssigned.Date.Equals(date) && t.PatientId.Equals(patientId) && t.OrganizationCode.Equals(organzationCode)).FirstOrDefaultAsync());
+        }
+
         // Creates a TaskInput by taking a taskInput instance as an argumnet.
         public async Task<TaskInputDto> UpdateTaskInput(TaskInput taskInput)
         {
             var result = lapbaseNewContext.TaskInput.Update(taskInput);
             await lapbaseNewContext.SaveChangesAsync();
+            return new TaskInputDto(result.Entity); 
+        }
+
+        // Creates a TaskInput by taking a taskInput instance as an argumnet.
+        public async Task<TaskInputDto> UpdateTaskInput(TaskInputDto taskInputDto)
+        {
+            TaskInput taskInput = new TaskInput(taskInputDto);
+
+            var result = lapbaseNewContext.TaskInput.Update(taskInput);
+            await lapbaseNewContext.SaveChangesAsync();
             return new TaskInputDto(result.Entity);
-        } 
+        }
 
- 
-
-        
     }
 }

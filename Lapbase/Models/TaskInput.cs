@@ -37,7 +37,7 @@ namespace Lapbase.Models
 
         public TaskInput()
         {
-                
+
         }
 
         public TaskInput(int patientId, int organizationCode, DateTimeOffset dateAssigned)
@@ -67,5 +67,43 @@ namespace Lapbase.Models
 
         }
 
+        public TaskInput(TaskInputDto taskInputDto)
+        {
+            this.Id = taskInputDto.Id;
+            this.PatientId = taskInputDto.PatientId;
+            this.OrganizationCode = taskInputDto.OrganizationCode;
+            this.Weight = taskInputDto.Weight;
+            this.Calories = taskInputDto.Calories;
+            this.Completed = taskInputDto.Completed;
+            this.DateAssigned = taskInputDto.DateAssigned;
+            this.Foods = "";
+            this.FoodQuantities = "";
+            this.IntakeTimes = "";
+            this.Exercises = "";
+            this.ExerciseReps = "";
+
+            taskInputDto.Foods.ForEach(t =>
+            {
+                this.Foods = this.Foods + "," + t.getFoodString();
+                this.FoodQuantities = this.FoodQuantities + "," + t.getFoodQuantityString();
+                this.IntakeTimes = this.IntakeTimes + "," + t.getIntakeTimeString();
+            });
+            this.Foods = this.Foods.Substring(1); // To remove the comma at the front of the sring.
+            this.FoodQuantities = this.FoodQuantities.Substring(1);
+            this.IntakeTimes = this.IntakeTimes.Substring(1);
+
+
+            taskInputDto.Exercises.ForEach(e =>
+            {
+                this.Exercises += this.Exercises + "," + e.getExerciseString();
+                this.ExerciseReps += this.ExerciseReps + "," + e.getExerciseReps();
+            });
+            this.Exercises = this.Exercises.Substring(1);
+            this.ExerciseReps = this.ExerciseReps.Substring(1);
+
+
+        }
+
     }
+   
 }

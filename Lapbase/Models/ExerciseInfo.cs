@@ -19,6 +19,16 @@ namespace Lapbase.Models
             this.ExerciseNames = ExerciseNames;
             this.Quantities = Quantities;
         }
+
+        public String getExerciseString()
+        {
+            return ExerciseNames;
+        }
+
+        public String getExerciseReps()
+        {
+            return Quantities;
+        }
     }
 
 }

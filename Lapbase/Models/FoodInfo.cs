@@ -22,6 +22,30 @@ namespace Lapbase.Models
             this.intakeTime = intakeTime;
 
         }
+
+        public String getFoodString()
+        {
+            return FoodNames;
+        }
+
+        public String getFoodQuantityString()
+        {
+            return Quantities;
+        }
+
+        public String getIntakeTimeString()
+        {
+            string intakeTimes = "";
+
+            string thisIntake = this.intakeTime.ToString();
+
+            foreach(string s in FoodNames.Split(","))
+            {
+                intakeTimes += "," + thisIntake;
+            }
+
+            return intakeTimes.Substring(1);
+        }
     }
 
     public enum IntakeTime

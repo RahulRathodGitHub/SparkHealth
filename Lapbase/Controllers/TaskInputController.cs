@@ -23,7 +23,7 @@ namespace Lapbase.Controllers
 
         // GET: api/TaskInput
         [HttpGet]
-        public async Task<ActionResult<List<TaskInput>>> GetTaskInputs() // should this take parameteres of patientId and organization code.
+        public async Task<ActionResult<List<TaskInputDto>>> GetTaskInputs() // should this take parameteres of patientId and organization code.
         {
             int patientId = 1;
             int organizationCode = 1;
@@ -32,7 +32,7 @@ namespace Lapbase.Controllers
 
         // GET api/TaskInput/{int}
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskInput>> GetTaskInputById(Guid id)
+        public async Task<ActionResult<TaskInputDto>> GetTaskInputById(Guid id)
         {
             if (id == default)
             {
@@ -49,11 +49,33 @@ namespace Lapbase.Controllers
             return Ok(task);
         }
 
+        // GET api/TaskInput/Date/{int}
+        [HttpGet("Date/{id}")]
+        public async Task<ActionResult<TaskInputDto>> GetTaskInputById(DateTime date)
+        {
+            int patientId = 1;
+            int organizationCode = 1;
+
+            if (date == default)
+            {
+                return BadRequest();
+            }
+
+            var task = await taskInputService.GetTaskInputByDate(date, organizationCode, patientId);
+
+            if (task == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(task);
+        }
+
         // POST api/TaskInput
         [HttpPost]
-        public async Task<ActionResult> UpdateTaskInput([FromBody]TaskInput taskInput)
+        public async Task<ActionResult> UpdateTaskInput([FromBody]TaskInputDto taskInputDto)
         {
-            var result = await taskInputService.UpdateTaskInput(taskInput);
+            var result = await taskInputService.UpdateTaskInput(taskInputDto);
 
             return CreatedAtAction(nameof(GetTaskInputById), new { result.Id }, result);
         } // Working

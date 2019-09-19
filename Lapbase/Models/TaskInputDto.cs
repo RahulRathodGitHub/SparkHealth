@@ -34,12 +34,14 @@ namespace Lapbase.Models
             this.Completed = taskInput.Completed;
             this.Calories = taskInput.Calories;
             this.Weight = taskInput.Weight;
+            this.Foods = new List<FoodInfo>();
+            this.Exercises = new List<ExerciseInfo>();
 
-            String[] foodName = taskInput.Foods.Split(" ");
-            String[] foodQuantities = taskInput.FoodQuantities.Split(" ");
+            String[] foodName = taskInput.Foods.Split(",");
+            String[] foodQuantities = taskInput.FoodQuantities.Split(",");
 
-            String[] exerciseNames = taskInput.Exercises.Split(" ");
-            String[] exerciseQuantities = taskInput.ExerciseReps.Split(" ");
+            String[] exerciseNames = taskInput.Exercises.Split(",");
+            String[] exerciseQuantities = taskInput.ExerciseReps.Split(",");
 
             String breakfastFoods = "";
             String breakfastFoodQuantities = "";
@@ -52,7 +54,7 @@ namespace Lapbase.Models
 
 
             int i = 0;
-            foreach (String s in taskInput.IntakeTimes.Split(" "))
+            foreach (String s in taskInput.IntakeTimes.Split(","))
             {
                 if (s.ToLower().Equals("breakfast"))
                 {
@@ -69,17 +71,14 @@ namespace Lapbase.Models
                     dinnerFoods += "," + foodName[i];
                     dinnerFoodQuantities += "," + foodQuantities[i];
                 }
-                else
-                {
-
-                }
+               
 
                 i++;
             }
 
-            this.Foods.Add(new FoodInfo(breakfastFoods, breakfastFoodQuantities, IntakeTime.BREAKFAST));
-            this.Foods.Add(new FoodInfo(lunchFoods, lunchFoodQuantities, IntakeTime.LUNCH));
-            this.Foods.Add(new FoodInfo(dinnerFoods, dinnerFoodQuantities, IntakeTime.DINNER));
+            this.Foods.Add(new FoodInfo(breakfastFoods.Substring(1), breakfastFoodQuantities.Substring(1), IntakeTime.BREAKFAST));
+            this.Foods.Add(new FoodInfo(lunchFoods.Substring(1), lunchFoodQuantities.Substring(1), IntakeTime.LUNCH));
+            this.Foods.Add(new FoodInfo(dinnerFoods.Substring(1), dinnerFoodQuantities.Substring(1), IntakeTime.DINNER));
 
             this.Exercises.Add(new ExerciseInfo(taskInput.Exercises, taskInput.ExerciseReps));
         }
