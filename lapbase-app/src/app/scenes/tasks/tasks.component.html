@@ -52,6 +52,11 @@
   <div class="column is-offset-1">
     column 1
     <div *ngFor="let breakfast of selectedMeals['Breakfast']">
+        <a class="button is-small" (click)="removeFood(breakfast.food.id,'Breakfast')">
+            <span class="icon is-small">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
       {{ breakfast.food.name + "  Cal:" + breakfast.food.calorieCount }}
     </div>
   </div>
@@ -87,6 +92,11 @@
   <div class="column is-offset-1">
     column 1
     <div *ngFor="let lunch of selectedMeals['Lunch']">
+        <a class="button is-small" (click)="removeFood(lunch.food.id,'Lunch')">
+            <span class="icon is-small">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
       {{ lunch.food.name + "  Cal:" + lunch.food.calorieCount }}
     </div>
   </div>
@@ -122,6 +132,11 @@
   <div class="column is-offset-1">
     column 1
     <div *ngFor="let dinner of selectedMeals['Dinner']">
+        <a class="button is-small" (click)="removeFood(dinner.food.id,'Dinner')">
+            <span class="icon is-small">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
       {{ dinner.food.name + "  Cal:" + dinner.food.calorieCount }}
     </div>
   </div>

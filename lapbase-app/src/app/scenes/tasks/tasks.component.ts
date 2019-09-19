@@ -115,4 +115,7 @@ export class TasksComponent implements OnInit {
     this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
       .quantity++;
   }
+
+  removeFood(foodId: string, mealTime) {
+    this.selectedMeals[mealTime].splice(this.findIndexOfFood(foodId, mealTime),1);}
 }
