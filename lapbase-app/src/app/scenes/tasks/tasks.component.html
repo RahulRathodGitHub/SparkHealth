@@ -58,7 +58,17 @@
   <div class="column is-offset-1">
     column 2
     <div *ngFor="let breakfast of selectedMeals['Breakfast']">
+      <a class="button is-small" (click)="minusQuantity(breakfast.food.id,'Breakfast')">
+        <span class="icon is-small">
+          <i class="fas fa-minus"></i>
+        </span>
+      </a>
       {{ breakfast.quantity }}
+      <a class="button is-small" (click)="addQuantity(breakfast.food.id,'Breakfast')">
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </a>
     </div>
   </div>
 </div>
@@ -83,7 +93,17 @@
   <div class="column is-offset-1">
     column 2
     <div *ngFor="let lunch of selectedMeals['Lunch']">
+        <a class="button is-small" (click)="minusQuantity(lunch.food.id,'Lunch')">
+            <span class="icon is-small">
+              <i class="fas fa-minus"></i>
+            </span>
+          </a>
       {{ lunch.quantity }}
+      <a class="button is-small" (click)="addQuantity(lunch.food.id,'Lunch')">
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+          </span>
+        </a>
     </div>
   </div>
 </div>
@@ -108,7 +128,17 @@
   <div class="column is-offset-1">
     column 2
     <div *ngFor="let dinner of selectedMeals['Dinner']">
+        <a class="button is-small" (click)="minusQuantity(dinner.food.id,'Dinner')">
+            <span class="icon is-small">
+              <i class="fas fa-minus"></i>
+            </span>
+          </a>
       {{ dinner.quantity }}
+      <a class="button is-small" (click)="addQuantity(dinner.food.id,'Dinner')">
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+          </span>
+        </a>
     </div>
   </div>
 </div>

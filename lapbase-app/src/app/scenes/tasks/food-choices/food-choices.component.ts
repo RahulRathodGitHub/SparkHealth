@@ -46,11 +46,7 @@ export class FoodChoicesComponent implements OnInit {
   }
 
   findFood(foodChoiceName) {
-    for (var i = 0; i < this.selectedFood.length; i++) {
-      if (this.selectedFood[i].food.name == foodChoiceName) return i;
-    }
-
-    return -1;
+    return this.selectedFood.findIndex(f => f.food.name == foodChoiceName);
   }
 
   save() {

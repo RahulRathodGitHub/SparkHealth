@@ -103,4 +103,16 @@ export class TasksComponent implements OnInit {
     }
     this.selectedFood = true;
   }
+  findIndexOfFood(foodId: string, mealTime) {
+    return this.selectedMeals[mealTime].findIndex(f => f.food.id == foodId);
+  }
+
+  minusQuantity(foodId: string, mealTime) {
+    this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
+      .quantity--;
+  }
+  addQuantity(foodId: string, mealTime) {
+    this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
+      .quantity++;
+  }
 }
