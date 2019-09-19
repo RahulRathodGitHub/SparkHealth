@@ -1,4 +1,4 @@
-<div *ngIf="step === 0">
+<!--<div *ngIf="step === 0">
   <h1 class="has-text-centered has-text-weight-bold">Please Click any of the following tasks to get started</h1>
   <div class="tile is-ancestor">
     <div class="tile is-vertical is-parent listBody">
@@ -6,8 +6,147 @@
         <app-task (buttonHandler)="onButtonClick($event)" [task]="task"></app-task>
       </div>
     </div>
-    <!--Here we can directly pass ngFor in Task components, for styling sake, we make it into a list-->
   </div>
 </div>
 <app-food-entry *ngIf="step === 1 && selectedTaskType === 0" (nextHandler)="next($event)" (backHandler)="back($event)" [selectedTaskId]="selectedTaskId"></app-food-entry>
-<app-exercise-entry *ngIf="step === 1 && selectedTaskType === 1" (nextHandler)="next($event)" (backHandler)="back($event)"></app-exercise-entry>
+<app-exercise-entry *ngIf="step === 1 && selectedTaskType === 1" (nextHandler)="next($event)" (backHandler)="back($event)"></app-exercise-entry> -->
+<div class="columns is-mobile">
+  <div class="column is-12 has-text-centered">
+    <h1 class="title ">
+      <a class="button is-medium is-pulled-left" (click)="dateBefore()">
+        <span class="icon is-medium">
+          <i class="fas fa-chevron-left fa-2x"></i>
+        </span>
+      </a>
+      {{ date | date: "yyyy-MM-dd" }}
+      <a class="button is-medium is-pulled-right" (click)="dateAfter()">
+        <span class="icon is-medium">
+          <i class="fas fa-chevron-right fa-2x"></i>
+        </span>
+      </a>
+    </h1>
+  </div>
+</div>
+
+<nav
+  class="breadcrumb is-medium has-bullet-separator is-centered"
+  aria-label="breadcrumbs"
+>
+  <ul>
+    <li><a href="#">Foods</a></li>
+    <li class="is-active"><a href="#" aria-current="page">Exercises</a></li>
+  </ul>
+</nav>
+
+<div class="columns is-mobile">
+  <div class="column is-12">
+    <h2 class="subtitle">
+      Breakfast
+      <a class="button is-pulled-right" (click)="selectFood('Breakfast')"
+        >Add food for breakfast</a
+      >
+    </h2>
+  </div>
+</div>
+<div class="columns is-mobile">
+  <div class="column is-offset-1">
+    column 1
+    <div *ngFor="let breakfast of selectedMeals['Breakfast']">
+      {{ breakfast.food.name + "  Cal:" + breakfast.food.calorieCount }}
+    </div>
+  </div>
+  <div class="column is-offset-1">
+    column 2
+    <div *ngFor="let breakfast of selectedMeals['Breakfast']">
+      <a class="button is-small" (click)="minusQuantity(breakfast.food.id,'Breakfast')">
+        <span class="icon is-small">
+          <i class="fas fa-minus"></i>
+        </span>
+      </a>
+      {{ breakfast.quantity }}
+      <a class="button is-small" (click)="addQuantity(breakfast.food.id,'Breakfast')">
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="columns is-mobile">
+  <div class="column is-12">
+    <h2 class="subtitle">
+      Lunch
+      <a class="button is-pulled-right" (click)="selectFood('Lunch')"
+        >Add food for lunch</a
+      >
+    </h2>
+  </div>
+</div>
+<div class="columns is-mobile">
+  <div class="column is-offset-1">
+    column 1
+    <div *ngFor="let lunch of selectedMeals['Lunch']">
+      {{ lunch.food.name + "  Cal:" + lunch.food.calorieCount }}
+    </div>
+  </div>
+  <div class="column is-offset-1">
+    column 2
+    <div *ngFor="let lunch of selectedMeals['Lunch']">
+        <a class="button is-small" (click)="minusQuantity(lunch.food.id,'Lunch')">
+            <span class="icon is-small">
+              <i class="fas fa-minus"></i>
+            </span>
+          </a>
+      {{ lunch.quantity }}
+      <a class="button is-small" (click)="addQuantity(lunch.food.id,'Lunch')">
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+          </span>
+        </a>
+    </div>
+  </div>
+</div>
+
+<div class="columns is-mobile">
+  <div class="column is-12">
+    <h2 class="subtitle">
+      Dinner
+      <a class="button is-pulled-right" (click)="selectFood('Dinner')"
+        >Add food for dinner</a
+      >
+    </h2>
+  </div>
+</div>
+<div class="columns is-mobile">
+  <div class="column is-offset-1">
+    column 1
+    <div *ngFor="let dinner of selectedMeals['Dinner']">
+      {{ dinner.food.name + "  Cal:" + dinner.food.calorieCount }}
+    </div>
+  </div>
+  <div class="column is-offset-1">
+    column 2
+    <div *ngFor="let dinner of selectedMeals['Dinner']">
+        <a class="button is-small" (click)="minusQuantity(dinner.food.id,'Dinner')">
+            <span class="icon is-small">
+              <i class="fas fa-minus"></i>
+            </span>
+          </a>
+      {{ dinner.quantity }}
+      <a class="button is-small" (click)="addQuantity(dinner.food.id,'Dinner')">
+          <span class="icon is-small">
+            <i class="fas fa-plus"></i>
+          </span>
+        </a>
+    </div>
+  </div>
+</div>
+
+<app-food-choices
+  *ngIf="selectedFood != true"
+  [foodChoicesSelection]="foodChoicesArray"
+  (submitFoodSelection)="getFoodSelection($event)"
+></app-food-choices>
+
+<a class="button is-success is-pulled-right">Save</a>

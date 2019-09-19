@@ -1,0 +1,8 @@
+<div class="foodChoice">
+  <div [ngClass]="{ hideFoodCount: count <= 0 }" (click)="decreaseCount()">
+    {{ +count }}
+  </div>
+  <div class="foodName" (click)="increaseCount()">
+    {{ foodChoice.name }}
+  </div>
+</div>

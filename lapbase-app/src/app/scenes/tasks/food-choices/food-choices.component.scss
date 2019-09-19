@@ -1,0 +1,12 @@
+.columns.is-gapless:not(:last-child) {
+  margin-bottom: 0px;
+}
+
+.column {
+  border: 1px solid black;
+}
+
+.columns:last-child {
+  border-bottom: 1px solid black;
+  background-color: red;
+}
