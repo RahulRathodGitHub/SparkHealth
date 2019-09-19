@@ -50,7 +50,7 @@ namespace Lapbase.Controllers
         }
 
         // GET api/TaskInput/Date/{int}
-        [HttpGet("Date/{id}")]
+        [HttpGet("Date/{date}")]
         public async Task<ActionResult<TaskInputDto>> GetTaskInputById(DateTime date)
         {
             int patientId = 1;

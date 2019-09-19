@@ -76,8 +76,13 @@ namespace Lapbase.Models
                 i++;
             }
 
+            if(!breakfastFoods.Equals(""))
             this.Foods.Add(new FoodInfo(breakfastFoods.Substring(1), breakfastFoodQuantities.Substring(1), IntakeTime.BREAKFAST));
+
+            if(!lunchFoods.Equals(""))
             this.Foods.Add(new FoodInfo(lunchFoods.Substring(1), lunchFoodQuantities.Substring(1), IntakeTime.LUNCH));
+
+            if(!dinnerFoods.Equals(""))
             this.Foods.Add(new FoodInfo(dinnerFoods.Substring(1), dinnerFoodQuantities.Substring(1), IntakeTime.DINNER));
 
             this.Exercises.Add(new ExerciseInfo(taskInput.Exercises, taskInput.ExerciseReps));
