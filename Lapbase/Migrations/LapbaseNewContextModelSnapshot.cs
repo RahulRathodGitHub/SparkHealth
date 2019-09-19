@@ -15,7 +15,7 @@ namespace Lapbase.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
+                .HasAnnotation("ProductVersion", "2.2.3-servicing-35854")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -94,49 +94,49 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("f04fdf6d-9b20-416a-8575-876c00391b16"),
+                            Id = new Guid("45d4586c-bd7c-47bc-9720-f06bba786f69"),
                             CalorieCount = 295,
                             Name = "Burger",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("cb1e718a-c27f-482e-8c5d-e3569bd7bcd9"),
+                            Id = new Guid("43040b2b-53cb-40d6-ac1b-0651a95bbec1"),
                             CalorieCount = 40,
                             Name = "Onion",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("0f54e112-7548-40f7-ae15-523bd2915322"),
+                            Id = new Guid("76fc7bdf-a8fe-4a0b-8841-b0dc6dd4f1bb"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("4869df53-99d4-4132-abe0-a31fb620613d"),
+                            Id = new Guid("f5cd503d-3726-4053-825d-d82927248895"),
                             CalorieCount = 96,
                             Name = "White bread",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("1296c2c5-7684-45c4-ad74-b1a6258b70e2"),
+                            Id = new Guid("7d69206a-d14a-4460-b7ca-c33f5509d929"),
                             CalorieCount = 44,
                             Name = "Apple",
                             Unit = "apple"
                         },
                         new
                         {
-                            Id = new Guid("1c90b120-8c76-4665-91f5-0ebc63610f38"),
+                            Id = new Guid("047d3d9b-5593-44d2-9613-1e17ccbaf0d6"),
                             CalorieCount = 107,
                             Name = "Banana",
                             Unit = "banana"
                         },
                         new
                         {
-                            Id = new Guid("4f923bd6-932f-44ad-8aae-90777512869d"),
+                            Id = new Guid("1afd0ed8-ce45-49e0-b812-aeebf9dca32a"),
                             CalorieCount = 30,
                             Name = "Tomato",
                             Unit = "tomato"
@@ -214,7 +214,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("8531fc1f-a368-412b-9ad0-83d6544d55e6"),
+                            Id = new Guid("09cecf0d-fb22-4618-870b-a14af771a3a6"),
                             Calories = 100m,
                             Completed = false,
                             DateAssigned = new DateTimeOffset(new DateTime(2019, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),

@@ -103,6 +103,7 @@ namespace Lapbase.Services
         // Get Task Inputs by date and patientId.
         public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organzationCode)
         {
+            date = DateTime.UtcNow;
             return new TaskInputDto(await lapbaseNewContext.TaskInput.Where(t => t.DateAssigned.Date.Equals(date) && t.PatientId.Equals(patientId) && t.OrganizationCode.Equals(organzationCode)).FirstOrDefaultAsync());
         }
 
