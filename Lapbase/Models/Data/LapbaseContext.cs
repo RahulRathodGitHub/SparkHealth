@@ -97,6 +97,52 @@ namespace Lapbase.Models
                     Name = "Tomato",
                     CalorieCount = 30,
                     Unit = "tomato"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Roti",
+                    CalorieCount = 50,
+                    Unit = "slice"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Rice",
+                    CalorieCount = 40,
+                    Unit = "cup"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Halal Pork",
+                    CalorieCount = 600,
+                    Unit = "piece"
+                },
+                new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Habib-Style Shwarma",
+                    CalorieCount = 300,
+                    Unit = "shwarma"
+                },new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Meat Platter",
+                    CalorieCount = 300,
+                    Unit = "platter"
+                },new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "Mooncake",
+                    CalorieCount = 350,
+                    Unit = "mooncake"
+                },new Food
+                {
+                    Id = Guid.NewGuid(),
+                    Name = "HSP",
+                    CalorieCount = 400,
+                    Unit = "box"
                 }
             };
             modelBuilder.Entity<Food>().HasData(foodList);

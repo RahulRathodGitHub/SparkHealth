@@ -44,97 +44,99 @@ export class PatientService {
       .toPromise<any>();
   };
 
-  // getFoodList = async (): Promise<IFood[]> => {
-  //   return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Patient/Food/').toPromise<any>();
-  // }
+  getFoodList = async (): Promise<IFood[]> => {
+    return await this.httpClient
+      .get(environment.LAPBASE_API_ADDRESS + "Patient/Food/")
+      .toPromise<any>();
+  };
 
-  getFoodList = (): IFood[] => [
-    {
-      id: "1",
-      name: "Burger",
-      calorieCount: 295,
-      unit: "piece"
-    },
-    {
-      id: "2",
-      name: "Onion",
-      calorieCount: 40,
-      unit: "piece"
-    },
-    {
-      id: "3",
-      name: "Uncle Keith's Kappuccino",
-      calorieCount: 90,
-      unit: "cup"
-    },
-    {
-      id: "4",
-      name: "White Bread",
-      calorieCount: 96,
-      unit: "slice"
-    },
-    {
-      id: "5",
-      name: "Apple",
-      calorieCount: 44,
-      unit: "apple"
-    },
-    {
-      id: "6",
-      name: "Banana",
-      calorieCount: 107,
-      unit: "banana"
-    },
+  // getFoodList = (): IFood[] => [
+  //   {
+  //     id: "1",
+  //     name: "Burger",
+  //     calorieCount: 295,
+  //     unit: "piece"
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Onion",
+  //     calorieCount: 40,
+  //     unit: "piece"
+  //   },
+  //   {
+  //     id: "3",
+  //     name: "Uncle Keith's Kappuccino",
+  //     calorieCount: 90,
+  //     unit: "cup"
+  //   },
+  //   {
+  //     id: "4",
+  //     name: "White Bread",
+  //     calorieCount: 96,
+  //     unit: "slice"
+  //   },
+  //   {
+  //     id: "5",
+  //     name: "Apple",
+  //     calorieCount: 44,
+  //     unit: "apple"
+  //   },
+  //   {
+  //     id: "6",
+  //     name: "Banana",
+  //     calorieCount: 107,
+  //     unit: "banana"
+  //   },
 
-    {
-      id: "7",
-      name: "Tomato",
-      calorieCount: 30,
-      unit: "tomato"
-    },
-    {
-      id: "8",
-      name: "Roti",
-      calorieCount: 50,
-      unit: "slice"
-    },
-    {
-      id: "9",
-      name: "Rice",
-      calorieCount: 40,
-      unit: "cup"
-    },
-    {
-      id: "10",
-      name: "Halal Pork",
-      calorieCount: 600,
-      unit: "piece"
-    },
-    {
-      id: "11",
-      name: "Habib-Style Shwarma",
-      calorieCount: 300,
-      unit: "shwarma"
-    },
-    {
-      id: "12",
-      name: "Meat platter",
-      calorieCount: 300,
-      unit: "platter"
-    },
-    {
-      id: "13",
-      name: "Mooncake",
-      calorieCount: 350,
-      unit: "mooncake"
-    },
-    {
-      id: "14",
-      name: "HSP",
-      calorieCount: 400,
-      unit: "box"
-    }
-  ];
+  //   {
+  //     id: "7",
+  //     name: "Tomato",
+  //     calorieCount: 30,
+  //     unit: "tomato"
+  //   },
+  //   {
+  //     id: "8",
+  //     name: "Roti",
+  //     calorieCount: 50,
+  //     unit: "slice"
+  //   },
+  //   {
+  //     id: "9",
+  //     name: "Rice",
+  //     calorieCount: 40,
+  //     unit: "cup"
+  //   },
+  //   {
+  //     id: "10",
+  //     name: "Halal Pork",
+  //     calorieCount: 600,
+  //     unit: "piece"
+  //   },
+  //   {
+  //     id: "11",
+  //     name: "Habib-Style Shwarma",
+  //     calorieCount: 300,
+  //     unit: "shwarma"
+  //   },
+  //   {
+  //     id: "12",
+  //     name: "Meat platter",
+  //     calorieCount: 300,
+  //     unit: "platter"
+  //   },
+  //   {
+  //     id: "13",
+  //     name: "Mooncake",
+  //     calorieCount: 350,
+  //     unit: "mooncake"
+  //   },
+  //   {
+  //     id: "14",
+  //     name: "HSP",
+  //     calorieCount: 400,
+  //     unit: "box"
+  //   }
+  // ];
 
   getExerciseByPatients = (): IExercise[] => [
     {

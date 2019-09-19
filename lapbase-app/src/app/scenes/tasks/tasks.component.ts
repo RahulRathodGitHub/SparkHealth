@@ -32,27 +32,50 @@ export class TasksComponent implements OnInit {
   foodChoicesArray = [];
 
   ngOnInit() {
-    //Getting Food list and sorting them into array with rows of 3
-    this.foodList = this.patientService.getFoodList();
-    let foodLeft = this.foodList.length;
-    let tempArray = [];
-    var i = -1;
-    while (foodLeft > 3) {
-      tempArray = [];
-      foodLeft -= 3;
+    this.patientService.getFoodList().then(foodList => {
+      console.log(foodList);
+      let foodLeft = foodList.length;
+      let tempArray = [];
+      var i = -1;
+      while (foodLeft > 3) {
+        tempArray = [];
+        foodLeft -= 3;
 
-      for (var j = 0; j < 3; j++) {
-        tempArray.push(this.foodList[++i]);
+        for (var j = 0; j < 3; j++) {
+          tempArray.push(foodList[++i]);
+        }
+        this.foodChoicesArray.push(tempArray);
+      }
+
+      tempArray = [];
+      while (foodLeft > 0) {
+        tempArray.push(foodList[++i]);
+        foodLeft--;
       }
       this.foodChoicesArray.push(tempArray);
-    }
+    });
 
-    tempArray = [];
-    while (foodLeft > 0) {
-      tempArray.push(this.foodList[++i]);
-      foodLeft--;
-    }
-    this.foodChoicesArray.push(tempArray);
+    // //Getting Food list and sorting them into array with rows of 3
+    // this.foodList = this.patientService.getFoodList();
+    // let foodLeft = this.foodList.length;
+    // let tempArray = [];
+    // var i = -1;
+    // while (foodLeft > 3) {
+    //   tempArray = [];
+    //   foodLeft -= 3;
+
+    //   for (var j = 0; j < 3; j++) {
+    //     tempArray.push(this.foodList[++i]);
+    //   }
+    //   this.foodChoicesArray.push(tempArray);
+    // }
+
+    // tempArray = [];
+    // while (foodLeft > 0) {
+    //   tempArray.push(this.foodList[++i]);
+    //   foodLeft--;
+    // }
+    // this.foodChoicesArray.push(tempArray);
   }
 
   taskData: TaskInput;

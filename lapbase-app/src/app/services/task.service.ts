@@ -1,6 +1,6 @@
 import { IFoodQuantity } from "./../models/foodQuantity";
 import { Injectable } from "@angular/core";
-import { ITask, TaskType, IFoodIntakeListDto } from "../models";
+import { ITask, TaskType, IFoodIntakeListDto, TaskInput } from "../models";
 import { environment } from "./../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { IFoodIntakeList } from "../models/foodIntakeList";
@@ -64,7 +64,9 @@ export class TaskService {
       .toPromise<any>();
   };
 
-  getTaskByDate(date: Date) {
-    return this.tempHardCodedData;
-  }
+  getTaskByDate = async (date: Date): Promise<TaskInput> => {
+    return await this.httpClient
+      .get(environment.LAPBASE_API_ADDRESS + "/TaskInput")
+      .toPromise<any>();
+  };
 }
