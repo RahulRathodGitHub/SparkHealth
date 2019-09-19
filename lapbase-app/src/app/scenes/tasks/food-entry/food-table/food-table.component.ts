@@ -1,10 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { IFood } from '../../../../models';
-import { PatientService } from '../../../../services/patient.service';
+import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
+import { IFood } from "../../../../models";
+import { PatientService } from "../../../../services/patient.service";
 @Component({
-  selector: 'app-food-table',
-  templateUrl: './food-table.component.html',
-  styleUrls: ['./food-table.component.scss']
+  selector: "app-food-table",
+  templateUrl: "./food-table.component.html",
+  styleUrls: ["./food-table.component.scss"]
 })
 export class FoodTableComponent implements OnInit {
   @Input() alreadySelectedFood: string[];
@@ -13,22 +13,22 @@ export class FoodTableComponent implements OnInit {
 
   foods: IFood[];
   selectedFood: IFood[];
-  name = '';
+  name = "";
   calories = 0;
-  unit = '';
+  unit = "";
 
   constructor(private patientService: PatientService) {
     this.selectedFood = new Array<IFood>();
   }
 
   ngOnInit() {
-    this.patientService.getFoodList().then(result => {
-      if (this.alreadySelectedFood) {
-        this.foods = result.filter(f => !this.alreadySelectedFood.includes(f.id));
-      } else {
-        this.foods = result;
-      }
-    });
+    // this.patientService.getFoodList().then(result => {
+    //   if (this.alreadySelectedFood) {
+    //     this.foods = result.filter(f => !this.alreadySelectedFood.includes(f.id));
+    //   } else {
+    //     this.foods = result;
+    //   }
+    // });
   }
 
   onSubmit() {
@@ -43,7 +43,10 @@ export class FoodTableComponent implements OnInit {
   }
   toggleFood(food: IFood) {
     if (this.selectedFood.includes(food)) {
-      this.selectedFood.splice(this.selectedFood.findIndex(fq => fq === food), 1);
+      this.selectedFood.splice(
+        this.selectedFood.findIndex(fq => fq === food),
+        1
+      );
     } else {
       this.selectedFood.push(food);
     }
@@ -51,6 +54,5 @@ export class FoodTableComponent implements OnInit {
   removeFood(foodId: string) {
     const index = this.foods.findIndex(f => f.id === foodId);
     this.foods.splice(index, 1);
-
   }
 }

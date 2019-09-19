@@ -1,9 +1,14 @@
 export interface IExercise {
-    id: string;
+  id: string;
 
-    name: string;
-    calorieCount: number;
-    unit: string;
+  name: string;
+  calorieCount: number;
+  unit: string;
 
-    patientId: number;
+  patientId: number;
+}
+
+export class Exercise {
+  name: string;
+  quantity: string;
 }
