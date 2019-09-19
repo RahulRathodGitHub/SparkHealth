@@ -1,6 +1,6 @@
 import { TaskService } from "./../../services/task.service";
 import { Component, OnInit } from "@angular/core";
-import { ITask, TaskType, TaskInput, IFood } from "src/app/models";
+import { ITask, TaskType, TaskInput } from "src/app/models";
 import { DatePipe } from "@angular/common";
 import { PatientService } from "src/app/services";
 
@@ -20,20 +20,20 @@ export class TasksComponent implements OnInit {
   tomorrowDate: Date;
 
   //Eric's addition
-  selectedFood = true;
+  hasSelectedFood = true;
   selectedMealTime: string;
   selectedMeals = {
-    Breakfast: [],
-    Lunch: [],
-    Dinner: []
+    breakfast: [],
+    lunch: [],
+    dinner: []
   };
 
-  foodList: IFood[];
-  foodChoicesArray = [];
+  iFoodChoicesArray = [];
 
   ngOnInit() {
     this.patientService.getFoodList().then(foodList => {
-      console.log(foodList);
+      // console.log(foodList);
+
       let foodLeft = foodList.length;
       let tempArray = [];
       var i = -1;
@@ -44,7 +44,7 @@ export class TasksComponent implements OnInit {
         for (var j = 0; j < 3; j++) {
           tempArray.push(foodList[++i]);
         }
-        this.foodChoicesArray.push(tempArray);
+        this.iFoodChoicesArray.push(tempArray);
       }
 
       tempArray = [];
@@ -52,7 +52,7 @@ export class TasksComponent implements OnInit {
         tempArray.push(foodList[++i]);
         foodLeft--;
       }
-      this.foodChoicesArray.push(tempArray);
+      this.iFoodChoicesArray.push(tempArray);
     });
 
     // //Getting Food list and sorting them into array with rows of 3
@@ -82,8 +82,7 @@ export class TasksComponent implements OnInit {
 
   constructor(
     private taskService: TaskService,
-    private patientService: PatientService,
-    private datepipe: DatePipe
+    private patientService: PatientService
   ) {
     // taskService.getTasks().then(result => (this.tasks = result));
     this.step = 0;
@@ -113,42 +112,64 @@ export class TasksComponent implements OnInit {
   dateBefore() {
     this.yesterdayDate = new Date(this.date.setDate(this.date.getDate() - 1));
     this.date = this.yesterdayDate;
-    console.log(this.changeDateFormat(this.date));
-
-    this.taskService
-      .getTaskByDate(this.changeDateFormat(this.date))
-      .then(task => {
-        console.log("here");
-        console.log(task.calories);
-      });
-  }
-
-  changeDateFormat(date: Date) {
-    return this.datepipe.transform(date, "yyyy-MM-dd");
   }
 
   //Eric's method
   selectFood(mealtime) {
-    this.selectedFood = false;
+    this.hasSelectedFood = false;
     this.selectedMealTime = mealtime;
   }
 
   getFoodSelection(foodSelection) {
-    for (var i = 0; i < foodSelection.length; i++) {
-      this.selectedMeals[this.selectedMealTime].push(foodSelection[i]);
-    }
-    this.selectedFood = true;
+    // for (var i = 0; i < foodSelection.length; i++) {
+    //   this.selectedMeals[this.selectedMealTime].push(foodSelection[i]);
+    // }
+    console.log(this.selectedMeals[this.selectedMealTime]);
+
+    this.hasSelectedFood = true;
   }
   findIndexOfFood(foodId: string, mealTime) {
-    return this.selectedMeals[mealTime].findIndex(f => f.food.id == foodId);
+    return this.selectedMeals[mealTime].findIndex(f => f.id == foodId);
   }
 
   minusQuantity(foodId: string, mealTime) {
-    this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
-      .quantity--;
+    let quantity = this.selectedMeals[mealTime][
+      this.findIndexOfFood(foodId, mealTime)
+    ].quantity;
+    if (quantity < 2) {
+      this.removeFood(foodId, mealTime);
+    } else {
+      this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
+        .quantity--;
+    }
   }
+
   addQuantity(foodId: string, mealTime) {
     this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
       .quantity++;
+  }
+
+  removeFood(foodId: string, mealTime) {
+    this.selectedMeals[mealTime].splice(
+      this.findIndexOfFood(foodId, mealTime),
+      1
+    );
+  }
+  calculateTotalCalories(): number {
+    let totalCalories = 0;
+
+    for (let food of this.selectedMeals.breakfast) {
+      totalCalories += food.quantity * food.calorieCount;
+    }
+
+    for (let food of this.selectedMeals.lunch) {
+      totalCalories += food.quantity * food.calorieCount;
+    }
+
+    for (let food of this.selectedMeals.dinner) {
+      totalCalories += food.quantity * food.calorieCount;
+    }
+
+    return totalCalories;
   }
 }

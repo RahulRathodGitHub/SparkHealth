@@ -1,5 +1,4 @@
 import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
-import { IFood } from "src/app/models";
 
 @Component({
   selector: "app-food-choices",
@@ -8,7 +7,8 @@ import { IFood } from "src/app/models";
 })
 export class FoodChoicesComponent implements OnInit {
   @Output() submitFoodSelection = new EventEmitter();
-  @Input() foodChoicesSelection: [];
+  @Input() iFoodChoicesSelections: [];
+  @Input() selectedFoods;
 
   // foodChoicesArray = [
   //   // ["Roti", "Rice", "Halal Pork"],
@@ -16,21 +16,31 @@ export class FoodChoicesComponent implements OnInit {
   //   // ["Mooncake", "HSP", "McD"]
   // ];
 
-  selectedFood = [];
-
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    // console.log(this.selectedFoods);
+  }
 
   increaseQuantity(foodChoice) {
-    if (this.selectedFood === null) {
-      this.selectedFood.push({ food: foodChoice, quantity: 1 });
+    if (this.selectedFoods === null) {
+      this.selectedFoods.push({
+        id: foodChoice.id,
+        name: foodChoice.name,
+        calorieCount: foodChoice.calorieCount,
+        quantity: 1
+      });
     } else {
       var index = this.findFood(foodChoice.name);
       if (index > -1) {
-        this.selectedFood[index].quantity++;
+        this.selectedFoods[index].quantity++;
       } else {
-        this.selectedFood.push({ food: foodChoice, quantity: 1 });
+        this.selectedFoods.push({
+          id: foodChoice.id,
+          name: foodChoice.name,
+          calorieCount: foodChoice.calorieCount,
+          quantity: 1
+        });
       }
     }
   }
@@ -38,18 +48,27 @@ export class FoodChoicesComponent implements OnInit {
   decreaseQuantity(foodChoice) {
     var index = this.findFood(foodChoice.name);
 
-    if (this.selectedFood[index].quantity < 2) {
-      this.selectedFood.splice(index, 1);
+    if (this.selectedFoods[index].quantity < 2) {
+      this.selectedFoods.splice(index, 1);
     } else {
-      this.selectedFood[index].quantity--;
+      this.selectedFoods[index].quantity--;
+    }
+  }
+
+  getCount(foodChoiceName) {
+    var index = this.findFood(foodChoiceName);
+    if (index > -1) {
+      return this.selectedFoods[index].quantity;
+    } else {
+      return 0;
     }
   }
 
   findFood(foodChoiceName) {
-    return this.selectedFood.findIndex(f => f.food.name == foodChoiceName);
+    return this.selectedFoods.findIndex(f => f.name == foodChoiceName);
   }
 
   save() {
-    this.submitFoodSelection.emit(this.selectedFood);
+    this.submitFoodSelection.emit(this.selectedFoods);
   }
 }

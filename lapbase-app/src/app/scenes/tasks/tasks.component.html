@@ -42,7 +42,7 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Breakfast
-      <a class="button is-pulled-right" (click)="selectFood('Breakfast')"
+      <a class="button is-pulled-right" (click)="selectFood('breakfast')"
         >Add food for breakfast</a
       >
     </h2>
@@ -51,20 +51,34 @@
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
-    <div *ngFor="let breakfast of selectedMeals['Breakfast']">
-      {{ breakfast.food.name + "  Cal:" + breakfast.food.calorieCount }}
+    <div *ngFor="let breakfast of selectedMeals['breakfast']">
+      <a
+        class="button is-small"
+        (click)="removeFood(breakfast.id, 'breakfast')"
+      >
+        <span class="icon is-small">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+      </a>
+      {{ breakfast.name + "  Cal:" + breakfast.calorieCount }}
     </div>
   </div>
   <div class="column is-offset-1">
     column 2
-    <div *ngFor="let breakfast of selectedMeals['Breakfast']">
-      <a class="button is-small" (click)="minusQuantity(breakfast.food.id,'Breakfast')">
+    <div *ngFor="let breakfast of selectedMeals['breakfast']">
+      <a
+        class="button is-small"
+        (click)="minusQuantity(breakfast.id, 'breakfast')"
+      >
         <span class="icon is-small">
           <i class="fas fa-minus"></i>
         </span>
       </a>
       {{ breakfast.quantity }}
-      <a class="button is-small" (click)="addQuantity(breakfast.food.id,'Breakfast')">
+      <a
+        class="button is-small"
+        (click)="addQuantity(breakfast.id, 'breakfast')"
+      >
         <span class="icon is-small">
           <i class="fas fa-plus"></i>
         </span>
@@ -77,7 +91,7 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Lunch
-      <a class="button is-pulled-right" (click)="selectFood('Lunch')"
+      <a class="button is-pulled-right" (click)="selectFood('lunch')"
         >Add food for lunch</a
       >
     </h2>
@@ -86,24 +100,29 @@
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
-    <div *ngFor="let lunch of selectedMeals['Lunch']">
-      {{ lunch.food.name + "  Cal:" + lunch.food.calorieCount }}
+    <div *ngFor="let lunch of selectedMeals['lunch']">
+      <a class="button is-small" (click)="removeFood(lunch.id, 'lunch')">
+        <span class="icon is-small">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+      </a>
+      {{ lunch.name + "  Cal:" + lunch.calorieCount }}
     </div>
   </div>
   <div class="column is-offset-1">
     column 2
-    <div *ngFor="let lunch of selectedMeals['Lunch']">
-        <a class="button is-small" (click)="minusQuantity(lunch.food.id,'Lunch')">
-            <span class="icon is-small">
-              <i class="fas fa-minus"></i>
-            </span>
-          </a>
+    <div *ngFor="let lunch of selectedMeals['lunch']">
+      <a class="button is-small" (click)="minusQuantity(lunch.id, 'lunch')">
+        <span class="icon is-small">
+          <i class="fas fa-minus"></i>
+        </span>
+      </a>
       {{ lunch.quantity }}
-      <a class="button is-small" (click)="addQuantity(lunch.food.id,'Lunch')">
-          <span class="icon is-small">
-            <i class="fas fa-plus"></i>
-          </span>
-        </a>
+      <a class="button is-small" (click)="addQuantity(lunch.id, 'lunch')">
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </a>
     </div>
   </div>
 </div>
@@ -112,7 +131,7 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Dinner
-      <a class="button is-pulled-right" (click)="selectFood('Dinner')"
+      <a class="button is-pulled-right" (click)="selectFood('dinner')"
         >Add food for dinner</a
       >
     </h2>
@@ -121,32 +140,38 @@
 <div class="columns is-mobile">
   <div class="column is-offset-1">
     column 1
-    <div *ngFor="let dinner of selectedMeals['Dinner']">
-      {{ dinner.food.name + "  Cal:" + dinner.food.calorieCount }}
+    <div *ngFor="let dinner of selectedMeals['dinner']">
+      <a class="button is-small" (click)="removeFood(dinner.id, 'dinner')">
+        <span class="icon is-small">
+          <i class="fas fa-trash-alt"></i>
+        </span>
+      </a>
+      {{ dinner.name + "  Cal:" + dinner.calorieCount }}
     </div>
   </div>
   <div class="column is-offset-1">
     column 2
-    <div *ngFor="let dinner of selectedMeals['Dinner']">
-        <a class="button is-small" (click)="minusQuantity(dinner.food.id,'Dinner')">
-            <span class="icon is-small">
-              <i class="fas fa-minus"></i>
-            </span>
-          </a>
+    <div *ngFor="let dinner of selectedMeals['dinner']">
+      <a class="button is-small" (click)="minusQuantity(dinner.id, 'dinner')">
+        <span class="icon is-small">
+          <i class="fas fa-minus"></i>
+        </span>
+      </a>
       {{ dinner.quantity }}
-      <a class="button is-small" (click)="addQuantity(dinner.food.id,'Dinner')">
-          <span class="icon is-small">
-            <i class="fas fa-plus"></i>
-          </span>
-        </a>
+      <a class="button is-small" (click)="addQuantity(dinner.id, 'dinner')">
+        <span class="icon is-small">
+          <i class="fas fa-plus"></i>
+        </span>
+      </a>
     </div>
   </div>
 </div>
 
 <app-food-choices
-  *ngIf="selectedFood != true"
-  [foodChoicesSelection]="foodChoicesArray"
+  *ngIf="hasSelectedFood != true"
+  [selectedFoods]="selectedMeals[selectedMealTime]"
+  [iFoodChoicesSelections]="iFoodChoicesArray"
   (submitFoodSelection)="getFoodSelection($event)"
 ></app-food-choices>
-
+<p>{{ calculateTotalCalories() }}</p>
 <a class="button is-success is-pulled-right">Save</a>
