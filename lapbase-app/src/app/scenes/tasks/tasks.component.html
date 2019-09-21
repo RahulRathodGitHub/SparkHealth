@@ -43,7 +43,8 @@
     <h2 class="subtitle">
       Breakfast
       <a class="button is-pulled-right" (click)="selectFood('breakfast')"
-        >Add food for breakfast</a
+        >Add food for breakfast
+       </a
       >
     </h2>
   </div>
@@ -131,9 +132,9 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Dinner
-      <a class="button is-pulled-right" (click)="selectFood('dinner')"
-        >Add food for dinner</a
-      >
+      <a class="button is-pulled-right" (click)="selectFood('dinner')">
+        Add food for dinner
+      </a>
     </h2>
   </div>
 </div>
@@ -166,12 +167,27 @@
     </div>
   </div>
 </div>
+<div class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+      <!-- Any other Bulma elements you want -->
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  
 
-<app-food-choices
-  *ngIf="hasSelectedFood != true"
-  [selectedFoods]="selectedMeals[selectedMealTime]"
-  [iFoodChoicesSelections]="iFoodChoicesArray"
-  (submitFoodSelection)="getFoodSelection($event)"
-></app-food-choices>
 <p>{{ calculateTotalCalories() }}</p>
 <a class="button is-success is-pulled-right">Save</a>
+
+<div class="modal" [ngClass]="{'is-active': isModalActive }">
+    <div class="modal-background" (click)="toggleModal()"></div>
+    <div class="modal-content">
+        <app-food-choices
+        *ngIf="hasSelectedFood != true"
+        [selectedFoods]="selectedMeals[selectedMealTime]"
+        [iFoodChoicesSelections]="iFoodChoicesArray"
+        (submitFoodSelection)="getFoodSelection($event)"
+      ></app-food-choices>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+  </div>

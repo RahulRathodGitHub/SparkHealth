@@ -29,7 +29,7 @@ export class TasksComponent implements OnInit {
   };
 
   iFoodChoicesArray = [];
-
+  isModalActive: boolean = false;
   ngOnInit() {
     this.patientService.getFoodList().then(foodList => {
       // console.log(foodList);
@@ -116,6 +116,7 @@ export class TasksComponent implements OnInit {
 
   //Eric's method
   selectFood(mealtime) {
+    this.toggleModal();
     this.hasSelectedFood = false;
     this.selectedMealTime = mealtime;
   }
@@ -171,5 +172,8 @@ export class TasksComponent implements OnInit {
     }
 
     return totalCalories;
+  }
+  toggleModal() {
+    this.isModalActive = !this.isModalActive;
   }
 }
