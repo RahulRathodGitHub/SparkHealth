@@ -37,5 +37,13 @@ namespace Lapbase.Controllers
             return await reportService.GetReportById(id, organizationCode, startDate, endDate, reportType);
         }
 
+
+        [HttpGet("lastDate/{id}/{organizationCode}")]
+        public async Task<DateTime?> GetReportLastAvailableDate([FromRoute] int id, int organizationCode, [FromQuery] ReportType reportType)
+        {
+            return await reportService.GetReportLastAvailableDate(id, organizationCode, reportType);
+        }
+
+
     }
 }

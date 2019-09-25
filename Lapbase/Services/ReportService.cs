@@ -34,6 +34,39 @@ namespace Lapbase.Services
         }
 
 
+        public async Task<DateTime?> GetReportLastAvailableDate(int patientId, int organizationCode, ReportType reportType)
+        {
+            byte imperialFlag = 0;
+
+            DateTime? result = new DateTime?();
+
+            if (reportType == ReportType.EWL)
+            {
+
+
+                return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
+                                                                           new object[] { organizationCode, patientId, imperialFlag })
+                                                                           .Select(p => p.DateSeen)
+                                                                           .OrderByDescending(p => p.Value)
+                                                                           .FirstOrDefaultAsync();
+
+            }
+            else if (reportType == ReportType.BMI)
+            {
+
+                return await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode)
+                                                       .Select(p => p.DateSeen)
+                                                       .OrderByDescending(p => p.Value)
+                                                       .FirstOrDefaultAsync();
+
+            }
+            
+
+            return new DateTime();
+
+        }
+
+
         public async Task<Report> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
         {
             byte imperialFlag = 0;

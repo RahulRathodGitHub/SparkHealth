@@ -15,6 +15,16 @@ export class ReportService {
       .toPromise<any>();
   };
 
+  getLastAvailableDate = async(
+    id: Number,
+    organizationCode: Number,
+    reportType: Number
+    ): Promise<Date> => {
+    return await this.httpClient
+      .get(environment.LAPBASE_API_ADDRESS + "Report/lastDate" +id + "/" + organizationCode + "reportType=" +reportType)
+      .toPromise<any>();
+  }
+
   getReportsById = async (
     id: Number,
     organizationCode: Number,
