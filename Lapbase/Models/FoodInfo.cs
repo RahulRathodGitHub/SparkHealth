@@ -1,15 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lapbase.Models
 {
     public class FoodInfo
     {
-        public String FoodNames { get; set; }
-        public String Quantities { get; set; }
+        public List<FoodQuantity> foods { get; set; }
         public IntakeTime intakeTime { get; set; }
+        public String foodString { get; set; }
+        public String quantityString { get; set; }
+
+        public String getFoodString()
+        {
+            return foodString;
+        }
+
+        public String getQuantityString()
+        {
+            return quantityString;
+        }
+
 
         public FoodInfo()
         {
@@ -17,20 +27,25 @@ namespace Lapbase.Models
 
         public FoodInfo(String FoodNames, String Quantities, IntakeTime intakeTime)
         {
-            this.FoodNames = FoodNames;
-            this.Quantities = Quantities;
+            this.foodString = FoodNames;
+            this.quantityString = Quantities;
+
+            String[] foodNames = FoodNames.Split(",");
+            String[] quantities = Quantities.Split(",");
+            foods = new List<FoodQuantity>();
+
+            for (int i = 0; i < foodNames.Length; i++)
+            {
+                foods.Add(new FoodQuantity(foodNames[i], int.Parse(quantities[i])));
+            }
+
             this.intakeTime = intakeTime;
 
         }
 
-        public String getFoodString()
+        public List<FoodQuantity> getFoods()
         {
-            return FoodNames;
-        }
-
-        public String getFoodQuantityString()
-        {
-            return Quantities;
+            return this.foods;
         }
 
         public String getIntakeTimeString()
@@ -39,7 +54,7 @@ namespace Lapbase.Models
 
             string thisIntake = this.intakeTime.ToString();
 
-            foreach(string s in FoodNames.Split(","))
+            foreach (FoodQuantity s in foods)
             {
                 intakeTimes += "," + thisIntake;
             }
