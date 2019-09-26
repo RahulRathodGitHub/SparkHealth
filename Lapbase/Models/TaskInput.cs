@@ -15,7 +15,7 @@ namespace Lapbase.Models
         public decimal Calories { get; set; }
         public decimal Weight { get; set; }
 
-        public string Foods { get; set; }
+        public string Meals { get; set; }
         public string FoodQuantities { get; set; }
         public string IntakeTimes { get; set; }
         public string Exercises { get; set; }
@@ -50,7 +50,7 @@ namespace Lapbase.Models
             this.Calories = 0;
             this.Weight = 0;
 
-            this.Foods = "";
+            this.Meals = "";
             this.FoodQuantities = "";
             this.IntakeTimes = "";
             this.Exercises = "";
@@ -76,19 +76,19 @@ namespace Lapbase.Models
             this.Calories = taskInputDto.Calories;
             this.Completed = taskInputDto.Completed;
             this.DateAssigned = taskInputDto.DateAssigned;
-            this.Foods = "";
+            this.Meals = "";
             this.FoodQuantities = "";
             this.IntakeTimes = "";
             this.Exercises = "";
             this.ExerciseReps = "";
 
-            taskInputDto.Foods.ForEach(t =>
+            taskInputDto.Meals.ForEach(t =>
             {
-                this.Foods = this.Foods + "," + t.getFoodString();
+                this.Meals = this.Meals + "," + t.getFoodString();
                 this.FoodQuantities = this.FoodQuantities + "," + t.getQuantityString();
                 this.IntakeTimes = this.IntakeTimes + "," + t.getIntakeTimeString();
             });
-            this.Foods = this.Foods.Substring(1); // To remove the comma at the front of the sring.
+            this.Meals = this.Meals.Substring(1); // To remove the comma at the fsront of the sring.
             this.FoodQuantities = this.FoodQuantities.Substring(1);
             this.IntakeTimes = this.IntakeTimes.Substring(1);
 
