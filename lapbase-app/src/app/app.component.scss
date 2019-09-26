@@ -3,7 +3,7 @@ app-side-menu {
     width: var(--side-menu-width);
 
     @media screen and (max-width: $tablet - 1px) {
-        width: var(--side-menu-width-mobile);
+        width: 0;
     }
 }
 
@@ -11,4 +11,8 @@ app-side-menu {
     margin: auto;
     width: 70%;
     padding: 1em;
+}
+
+.patientName{
+    padding-top: 0.8em;
 }

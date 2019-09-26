@@ -1,5 +1,5 @@
 <!-- Desktop Menu -->
-<aside class="menu is-hidden-mobile side-menu">
+<aside [class.is-hidden-mobile]="isActive" class="menu side-menu">
     <p class="menu-label">
         General
     </p>
@@ -24,7 +24,7 @@
     </ul>
 </aside>
 
-<!-- Mobile Menu -->
+<!-- Mobile Menu 
 <aside class="menu is-hidden-tablet mobile-side-menu">
     <ul class="menu-list">
         <li *ngFor="let route of generalRoutes"><a [routerLink]="route.url"><i [class]="route.icon"></i></a></li>
@@ -32,4 +32,4 @@
     <ul class="menu-list">
         <li *ngFor="let route of managementRoutes"><a [routerLink]="route.url"><i [class]="route.icon"></i></a></li>
     </ul>
-</aside>
+</aside>-->
