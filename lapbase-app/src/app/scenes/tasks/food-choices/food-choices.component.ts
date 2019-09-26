@@ -1,25 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
-  selector: "app-food-choices",
-  templateUrl: "./food-choices.component.html",
-  styleUrls: ["./food-choices.component.scss"]
+  selector: 'app-food-choices',
+  templateUrl: './food-choices.component.html',
+  styleUrls: ['./food-choices.component.scss']
 })
 export class FoodChoicesComponent implements OnInit {
   @Output() submitFoodSelection = new EventEmitter();
   @Input() iFoodChoicesSelections: [];
   @Input() selectedFoods;
 
-  // foodChoicesArray = [
-  //   // ["Roti", "Rice", "Halal Pork"],
-  //   // ["Habibi-Style Shwarma", "Meat platter", "Apple"],
-  //   // ["Mooncake", "HSP", "McD"]
-  // ];
-
   constructor() {}
 
   ngOnInit() {
-    // console.log(this.selectedFoods);
   }
 
   increaseQuantity(foodChoice) {
@@ -31,7 +24,7 @@ export class FoodChoicesComponent implements OnInit {
         quantity: 1
       });
     } else {
-      var index = this.findFood(foodChoice.name);
+      const index = this.findFood(foodChoice.name);
       if (index > -1) {
         this.selectedFoods[index].quantity++;
       } else {
@@ -46,7 +39,7 @@ export class FoodChoicesComponent implements OnInit {
   }
 
   decreaseQuantity(foodChoice) {
-    var index = this.findFood(foodChoice.name);
+    const index = this.findFood(foodChoice.name);
 
     if (this.selectedFoods[index].quantity < 2) {
       this.selectedFoods.splice(index, 1);
@@ -56,7 +49,7 @@ export class FoodChoicesComponent implements OnInit {
   }
 
   getCount(foodChoiceName) {
-    var index = this.findFood(foodChoiceName);
+    const index = this.findFood(foodChoiceName);
     if (index > -1) {
       return this.selectedFoods[index].quantity;
     } else {
@@ -65,7 +58,7 @@ export class FoodChoicesComponent implements OnInit {
   }
 
   findFood(foodChoiceName) {
-    return this.selectedFoods.findIndex(f => f.name == foodChoiceName);
+    return this.selectedFoods.findIndex(f => f.name === foodChoiceName);
   }
 
   save() {

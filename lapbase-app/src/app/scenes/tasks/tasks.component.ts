@@ -1,13 +1,12 @@
-import { TaskService } from "./../../services/task.service";
-import { Component, OnInit } from "@angular/core";
-import { ITask, TaskType, TaskInput } from "src/app/models";
-import { DatePipe } from "@angular/common";
-import { PatientService } from "src/app/services";
+import { TaskService } from './../../services/task.service';
+import { Component, OnInit } from '@angular/core';
+import { ITask, TaskType, TaskInput } from 'src/app/models';
+import { PatientService } from 'src/app/services';
 
 @Component({
-  selector: "app-tasks",
-  templateUrl: "./tasks.component.html",
-  styleUrls: ["./tasks.component.scss"]
+  selector: 'app-tasks',
+  templateUrl: './tasks.component.html',
+  styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
   private tasks: ITask[];
@@ -18,8 +17,8 @@ export class TasksComponent implements OnInit {
   date: Date;
   yesterdayDate: Date;
   tomorrowDate: Date;
+  taskData: TaskInput;
 
-  //Eric's addition
   hasSelectedFood = true;
   selectedMealTime: string;
   selectedMeals = {
@@ -29,19 +28,18 @@ export class TasksComponent implements OnInit {
   };
 
   iFoodChoicesArray = [];
-  isModalActive: boolean = false;
+  isModalActive = false;
   ngOnInit() {
     this.patientService.getFoodList().then(foodList => {
-      // console.log(foodList);
 
       let foodLeft = foodList.length;
       let tempArray = [];
-      var i = -1;
+      let i = -1;
       while (foodLeft > 4) {
         tempArray = [];
         foodLeft -= 4;
 
-        for (var j = 0; j < 4; j++) {
+        for (let j = 0; j < 4; j++) {
           tempArray.push(foodList[++i]);
         }
         this.iFoodChoicesArray.push(tempArray);
@@ -54,31 +52,7 @@ export class TasksComponent implements OnInit {
       }
       this.iFoodChoicesArray.push(tempArray);
     });
-
-    // //Getting Food list and sorting them into array with rows of 3
-    // this.foodList = this.patientService.getFoodList();
-    // let foodLeft = this.foodList.length;
-    // let tempArray = [];
-    // var i = -1;
-    // while (foodLeft > 3) {
-    //   tempArray = [];
-    //   foodLeft -= 3;
-
-    //   for (var j = 0; j < 3; j++) {
-    //     tempArray.push(this.foodList[++i]);
-    //   }
-    //   this.foodChoicesArray.push(tempArray);
-    // }
-
-    // tempArray = [];
-    // while (foodLeft > 0) {
-    //   tempArray.push(this.foodList[++i]);
-    //   foodLeft--;
-    // }
-    // this.foodChoicesArray.push(tempArray);
   }
-
-  taskData: TaskInput;
 
   constructor(
     private taskService: TaskService,
@@ -114,7 +88,6 @@ export class TasksComponent implements OnInit {
     this.date = this.yesterdayDate;
   }
 
-  //Eric's method
   selectFood(mealtime) {
     this.toggleModal();
     this.hasSelectedFood = false;
@@ -122,26 +95,20 @@ export class TasksComponent implements OnInit {
   }
 
   getFoodSelection(foodSelection) {
-    // for (var i = 0; i < foodSelection.length; i++) {
-    //   this.selectedMeals[this.selectedMealTime].push(foodSelection[i]);
-    // }
     console.log(this.selectedMeals[this.selectedMealTime]);
 
     this.hasSelectedFood = true;
   }
   findIndexOfFood(foodId: string, mealTime) {
-    return this.selectedMeals[mealTime].findIndex(f => f.id == foodId);
+    return this.selectedMeals[mealTime].findIndex(f => f.id === foodId);
   }
 
   minusQuantity(foodId: string, mealTime) {
-    let quantity = this.selectedMeals[mealTime][
-      this.findIndexOfFood(foodId, mealTime)
-    ].quantity;
+    const quantity = this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)].quantity;
     if (quantity < 2) {
       this.removeFood(foodId, mealTime);
     } else {
-      this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
-        .quantity--;
+      this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)].quantity--;
     }
   }
 
@@ -159,15 +126,15 @@ export class TasksComponent implements OnInit {
   calculateTotalCalories(): number {
     let totalCalories = 0;
 
-    for (let food of this.selectedMeals.breakfast) {
+    for (const food of this.selectedMeals.breakfast) {
       totalCalories += food.quantity * food.calorieCount;
     }
 
-    for (let food of this.selectedMeals.lunch) {
+    for (const food of this.selectedMeals.lunch) {
       totalCalories += food.quantity * food.calorieCount;
     }
 
-    for (let food of this.selectedMeals.dinner) {
+    for (const food of this.selectedMeals.dinner) {
       totalCalories += food.quantity * food.calorieCount;
     }
 

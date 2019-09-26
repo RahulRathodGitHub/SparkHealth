@@ -34,7 +34,7 @@ export class FoodEntryComponent implements OnInit {
       calories: 0,
       dateEntered: new Date(),
       taskId: this.selectedTaskId
-     };
+    };
   }
 
   onFoodSubmit(selectedFoodIds: IFood[]) {
@@ -49,8 +49,7 @@ export class FoodEntryComponent implements OnInit {
 
   onSubmit() {
 
-    if (this.caloriesEntered == null )
-    {
+    if (this.caloriesEntered == null) {
       const fooditemCount = this.selectedFoodQuantity.food.length;
       this.caloriesEntered = 0;
 
@@ -94,7 +93,7 @@ export class FoodEntryComponent implements OnInit {
     this.selectedFoodQuantity.quantity.splice(index, 1);
   }
 
-  onManualCaloriesSwitchChange(){
+  onManualCaloriesSwitchChange() {
     this.caloriesEntered = null;
   }
 
@@ -107,10 +106,10 @@ export class FoodEntryComponent implements OnInit {
       dateEntered: selectedFoodQuantity.dateEntered,
       calories: selectedFoodQuantity.calories,
       weight: selectedFoodQuantity.weight,
-      food: (selectedFoodQuantity.food.length > 0 ) ?
-              selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.food[0].id) : null,
-      quantity: (selectedFoodQuantity.food.length > 0 ) ?
-                   selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.quantity[0].toString()) : null
+      food: (selectedFoodQuantity.food.length > 0) ?
+        selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.food[0].id) : null,
+      quantity: (selectedFoodQuantity.food.length > 0) ?
+        selectedFoodQuantity.food.reduce((a, b) => a + ';' + b, this.selectedFoodQuantity.quantity[0].toString()) : null
     };
     return list;
   }

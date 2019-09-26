@@ -1,10 +1,10 @@
-import { Component, OnInit, EventEmitter, Output, Input } from "@angular/core";
-import { IFood } from "../../../../models";
-import { PatientService } from "../../../../services/patient.service";
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
+import { IFood } from '../../../../models';
+import { PatientService } from '../../../../services/patient.service';
 @Component({
-  selector: "app-food-table",
-  templateUrl: "./food-table.component.html",
-  styleUrls: ["./food-table.component.scss"]
+  selector: 'app-food-table',
+  templateUrl: './food-table.component.html',
+  styleUrls: ['./food-table.component.scss']
 })
 export class FoodTableComponent implements OnInit {
   @Input() alreadySelectedFood: string[];
@@ -13,29 +13,19 @@ export class FoodTableComponent implements OnInit {
 
   foods: IFood[];
   selectedFood: IFood[];
-  name = "";
+  name = '';
   calories = 0;
-  unit = "";
+  unit = '';
 
   constructor(private patientService: PatientService) {
     this.selectedFood = new Array<IFood>();
   }
 
   ngOnInit() {
-    // this.patientService.getFoodList().then(result => {
-    //   if (this.alreadySelectedFood) {
-    //     this.foods = result.filter(f => !this.alreadySelectedFood.includes(f.id));
-    //   } else {
-    //     this.foods = result;
-    //   }
-    // });
   }
 
   onSubmit() {
-    // TODO Post entered data for task to api then (
-
     this.submitHandler.emit(this.selectedFood);
-    // )
   }
 
   onBack() {
