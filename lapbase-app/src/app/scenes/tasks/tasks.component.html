@@ -27,7 +27,7 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Breakfast
-      <a class="button is-pulled-right" (click)="selectFood('breakfast')">Add food for breakfast
+      <a class="button is-pulled-right" (click)="selectFood(0)">Add food for breakfast
       </a>
     </h2>
   </div>
@@ -41,27 +41,27 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let breakfast of selectedMeals['breakfast']">
-        <td><a class="button is-small" (click)="removeFood(breakfast.id, 'breakfast')">
+      <tr *ngFor="let food of getMeal(0)">
+        <td><a class="button is-small" (click)="removeFood(food.id, 0)">
             <span class="icon is-small">
               <i class="fas fa-trash-alt"></i>
             </span>
           </a>
-          {{ breakfast.name }}
+          {{ getFoodInfo(food.id).name }}
         </td>
 
         <td>
-        {{ breakfast.calorieCount }}
+        {{ getFoodInfo(food.id).calorieCount }}
         </td>
 
         <td>
-            <a class="button is-small" (click)="minusQuantity(breakfast.id, 'breakfast')">
+            <a class="button is-small" (click)="minusQuantity(food.id, 0)">
                 <span class="icon is-small">
                   <i class="fas fa-minus"></i>
                 </span>
               </a>
-              {{ breakfast.quantity }}
-              <a class="button is-small" (click)="addQuantity(breakfast.id, 'breakfast')">
+              {{ food.quantity }}
+              <a class="button is-small" (click)="addQuantity(food.id, 0)">
                 <span class="icon is-small">
                   <i class="fas fa-plus"></i>
                 </span>
@@ -75,7 +75,7 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Lunch
-      <a class="button is-pulled-right" (click)="selectFood('lunch')">Add food for lunch</a>
+      <a class="button is-pulled-right" (click)="selectFood(1)">Add food for lunch</a>
     </h2>
   </div>
 </div>
@@ -88,27 +88,27 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let lunch of selectedMeals['lunch']">
-        <td><a class="button is-small" (click)="removeFood(lunch.id, 'lunch')">
+      <tr *ngFor="let food of getMeal(1)">
+        <td><a class="button is-small" (click)="removeFood(food.id, 1)">
             <span class="icon is-small">
               <i class="fas fa-trash-alt"></i>
             </span>
           </a>
-          {{ lunch.name }}
+          {{ getFoodInfo(food.id).name }}
         </td>
 
         <td>
-        {{ lunch.calorieCount }}
+        {{ getFoodInfo(food.id).calorieCount }}
         </td>
 
         <td>
-            <a class="button is-small" (click)="minusQuantity(lunch.id, 'lunch')">
+            <a class="button is-small" (click)="minusQuantity(food.id, 1)">
                 <span class="icon is-small">
                   <i class="fas fa-minus"></i>
                 </span>
               </a>
-              {{ lunch.quantity }}
-              <a class="button is-small" (click)="addQuantity(lunch.id, 'lunch')">
+              {{ food.quantity }}
+              <a class="button is-small" (click)="addQuantity(food.id, 1)">
                 <span class="icon is-small">
                   <i class="fas fa-plus"></i>
                 </span>
@@ -122,7 +122,7 @@
   <div class="column is-12">
     <h2 class="subtitle">
       Dinner
-      <a class="button is-pulled-right" (click)="selectFood('dinner')">
+      <a class="button is-pulled-right" (click)="selectFood(2)">
         Add food for dinner
       </a>
     </h2>
@@ -137,27 +137,27 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let dinner of selectedMeals['dinner']">
-        <td><a class="button is-small" (click)="removeFood(dinner.id, 'dinner')">
+      <tr *ngFor="let food of getMeal(2)">
+        <td><a class="button is-small" (click)="removeFood(food.id, 2)">
             <span class="icon is-small">
               <i class="fas fa-trash-alt"></i>
             </span>
           </a>
-          {{ dinner.name }}
+          {{ getFoodInfo(food.id).name }}
         </td>
 
         <td>
-        {{ dinner.calorieCount }}
+        {{ getFoodInfo(food.id).calorieCount }}
         </td>
 
         <td>
-            <a class="button is-small" (click)="minusQuantity(dinner.id, 'dinner')">
+            <a class="button is-small" (click)="minusQuantity(food.id, 2)">
                 <span class="icon is-small">
                   <i class="fas fa-minus"></i>
                 </span>
               </a>
-              {{ dinner.quantity }}
-              <a class="button is-small" (click)="addQuantity(dinner.id, 'dinner')">
+              {{ food.quantity }}
+              <a class="button is-small" (click)="addQuantity(food.id, 2)">
                 <span class="icon is-small">
                   <i class="fas fa-plus"></i>
                 </span>
@@ -172,11 +172,11 @@
 <p>Total Calories: {{ calculateTotalCalories() }} KJ</p>
 <a class="button is-success is-pulled-right">Save</a>
 
-<div class="modal" [ngClass]="{'is-active': isModalActive }">
+<div class="modal" [ngClass]="modalClass()" *ngIf="this.selectedMealTime !== undefined">
   <div class="modal-background" (click)="toggleModal()"></div>
   <div class="modal-content">
-    <app-food-choices *ngIf="hasSelectedFood != true" [selectedFoods]="selectedMeals[selectedMealTime]"
-      [iFoodChoicesSelections]="iFoodChoicesArray" (submitFoodSelection)="getFoodSelection($event)"></app-food-choices>
+    <app-food-choices [selectedFoods]="getMeal(selectedMealTime)"
+      [availableFoodChoices]="availableFoodChoices" (submitFoodSelection)="getFoodSelection($event)"></app-food-choices>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
 </div>

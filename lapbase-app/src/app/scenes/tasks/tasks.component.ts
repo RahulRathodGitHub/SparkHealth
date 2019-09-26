@@ -1,6 +1,6 @@
 import { TaskService } from './../../services/task.service';
 import { Component, OnInit } from '@angular/core';
-import { ITask, TaskType, TaskInput } from 'src/app/models';
+import { ITask, TaskType, TaskInput, IFood, Food, MealTime, Meal } from 'src/app/models';
 import { PatientService } from 'src/app/services';
 
 @Component({
@@ -17,50 +17,57 @@ export class TasksComponent implements OnInit {
   date: Date;
   yesterdayDate: Date;
   tomorrowDate: Date;
-  taskData: TaskInput;
 
-  hasSelectedFood = true;
-  selectedMealTime: string;
-  selectedMeals = {
-    breakfast: [],
-    lunch: [],
-    dinner: []
+  selectedMealTime: MealTime;
+
+  private availableFoodChoices: IFood[];
+  taskInput: TaskInput = {
+    id: 'db225c97-8515-4087-aeb9-f519cea4edea',
+    dateAssigned: new Date(),
+    calories: 0.0,
+    weight: 0.0,
+    meals: [
+      {
+        foods: [],
+        mealTime: MealTime.BREAKFAST
+      },
+      {
+        foods: [],
+        mealTime: MealTime.LUNCH
+      },
+      {
+        foods: [],
+        mealTime: MealTime.DINNER
+      }
+    ],
+    exercises: []
   };
-
-  iFoodChoicesArray = [];
   isModalActive = false;
   ngOnInit() {
-    this.patientService.getFoodList().then(foodList => {
-
-      let foodLeft = foodList.length;
-      let tempArray = [];
-      let i = -1;
-      while (foodLeft > 4) {
-        tempArray = [];
-        foodLeft -= 4;
-
-        for (let j = 0; j < 4; j++) {
-          tempArray.push(foodList[++i]);
-        }
-        this.iFoodChoicesArray.push(tempArray);
-      }
-
-      tempArray = [];
-      while (foodLeft > 0) {
-        tempArray.push(foodList[++i]);
-        foodLeft--;
-      }
-      this.iFoodChoicesArray.push(tempArray);
+    this.patientService.getFoodList().then(foodChoiceList => {
+      this.availableFoodChoices = foodChoiceList;
     });
+
+    // TODO Fill in date of task and make sure DTO matches
+    // this.taskService.getTaskByDate(........).then(taskInput => {
+    //   this.taskInput = taskInput;
+    // });
   }
 
   constructor(
     private taskService: TaskService,
     private patientService: PatientService
   ) {
-    // taskService.getTasks().then(result => (this.tasks = result));
     this.step = 0;
     this.date = new Date();
+  }
+
+  getMeal(mealTime: MealTime) {
+    return this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods;
+  }
+
+  getFoodInfo(foodId: string) {
+    return this.availableFoodChoices.find(food => food.id === foodId);
   }
 
   onButtonClick(taskId: string) {
@@ -88,59 +95,52 @@ export class TasksComponent implements OnInit {
     this.date = this.yesterdayDate;
   }
 
-  selectFood(mealtime) {
+  selectFood(mealtime: MealTime) {
     this.toggleModal();
-    this.hasSelectedFood = false;
     this.selectedMealTime = mealtime;
   }
 
-  getFoodSelection(foodSelection) {
-    console.log(this.selectedMeals[this.selectedMealTime]);
-
-    this.hasSelectedFood = true;
-  }
-  findIndexOfFood(foodId: string, mealTime) {
-    return this.selectedMeals[mealTime].findIndex(f => f.id === foodId);
-  }
-
-  minusQuantity(foodId: string, mealTime) {
-    const quantity = this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)].quantity;
+  minusQuantity(foodId: string, mealTime: MealTime) {
+    const quantity = this.taskInput.meals.find(meal => meal.mealTime === mealTime)
+      .foods.find(food => food.id === foodId).quantity;
     if (quantity < 2) {
       this.removeFood(foodId, mealTime);
     } else {
-      this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)].quantity--;
+      this.taskInput.meals.find(meal => meal.mealTime === mealTime)
+        .foods.find(food => food.id === foodId).quantity--;
     }
   }
 
-  addQuantity(foodId: string, mealTime) {
-    this.selectedMeals[mealTime][this.findIndexOfFood(foodId, mealTime)]
-      .quantity++;
+  addQuantity(foodId: string, mealTime: MealTime) {
+    this.taskInput.meals.find(meal => meal.mealTime === mealTime)
+      .foods.find(food => food.id === foodId).quantity++;
   }
 
-  removeFood(foodId: string, mealTime) {
-    this.selectedMeals[mealTime].splice(
-      this.findIndexOfFood(foodId, mealTime),
-      1
-    );
+  removeFood(foodId: string, mealTime: MealTime) {
+    const index = this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods.findIndex(food => food.id === foodId);
+    this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods.splice(index, 1);
   }
+
   calculateTotalCalories(): number {
     let totalCalories = 0;
 
-    for (const food of this.selectedMeals.breakfast) {
-      totalCalories += food.quantity * food.calorieCount;
-    }
-
-    for (const food of this.selectedMeals.lunch) {
-      totalCalories += food.quantity * food.calorieCount;
-    }
-
-    for (const food of this.selectedMeals.dinner) {
-      totalCalories += food.quantity * food.calorieCount;
+    for (const meal of this.taskInput.meals) {
+      for (const food of meal.foods) {
+        totalCalories += food.quantity * this.getFoodInfo(food.id).calorieCount;
+      }
     }
 
     return totalCalories;
   }
+
   toggleModal() {
     this.isModalActive = !this.isModalActive;
+  }
+
+  modalClass() {
+    if (this.isModalActive) {
+      return 'modal is-active';
+    }
+    return 'modal';
   }
 }

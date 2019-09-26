@@ -7,21 +7,19 @@ import { IFood } from 'src/app/models';
   styleUrls: ['./food-choice.component.scss']
 })
 export class FoodChoiceComponent implements OnInit {
-  @Input() foodChoice: IFood;
   @Output() decreasedCount = new EventEmitter();
   @Output() increasedCount = new EventEmitter();
+  @Input() foodChoice: IFood;
   @Input() count: number;
   constructor() {}
 
   ngOnInit() {}
 
   increaseCount() {
-    this.count++;
-    this.increasedCount.emit(this.foodChoice);
+    this.increasedCount.emit();
   }
 
   decreaseCount() {
-    this.count--;
-    this.decreasedCount.emit(this.foodChoice);
+    this.decreasedCount.emit();
   }
 }

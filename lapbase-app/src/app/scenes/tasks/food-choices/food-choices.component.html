@@ -2,15 +2,11 @@
   <article class="media">
     <div class="media-content">
       <div class="content">
-        <div *ngFor="let iFoodChoices of iFoodChoicesSelections">
-          <div class="columns is-mobile is-gapless is-multiline ">
-            <div class="column is-3" *ngFor="let iFoodChoice of iFoodChoices">
-              <app-food-choice [foodChoice]="iFoodChoice" [count]="getCount(iFoodChoice.name)"
-                (increasedCount)="increaseQuantity($event)" (decreasedCount)="decreaseQuantity($event)">
-              </app-food-choice>
-            </div>
+        <div *ngFor="let foodChoice of availableFoodChoices">
+            <app-food-choice [foodChoice]="foodChoice" [count]="getCount(foodChoice.id)"
+              (increasedCount)="increaseQuantity(foodChoice.id)" (decreasedCount)="decreaseQuantity(foodChoice.id)">
+            </app-food-choice>
           </div>
-        </div>
       </div>
     </div>
   </article>

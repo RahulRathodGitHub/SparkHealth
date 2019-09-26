@@ -1,5 +1,5 @@
-import { Food } from "./food";
-import { Exercise } from "./exercise";
+import { Meal } from './food';
+import { Exercise } from './exercise';
 
 export enum TaskType {
   FoodIntake,
@@ -18,11 +18,9 @@ export interface ITask {
 
 export class TaskInput {
   id: string;
-  patientId: number;
-  organizationCode: number;
   dateAssigned: Date;
   calories: number;
   weight: number;
-  foods: Food[];
+  meals: Meal[];
   exercises: Exercise[];
 }

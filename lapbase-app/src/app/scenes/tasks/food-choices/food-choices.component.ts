@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { IFood, Food } from 'src/app/models';
 
 @Component({
   selector: 'app-food-choices',
@@ -6,40 +7,35 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
   styleUrls: ['./food-choices.component.scss']
 })
 export class FoodChoicesComponent implements OnInit {
-  @Output() submitFoodSelection = new EventEmitter();
-  @Input() iFoodChoicesSelections: [];
-  @Input() selectedFoods;
+  @Input() availableFoodChoices: IFood[];
+  @Input() selectedFoods: Food[];
 
   constructor() {}
 
   ngOnInit() {
   }
 
-  increaseQuantity(foodChoice) {
+  increaseQuantity(foodId: string) {
     if (this.selectedFoods === null) {
       this.selectedFoods.push({
-        id: foodChoice.id,
-        name: foodChoice.name,
-        calorieCount: foodChoice.calorieCount,
+        id: foodId,
         quantity: 1
       });
     } else {
-      const index = this.findFood(foodChoice.name);
+      const index = this.findFoodById(foodId);
       if (index > -1) {
         this.selectedFoods[index].quantity++;
       } else {
         this.selectedFoods.push({
-          id: foodChoice.id,
-          name: foodChoice.name,
-          calorieCount: foodChoice.calorieCount,
+          id: foodId,
           quantity: 1
         });
       }
     }
   }
 
-  decreaseQuantity(foodChoice) {
-    const index = this.findFood(foodChoice.name);
+  decreaseQuantity(foodId: string) {
+    const index = this.findFoodById(foodId);
 
     if (this.selectedFoods[index].quantity < 2) {
       this.selectedFoods.splice(index, 1);
@@ -48,8 +44,8 @@ export class FoodChoicesComponent implements OnInit {
     }
   }
 
-  getCount(foodChoiceName) {
-    const index = this.findFood(foodChoiceName);
+  getCount(foodChoiceId) {
+    const index = this.findFoodById(foodChoiceId);
     if (index > -1) {
       return this.selectedFoods[index].quantity;
     } else {
@@ -57,11 +53,7 @@ export class FoodChoicesComponent implements OnInit {
     }
   }
 
-  findFood(foodChoiceName) {
-    return this.selectedFoods.findIndex(f => f.name === foodChoiceName);
-  }
-
-  save() {
-    this.submitFoodSelection.emit(this.selectedFoods);
+  findFoodById(foodChoiceId: string) {
+    return this.selectedFoods.findIndex(f => f.id === foodChoiceId);
   }
 }

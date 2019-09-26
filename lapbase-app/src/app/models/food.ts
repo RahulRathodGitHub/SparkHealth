@@ -6,9 +6,13 @@ export interface IFood {
 }
 
 export class Food {
-  name: string;
-  quantity: string;
-  mealTime: string;
+  id: string;
+  quantity: number;
+}
+
+export class Meal {
+  foods: Food[];
+  mealTime: MealTime;
 }
 
 export enum MealTime {
