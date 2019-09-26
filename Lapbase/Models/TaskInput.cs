@@ -85,7 +85,7 @@ namespace Lapbase.Models
             taskInputDto.Foods.ForEach(t =>
             {
                 this.Foods = this.Foods + "," + t.getFoodString();
-                this.FoodQuantities = this.FoodQuantities + "," + t.getFoodQuantityString();
+                this.FoodQuantities = this.FoodQuantities + "," + t.getQuantityString();
                 this.IntakeTimes = this.IntakeTimes + "," + t.getIntakeTimeString();
             });
             this.Foods = this.Foods.Substring(1); // To remove the comma at the front of the sring.
