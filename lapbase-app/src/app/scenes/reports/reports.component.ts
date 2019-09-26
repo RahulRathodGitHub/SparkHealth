@@ -29,12 +29,9 @@ export class ReportsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //Setting default dates for when patient first visit page
-    var twoYearsAgo = new Date();
-    twoYearsAgo.setFullYear(twoYearsAgo.getFullYear() - 2);
-
-    this.startDate = this.changeDateFormat(twoYearsAgo);
-    this.endDate = this.changeDateFormat(new Date());
+    
+    this.startDate = null;
+    this.endDate = null;
 
     //Retrieving weight data as default data when users visit the Report page
     this.setChartType("WeightLoss");
@@ -57,6 +54,27 @@ export class ReportsComponent implements OnInit {
   }
 
   getReport() {
+
+    if(this.startDate == null)
+    {
+      //Setting default dates for when patient first visit page
+      var lastAvailableDate = new Date();
+      
+      this.reportService.getLastAvailableDate(
+                                                2756,
+                                                2,
+                                                this.typeOfReport
+  
+                                              ).then( p => lastAvailableDate = p);
+  
+      var twoYearsBeforeLatestDate = new Date();
+      twoYearsBeforeLatestDate.setFullYear(lastAvailableDate.getFullYear() - 2);
+  
+      this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
+      this.endDate = this.changeDateFormat(lastAvailableDate);
+    }
+
+
     this.loading = true;
     this.reportService
       .getReportsById(
