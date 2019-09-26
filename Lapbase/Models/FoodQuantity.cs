@@ -7,9 +7,7 @@ namespace Lapbase.Models
 {
     public class FoodQuantity
     {
-        public Guid Id { get; set; }
-        public String name { get; set; }
-        public double calories { get; set; }
+        public String foodId { get; set; }
         public int quantity { get; set; }
 
         public FoodQuantity()
@@ -17,11 +15,10 @@ namespace Lapbase.Models
 
         }
 
-        public FoodQuantity(String foodName, int quantity)
+        public FoodQuantity(String foodId, int quantity)
         {
-            this.name = foodName;
+            this.foodId = foodId;
             this.quantity = quantity;
-            // What should we do about the calories.
 
         }
     }

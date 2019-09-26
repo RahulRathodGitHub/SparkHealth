@@ -37,7 +37,7 @@ namespace Lapbase.Models
             this.Foods = new List<FoodInfo>();
             this.Exercises = new List<ExerciseInfo>();
 
-            String[] foodName = taskInput.Foods.Split(",");
+            String[] foodIds = taskInput.Foods.Split(",");
             String[] foodQuantities = taskInput.FoodQuantities.Split(",");
 
             String[] exerciseNames = taskInput.Exercises.Split(",");
@@ -58,17 +58,17 @@ namespace Lapbase.Models
             {
                 if (s.ToLower().Equals("breakfast"))
                 {
-                    breakfastFoods += "," + foodName[i];
+                    breakfastFoods += "," + foodIds[i];
                     breakfastFoodQuantities += "," + foodQuantities[i];
                 }
                 else if (s.ToLower().Equals("lunch"))
                 {
-                    lunchFoods += "," + foodName[i];
+                    lunchFoods += "," + foodIds[i];
                     lunchFoodQuantities += "," + foodQuantities[i];
                 }
                 else if (s.ToLower().Equals("dinner"))
                 { 
-                    dinnerFoods += "," + foodName[i];
+                    dinnerFoods += "," + foodIds[i];
                     dinnerFoodQuantities += "," + foodQuantities[i];
                 }
                
