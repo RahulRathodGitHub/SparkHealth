@@ -1,18 +1,21 @@
-<div
-  class="columns is-mobile is-gapless"
-  *ngFor="let iFoodChoices of iFoodChoicesSelections"
->
-  <div class="column is-one-fifth " *ngFor="let iFoodChoice of iFoodChoices">
-    <app-food-choice
-      [foodChoice]="iFoodChoice"
-      [count]="getCount(iFoodChoice.name)"
-      (increasedCount)="increaseQuantity($event)"
-      (decreasedCount)="decreaseQuantity($event)"
-    ></app-food-choice>
-  </div>
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <div *ngFor="let iFoodChoices of iFoodChoicesSelections">
+          <div class="columns is-mobile is-gapless is-multiline ">
+            <div class="column is-3" *ngFor="let iFoodChoice of iFoodChoices">
+              <app-food-choice [foodChoice]="iFoodChoice" [count]="getCount(iFoodChoice.name)"
+                (increasedCount)="increaseQuantity($event)" (decreasedCount)="decreaseQuantity($event)">
+              </app-food-choice>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
 </div>
-<!-- 
+  <!-- 
 <div>
   <a class="button is-primary" (click)="save()">Save</a>
 </div> -->
-

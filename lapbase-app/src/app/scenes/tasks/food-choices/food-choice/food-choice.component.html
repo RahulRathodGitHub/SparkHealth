@@ -1,8 +1,20 @@
-<div class="foodChoice">
+<div class="foodChoice has-background-danger">
   <div [ngClass]="{ hideFoodCount: count <= 0 }" (click)="decreaseCount()">
+      <span class="icon">
+          <i class="fas fa-minus"></i>
+        </span>
     {{ +count }}
+    <span class="icon">
+        <i class="fas fa-minus"></i>
+      </span>
   </div>
-  <div class="foodName" (click)="increaseCount()">
+  <div class="foodName has-background-success" (click)="increaseCount()">
+      <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
     {{ foodChoice.name }}
+    <span class="icon">
+        <i class="fas fa-plus"></i>
+      </span>
   </div>
 </div>

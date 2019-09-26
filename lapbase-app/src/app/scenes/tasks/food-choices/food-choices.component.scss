@@ -1,12 +1,23 @@
+
+
 .columns.is-gapless:not(:last-child) {
   margin-bottom: 0px;
 }
 
+.columns {
+    flex-wrap: wrap;
+    align-items: stretch;
+}
+
 .column {
+    height: 100%;
   border: 1px solid black;
 }
 
 .columns:last-child {
   border-bottom: 1px solid black;
 
+}
+.box{
+    padding: 0px;
 }

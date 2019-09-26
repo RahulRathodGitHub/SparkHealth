@@ -37,11 +37,11 @@ export class TasksComponent implements OnInit {
       let foodLeft = foodList.length;
       let tempArray = [];
       var i = -1;
-      while (foodLeft > 3) {
+      while (foodLeft > 4) {
         tempArray = [];
-        foodLeft -= 3;
+        foodLeft -= 4;
 
-        for (var j = 0; j < 3; j++) {
+        for (var j = 0; j < 4; j++) {
           tempArray.push(foodList[++i]);
         }
         this.iFoodChoicesArray.push(tempArray);
