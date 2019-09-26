@@ -47,30 +47,23 @@ export class TaskService {
       .toPromise<any>();
   }
 
-  getTask = async (id: string): Promise<ITask> => {
-    return await this.httpClient
-      .get(environment.LAPBASE_API_ADDRESS + 'Task/' + id)
-      .toPromise<any>();
-  }
-
   sendFoodIntake = async (
-    selectedFoodQuantity: IFoodIntakeListDto
+    selectedFoodQuantity: TaskInput
   ): Promise<IFoodIntakeListDto> => {
     return await this.httpClient
       .post(
-        environment.LAPBASE_API_ADDRESS + 'Task/FoodIntake/',
+        environment.LAPBASE_API_ADDRESS + 'TaskInput/',
         selectedFoodQuantity
       )
       .toPromise<any>();
   }
 
-  getTaskByDate = async (date: string): Promise<TaskInput> => {
+  getTaskByDate = async (date: Date): Promise<TaskInput> => {
     return await this.httpClient
       .get(
         environment.LAPBASE_API_ADDRESS +
           'TaskInput/Date/' +
-          date +
-          'T00:00:00.0000000+00:00'
+          date
       )
       .toPromise<any>();
   }

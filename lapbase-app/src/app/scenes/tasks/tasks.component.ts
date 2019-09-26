@@ -21,37 +21,16 @@ export class TasksComponent implements OnInit {
   selectedMealTime: MealTime;
 
   private availableFoodChoices: IFood[];
-  taskInput: TaskInput = {
-    id: 'db225c97-8515-4087-aeb9-f519cea4edea',
-    dateAssigned: new Date(),
-    calories: 0.0,
-    weight: 0.0,
-    meals: [
-      {
-        foods: [],
-        mealTime: MealTime.BREAKFAST
-      },
-      {
-        foods: [],
-        mealTime: MealTime.LUNCH
-      },
-      {
-        foods: [],
-        mealTime: MealTime.DINNER
-      }
-    ],
-    exercises: []
-  };
+  taskInput: TaskInput;
   isModalActive = false;
   ngOnInit() {
     this.patientService.getFoodList().then(foodChoiceList => {
       this.availableFoodChoices = foodChoiceList;
     });
 
-    // TODO Fill in date of task and make sure DTO matches
-    // this.taskService.getTaskByDate(........).then(taskInput => {
-    //   this.taskInput = taskInput;
-    // });
+    this.taskService.getTaskByDate(this.date).then(taskInput => {
+      this.taskInput = taskInput;
+    });
   }
 
   constructor(
@@ -142,5 +121,9 @@ export class TasksComponent implements OnInit {
       return 'modal is-active';
     }
     return 'modal';
+  }
+
+  save() {
+    this.taskService.sendFoodIntake(this.taskInput);
   }
 }

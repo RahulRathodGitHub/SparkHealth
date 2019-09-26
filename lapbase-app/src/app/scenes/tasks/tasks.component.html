@@ -170,7 +170,7 @@
 
 
 <p>Total Calories: {{ calculateTotalCalories() }} KJ</p>
-<a class="button is-success is-pulled-right">Save</a>
+<a onclick="save()" class="button is-success is-pulled-right">Save</a>
 
 <div class="modal" [ngClass]="modalClass()" *ngIf="this.selectedMealTime !== undefined">
   <div class="modal-background" (click)="toggleModal()"></div>
