@@ -60,7 +60,7 @@ export class FoodEntryComponent implements OnInit {
 
     this.selectedFoodQuantity.calories = this.caloriesEntered;
     this.selectedFoodQuantity.weight = this.weight;
-    this.taskService.sendFoodIntake(this.mapToDto(this.selectedFoodQuantity)).then(() => this.backHandler.emit());
+    //this.taskService.sendFoodIntake(this.mapToDto(this.selectedFoodQuantity)).then(() => this.backHandler.emit());
   }
 
   onNext() {

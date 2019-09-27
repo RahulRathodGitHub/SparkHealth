@@ -90,7 +90,7 @@ export class ReportsComponent implements OnInit {
         this.report = p;
         console.log(p);
 
-        console.log(this.report.data);
+        console.log(this.report.data1);
         console.log(this.report.labels);
 
         var chartType;
@@ -104,9 +104,13 @@ export class ReportsComponent implements OnInit {
           case 2:
             chartType = "BMI";
             break;
+          case 3:
+            chartType = "Calorie";
+            break;
         }
 
-        this.chartData = [{ data: this.report.data, label: chartType }];
+        // Have to see the format for passing data2
+        this.chartData = [{ data: this.report.data1, label: chartType }];
         this.chartLabels = this.report.labels;
         this.loading = false;
       });

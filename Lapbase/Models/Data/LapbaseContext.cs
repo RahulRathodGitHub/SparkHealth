@@ -31,22 +31,6 @@ namespace Lapbase.Models
                 Deleted = false
             });
 
-            modelBuilder.Entity<TaskInput>().HasData(new TaskInput
-            {
-                Id = Guid.NewGuid(),
-                DateAssigned = new DateTimeOffset(2019, 07, 05, 0, 0, 0, new TimeSpan()),
-                PatientId = 1,
-                OrganizationCode = 1,
-                Calories = 100,
-                Weight = 10,
-                Completed= false,
-                FoodQuantities = "1 2 1",
-                Foods="Onion Burger Apple",
-                IntakeTimes="Breakfast, Lunch, Dinner",
-                Exercises="pushups",
-                ExerciseReps="1",
-            });
-
             var foodList = new List<Food>
             {
                 new Food

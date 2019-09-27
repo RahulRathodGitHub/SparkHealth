@@ -14,7 +14,8 @@ namespace Lapbase.Services
     {
        WeightLoss,
        EWL,
-       BMI
+       BMI,
+       Calorie
     }
 
     public class ReportService
@@ -85,6 +86,15 @@ namespace Lapbase.Services
                 //GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag)
                 return result;
             }
+            else if (reportType == ReportType.Calorie)
+            {
+                await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateAssigned >= startDate && p.DateAssigned <= endDate)
+                                                 .OrderBy(p => p.DateAssigned)
+                                                 .ForEachAsync(res => result.AddEntry(res.Calories, res.DateAssigned.ToString()));
+
+                return result;
+                                                 
+            }
             else// (reportType == ReportType.WeightLoss)
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
@@ -122,6 +132,13 @@ namespace Lapbase.Services
                                                                        .Where(p => p.DateSeen >= startDate && p.DateSeen <= endDate)
                                                                        .OrderBy(p => p.DateSeen)
                                                                        .ToListAsync();
+        }
+
+        public async Task<List<Decimal>> GetCalorieReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
+        {
+            return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode)
+                                                    .Select(p => p.Calories)
+                                                    .ToListAsync();
         }
 
     }

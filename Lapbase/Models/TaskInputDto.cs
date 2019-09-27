@@ -16,7 +16,7 @@ namespace Lapbase.Models
         public decimal Calories { get; set; }
         public decimal Weight { get; set; }
 
-        public List<FoodInfo> Meals { get; set; }
+        public List<FoodInfo> Foods { get; set; }
         public List<ExerciseInfo> Exercises { get; set; }
 
 
@@ -34,22 +34,22 @@ namespace Lapbase.Models
             this.Completed = taskInput.Completed;
             this.Calories = taskInput.Calories;
             this.Weight = taskInput.Weight;
-            this.Meals = new List<FoodInfo>();
+            this.Foods = new List<FoodInfo>();
             this.Exercises = new List<ExerciseInfo>();
 
-            String[] foodIds = taskInput.Meals.Split(",");
+            String[] foodIds = taskInput.Foods.Split(",");
             String[] foodQuantities = taskInput.FoodQuantities.Split(",");
 
             String[] exerciseNames = taskInput.Exercises.Split(",");
             String[] exerciseQuantities = taskInput.ExerciseReps.Split(",");
 
-            String breakfastMeals = "";
+            String breakfastFoods = "";
             String breakfastFoodQuantities = "";
 
-            String lunchMeals = "";
+            String lunchFoods = "";
             String lunchFoodQuantities = "";
 
-            String dinnerMeals = "";
+            String dinnerFoods = "";
             String dinnerFoodQuantities = "";
 
 
@@ -58,17 +58,17 @@ namespace Lapbase.Models
             {
                 if (s.ToLower().Equals("breakfast"))
                 {
-                    breakfastMeals += "," + foodIds[i];
+                    breakfastFoods += "," + foodIds[i];
                     breakfastFoodQuantities += "," + foodQuantities[i];
                 }
                 else if (s.ToLower().Equals("lunch"))
                 {
-                    lunchMeals += "," + foodIds[i];
+                    lunchFoods += "," + foodIds[i];
                     lunchFoodQuantities += "," + foodQuantities[i];
                 }
                 else if (s.ToLower().Equals("dinner"))
                 { 
-                    dinnerMeals += "," + foodIds[i];
+                    dinnerFoods += "," + foodIds[i];
                     dinnerFoodQuantities += "," + foodQuantities[i];
                 }
                
@@ -76,14 +76,14 @@ namespace Lapbase.Models
                 i++;
             }
 
-            if(!breakfastMeals.Equals(""))
-            this.Meals.Add(new FoodInfo(breakfastMeals.Substring(1), breakfastFoodQuantities.Substring(1), IntakeTime.BREAKFAST));
+            if(!breakfastFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(breakfastFoods.Substring(1), breakfastFoodQuantities.Substring(1), IntakeTime.BREAKFAST));
 
-            if(!lunchMeals.Equals(""))
-            this.Meals.Add(new FoodInfo(lunchMeals.Substring(1), lunchFoodQuantities.Substring(1), IntakeTime.LUNCH));
+            if(!lunchFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(lunchFoods.Substring(1), lunchFoodQuantities.Substring(1), IntakeTime.LUNCH));
 
-            if(!dinnerMeals.Equals(""))
-            this.Meals.Add(new FoodInfo(dinnerMeals.Substring(1), dinnerFoodQuantities.Substring(1), IntakeTime.DINNER));
+            if(!dinnerFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(dinnerFoods.Substring(1), dinnerFoodQuantities.Substring(1), IntakeTime.DINNER));
 
             this.Exercises.Add(new ExerciseInfo(taskInput.Exercises, taskInput.ExerciseReps));
         }
