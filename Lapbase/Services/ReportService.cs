@@ -75,14 +75,14 @@ namespace Lapbase.Services
             if (reportType == ReportType.EWL)
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.EWL, res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.EWL, ReportType.EWL.ToString(), res.Weight, ReportType.WeightLoss.ToString(), res.strDateSeen)); //ToList<IReport>();
                 return result;
             }
             else if (reportType == ReportType.BMI)
             {
                  await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateSeen >= startDate && p.DateSeen <= endDate)
                                                        .OrderBy(p => p.DateSeen)
-                                                       .ForEachAsync(res => result.AddEntry(res.Bmiweight, res.DateSeen.ToString()));
+                                                       .ForEachAsync(res => result.AddEntry(res.Bmiweight, ReportType.BMI.ToString(), res.DateSeen.ToString()));
                 //GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag)
                 return result;
             }
@@ -90,7 +90,7 @@ namespace Lapbase.Services
             {
                 await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateAssigned >= startDate && p.DateAssigned <= endDate)
                                                  .OrderBy(p => p.DateAssigned)
-                                                 .ForEachAsync(res => result.AddEntry(res.Calories, res.DateAssigned.ToString()));
+                                                 .ForEachAsync(res => result.AddEntry(res.Calories, ReportType.Calorie.ToString(), res.DateAssigned.ToString()));
 
                 return result;
                                                  
@@ -98,7 +98,7 @@ namespace Lapbase.Services
             else// (reportType == ReportType.WeightLoss)
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.Weight, res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.Weight, ReportType.WeightLoss.ToString(), res.strDateSeen)); //ToList<IReport>();
                 return result;
                 //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
             }

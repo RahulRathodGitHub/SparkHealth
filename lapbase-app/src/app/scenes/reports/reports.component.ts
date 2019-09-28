@@ -13,7 +13,7 @@ import { SwitchView } from "@angular/common/src/directives/ng_switch";
 })
 export class ReportsComponent implements OnInit {
   report: IReport;
-  chartData = {};
+  chartData = [];
   chartLabels = {};
   typeOfReport: Number;
   startDate: String;
@@ -91,7 +91,7 @@ export class ReportsComponent implements OnInit {
         console.log(p);
 
         console.log(this.report.data1);
-        console.log(this.report.labels);
+        console.log(this.report.timeLabels);
 
         var chartType;
         switch (this.typeOfReport) {
@@ -109,9 +109,14 @@ export class ReportsComponent implements OnInit {
             break;
         }
 
+        this.chartData = [{ data: this.report.data1, label: this.report.dataLabel1 }];
         // Have to see the format for passing data2
-        this.chartData = [{ data: this.report.data1, label: chartType }];
-        this.chartLabels = this.report.labels;
+        if( this.report.dataLabel2.length > 0)
+        {
+          this.chartData.push({data: this.report.data2, label: this.report.dataLabel2});
+        }
+        
+        this.chartLabels = this.report.timeLabels;
         this.loading = false;
       });
   }
