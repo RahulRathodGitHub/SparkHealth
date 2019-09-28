@@ -34,7 +34,7 @@ export class ReportsComponent implements OnInit {
     this.endDate = null;
 
     //Retrieving weight data as default data when users visit the Report page
-    this.setChartType("WeightLoss");
+    this.setChartType("EWL_WL");
   }
 
   chartOptions = {
@@ -96,15 +96,12 @@ export class ReportsComponent implements OnInit {
         var chartType;
         switch (this.typeOfReport) {
           case 0:
-            chartType = "Weigth Loss (kg)";
+            chartType = "Weight Loss & EWL (kg)";
             break;
           case 1:
-            chartType = "EWL (kg)";
-            break;
-          case 2:
             chartType = "BMI";
             break;
-          case 3:
+          case 2:
             chartType = "Calorie";
             break;
         }

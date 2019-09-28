@@ -12,8 +12,7 @@ namespace Lapbase.Services
 {
     public enum ReportType
     {
-       WeightLoss,
-       EWL,
+       EWL_WL,
        BMI,
        Calorie
     }
@@ -41,7 +40,7 @@ namespace Lapbase.Services
 
             DateTime? result = new DateTime?();
 
-            if (reportType == ReportType.EWL)
+            if (reportType == ReportType.EWL_WL)
             {
 
 
@@ -72,10 +71,10 @@ namespace Lapbase.Services
         {
             byte imperialFlag = 0;
             Report result = new Report();
-            if (reportType == ReportType.EWL)
+            if (reportType == ReportType.EWL_WL)
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.EWL, ReportType.EWL.ToString(), res.Weight, ReportType.WeightLoss.ToString(), res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.EWL, "EWL", res.Weight, "Weight", res.strDateSeen)); //ToList<IReport>();
                 return result;
             }
             else if (reportType == ReportType.BMI)
@@ -95,10 +94,10 @@ namespace Lapbase.Services
                 return result;
                                                  
             }
-            else// (reportType == ReportType.WeightLoss)
+            else// (reportType == ReportType.WeightLoss) UNUSED BLOCK
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.Weight, ReportType.WeightLoss.ToString(), res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.Weight, "Weight", res.strDateSeen)); //ToList<IReport>();
                 return result;
                 //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
             }

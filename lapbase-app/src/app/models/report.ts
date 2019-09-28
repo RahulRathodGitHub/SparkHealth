@@ -9,8 +9,7 @@ export interface IReport {
 }
 
 export enum reporttype {
-  WeightLoss,
-  EWL,
+  EWL_WL,
   BMI,
   Calorie
 }
