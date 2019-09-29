@@ -1,37 +1,35 @@
-import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
-import { AppRoutingModule } from "./app-routing.module";
-import { HttpClientModule } from "@angular/common/http";
-import { AppComponent } from "./app.component";
-import { FormsModule } from "@angular/forms";
-import { ChartsModule } from "ng2-charts";
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { AppRoutingModule } from './app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { MyDatePickerModule } from 'mydatepicker';
 import {
   HeaderComponent,
   SideMenuComponent,
-  TaskComponent
-} from "./components";
+} from './components';
 import {
   AccountComponent,
   AppointmentsComponent,
   DashboardComponent,
   ExerciseEntryComponent,
   ExerciseTableComponent,
-  FoodEntryComponent,
-  FoodTableComponent,
   TasksComponent,
   TimelineComponent,
   FeedbackComponent,
   ReportsComponent,
   LoginComponent,
   NotFoundComponent
-} from "./scenes";
+} from './scenes';
 
-import { FullCalendarModule } from "@fullcalendar/angular"; //For incorporating the Calendar for Appointment functinality
-import { DatePipe } from "@angular/common";
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { DatePipe } from '@angular/common';
 import { FoodChoicesComponent } from './scenes/tasks/food-choices/food-choices.component';
 import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/food-choice.component';
+import { SelectedFoodTableComponent } from './components/selected-food-table/selected-food-table.component';
 
 @NgModule({
   declarations: [
@@ -47,13 +45,11 @@ import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/foo
     AccountComponent,
     DashboardComponent,
     NotFoundComponent,
-    TaskComponent,
-    FoodEntryComponent,
-    FoodTableComponent,
     ExerciseTableComponent,
     ExerciseEntryComponent,
     FoodChoicesComponent,
-    FoodChoiceComponent
+    FoodChoiceComponent,
+    SelectedFoodTableComponent
   ],
   imports: [
     BrowserModule,

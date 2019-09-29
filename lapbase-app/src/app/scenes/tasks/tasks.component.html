@@ -1,13 +1,13 @@
 <div class="columns is-mobile">
   <div class="column is-12 has-text-centered">
     <h1 class="title ">
-      <a class="button is-medium is-pulled-left" (click)="dateBefore()">
+      <a class="button is-medium is-pulled-left" (click)="changeDate(true)">
         <span class="icon is-medium">
           <i class="fas fa-chevron-left fa-2x"></i>
         </span>
       </a>
       {{ date | date: "yyyy-MM-dd" }}
-      <a class="button is-medium is-pulled-right" (click)="dateAfter()">
+      <a class="button is-medium is-pulled-right" (click)="changeDate(false)">
         <span class="icon is-medium">
           <i class="fas fa-chevron-right fa-2x"></i>
         </span>
@@ -23,160 +23,26 @@
   </ul>
 </nav>
 
-<div class="columns is-mobile">
-  <div class="column is-12">
-    <h2 class="subtitle">
-      Breakfast
-      <a class="button is-pulled-right" (click)="selectFood(0)">Add food for breakfast
-      </a>
-    </h2>
-  </div>
-</div>
-<table class="table is-fullwidth is-striped is-hoverable">
-    <thead>
-      <tr>
-        <th>Food</th>
-        <th>Cal</th>
-        <th>Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let food of getMeal(0)">
-        <td><a class="button is-small" (click)="removeFood(food.id, 0)">
-            <span class="icon is-small">
-              <i class="fas fa-trash-alt"></i>
-            </span>
-          </a>
-          {{ getFoodInfo(food.id).name }}
-        </td>
+<app-selected-food-table (removeFood)="removeFood($event[0],$event[1])" (changeQuantity)="changeQuantity($event[0],$event[1],$event[2])"
+  (toggleModal)="toggleModal($event)" getFoodInfo="getFoodInfo" mealName="Breakfast" mealTime="0" [selectedFood]="getMeal(0)">
+</app-selected-food-table>
 
-        <td>
-        {{ getFoodInfo(food.id).calorieCount }}
-        </td>
+<app-selected-food-table (removeFood)="removeFood($event[0],$event[1])" (changeQuantity)="changeQuantity($event[0],$event[1],$event[2])"
+  (toggleModal)="toggleModal($event)" getFoodInfo="getFoodInfo" mealName="Lunch" mealTime="1" [selectedFood]="getMeal(1)">
+</app-selected-food-table>
 
-        <td>
-            <a class="button is-small" (click)="minusQuantity(food.id, 0)">
-                <span class="icon is-small">
-                  <i class="fas fa-minus"></i>
-                </span>
-              </a>
-              {{ food.quantity }}
-              <a class="button is-small" (click)="addQuantity(food.id, 0)">
-                <span class="icon is-small">
-                  <i class="fas fa-plus"></i>
-                </span>
-              </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<app-selected-food-table (removeFood)="removeFood($event[0],$event[1])" (changeQuantity)="changeQuantity($event[0],$event[1],$event[2])"
+  (toggleModal)="toggleModal($event)" getFoodInfo="getFoodInfo" mealName="Dinner" mealTime="2" [selectedFood]="getMeal(2)">
+</app-selected-food-table>
 
-<div class="columns is-mobile">
-  <div class="column is-12">
-    <h2 class="subtitle">
-      Lunch
-      <a class="button is-pulled-right" (click)="selectFood(1)">Add food for lunch</a>
-    </h2>
-  </div>
-</div>
-<table class="table is-fullwidth is-striped is-hoverable">
-    <thead>
-      <tr>
-        <th>Food</th>
-        <th>Cal</th>
-        <th>Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let food of getMeal(1)">
-        <td><a class="button is-small" (click)="removeFood(food.id, 1)">
-            <span class="icon is-small">
-              <i class="fas fa-trash-alt"></i>
-            </span>
-          </a>
-          {{ getFoodInfo(food.id).name }}
-        </td>
-
-        <td>
-        {{ getFoodInfo(food.id).calorieCount }}
-        </td>
-
-        <td>
-            <a class="button is-small" (click)="minusQuantity(food.id, 1)">
-                <span class="icon is-small">
-                  <i class="fas fa-minus"></i>
-                </span>
-              </a>
-              {{ food.quantity }}
-              <a class="button is-small" (click)="addQuantity(food.id, 1)">
-                <span class="icon is-small">
-                  <i class="fas fa-plus"></i>
-                </span>
-              </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-<div class="columns is-mobile">
-  <div class="column is-12">
-    <h2 class="subtitle">
-      Dinner
-      <a class="button is-pulled-right" (click)="selectFood(2)">
-        Add food for dinner
-      </a>
-    </h2>
-  </div>
-</div>
-<table class="table is-fullwidth is-striped is-hoverable">
-    <thead>
-      <tr>
-        <th>Food</th>
-        <th>Cal</th>
-        <th>Quantity</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let food of getMeal(2)">
-        <td><a class="button is-small" (click)="removeFood(food.id, 2)">
-            <span class="icon is-small">
-              <i class="fas fa-trash-alt"></i>
-            </span>
-          </a>
-          {{ getFoodInfo(food.id).name }}
-        </td>
-
-        <td>
-        {{ getFoodInfo(food.id).calorieCount }}
-        </td>
-
-        <td>
-            <a class="button is-small" (click)="minusQuantity(food.id, 2)">
-                <span class="icon is-small">
-                  <i class="fas fa-minus"></i>
-                </span>
-              </a>
-              {{ food.quantity }}
-              <a class="button is-small" (click)="addQuantity(food.id, 2)">
-                <span class="icon is-small">
-                  <i class="fas fa-plus"></i>
-                </span>
-              </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-
-
-<p>Total Calories: {{ calculateTotalCalories() }} KJ</p>
+<p>Total Calories: {{ calculateTotalCalories() }} Cal</p>
 <a onclick="save()" class="button is-success is-pulled-right">Save</a>
 
-<div class="modal" [ngClass]="modalClass()" *ngIf="this.selectedMealTime !== undefined">
+<div class="modal" [ngClass]="modalClass()" *ngIf="selectedMealTime !== undefined">
   <div class="modal-background" (click)="toggleModal()"></div>
   <div class="modal-content">
-    <app-food-choices [selectedFoods]="getMeal(selectedMealTime)"
-      [availableFoodChoices]="availableFoodChoices" (submitFoodSelection)="getFoodSelection($event)"></app-food-choices>
+    <app-food-choices [selectedFoods]="getMeal(selectedMealTime)" [availableFoodChoices]="availableFoodChoices"
+      (submitFoodSelection)="getFoodSelection($event)"></app-food-choices>
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
 </div>
