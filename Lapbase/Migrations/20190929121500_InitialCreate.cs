@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lapbase.Migrations
 {
-    public partial class initialCreate : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -47,7 +47,7 @@ namespace Lapbase.Migrations
                     Weight = table.Column<decimal>(nullable: false),
                     Foods = table.Column<string>(nullable: true),
                     FoodQuantities = table.Column<string>(nullable: true),
-                    IntakeTimes = table.Column<string>(nullable: true),
+                    MealTimes = table.Column<string>(nullable: true),
                     Exercises = table.Column<string>(nullable: true),
                     ExerciseReps = table.Column<string>(nullable: true)
                 },
@@ -132,19 +132,21 @@ namespace Lapbase.Migrations
                 columns: new[] { "Id", "CalorieCount", "Name", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("45d4586c-bd7c-47bc-9720-f06bba786f69"), 295, "Burger", "piece" },
-                    { new Guid("43040b2b-53cb-40d6-ac1b-0651a95bbec1"), 40, "Onion", "piece" },
-                    { new Guid("76fc7bdf-a8fe-4a0b-8841-b0dc6dd4f1bb"), 90, "Uncle Keith's Kappuccino", "cup" },
-                    { new Guid("f5cd503d-3726-4053-825d-d82927248895"), 96, "White bread", "slice" },
-                    { new Guid("7d69206a-d14a-4460-b7ca-c33f5509d929"), 44, "Apple", "apple" },
-                    { new Guid("047d3d9b-5593-44d2-9613-1e17ccbaf0d6"), 107, "Banana", "banana" },
-                    { new Guid("1afd0ed8-ce45-49e0-b812-aeebf9dca32a"), 30, "Tomato", "tomato" }
+                    { new Guid("561677db-3df7-4630-8f1a-6ffb432a917f"), 295, "Burger", "piece" },
+                    { new Guid("443033cd-20c4-4869-b226-458afef8eef7"), 40, "Onion", "piece" },
+                    { new Guid("fe5c5f6f-220c-4a61-bb22-f76b6c3d4f0d"), 90, "Uncle Keith's Kappuccino", "cup" },
+                    { new Guid("73a6ce3d-8e73-4e1c-b060-29612c892d5c"), 96, "White bread", "slice" },
+                    { new Guid("c569a633-cb7d-43e3-a6f9-51be52457a9a"), 44, "Apple", "apple" },
+                    { new Guid("81536904-8b8d-4ea2-93fd-76e7e34e1609"), 107, "Banana", "banana" },
+                    { new Guid("bb77c1e9-38de-4874-a44f-b0b84204e59a"), 30, "Tomato", "tomato" },
+                    { new Guid("186e3000-a371-42eb-8f47-2dad8b20ecde"), 50, "Roti", "slice" },
+                    { new Guid("44395ef4-4671-43e0-b71f-e41432df3b97"), 40, "Rice", "cup" },
+                    { new Guid("aa1d7a08-2cd2-4f03-a7c1-0283f5f8186d"), 600, "Halal Pork", "piece" },
+                    { new Guid("b5d4c175-c662-410d-b375-255539f1569e"), 300, "Habib-Style Shwarma", "shwarma" },
+                    { new Guid("2f51dc3a-4571-4f75-b4be-cd15ce67c582"), 300, "Meat Platter", "platter" },
+                    { new Guid("d5e81b3a-77a6-4b9e-9b89-06a2914c1c29"), 350, "Mooncake", "mooncake" },
+                    { new Guid("fafe0675-44b4-4849-a8aa-79cf2f53cc38"), 400, "HSP", "box" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "TaskInput",
-                columns: new[] { "Id", "Calories", "Completed", "DateAssigned", "ExerciseReps", "Exercises", "FoodQuantities", "Foods", "IntakeTimes", "OrganizationCode", "PatientId", "Weight" },
-                values: new object[] { new Guid("09cecf0d-fb22-4618-870b-a14af771a3a6"), 100m, false, new DateTimeOffset(new DateTime(2019, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), "1", "pushups", "1 2 1", "Onion Burger Apple", "Breakfast, Lunch, Dinner", 1, 1, 10m });
 
             migrationBuilder.InsertData(
                 table: "Patient",

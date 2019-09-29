@@ -10,7 +10,8 @@ export class FoodChoicesComponent implements OnInit {
   @Input() availableFoodChoices: IFood[];
   @Input() selectedFoods: Food[];
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
   }

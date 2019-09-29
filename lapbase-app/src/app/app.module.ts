@@ -29,7 +29,6 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { DatePipe } from '@angular/common';
 import { FoodChoicesComponent } from './scenes/tasks/food-choices/food-choices.component';
 import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/food-choice.component';
-import { SelectedFoodTableComponent } from './components/selected-food-table/selected-food-table.component';
 
 @NgModule({
   declarations: [
@@ -48,8 +47,7 @@ import { SelectedFoodTableComponent } from './components/selected-food-table/sel
     ExerciseTableComponent,
     ExerciseEntryComponent,
     FoodChoicesComponent,
-    FoodChoiceComponent,
-    SelectedFoodTableComponent
+    FoodChoiceComponent
   ],
   imports: [
     BrowserModule,

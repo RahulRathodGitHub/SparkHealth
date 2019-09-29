@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskInput, IFood, MealTime } from 'src/app/models';
+import { TaskInput, IFood, MealTime, Food } from 'src/app/models';
 import { PatientService, TaskService } from 'src/app/services';
 
 @Component({
@@ -10,12 +10,14 @@ import { PatientService, TaskService } from 'src/app/services';
 export class TasksComponent implements OnInit {
   date: Date;
   selectedMealTime: MealTime;
-  availableFoodChoices: IFood[];
+  totalCalories: number;
+  availableFoodChoices: IFood[] = new Array<IFood>();
   taskInput: TaskInput = {
+    id: '00000000-0000-0000-0000-000000000000',
     calories: 0,
+    weight: 0,
     dateAssigned: new Date(),
     exercises: [],
-    id: '',
     meals: [
       {
         foods: [],
@@ -30,9 +32,11 @@ export class TasksComponent implements OnInit {
         mealTime: MealTime.DINNER
       },
     ],
-    weight: 0
   };
   isModalActive = false;
+  breakfast: Food[];
+  lunch: Food[];
+  dinner: Food[];
 
   ngOnInit() {
     this.patientService.getFoodList().then(foodChoiceList => {
@@ -47,25 +51,20 @@ export class TasksComponent implements OnInit {
     this.date = new Date();
   }
 
-  getMeal(mealTime: MealTime) {
-    return this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods;
-  }
-
-  getFoodInfo(foodId: string) {
-    return this.availableFoodChoices.find(food => food.id === foodId);
-  }
-
   changeDate(forward: boolean) {
     if (forward) {
       this.date = new Date(this.date.setDate(this.date.getDate() + 1));
     } else {
       this.date = new Date(this.date.setDate(this.date.getDate() - 1));
     }
+    this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
+      this.taskInput = taskInput;
+    });
   }
 
   changeQuantity = (mealTime: MealTime, foodId: string, increase: boolean) => {
     if (increase) {
-      this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods.find(food => food.id === foodId).quantity++;
+      this.getMeal(mealTime).find(food => food.id === foodId).quantity++;
     } else {
       const quantity = this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods.find(food => food.id === foodId).quantity;
       if (quantity < 2) {
@@ -88,6 +87,7 @@ export class TasksComponent implements OnInit {
         totalCalories += food.quantity * this.getFoodInfo(food.id).calorieCount;
       }
     }
+    this.taskInput.calories = totalCalories;
     return totalCalories;
   }
 
@@ -103,7 +103,8 @@ export class TasksComponent implements OnInit {
     return 'modal';
   }
 
-  save() {
-    this.taskService.sendFoodIntake(this.taskInput);
-  }
+  getMeal = (mealTime: MealTime): Food[] => this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods;
+  getFoodInfo = (foodId: string): IFood => this.availableFoodChoices.find(food => food.id === foodId);
+
+  save = () => this.taskService.sendFoodIntake(this.taskInput).then(value => this.taskInput = value);
 }
