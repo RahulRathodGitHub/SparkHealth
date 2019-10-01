@@ -134,5 +134,66 @@ namespace Lapbase.Services
             return new TaskInputDto(result.Entity);
         }
 
+        public async Task<decimal> getDaysOfContinuousEntry()
+        {
+            var today = new DateTimeOffset();
+
+            var count = 0;
+
+            // How to perform a query to count upto only a certain number of entries.
+
+            // We can get the last index of the entry which has calories count equals to zero and find its distance from today.
+            var result = await lapbaseNewContext.TaskInput.Where(p => p.Calories == 0).OrderBy(p => p.DateAssigned).Select(p => p.DateAssigned).LastOrDefaultAsync();
+
+            if (result == default) return 0; // This shows that the user never missed a data entry event.
+
+            var daysOfRegularEntries = today - result; // The Async couldbe a problem in here.
+
+            return daysOfRegularEntries.Days;
+           
+        }
+
+        public async Task<decimal> getTotalDaysOfEntry()
+        {
+            // The below is the total number of days a user entered their data.
+            var result = lapbaseNewContext.TaskInput.Where(p => p.Calories > 0).Count();
+
+            return result;
+
+        }
+
+        public async Task<DateTimeOffset> getFirstDayOfDataEntry()
+        {
+            // VOLATILE
+            // First date for which the data was first entered.
+            var result = await lapbaseNewContext.TaskInput.Where(p => p.Calories > 0).Select(p => p.DateAssigned).FirstOrDefaultAsync();
+
+            return result;
+        }
+
+        public string getLoyalty(int daysOfContinuousEntry)
+        {
+            switch (daysOfContinuousEntry)
+            {
+                case 0:
+                    return "";
+                case 1:
+                    return "Dynamic Day 1!";
+                case 3:
+                    return "3 days in a Row! BRAVO!";
+                case 7:
+                    return "Rocked the week! regular entry for a week ";
+                case 15:
+                    return "Half a month of continuous entry! Awesome";
+                case 30:
+                    return "Data Entry Superstar! Entered data continuously for a month";
+                default:
+                    break;
+            }
+            return "";    
+        }
+
+        
+
     }
 }
