@@ -9,6 +9,8 @@ import { PatientService, TaskService } from 'src/app/services';
   styleUrls: ['./tasks.component.scss']
 })
 export class TasksComponent implements OnInit {
+  foodFlag:boolean;
+  foodActive:boolean;
   date: Date;
   selectedMealTime: MealTime;
   totalCalories: number;
@@ -50,6 +52,8 @@ export class TasksComponent implements OnInit {
     this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
       this.taskInput = taskInput;
     });
+    this.foodActive=true;
+    this.foodFlag=false;
   }
 
   constructor(private taskService: TaskService, private patientService: PatientService) {
@@ -150,6 +154,10 @@ getExerciseInfo = (exerciseId: string): IExercise => this.availableExerciseChoic
       return 'modal is-active';
     }
     return 'modal';
+  }
+  changeFoodExercises(){
+    this.foodFlag= !this.foodFlag;
+    this.foodActive = !this.foodActive;
   }
 
   getMeal = (mealTime: MealTime): Food[] => this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods;

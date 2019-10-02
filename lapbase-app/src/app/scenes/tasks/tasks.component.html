@@ -18,10 +18,11 @@
 
 <nav class="breadcrumb is-medium has-bullet-separator is-centered" aria-label="breadcrumbs">
   <ul>
-    <li class="is-active"><a href="#" aria-current="page">Food</a></li>
-    <li><a href="exercise-entry">Exercises</a></li>
+    <li [class.is-active]="foodActive"><a (click)="changeFoodExercises()">Food</a></li>
+    <li [class.is-active]="!foodActive"><a (click)="changeFoodExercises()">Exercises</a></li>
   </ul>
 </nav>
+<div [class.is-hidden]="foodFlag">
 
 <!-- Exercise entry below this point -->
 
@@ -166,6 +167,55 @@
     </tr>
   </tbody>
 </table>
+</div>
+
+<div [class.is-hidden]="!foodFlag">
+<div class="columns is-mobile">
+    <div class="column is-12">
+      <h2 class="subtitle">
+        Exercises
+        <a class="button is-pulled-right" (click)="toggleModal(0)">Add Exercises
+        </a>
+      </h2>
+    </div>
+  </div>
+  <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>Exercises</th>
+        <th>Cal</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let food of getMeal(0)">
+        <td><a class="button is-small" (click)="removeFood(0, food.id)">
+            <span class="icon is-small">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
+          {{ getFoodInfo(food.id) && getFoodInfo(food.id).name || "" }}
+        </td>
+        <td>
+        {{ getFoodInfo(food.id) && getFoodInfo(food.id).calorieCount || "" }}
+        </td>
+        <td>
+            <a class="button is-small" (click)="changeQuantity(0, food.id, false)">
+                <span class="icon is-small">
+                  <i class="fas fa-minus"></i>
+                </span>
+              </a>
+              {{ food.quantity }}
+              <a class="button is-small" (click)="changeQuantity(0, food.id, true)">
+                <span class="icon is-small">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <p>Total Calories: {{ calculateTotalCalories() }} Cal</p>
 <p>Calories Burned: {{ calculateCaloriesBurned() }} Cal</p>
