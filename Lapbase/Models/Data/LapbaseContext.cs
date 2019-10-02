@@ -35,7 +35,7 @@ namespace Lapbase.Models
             { 
                 Id = Guid.NewGuid(),
                 Name = "PUSHUPS",
-                CaloryCount = 54,
+                CalorieCount = 54,
                 PatientId = 1,
             });
 

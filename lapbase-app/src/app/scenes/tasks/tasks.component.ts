@@ -38,6 +38,7 @@ export class TasksComponent implements OnInit {
     ],
   };
   isModalActive = false;
+  isExerciseModalActive = false;
   breakfast: Food[];
   lunch: Food[];
   dinner: Food[];
@@ -62,7 +63,7 @@ export class TasksComponent implements OnInit {
 
   toggleExercises()
   {
-    this.isModalActive = !this.isModalActive;
+    this.isExerciseModalActive = !this.isExerciseModalActive;
   }
 
   changeDate(forward: boolean) {
@@ -84,6 +85,7 @@ export class TasksComponent implements OnInit {
     if (increase) 
     {
       this.taskInput.exercises.find(exercise => exercise.id === exerciseId).quantity++;
+      console.log(this.taskInput)
     }
     else
     {
@@ -116,7 +118,7 @@ export class TasksComponent implements OnInit {
     return caloriesBurned;
   }
 
-  getExercises = (): Food[] => this.taskInput.exercises;
+  getExercises = (): Exercise[] => this.taskInput.exercises;
 
   getExerciseInfo = (exerciseId: string): IExercise => this.availableExerciseChoices.find(exercise => exercise.id === exerciseId);
   //#endregion
@@ -155,9 +157,18 @@ export class TasksComponent implements OnInit {
     this.selectedMealTime = mealTime;
     this.isModalActive = !this.isModalActive;
   }
+  tooggleExercise(){
+    this.isExerciseModalActive = !this.isExerciseModalActive;
+  }
 
   modalClass() {
     if (this.isModalActive) {
+      return 'modal is-active';
+    }
+    return 'modal';
+  }
+  exerciseModalClass(){
+    if (this.isExerciseModalActive) {
       return 'modal is-active';
     }
     return 'modal';

@@ -29,6 +29,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { DatePipe } from '@angular/common';
 import { FoodChoicesComponent } from './scenes/tasks/food-choices/food-choices.component';
 import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/food-choice.component';
+import { ExerciseChoicesComponent } from './scenes/tasks/exercise-choices/exercise-choices.component';
+import { ExerciseChoiceComponent } from './scenes/tasks/exercise-choices/exercise-choice/exercise-choice.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/foo
     ExerciseTableComponent,
     ExerciseEntryComponent,
     FoodChoicesComponent,
-    FoodChoiceComponent
+    FoodChoiceComponent,
+    ExerciseChoicesComponent,
+    ExerciseChoiceComponent
   ],
   imports: [
     BrowserModule,

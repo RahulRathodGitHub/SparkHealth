@@ -1,0 +1,20 @@
+<div class="exerciseChoice has-background-danger">
+  <div [ngClass]="{ hideExerciseCount: count <= 0 }" (click)="decreaseCount()">
+      <span class="icon">
+          <i class="fas fa-minus"></i>
+        </span>
+    {{ count }}
+    <span class="icon">
+        <i class="fas fa-minus"></i>
+      </span>
+  </div>
+  <div class="exerciseName has-background-white-ter" (click)="increaseCount()">
+      <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+    {{ exerciseChoice.name }}
+    <span class="icon">
+        <i class="fas fa-plus"></i>
+      </span>
+  </div>
+</div>
