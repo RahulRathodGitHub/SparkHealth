@@ -143,7 +143,7 @@ export class PatientService {
       .get(environment.LAPBASE_API_ADDRESS + "Patient/Exercise/")
       .toPromise<any>();
   };
-  
+
   /*(): IExercise[] => [
     {
       id: "1",
