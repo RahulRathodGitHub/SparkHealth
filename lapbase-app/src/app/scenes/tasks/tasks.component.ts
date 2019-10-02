@@ -60,6 +60,11 @@ export class TasksComponent implements OnInit {
     this.date = new Date();
   }
 
+  toggleExercises()
+  {
+    this.isModalActive = !this.isModalActive;
+  }
+
   changeDate(forward: boolean) {
     if (forward) {
       this.date = new Date(this.date.setDate(this.date.getDate() + 1));
@@ -111,7 +116,9 @@ export class TasksComponent implements OnInit {
     return caloriesBurned;
   }
 
-getExerciseInfo = (exerciseId: string): IExercise => this.availableExerciseChoices.find(exercise => exercise.id === exerciseId);
+  getExercises = (): Food[] => this.taskInput.exercises;
+
+  getExerciseInfo = (exerciseId: string): IExercise => this.availableExerciseChoices.find(exercise => exercise.id === exerciseId);
   //#endregion
 
   //#region 

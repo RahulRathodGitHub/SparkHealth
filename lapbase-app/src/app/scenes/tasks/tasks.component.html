@@ -232,9 +232,7 @@
 <div class="modal" [ngClass]="modalClass()" >
     <div class="modal-background" (click)="toggleModal()"></div>
     <div class="modal-content">
-      <app-exercise-choices [availableExerciseChoices]="availableExerciseChoices">
-        
-      </app-exercise-choices>
+      <!-- PASS THE EXERCISE CHOICE COMPONENT -->
     </div>
     <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
   </div>
