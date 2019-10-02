@@ -1,5 +1,6 @@
+import { Exercise } from './../../models/exercise';
 import { Component, OnInit } from '@angular/core';
-import { TaskInput, IFood, MealTime, Food } from 'src/app/models';
+import { TaskInput, IFood, MealTime, Food, IExercise } from 'src/app/models';
 import { PatientService, TaskService } from 'src/app/services';
 
 @Component({
@@ -12,6 +13,7 @@ export class TasksComponent implements OnInit {
   selectedMealTime: MealTime;
   totalCalories: number;
   availableFoodChoices: IFood[] = new Array<IFood>();
+  availableExerciseChoices: IExercise[] = new Array<IExercise>();
   taskInput: TaskInput = {
     id: '00000000-0000-0000-0000-000000000000',
     calories: 0,
@@ -42,6 +44,9 @@ export class TasksComponent implements OnInit {
     this.patientService.getFoodList().then(foodChoiceList => {
       this.availableFoodChoices = foodChoiceList;
     });
+    this.patientService.getExerciseByPatients().then(exerciseChoiceList => {
+      this.availableExerciseChoices = exerciseChoiceList;
+    });
     this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
       this.taskInput = taskInput;
     });
@@ -57,11 +62,55 @@ export class TasksComponent implements OnInit {
     } else {
       this.date = new Date(this.date.setDate(this.date.getDate() - 1));
     }
+
+    // It seems like once the task input is initiated angular wont notice the changes in the taskInput array
     this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
       this.taskInput = taskInput;
     });
   }
 
+  //#region 
+  changeReps = (exerciseId: string, increase: boolean) => {
+
+    if (increase) 
+    {
+      this.taskInput.exercises.find(exercise => exercise.id === exerciseId).quantity++;
+    }
+    else
+    {
+      const quantity = this.taskInput.exercises.find(exercise => exercise.id === exerciseId).quantity;
+      if (quantity < 2) 
+      {
+        this.removeExercise(exerciseId);
+      } 
+      else 
+      {
+        this.taskInput.exercises.find(exercise => exercise.id === exerciseId).quantity--;
+      }
+    }
+  }
+
+  removeExercise(exerciseId: string) {
+    const index = this.taskInput.exercises.findIndex(exercise => exercise.id === exerciseId);
+    this.taskInput.exercises.splice(index, 1);
+  }
+
+  calculateCaloriesBurned(): number {
+
+    let caloriesBurned = 0;
+    for (const exercise of this.taskInput.exercises) {
+      
+        caloriesBurned += exercise.quantity * this.getExerciseInfo(exercise.id).calorieCount;
+      
+    }
+    this.taskInput.calories -= caloriesBurned;
+    return caloriesBurned;
+  }
+
+getExerciseInfo = (exerciseId: string): IExercise => this.availableExerciseChoices.find(exercise => exercise.id === exerciseId);
+  //#endregion
+
+  //#region 
   changeQuantity = (mealTime: MealTime, foodId: string, increase: boolean) => {
     if (increase) {
       this.getMeal(mealTime).find(food => food.id === foodId).quantity++;
@@ -105,6 +154,7 @@ export class TasksComponent implements OnInit {
 
   getMeal = (mealTime: MealTime): Food[] => this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods;
   getFoodInfo = (foodId: string): IFood => this.availableFoodChoices.find(food => food.id === foodId);
+  //#endregion
 
   save = () => this.taskService.sendFoodIntake(this.taskInput).then(value => this.taskInput = value);
 }

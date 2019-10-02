@@ -9,6 +9,6 @@ export interface IExercise {
 }
 
 export class Exercise {
-  name: string;
-  quantity: string;
+  id: string;
+  quantity: number;
 }
