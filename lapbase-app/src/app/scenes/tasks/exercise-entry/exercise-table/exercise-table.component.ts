@@ -10,8 +10,8 @@ export class ExerciseTableComponent implements OnInit {
   exercises: IExercise[];
   constructor(private patientService: PatientService) { }
 
-  ngOnInit() {
-   this.exercises = this.patientService.getExerciseByPatients();
+  async ngOnInit() {
+   this.exercises = await this.patientService.getExerciseByPatients();
   }
   addExercise() {
     // this.myExercise= new IExercise()

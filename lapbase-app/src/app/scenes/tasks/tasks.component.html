@@ -24,9 +24,6 @@
 </nav>
 <div [class.is-hidden]="foodFlag">
 
-<!-- Exercise entry below this point -->
-
-
 
 <!-- Food entry below this point -->
 
@@ -174,7 +171,8 @@
     <div class="column is-12">
       <h2 class="subtitle">
         Exercises
-        <a class="button is-pulled-right" (click)="toggleModal(0)">Add Exercises
+        <a class="button is-pulled-right" (click)="toggleExercises()">
+          Add Exercises
         </a>
       </h2>
     </div>
@@ -184,29 +182,30 @@
       <tr>
         <th>Exercises</th>
         <th>Cal</th>
-        <th>Quantity</th>
+        <th>Reps</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let food of getMeal(0)">
-        <td><a class="button is-small" (click)="removeFood(0, food.id)">
+    
+      <tr *ngFor="let exercise of getExercises()">
+        <td><a class="button is-small" (click)="removeExercise(exercise.id)">
             <span class="icon is-small">
               <i class="fas fa-trash-alt"></i>
             </span>
           </a>
-          {{ getFoodInfo(food.id) && getFoodInfo(food.id).name || "" }}
+          {{ getExerciseInfo(exercise.id) && getExerciseInfo(exercise.id).name || "" }}
         </td>
         <td>
-        {{ getFoodInfo(food.id) && getFoodInfo(food.id).calorieCount || "" }}
+        {{ getExerciseInfo(exercise.id) && getExerciseInfo(exercise.id).calorieCount || "" }}
         </td>
         <td>
-            <a class="button is-small" (click)="changeQuantity(0, food.id, false)">
+            <a class="button is-small" (click)="changeReps(food.id, false)">
                 <span class="icon is-small">
                   <i class="fas fa-minus"></i>
                 </span>
               </a>
-              {{ food.quantity }}
-              <a class="button is-small" (click)="changeQuantity(0, food.id, true)">
+              {{ exercise.quantity }}
+              <a class="button is-small" (click)="changeReps(food.id, true)">
                 <span class="icon is-small">
                   <i class="fas fa-plus"></i>
                 </span>
@@ -229,3 +228,13 @@
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
 </div>
+
+<div class="modal" [ngClass]="modalClass()" >
+    <div class="modal-background" (click)="toggleModal()"></div>
+    <div class="modal-content">
+      <app-exercise-choices [availableExerciseChoices]="availableExerciseChoices">
+        
+      </app-exercise-choices>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
+  </div>
