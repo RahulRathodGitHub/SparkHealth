@@ -10,7 +10,5 @@ namespace Lapbase.Models
         public int CalorieCount { get; set; }
         public string pictureUrl { get; set; }
 
-        public int PatientId { get; set; }
-        public Patient Patient { get; set; }
     }
 }
