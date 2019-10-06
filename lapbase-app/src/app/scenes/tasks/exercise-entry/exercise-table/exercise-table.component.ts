@@ -11,7 +11,7 @@ export class ExerciseTableComponent implements OnInit {
   constructor(private patientService: PatientService) { }
 
   async ngOnInit() {
-   this.exercises = await this.patientService.getExerciseByPatients();
+   this.exercises = await this.patientService.getExerciseList();
   }
   addExercise() {
     // this.myExercise= new IExercise()

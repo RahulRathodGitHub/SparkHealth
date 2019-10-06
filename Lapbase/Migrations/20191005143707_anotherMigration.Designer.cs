@@ -4,14 +4,16 @@ using Lapbase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseNewContext))]
-    partial class LapbaseNewContextModelSnapshot : ModelSnapshot
+    [Migration("20191005143707_anotherMigration")]
+    partial class anotherMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,7 +56,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("62e034db-1c9a-4ecd-a34d-125c67dc968d"),
+                            Id = new Guid("442450db-0929-4644-ac35-3fd30aa9519c"),
                             CalorieCount = 54,
                             Name = "PUSHUPS"
                         });
@@ -98,98 +100,98 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("368bbff4-4838-4fe7-96b2-3d077c240ee5"),
+                            Id = new Guid("c7c6e226-256a-44de-a3cc-87e1f4c90bcf"),
                             CalorieCount = 295,
                             Name = "Burger",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("f4f114bc-2495-4ff9-b1f0-78e531b43c48"),
+                            Id = new Guid("00cd2239-90d7-4871-90b9-a4e92eb89549"),
                             CalorieCount = 40,
                             Name = "Onion",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("448c911f-8c0e-42c3-95a6-fc658afca2ba"),
+                            Id = new Guid("06e94734-a843-4fe7-9593-ca9e157e33c4"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("7a343486-a7ef-42d4-b88a-60480ef2b20b"),
+                            Id = new Guid("cfe5e754-0f7c-4722-b440-7acd5162ab8f"),
                             CalorieCount = 96,
                             Name = "White bread",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("b59a24fb-db0b-44d0-a4ca-5dd66462199a"),
+                            Id = new Guid("7bbfde74-c358-4955-afe9-c8719e5272d7"),
                             CalorieCount = 44,
                             Name = "Apple",
                             Unit = "apple"
                         },
                         new
                         {
-                            Id = new Guid("010419a2-bc9e-4fb3-af98-75f37b47f476"),
+                            Id = new Guid("6363998d-42a2-44ae-93f0-fcffebd52bc4"),
                             CalorieCount = 107,
                             Name = "Banana",
                             Unit = "banana"
                         },
                         new
                         {
-                            Id = new Guid("c8c60eb4-2aa9-40f0-acc8-c4952ac8009b"),
+                            Id = new Guid("1a81b799-0144-4c2f-980b-d6c5b065669f"),
                             CalorieCount = 30,
                             Name = "Tomato",
                             Unit = "tomato"
                         },
                         new
                         {
-                            Id = new Guid("99ec3177-055c-4a7c-a5d7-fd608fafcd2d"),
+                            Id = new Guid("d04234ba-9556-42ad-a4c4-6c22b4fac10a"),
                             CalorieCount = 50,
                             Name = "Roti",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("58c699e3-2924-432f-9dc1-8b3515183314"),
+                            Id = new Guid("5d2f3d88-e202-451d-be2b-86bea95e183d"),
                             CalorieCount = 40,
                             Name = "Rice",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("443e8b4d-f559-48f6-bfb3-da735a28baaf"),
+                            Id = new Guid("8ec33129-e59c-44a5-80dc-95a401398d49"),
                             CalorieCount = 600,
                             Name = "Halal Pork",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("e308d151-6f13-4241-958b-ffd492e8f0d5"),
+                            Id = new Guid("56a15732-5961-418a-930c-96afdfbcec93"),
                             CalorieCount = 300,
                             Name = "Habib-Style Shwarma",
                             Unit = "shwarma"
                         },
                         new
                         {
-                            Id = new Guid("81428753-3735-4e2e-9c04-00c098f3e2bf"),
+                            Id = new Guid("6a05c726-1720-418a-939b-4a1c4f63181c"),
                             CalorieCount = 300,
                             Name = "Meat Platter",
                             Unit = "platter"
                         },
                         new
                         {
-                            Id = new Guid("4bef722d-0bb4-404d-b78c-8eda8976833e"),
+                            Id = new Guid("3048ff3e-4853-48d6-8c2f-6d76a3870923"),
                             CalorieCount = 350,
                             Name = "Mooncake",
                             Unit = "mooncake"
                         },
                         new
                         {
-                            Id = new Guid("5b1cba13-078f-4797-933e-bb4bf166557f"),
+                            Id = new Guid("0951d9c8-7755-4bb9-8314-4b835c019f9e"),
                             CalorieCount = 400,
                             Name = "HSP",
                             Unit = "box"

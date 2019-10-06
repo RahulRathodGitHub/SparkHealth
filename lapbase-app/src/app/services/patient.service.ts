@@ -138,7 +138,7 @@ export class PatientService {
   //   }
   // ];
 
-  getExerciseByPatients = async (): Promise<IExercise[]> => {
+  getExerciseList = async (): Promise<IExercise[]> => {
     return await this.httpClient
       .get(environment.LAPBASE_API_ADDRESS + "Patient/Exercise/")
       .toPromise<any>();

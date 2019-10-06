@@ -78,9 +78,15 @@ namespace Lapbase.Services
             result.Calories = dto.Calories;
             result.Weight = dto.Weight;
 
+
             string extractedFoodIds = "";
             string extractedFoodQuantity = "";
+
+            string extractedExerciseIds = "";
+            string extractedExerciseQuantity = "";
+
             string extractedMealTime = "";
+
             foreach (FoodInfo foodInfo in dto.Meals)
             {
                 for (int i = 0; i < foodInfo.Foods.Count; i++)
@@ -90,15 +96,34 @@ namespace Lapbase.Services
                     extractedMealTime += (int)foodInfo.MealTime + ",";
                 }
             };
+
             if (!string.IsNullOrEmpty(extractedFoodIds))
             {
                 extractedFoodIds = extractedFoodIds.Remove(extractedFoodIds.Length - 1);
                 extractedFoodQuantity = extractedFoodQuantity.Remove(extractedFoodQuantity.Length - 1);
                 extractedMealTime = extractedMealTime.Remove(extractedMealTime.Length - 1);
             }
+
             result.Foods = extractedFoodIds;
             result.FoodQuantities = extractedFoodQuantity;
             result.MealTimes = extractedMealTime;
+
+            foreach(ExerciseInfo exerciseInfo in dto.Exercises)
+            {
+               
+                extractedExerciseIds += exerciseInfo.Id.ToString() + ",";
+                extractedExerciseQuantity += exerciseInfo.Quantity + ",";  
+                
+            }
+
+            if (!string.IsNullOrEmpty(extractedExerciseIds))
+            {
+                extractedExerciseIds = extractedExerciseIds.Remove(extractedExerciseIds.Length - 1);
+                extractedExerciseQuantity = extractedExerciseQuantity.Remove(extractedExerciseQuantity.Length - 1);
+            }
+
+            result.Exercises = extractedExerciseIds;
+            result.ExerciseReps = extractedExerciseQuantity;
         }
         #endregion
     }

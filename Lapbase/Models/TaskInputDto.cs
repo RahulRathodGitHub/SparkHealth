@@ -46,11 +46,37 @@ namespace Lapbase.Models
             Calories = taskInput.Calories;
             Weight = taskInput.Weight;
             Meals = GetMeals(taskInput);
-            // TODO Create helper method once exercises are done
-            Exercises = new List<ExerciseInfo>();
+            Exercises = GetExercises(taskInput);
         }
 
-        #region Helper Methods
+        #region Helper Methods for Exercises
+        private List<ExerciseInfo> GetExercises(TaskInput taskInput)
+        {
+
+            var Exercises = new List<ExerciseInfo>();
+
+            var extractedExerciseIds = taskInput.Exercises.Split(',');
+            var extractedExerciseQuantity = taskInput.ExerciseReps.Split(',');
+
+            for (int i = 0; i < extractedExerciseIds.Length; i++)
+            {
+                if(extractedExerciseIds[i] != default && extractedExerciseIds[i].Length > 0)
+                {
+                    Console.WriteLine("HAHAHAHAAHAHAH :"+extractedExerciseIds[i]);
+                    Exercises.Add(new ExerciseInfo()
+                    {
+                        Id = Guid.Parse(extractedExerciseIds[i]),
+                        Quantity = int.Parse(extractedExerciseQuantity[i])
+                    });
+
+                }
+                    
+            }
+            return Exercises;
+        }
+        #endregion
+
+        #region Helper Methods for foods
         private List<FoodInfo> GetMeals(TaskInput taskInput)
         {
             var Foods = new List<FoodInfo>() {
@@ -74,6 +100,7 @@ namespace Lapbase.Models
 
             for (int i = 0; i < extractedFoodIds.Length; i++)
             {
+                if(extractedFoodIds[i] != default && extractedFoodIds[i].Length > 0)
                 switch ((MealTime)int.Parse(extractedMealTime[i]))
                 {
                     case MealTime.BREAKFAST:

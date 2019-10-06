@@ -47,10 +47,10 @@ export class TasksComponent implements OnInit {
     this.patientService.getFoodList().then(foodChoiceList => {
       this.availableFoodChoices = foodChoiceList;
     });
-    this.patientService.getExerciseByPatients().then(exerciseChoiceList => {
+    this.patientService.getExerciseList().then(exerciseChoiceList => {
       this.availableExerciseChoices = exerciseChoiceList;
     });
-    this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
+    this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {  
       this.taskInput = taskInput;
     });
     this.foodActive=true;
@@ -73,13 +73,12 @@ export class TasksComponent implements OnInit {
       this.date = new Date(this.date.setDate(this.date.getDate() - 1));
     }
 
-    // It seems like once the task input is initiated angular wont notice the changes in the taskInput array
     this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
       this.taskInput = taskInput;
     });
   }
 
-  //#region 
+  //#region Exercise Input
   changeReps = (exerciseId: string, increase: boolean) => {
 
     if (increase) 
@@ -111,10 +110,11 @@ export class TasksComponent implements OnInit {
     let caloriesBurned = 0;
     for (const exercise of this.taskInput.exercises) {
       
+        if(this.getExerciseInfo(exercise.id) != null)
         caloriesBurned += exercise.quantity * this.getExerciseInfo(exercise.id).calorieCount;
       
     }
-    this.taskInput.calories -= caloriesBurned;
+    //this.taskInput.calories -= caloriesBurned;
     return caloriesBurned;
   }
 
@@ -123,7 +123,7 @@ export class TasksComponent implements OnInit {
   getExerciseInfo = (exerciseId: string): IExercise => this.availableExerciseChoices.find(exercise => exercise.id === exerciseId);
   //#endregion
 
-  //#region 
+  //#region FoodInput
   changeQuantity = (mealTime: MealTime, foodId: string, increase: boolean) => {
     if (increase) {
       this.getMeal(mealTime).find(food => food.id === foodId).quantity++;
@@ -146,6 +146,7 @@ export class TasksComponent implements OnInit {
     let totalCalories = 0;
     for (const meal of this.taskInput.meals) {
       for (const food of meal.foods) {
+        if(this.getFoodInfo(food.id)!=null)
         totalCalories += food.quantity * this.getFoodInfo(food.id).calorieCount;
       }
     }
@@ -182,5 +183,12 @@ export class TasksComponent implements OnInit {
   getFoodInfo = (foodId: string): IFood => this.availableFoodChoices.find(food => food.id === foodId);
   //#endregion
 
-  save = () => this.taskService.sendFoodIntake(this.taskInput).then(value => this.taskInput = value);
+
+  save = () => {
+
+    this.taskService.sendFoodIntake(this.taskInput).then(value => {
+      this.taskInput = value;
+    });
+  }
+  
 }

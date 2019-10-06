@@ -7,28 +7,19 @@ namespace Lapbase.Models
 {
     public class ExerciseInfo
     {
-        public String ExerciseNames { get; set; }
-        public String Quantities { get; set; }
+        public Guid Id { get; set; }
+        public int Quantity { get; set; }
 
         public ExerciseInfo()
         {
         }
 
-        public ExerciseInfo(String ExerciseNames, String Quantities)
+        public ExerciseInfo(Guid Id, int Quantity)
         {
-            this.ExerciseNames = ExerciseNames;
-            this.Quantities = Quantities;
+            this.Id = Id;
+            this.Quantity = Quantity;
         }
 
-        public String getExerciseString()
-        {
-            return ExerciseNames;
-        }
-
-        public String getExerciseReps()
-        {
-            return Quantities;
-        }
     }
 
 }
