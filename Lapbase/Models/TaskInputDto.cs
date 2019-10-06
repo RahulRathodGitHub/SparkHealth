@@ -62,7 +62,6 @@ namespace Lapbase.Models
             {
                 if(extractedExerciseIds[i] != default && extractedExerciseIds[i].Length > 0)
                 {
-                    Console.WriteLine("HAHAHAHAAHAHAH :"+extractedExerciseIds[i]);
                     Exercises.Add(new ExerciseInfo()
                     {
                         Id = Guid.Parse(extractedExerciseIds[i]),

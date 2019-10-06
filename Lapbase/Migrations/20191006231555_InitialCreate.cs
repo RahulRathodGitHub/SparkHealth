@@ -21,6 +21,20 @@ namespace Lapbase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Exercise",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    CalorieCount = table.Column<int>(nullable: false),
+                    pictureUrl = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Exercise", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Food",
                 columns: table => new
                 {
@@ -81,27 +95,6 @@ namespace Lapbase.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Exercise",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    CaloryCount = table.Column<int>(nullable: false),
-                    pictureUrl = table.Column<string>(nullable: true),
-                    PatientId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Exercise", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Exercise_Patient_PatientId",
-                        column: x => x.PatientId,
-                        principalTable: "Patient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Feedback",
                 columns: table => new
                 {
@@ -128,35 +121,35 @@ namespace Lapbase.Migrations
                 value: 1);
 
             migrationBuilder.InsertData(
+                table: "Exercise",
+                columns: new[] { "Id", "CalorieCount", "Name", "pictureUrl" },
+                values: new object[] { new Guid("806985f7-3350-41ce-ba9f-d7405897e7b2"), 54, "PUSHUPS", null });
+
+            migrationBuilder.InsertData(
                 table: "Food",
                 columns: new[] { "Id", "CalorieCount", "Name", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("561677db-3df7-4630-8f1a-6ffb432a917f"), 295, "Burger", "piece" },
-                    { new Guid("443033cd-20c4-4869-b226-458afef8eef7"), 40, "Onion", "piece" },
-                    { new Guid("fe5c5f6f-220c-4a61-bb22-f76b6c3d4f0d"), 90, "Uncle Keith's Kappuccino", "cup" },
-                    { new Guid("73a6ce3d-8e73-4e1c-b060-29612c892d5c"), 96, "White bread", "slice" },
-                    { new Guid("c569a633-cb7d-43e3-a6f9-51be52457a9a"), 44, "Apple", "apple" },
-                    { new Guid("81536904-8b8d-4ea2-93fd-76e7e34e1609"), 107, "Banana", "banana" },
-                    { new Guid("bb77c1e9-38de-4874-a44f-b0b84204e59a"), 30, "Tomato", "tomato" },
-                    { new Guid("186e3000-a371-42eb-8f47-2dad8b20ecde"), 50, "Roti", "slice" },
-                    { new Guid("44395ef4-4671-43e0-b71f-e41432df3b97"), 40, "Rice", "cup" },
-                    { new Guid("aa1d7a08-2cd2-4f03-a7c1-0283f5f8186d"), 600, "Halal Pork", "piece" },
-                    { new Guid("b5d4c175-c662-410d-b375-255539f1569e"), 300, "Habib-Style Shwarma", "shwarma" },
-                    { new Guid("2f51dc3a-4571-4f75-b4be-cd15ce67c582"), 300, "Meat Platter", "platter" },
-                    { new Guid("d5e81b3a-77a6-4b9e-9b89-06a2914c1c29"), 350, "Mooncake", "mooncake" },
-                    { new Guid("fafe0675-44b4-4849-a8aa-79cf2f53cc38"), 400, "HSP", "box" }
+                    { new Guid("218947dc-0943-434a-ba62-c07451b22dd5"), 295, "Burger", "piece" },
+                    { new Guid("3d33bf0d-c112-4d32-96bc-73c92ca8060b"), 40, "Onion", "piece" },
+                    { new Guid("98eac67f-ef73-4a33-9404-1e863b780875"), 90, "Uncle Keith's Kappuccino", "cup" },
+                    { new Guid("5a32e492-e2d3-4cf8-9359-837112cb1d95"), 96, "White bread", "slice" },
+                    { new Guid("cd0274ea-3552-4b9e-ba57-313b6490836d"), 44, "Apple", "apple" },
+                    { new Guid("5bf7fdbf-fc4d-4196-ae39-72b819b305fe"), 107, "Banana", "banana" },
+                    { new Guid("353b57cb-827e-4644-8cc0-e42e3db38ab3"), 30, "Tomato", "tomato" },
+                    { new Guid("1d21a5b2-0a1f-4045-a807-92027fd450d4"), 50, "Roti", "slice" },
+                    { new Guid("d9a296f2-7e8a-457d-9da0-85e7d35012d0"), 40, "Rice", "cup" },
+                    { new Guid("e5acb476-8bba-4278-b35e-20fa5b60e904"), 600, "Halal Pork", "piece" },
+                    { new Guid("cf366673-7b3c-4c46-9f3e-7fe5ea598143"), 300, "Habib-Style Shwarma", "shwarma" },
+                    { new Guid("9c3c7f4c-6738-47e3-8c8a-f5c82a576082"), 300, "Meat Platter", "platter" },
+                    { new Guid("7c6f60cc-c0d9-4208-be5e-535796f478da"), 350, "Mooncake", "mooncake" },
+                    { new Guid("b6b7dad4-a4ca-4f53-bb4d-8aadb1d41e4a"), 400, "HSP", "box" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Patient",
                 columns: new[] { "Id", "AdvisorId", "Deleted", "Username", "ValidFrom", "ValidTo", "WhenCreated" },
                 values: new object[] { 1, 1, false, "test@test.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Exercise_PatientId",
-                table: "Exercise",
-                column: "PatientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedback_PatientId",

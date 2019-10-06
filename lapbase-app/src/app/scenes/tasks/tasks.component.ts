@@ -84,7 +84,6 @@ export class TasksComponent implements OnInit {
     if (increase) 
     {
       this.taskInput.exercises.find(exercise => exercise.id === exerciseId).quantity++;
-      console.log(this.taskInput)
     }
     else
     {
