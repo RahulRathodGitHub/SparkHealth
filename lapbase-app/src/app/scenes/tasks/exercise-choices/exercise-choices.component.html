@@ -1,0 +1,15 @@
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <div class="columns  is-mobile">
+          <div class="column is-4" *ngFor="let exerciseChoice of availableExerciseChoices">
+            <app-exercise-choice [exerciseChoice]="exerciseChoice" [count]="getCount(exerciseChoice.id)"
+              (increasedCount)="increaseQuantity(exerciseChoice.id)" (decreasedCount)="decreaseQuantity(exerciseChoice.id)">
+            </app-exercise-choice>
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+</div>

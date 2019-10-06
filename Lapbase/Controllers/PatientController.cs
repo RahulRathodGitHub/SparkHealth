@@ -75,6 +75,21 @@ namespace Lapbase.Controllers
             return Ok(FoodList);
         }
 
+        // GET api/Patient/Exercise
+        [HttpGet("Exercise")]
+        public async Task<ActionResult<Exercise>> GetExerciseList()
+        {
+
+            var ExerciseList = await patientService.GetPatientExercise();
+
+            if (ExerciseList == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(ExerciseList);
+        }
+
         // POST api/Patient
         [HttpPost]
         public async Task<ActionResult> CreatePatient([FromBody]Patient patient)

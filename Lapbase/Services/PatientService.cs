@@ -37,6 +37,11 @@ namespace Lapbase.Services
             return await lapbaseNewContext.Food.ToListAsync();
         }
 
+        public async Task<List<Exercise>> GetPatientExercise()
+        {
+            return await lapbaseNewContext.Exercise.ToListAsync();
+        }
+
         public async Task<List<string>> GetPatientsLapbase()
         {
             return await lapbaseContext.TblPatients.Select(p => p.Firstname).ToListAsync();
@@ -60,6 +65,8 @@ namespace Lapbase.Services
             return patientFullName;
 
         }
+
+       
 
 
         public async Task<Patient> CreatePatient(Patient patient)

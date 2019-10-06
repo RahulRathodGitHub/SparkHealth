@@ -1,5 +1,5 @@
-<div class="foodChoice has-background-danger">
-  <div [ngClass]="{ hideFoodCount: count <= 0 }" (click)="decreaseCount()">
+<div class="exerciseChoice has-background-danger">
+  <div [ngClass]="{ hideExerciseCount: count <= 0 }" (click)="decreaseCount()">
       <span class="icon">
           <i class="fas fa-minus"></i>
         </span>
@@ -8,11 +8,11 @@
         <i class="fas fa-minus"></i>
       </span>
   </div>
-  <div class="foodName has-background-white-ter" (click)="increaseCount()">
+  <div class="exerciseName has-background-white-ter" (click)="increaseCount()">
       <span class="icon">
           <i class="fas fa-plus"></i>
         </span>
-    {{ foodChoice.name }}
+    {{ exerciseChoice.name }}
     <span class="icon">
         <i class="fas fa-plus"></i>
       </span>

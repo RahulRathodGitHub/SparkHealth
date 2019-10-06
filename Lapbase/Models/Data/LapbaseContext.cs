@@ -31,7 +31,15 @@ namespace Lapbase.Models
                 Deleted = false
             });
 
-            var foodList = new List<Food>
+            modelBuilder.Entity<Exercise>().HasData(new Exercise
+            { 
+                Id = Guid.NewGuid(),
+                Name = "PUSHUPS",
+                CalorieCount = 54
+            });
+
+
+        var foodList = new List<Food>
             {
                 new Food
                 {

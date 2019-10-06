@@ -138,7 +138,13 @@ export class PatientService {
   //   }
   // ];
 
-  getExerciseByPatients = (): IExercise[] => [
+  getExerciseList = async (): Promise<IExercise[]> => {
+    return await this.httpClient
+      .get(environment.LAPBASE_API_ADDRESS + "Patient/Exercise/")
+      .toPromise<any>();
+  };
+
+  /*(): IExercise[] => [
     {
       id: "1",
       name: "Swimming",
@@ -167,5 +173,5 @@ export class PatientService {
       unit: "KJ/hour",
       patientId: 1
     }
-  ];
+  ];*/
 }

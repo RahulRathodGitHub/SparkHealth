@@ -1,0 +1,16 @@
+.exerciseChoice {
+    text-align: center;
+    cursor: pointer;
+    background-color: white;
+  }
+  
+  .exerciseName {
+    padding-top: 30px;
+    padding-bottom: 50px;
+    max-height: 500px;
+  }
+  
+  .hideExerciseCount {
+    visibility: hidden;
+    position: relative;
+  }

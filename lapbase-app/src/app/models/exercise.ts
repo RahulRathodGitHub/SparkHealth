@@ -3,12 +3,10 @@ export interface IExercise {
 
   name: string;
   calorieCount: number;
-  unit: string;
-
-  patientId: number;
+  pictureUrl: string;
 }
 
 export class Exercise {
-  name: string;
-  quantity: string;
+  id: string;
+  quantity: number;
 }

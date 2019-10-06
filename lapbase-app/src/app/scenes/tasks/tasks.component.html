@@ -1,13 +1,13 @@
 <div class="columns is-mobile">
   <div class="column is-12 has-text-centered">
     <h1 class="title ">
-      <a class="button is-medium is-pulled-left" (click)="changeDate(true)">
+      <a class="button is-medium is-pulled-left" (click)="changeDate(false)">
         <span class="icon is-medium">
           <i class="fas fa-chevron-left fa-2x"></i>
         </span>
       </a>
       {{ date | date: "yyyy-MM-dd" }}
-      <a class="button is-medium is-pulled-right" (click)="changeDate(false)">
+      <a class="button is-medium is-pulled-right" (click)="changeDate(true)">
         <span class="icon is-medium">
           <i class="fas fa-chevron-right fa-2x"></i>
         </span>
@@ -18,10 +18,14 @@
 
 <nav class="breadcrumb is-medium has-bullet-separator is-centered" aria-label="breadcrumbs">
   <ul>
-    <li class="is-active"><a href="#" aria-current="page">Food</a></li>
-    <li><a href="exercise-entry">Exercises</a></li>
+    <li [class.is-active]="foodActive"><a (click)="changeFoodExercises()">Food</a></li>
+    <li [class.is-active]="!foodActive"><a (click)="changeFoodExercises()">Exercises</a></li>
   </ul>
 </nav>
+<div [class.is-hidden]="foodFlag">
+
+
+<!-- Food entry below this point -->
 
 <div class="columns is-mobile">
   <div class="column is-12">
@@ -160,8 +164,60 @@
     </tr>
   </tbody>
 </table>
+</div>
+
+<div [class.is-hidden]="!foodFlag">
+<div class="columns is-mobile">
+    <div class="column is-12">
+      <h2 class="subtitle">
+        Exercises
+        <a class="button is-pulled-right" (click)="toggleExercises()">
+          Add Exercises
+        </a>
+      </h2>
+    </div>
+  </div>
+  <table class="table is-fullwidth is-striped is-hoverable">
+    <thead>
+      <tr>
+        <th>Exercises</th>
+        <th>Cal</th>
+        <th>Reps</th>
+      </tr>
+    </thead>
+    <tbody>
+    
+      <tr *ngFor="let exercise of getExercises()">
+        <td><a class="button is-small" (click)="removeExercise(exercise.id)">
+            <span class="icon is-small">
+              <i class="fas fa-trash-alt"></i>
+            </span>
+          </a>
+          {{ getExerciseInfo(exercise.id) && getExerciseInfo(exercise.id).name || "" }}
+        </td>
+        <td>
+        {{ getExerciseInfo(exercise.id) && getExerciseInfo(exercise.id).calorieCount || "" }}
+        </td>
+        <td>
+            <a class="button is-small" (click)="changeReps(exercise.id, false)">
+                <span class="icon is-small">
+                  <i class="fas fa-minus"></i>
+                </span>
+              </a>
+              {{ exercise.quantity }}
+              <a class="button is-small" (click)="changeReps(exercise.id, true)">
+                <span class="icon is-small">
+                  <i class="fas fa-plus"></i>
+                </span>
+              </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 <p>Total Calories: {{ calculateTotalCalories() }} Cal</p>
+<p>Calories Burned: {{ calculateCaloriesBurned() }} Cal</p>
 <a (click)="save()" class="button is-success is-pulled-right">Save</a>
 
 <div class="modal" [ngClass]="modalClass()" *ngIf="selectedMealTime !== undefined">
@@ -172,3 +228,12 @@
   </div>
   <button class="modal-close is-large" aria-label="close" (click)="toggleModal()"></button>
 </div>
+
+<div class="modal" [ngClass]="exerciseModalClass()" >
+    <div class="modal-background" (click)="toggleExercises()"></div>
+    <div class="modal-content">
+ <app-exercise-choices [selectedExercises]="getExercises()" [availableExerciseChoices]="availableExerciseChoices"></app-exercise-choices>
+    </div>
+    <button class="modal-close is-large" aria-label="close" (click)="toggleExercises()"></button>
+  </div>
+  
