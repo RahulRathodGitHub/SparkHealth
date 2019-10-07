@@ -59,5 +59,45 @@ namespace Lapbase.Services
 
             return result;
         }
+
+        public async Task<Appointment> GetNextAppointment(int id, int organizationCode)
+        {
+            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id && c.OrganizationCode == organizationCode);
+            var result = await patientAppointments.Join(
+                    lapbaseContext.TblDoctors,
+                    c => c.Seenby,
+                    d => d.DoctorId,
+                    (consult, doctor) => new Appointment()
+                    {
+                        Id = consult.ConsultId,
+                        Title = "Appointment",
+                        PatientId = consult.PatientId,
+                        Start = consult.DateSeen,
+                        End = consult.DateSeen,
+                        Description = consult.Notes,// == null ? "No Notes were provided" : consult.Notes,
+                        DoctorName = doctor.DoctorName,
+                        Location = doctor.Address1 + ", " + doctor.Suburb + ", " + doctor.Country,
+                        Weight = consult.Weight,
+                        Bmi = consult.Bmiweight
+                    }
+                ).ToListAsync();
+
+            //Below logic needs to be cleaned
+            TblPatientConsult lastConsult = patientAppointments.Last();
+            Appointment futureAppointment = new Appointment(result.Last());
+            futureAppointment.Start = lastConsult.DateNextVisit;
+            futureAppointment.End = lastConsult.DateNextVisit;
+            futureAppointment.Description = "";
+            futureAppointment.Weight = 0;
+            futureAppointment.Bmi = 0;
+
+            if (futureAppointment.Start >= System.DateTime.Now)
+            {
+                return futureAppointment;
+            }
+            else return null;
+           
+
+        }
     }
 }
