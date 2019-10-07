@@ -12,6 +12,6 @@ export class DashboardService {
 
   getNextAppointment = async (patientId, organizationCode): Promise<IAppointment> => {
     //TODO Enter the patient id and the organization code throught the token
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/Next' + patientId +"/"+ organizationCode).toPromise<any>();
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/Next/' + patientId +"/"+ organizationCode).toPromise<any>();
   }
 }

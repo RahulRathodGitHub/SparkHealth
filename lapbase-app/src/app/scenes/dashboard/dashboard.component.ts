@@ -3,7 +3,8 @@ import { ReportService } from './../../services/report.service';
 import { DashboardService} from './../../services/dashboard.service';
 import { Component, OnInit } from '@angular/core';
 import { IAppointment} from 'src/app/models';
-
+import { asRoughMinutes } from '@fullcalendar/core';
+import { DatePipe } from "@angular/common";
 
 
 @Component({
@@ -11,26 +12,30 @@ import { IAppointment} from 'src/app/models';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  ngOnInit(): void {
-    throw new Error("Method not implemented.");
-  }
 
   nextAppointment: IAppointment;
   report: IReport;
   chartData = {};
   chartLabels = {};
 
-  constructor(private dashboardService: DashboardService, private reportService: ReportService) 
+  constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private reportService: ReportService) 
   {
     const organizationCode = 2;
     const patientId = 2756; //Ricky Perez
 
-    this.dashboardService.getNextAppointment(patientId, organizationCode).then(result => this.nextAppointment = result);
-    
-  }
+    this.dashboardService.getNextAppointment(patientId, organizationCode).then(result => {
+      this.nextAppointment = result;
+      
+    });
 
+    this.getReport(0);
+
+  }
+  changeDateFormat(date: Date) {
+    return this.datepipe.transform(date, "yyyy-MM-dd");
+  }
   getReport(typeOfReport)
   {
     this.reportService
@@ -38,8 +43,8 @@ export class DashboardComponent implements OnInit {
         2756,
         2,
         typeOfReport,
-        (Date.now() - 30).toLocaleString(), // A month Ago
-        Date.now().toLocaleString()         // Today
+        this.changeDateFormat(new Date(new Date().getDate() - 300000)), // A month Ago
+        this.changeDateFormat(new Date())         // Today
       )
       .then(p => {
         this.report = p;
@@ -66,7 +71,3 @@ export class DashboardComponent implements OnInit {
       });
   }
   }
-
-
-
-}

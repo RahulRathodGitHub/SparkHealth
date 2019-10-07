@@ -1,8 +1,8 @@
 <div class="tile is-ancestor">
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="title">Next Appointment {{nextAppointment.time}}</p>
-            <p class="subtitle">Subtitle</p>
+            <p class="title">Next Appointment</p>
+            <p class="subtitle">Time:  {{(nextAppointment==null)?"No Appointments":((nextAppointment.start !=null)?nextAppointment.start:"Time Unknown")}}</p>
         </article>
     </div>
     <div class="tile is-parent">
@@ -43,6 +43,14 @@
         </article>
     </div>
     <div class="content">
-            <!-- Content -->
+            <div class="graph">
+                    <canvas
+                      baseChart
+                      [chartType]="'line'"
+                      [datasets]="chartData"
+                      [labels]="chartLabels"
+                    >
+                    </canvas>
+                  </div>
           </div>
 </div>

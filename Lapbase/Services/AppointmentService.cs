@@ -91,11 +91,11 @@ namespace Lapbase.Services
             futureAppointment.Weight = 0;
             futureAppointment.Bmi = 0;
 
-            if (futureAppointment.Start >= System.DateTime.Now)
-            {
+          //  if (futureAppointment.Start >= System.DateTime.Now)
+           // {
                 return futureAppointment;
-            }
-            else return null;
+           // }
+           // else return null;
            
 
         }

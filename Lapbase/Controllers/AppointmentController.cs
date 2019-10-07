@@ -29,7 +29,7 @@ namespace Lapbase.Controllers
         }
 
         // GET: api/Next/Appointment/5/2
-        [HttpGet("/Next/{id}/{organizationCode}")]
+        [HttpGet("Next/{id}/{organizationCode}")]
         public async Task<ActionResult<Appointment>> GetNextAppointment(int id, int organizationCode)
         {
             return await appointmentService.GetNextAppointment(id, organizationCode);
