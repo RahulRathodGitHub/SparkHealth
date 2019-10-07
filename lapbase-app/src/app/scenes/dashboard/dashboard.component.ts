@@ -17,8 +17,8 @@ export class DashboardComponent {
 
   nextAppointment: IAppointment;
   report: IReport;
-  chartData = {};
-  chartLabels = {};
+  chartData = [];
+  chartLabels = [];
 
   constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private reportService: ReportService) 
   {
@@ -70,4 +70,18 @@ export class DashboardComponent {
         this.chartLabels = this.report.labels;
       });
   }
+
+  public lineChartColors: Array<any> = [
+    {
+      backgroundColor: '#ff9999',
+      borderColor: '#cc003355',
+      pointBackgroundColor: '#ff9999',
+      pointBorderColor: '#cc0033',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
+      borderWidth: '1',
+      radius:'2',
+      hoverRadius:'2'
+    }
+  ];
   }

@@ -40,17 +40,18 @@
         <article class="tile is-child box">
             <p class="title">One</p>
             <p class="subtitle">Subtitle</p>
+            <div class="content">
+                    <div class="graph">
+                            <canvas
+                              baseChart
+                              [chartType]="'line'"
+                              [datasets]="chartData"
+                              [labels]="chartLabels"
+                              [colors]="lineChartColors"
+                            >
+                            </canvas>
+                          </div>
+                  </div>
         </article>
     </div>
-    <div class="content">
-            <div class="graph">
-                    <canvas
-                      baseChart
-                      [chartType]="'line'"
-                      [datasets]="chartData"
-                      [labels]="chartLabels"
-                    >
-                    </canvas>
-                  </div>
-          </div>
 </div>
