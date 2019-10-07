@@ -4,14 +4,16 @@ using Lapbase.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseNewContext))]
-    partial class LapbaseNewContextModelSnapshot : ModelSnapshot
+    [Migration("20191007065517_calorieLostAdded")]
+    partial class calorieLostAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

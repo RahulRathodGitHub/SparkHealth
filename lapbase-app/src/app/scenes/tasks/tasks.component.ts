@@ -18,7 +18,8 @@ export class TasksComponent implements OnInit {
   availableExerciseChoices: IExercise[] = new Array<IExercise>();
   taskInput: TaskInput = {
     id: '00000000-0000-0000-0000-000000000000',
-    calories: 0,
+    caloriesGained: 0,
+    caloriesLost: 0,
     weight: 0,
     dateAssigned: new Date(),
     exercises: [],
@@ -111,9 +112,11 @@ export class TasksComponent implements OnInit {
       
         if(this.getExerciseInfo(exercise.id) != null)
         caloriesBurned += exercise.quantity * this.getExerciseInfo(exercise.id).calorieCount;
+        this.totalCalories -= caloriesBurned;
       
     }
     //this.taskInput.calories -= caloriesBurned;
+    this.taskInput.caloriesLost = caloriesBurned;
     return caloriesBurned;
   }
 
@@ -141,15 +144,16 @@ export class TasksComponent implements OnInit {
     this.taskInput.meals.find(meal => meal.mealTime === mealTime).foods.splice(index, 1);
   }
 
-  calculateTotalCalories(): number {
+  calculateCaloriesIntake(): number {
     let totalCalories = 0;
     for (const meal of this.taskInput.meals) {
       for (const food of meal.foods) {
         if(this.getFoodInfo(food.id)!=null)
         totalCalories += food.quantity * this.getFoodInfo(food.id).calorieCount;
+        this.totalCalories += totalCalories;
       }
     }
-    this.taskInput.calories = totalCalories;
+    this.taskInput.caloriesGained = totalCalories;
     return totalCalories;
   }
 

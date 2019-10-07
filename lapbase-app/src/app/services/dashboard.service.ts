@@ -1,3 +1,4 @@
+import { IHealthStats } from './../models/healthStats';
 import { IAppointment } from 'src/app/models';
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
@@ -13,5 +14,9 @@ export class DashboardService {
   getNextAppointment = async (patientId, organizationCode): Promise<IAppointment> => {
     //TODO Enter the patient id and the organization code throught the token
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/Next/' + patientId +"/"+ organizationCode).toPromise<any>();
+  }
+
+  getPatientHealthDetails = async (patientId, organizationCode): Promise<IHealthStats> => {
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Report/healthStats/'+ patientId +"/"+ organizationCode).toPromise<any>();
   }
 }

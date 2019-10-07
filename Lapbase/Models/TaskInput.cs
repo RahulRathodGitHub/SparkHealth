@@ -10,7 +10,8 @@ namespace Lapbase.Models
         public DateTimeOffset DateAssigned { get; set; }
         public bool Completed { get; set; }
 
-        public decimal Calories { get; set; }
+        public decimal CaloriesGained { get; set; }
+        public decimal CaloriesLost { get; set; }
         public decimal Weight { get; set; }
 
         public string Foods { get; set; }

@@ -44,6 +44,12 @@ namespace Lapbase.Controllers
             return await reportService.GetReportLastAvailableDate(id, organizationCode, reportType);
         }
 
+        [HttpGet("healthStats/{id}/{organizationCode}")]
+        public async Task<EWL_WL_GraphReport> GetPatientHealthStats([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
+        {
+            return await reportService.GetPatientHealthStats(id, organizationCode);
+        }
+
 
     }
 }

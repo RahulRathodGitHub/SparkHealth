@@ -34,6 +34,17 @@ namespace Lapbase.Controllers
             return Ok(task);
         }
 
+        [HttpGet("foodOfTheMonth")]
+        public Guid GetFoodOfTheMonth()
+        {
+            int patientId = 1;
+            int organizationCode = 1;
+
+            var foodOfTheMonth =  taskInputService.GetFoodOfTheMonth(patientId, organizationCode);
+
+            return foodOfTheMonth;
+        }
+
         // POST api/TaskInput
         [HttpPost]
         public async Task<ActionResult> Update([FromBody]TaskInputDto taskInputDto)

@@ -1,3 +1,4 @@
+import { IHealthStats } from './../../models/healthStats';
 import { IReport } from 'src/app/models/report';
 import { ReportService } from './../../services/report.service';
 import { DashboardService} from './../../services/dashboard.service';
@@ -19,6 +20,7 @@ export class DashboardComponent {
   report: IReport;
   chartData = {};
   chartLabels = {};
+  patientHealthStats: IHealthStats;
 
   constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private reportService: ReportService) 
   {
@@ -31,6 +33,10 @@ export class DashboardComponent {
     });
 
     this.getReport(0);
+
+    this.dashboardService.getPatientHealthDetails(patientId, organizationCode).then(result => {
+      this.patientHealthStats = result;
+    })
 
   }
   changeDateFormat(date: Date) {

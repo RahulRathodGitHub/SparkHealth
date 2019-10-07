@@ -124,5 +124,18 @@ namespace Lapbase.Services
                                                                        .ToListAsync();
         }
 
+
+        public async Task<EWL_WL_GraphReport> GetPatientHealthStats(int patientId, int organizationCode)
+        {
+            byte imperialFlag = 0;
+            //TODO Remvoe the hard coded imperial Flag and use the flag provided with the token.
+
+            return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
+                                                                          new object[] { organizationCode, patientId, imperialFlag })
+                                                                          .OrderByDescending(p => p.DateSeen)
+                                                                          .FirstOrDefaultAsync();
+                                                                      
+        }
+
     }
 }

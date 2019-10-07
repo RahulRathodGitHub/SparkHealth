@@ -8,7 +8,8 @@ namespace Lapbase.Models
         public Guid Id { get; set; }
         public DateTimeOffset DateAssigned { get; set; }
 
-        public decimal Calories { get; set; }
+        public decimal CaloriesGained { get; set; }
+        public decimal CaloriesLost { get; set; }
         public decimal Weight { get; set; }
 
         public List<FoodInfo> Meals { get; set; }
@@ -20,7 +21,8 @@ namespace Lapbase.Models
         {
             Id = Guid.Empty;
             DateAssigned = dateAssigned;
-            Calories = 0;
+            CaloriesGained = 0;
+            CaloriesLost = 0;
             Weight = 0;
             Meals = new List<FoodInfo>() {
                 new FoodInfo() {
@@ -43,7 +45,8 @@ namespace Lapbase.Models
         {
             Id = taskInput.Id;
             DateAssigned = taskInput.DateAssigned;
-            Calories = taskInput.Calories;
+            CaloriesGained = taskInput.CaloriesGained;
+            CaloriesLost = taskInput.CaloriesLost;
             Weight = taskInput.Weight;
             Meals = GetMeals(taskInput);
             Exercises = GetExercises(taskInput);

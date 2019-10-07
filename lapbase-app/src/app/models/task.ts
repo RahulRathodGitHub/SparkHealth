@@ -19,7 +19,8 @@ export interface ITask {
 export class TaskInput {
   id: string;
   dateAssigned: Date;
-  calories: number;
+  caloriesGained: number;
+  caloriesLost:number;
   weight: number;
   meals: Meal[];
   exercises: Exercise[];

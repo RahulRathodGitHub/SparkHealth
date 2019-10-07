@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 using Lapbase.Models;
+using System.Collections.Generic;
 
 namespace Lapbase.Services
 {
@@ -69,13 +70,63 @@ namespace Lapbase.Services
             return result;
         }
 
+        public Guid GetFoodOfTheMonth(int patientId, int organizationCode) // TODO make it to be used for the food of the month/day/week.. etc
+        {
+            // A Dictionary to store key value pairs of foods and quantities
+            Dictionary<Guid, int> FoodQuantityOfMonthDictionary = new Dictionary<Guid, int>();
+
+            // List of TaskInputDtos
+            List<TaskInputDto> listOfTaskInputDtos = new List<TaskInputDto>();
+
+            // Get all the task inputs in the whole month.
+            var listOfFoodandQuantityStrings = lapbaseNewContext.TaskInput.Where(t => t.DateAssigned.CompareTo(DateTime.Now.AddDays(-30)) >= 0 &&
+                t.PatientId.Equals(patientId) &&
+                t.OrganizationCode.Equals(organizationCode));
+
+            // Loop through each of them and make a list of taskInputDtos.
+            foreach(var taskInputObject in listOfFoodandQuantityStrings)
+            {
+                listOfTaskInputDtos.Add(new TaskInputDto(taskInputObject));
+            }
+
+            // For each task inout dto, add/Update the dictionary
+            foreach(var taskInputDtoObject in listOfTaskInputDtos)
+            {
+                taskInputDtoObject.Meals.ForEach(meal => meal.Foods.ForEach(food => {
+
+                    FoodQuantityOfMonthDictionary = incrementFoodQuantity(FoodQuantityOfMonthDictionary, food.Id, food.Quantity);
+
+                }));
+            }
+
+            // return the key with max value.
+            if(FoodQuantityOfMonthDictionary.Count() > 0)
+                return FoodQuantityOfMonthDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
+
+            return default;
+                                       
+        }
+
+        private Dictionary<Guid,int> incrementFoodQuantity(Dictionary<Guid, int> dict, Guid food, int quantity)
+        {
+            if (!dict.ContainsKey(food))
+                dict.Add(food, quantity);
+            else
+                dict[food] += quantity;
+
+            return dict;
+
+        }
+
+
         private void adaptTaskInput(TaskInput result, TaskInputDto dto) {
 
             // TODO PatientId & OrganizationCode should come from token
             result.PatientId = 1;
             result.OrganizationCode = 1;
             result.DateAssigned = dto.DateAssigned;
-            result.Calories = dto.Calories;
+            result.CaloriesGained = dto.CaloriesGained;
+            result.CaloriesLost = dto.CaloriesLost;
             result.Weight = dto.Weight;
 
 

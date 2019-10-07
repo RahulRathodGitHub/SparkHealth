@@ -4,5 +4,6 @@ export * from './food';
 export * from './foodQuantity';
 export * from './exercise';
 export * from './foodIntakeList';
+export * from './healthStats';
 //export * from './foodIntakeListDto';
 export * from './appointment';
