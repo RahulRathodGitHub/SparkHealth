@@ -12,7 +12,7 @@ namespace Lapbase.Models
         public decimal CaloriesLost { get; set; }
         public decimal Weight { get; set; }
 
-        public List<FoodInfo> Foods { get; set; }
+        public List<FoodInfo> Meals { get; set; }
         public List<ExerciseInfo> Exercises { get; set; }
 
         public TaskInputDto() { }

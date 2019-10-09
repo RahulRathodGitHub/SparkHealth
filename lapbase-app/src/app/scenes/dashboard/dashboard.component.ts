@@ -56,8 +56,8 @@ export class DashboardComponent {
         this.report = p;
         console.log(p);
 
-        console.log(this.report.data);
-        console.log(this.report.labels);
+        console.log(this.report.data1);
+        console.log(this.report.timeLabels);
 
         var chartType;
         switch (typeOfReport) {
@@ -72,8 +72,8 @@ export class DashboardComponent {
             break;
         }
 
-        this.chartData = [{ data: this.report.data, label: chartType }];
-        this.chartLabels = this.report.labels;
+        this.chartData = [{ data: this.report.data1, label: chartType }];
+        this.chartLabels = this.report.timeLabels;
       });
   }
 

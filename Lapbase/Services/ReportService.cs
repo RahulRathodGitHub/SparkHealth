@@ -60,6 +60,13 @@ namespace Lapbase.Services
                                                        .FirstOrDefaultAsync();
 
             }
+
+            else if( reportType == ReportType.Calorie)
+            {
+                return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.CaloriesGained > 0)
+                                                    .Select(p => new DateTime(p.DateAssigned.Ticks))
+                                                    .FirstOrDefaultAsync();
+            }
             
 
             return new DateTime();
@@ -89,7 +96,7 @@ namespace Lapbase.Services
             {
                 await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateAssigned >= startDate && p.DateAssigned <= endDate)
                                                  .OrderBy(p => p.DateAssigned)
-                                                 .ForEachAsync(res => result.AddEntry(res.Calories, ReportType.Calorie.ToString(), res.DateAssigned.ToString()));
+                                                 .ForEachAsync(res => result.AddEntry(res.CaloriesGained, ReportType.Calorie.ToString(), res.DateAssigned.ToString()));
 
                 return result;
                                                  
@@ -136,7 +143,7 @@ namespace Lapbase.Services
 		public async Task<List<Decimal>> GetCalorieReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
         {
             return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode)
-                                                    .Select(p => p.Calories)
+                                                    .Select(p => p.CaloriesGained)
                                                     .ToListAsync();
         }
 
