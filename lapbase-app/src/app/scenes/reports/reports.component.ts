@@ -13,7 +13,7 @@ import { SwitchView } from "@angular/common/src/directives/ng_switch";
 })
 export class ReportsComponent implements OnInit {
   report: IReport;
-  chartData = {};
+  chartData = [];
   chartLabels = {};
   typeOfReport: Number;
   startDate: String;
@@ -34,7 +34,7 @@ export class ReportsComponent implements OnInit {
     this.endDate = null;
 
     //Retrieving weight data as default data when users visit the Report page
-    this.setChartType("WeightLoss");
+    this.setChartType("EWL_WL");
   }
 
   chartOptions = {
@@ -90,24 +90,30 @@ export class ReportsComponent implements OnInit {
         this.report = p;
         console.log(p);
 
-        console.log(this.report.data);
-        console.log(this.report.labels);
+        console.log(this.report.data1);
+        console.log(this.report.timeLabels);
 
         var chartType;
         switch (this.typeOfReport) {
           case 0:
-            chartType = "Weigth Loss (kg)";
+            chartType = "Weight Loss & EWL (kg)";
             break;
           case 1:
-            chartType = "EWL (kg)";
+            chartType = "BMI";
             break;
           case 2:
-            chartType = "BMI";
+            chartType = "Calorie";
             break;
         }
 
-        this.chartData = [{ data: this.report.data, label: chartType }];
-        this.chartLabels = this.report.labels;
+        this.chartData = [{ data: this.report.data1, label: this.report.dataLabel1 }];
+        // Have to see the format for passing data2
+        if( this.report.dataLabel2.length > 0)
+        {
+          this.chartData.push({data: this.report.data2, label: this.report.dataLabel2});
+        }
+        
+        this.chartLabels = this.report.timeLabels;
         this.loading = false;
       });
   }

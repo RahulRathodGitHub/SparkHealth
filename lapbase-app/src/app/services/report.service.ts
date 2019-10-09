@@ -21,7 +21,7 @@ export class ReportService {
     reportType: Number
     ): Promise<Date> => {
     return await this.httpClient
-      .get(environment.LAPBASE_API_ADDRESS + "Report/lastDate" +id + "/" + organizationCode + "reportType=" +reportType)
+      .get(environment.LAPBASE_API_ADDRESS + "Report/lastDate/" +id + "/" + organizationCode + "/?reportType=" +reportType)
       .toPromise<any>();
   }
 

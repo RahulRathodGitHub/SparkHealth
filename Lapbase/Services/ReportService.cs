@@ -12,9 +12,9 @@ namespace Lapbase.Services
 {
     public enum ReportType
     {
-       WeightLoss,
-       EWL,
-       BMI
+       EWL_WL,
+       BMI,
+       Calorie
     }
 
     public class ReportService
@@ -40,7 +40,7 @@ namespace Lapbase.Services
 
             DateTime? result = new DateTime?();
 
-            if (reportType == ReportType.EWL)
+            if (reportType == ReportType.EWL_WL)
             {
 
 
@@ -71,24 +71,33 @@ namespace Lapbase.Services
         {
             byte imperialFlag = 0;
             Report result = new Report();
-            if (reportType == ReportType.EWL)
+            if (reportType == ReportType.EWL_WL)
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.EWL, res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.EWL, "EWL", res.Weight, "Weight", res.strDateSeen)); //ToList<IReport>();
                 return result;
             }
             else if (reportType == ReportType.BMI)
             {
                  await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateSeen >= startDate && p.DateSeen <= endDate)
                                                        .OrderBy(p => p.DateSeen)
-                                                       .ForEachAsync(res => result.AddEntry(res.Bmiweight, res.DateSeen.ToString()));
+                                                       .ForEachAsync(res => result.AddEntry(res.Bmiweight, ReportType.BMI.ToString(), res.DateSeen.ToString()));
                 //GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag)
                 return result;
             }
-            else// (reportType == ReportType.WeightLoss)
+            else if (reportType == ReportType.Calorie)
+            {
+                await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateAssigned >= startDate && p.DateAssigned <= endDate)
+                                                 .OrderBy(p => p.DateAssigned)
+                                                 .ForEachAsync(res => result.AddEntry(res.Calories, ReportType.Calorie.ToString(), res.DateAssigned.ToString()));
+
+                return result;
+                                                 
+            }
+            else// (reportType == ReportType.WeightLoss) UNUSED BLOCK
             {
                 var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.Weight, res.strDateSeen)); //ToList<IReport>();
+                graphDetails.ForEach(res => result.AddEntry(res.Weight, "Weight", res.strDateSeen)); //ToList<IReport>();
                 return result;
                 //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
             }
@@ -124,6 +133,12 @@ namespace Lapbase.Services
                                                                        .ToListAsync();
         }
 
+		public async Task<List<Decimal>> GetCalorieReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
+        {
+            return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode)
+                                                    .Select(p => p.Calories)
+                                                    .ToListAsync();
+        }
 
         public async Task<EWL_WL_GraphReport> GetPatientHealthStats(int patientId, int organizationCode)
         {
