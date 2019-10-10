@@ -122,8 +122,8 @@ namespace Lapbase.Services
         private void adaptTaskInput(TaskInput result, TaskInputDto dto) {
 
             // TODO PatientId & OrganizationCode should come from token
-            result.PatientId = 1;
-            result.OrganizationCode = 1;
+            result.PatientId = 2756;
+            result.OrganizationCode = 2;
             result.DateAssigned = dto.DateAssigned;
             result.CaloriesGained = dto.CaloriesGained;
             result.CaloriesLost = dto.CaloriesLost;

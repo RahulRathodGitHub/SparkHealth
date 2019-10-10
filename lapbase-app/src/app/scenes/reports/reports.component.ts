@@ -72,8 +72,8 @@ export class ReportsComponent implements OnInit {
   
       this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
       this.endDate = this.changeDateFormat(lastAvailableDate);
+    
     }
-
 
     this.loading = true;
     this.reportService
