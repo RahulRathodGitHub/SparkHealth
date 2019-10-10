@@ -12,8 +12,7 @@ namespace Lapbase.Models
         public decimal CaloriesLost { get; set; }
         public decimal Weight { get; set; }
 
-        public List<FoodInfo> Meals { get; set; }
-
+        public List<FoodInfo> Foods { get; set; }
         public List<ExerciseInfo> Exercises { get; set; }
 
         public TaskInputDto() { }
@@ -44,6 +43,7 @@ namespace Lapbase.Models
 
         public TaskInputDto(TaskInput taskInput)
         {
+<<<<<<< HEAD
             Id = taskInput.Id;
             DateAssigned = taskInput.DateAssigned;
             CaloriesGained = taskInput.CaloriesGained;
@@ -58,12 +58,39 @@ namespace Lapbase.Models
         {
 
             var Exercises = new List<ExerciseInfo>();
+=======
+            this.Id = taskInput.Id;
+            this.PatientId = taskInput.PatientId;
+            this.OrganizationCode = taskInput.OrganizationCode;
+            this.DateAssigned = taskInput.DateAssigned;
+            this.Completed = taskInput.Completed;
+            this.Calories = taskInput.Calories;
+            this.Weight = taskInput.Weight;
+            this.Foods = new List<FoodInfo>();
+            this.Exercises = new List<ExerciseInfo>();
+
+            String[] foodIds = taskInput.Foods.Split(",");
+            String[] foodQuantities = taskInput.FoodQuantities.Split(",");
+
+            String[] exerciseNames = taskInput.Exercises.Split(",");
+            String[] exerciseQuantities = taskInput.ExerciseReps.Split(",");
+
+            String breakfastFoods = "";
+            String breakfastFoodQuantities = "";
+
+            String lunchFoods = "";
+            String lunchFoodQuantities = "";
+
+            String dinnerFoods = "";
+            String dinnerFoodQuantities = "";
+>>>>>>> TEAM-133_Multiple_trends_in_one_graph
 
             var extractedExerciseIds = taskInput.Exercises.Split(',');
             var extractedExerciseQuantity = taskInput.ExerciseReps.Split(',');
 
             for (int i = 0; i < extractedExerciseIds.Length; i++)
             {
+<<<<<<< HEAD
                 if(extractedExerciseIds[i] != default && extractedExerciseIds[i].Length > 0)
                 {
                     Exercises.Add(new ExerciseInfo()
@@ -71,11 +98,43 @@ namespace Lapbase.Models
                         Id = Guid.Parse(extractedExerciseIds[i]),
                         Quantity = int.Parse(extractedExerciseQuantity[i])
                     });
+=======
+                if (s.ToLower().Equals("breakfast"))
+                {
+                    breakfastFoods += "," + foodIds[i];
+                    breakfastFoodQuantities += "," + foodQuantities[i];
+                }
+                else if (s.ToLower().Equals("lunch"))
+                {
+                    lunchFoods += "," + foodIds[i];
+                    lunchFoodQuantities += "," + foodQuantities[i];
+                }
+                else if (s.ToLower().Equals("dinner"))
+                { 
+                    dinnerFoods += "," + foodIds[i];
+                    dinnerFoodQuantities += "," + foodQuantities[i];
+                }
+               
+>>>>>>> TEAM-133_Multiple_trends_in_one_graph
 
                 }
                     
             }
+<<<<<<< HEAD
             return Exercises;
+=======
+
+            if(!breakfastFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(breakfastFoods.Substring(1), breakfastFoodQuantities.Substring(1), IntakeTime.BREAKFAST));
+
+            if(!lunchFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(lunchFoods.Substring(1), lunchFoodQuantities.Substring(1), IntakeTime.LUNCH));
+
+            if(!dinnerFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(dinnerFoods.Substring(1), dinnerFoodQuantities.Substring(1), IntakeTime.DINNER));
+
+            this.Exercises.Add(new ExerciseInfo(taskInput.Exercises, taskInput.ExerciseReps));
+>>>>>>> TEAM-133_Multiple_trends_in_one_graph
         }
         #endregion
 
