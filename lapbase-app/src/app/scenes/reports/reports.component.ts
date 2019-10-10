@@ -19,7 +19,7 @@ export class ReportsComponent implements OnInit {
   startDate: String;
   endDate: String;
   loading = false;
-  chartType = '';
+  chartType = "";
   dropdownActive = false;
   weightLossData = [{}];
 
@@ -29,7 +29,6 @@ export class ReportsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.startDate = null;
     this.endDate = null;
 
@@ -48,32 +47,28 @@ export class ReportsComponent implements OnInit {
 
   setChartType(selectedChartType) {
     this.typeOfReport = +reporttype[selectedChartType];
-    console.log(typeof this.typeOfReport);
 
     this.getReport();
   }
 
   getReport() {
-
-    if(this.startDate == null)
-    {
+    if (this.startDate == null) {
       //Setting default dates for when patient first visit page
+      console.log("here");
+
       var lastAvailableDate = new Date();
-      
-      this.reportService.getLastAvailableDate(
-                                                2756,
-                                                2,
-                                                this.typeOfReport
-  
-                                              ).then( p => lastAvailableDate = p);
-  
+
+      this.reportService
+        .getLastAvailableDate(2756, 2, this.typeOfReport)
+        .then(p => (lastAvailableDate = p));
+
       var twoYearsBeforeLatestDate = new Date();
       twoYearsBeforeLatestDate.setFullYear(lastAvailableDate.getFullYear() - 2);
-  
+
       this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
       this.endDate = this.changeDateFormat(lastAvailableDate);
     }
-
+    console.log(this.typeOfReport);
 
     this.loading = true;
     this.reportService
@@ -106,13 +101,17 @@ export class ReportsComponent implements OnInit {
             break;
         }
 
-        this.chartData = [{ data: this.report.data1, label: this.report.dataLabel1 }];
+        this.chartData = [
+          { data: this.report.data1, label: this.report.dataLabel1 }
+        ];
         // Have to see the format for passing data2
-        if( this.report.dataLabel2.length > 0)
-        {
-          this.chartData.push({data: this.report.data2, label: this.report.dataLabel2});
+        if (this.report.dataLabel2.length > 0) {
+          this.chartData.push({
+            data: this.report.data2,
+            label: this.report.dataLabel2
+          });
         }
-        
+
         this.chartLabels = this.report.timeLabels;
         this.loading = false;
       });
@@ -123,15 +122,15 @@ export class ReportsComponent implements OnInit {
   }
   public lineChartColors: Array<any> = [
     {
-      backgroundColor: '#ff9999',
-      borderColor: '#cc003355',
-      pointBackgroundColor: '#ff9999',
-      pointBorderColor: '#cc0033',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      borderWidth: '1',
-      radius:'2',
-      hoverRadius:'2'
+      backgroundColor: "#ff9999",
+      borderColor: "#cc003355",
+      pointBackgroundColor: "#ff9999",
+      pointBorderColor: "#cc0033",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(148,159,177,0.8)",
+      borderWidth: "1",
+      radius: "2",
+      hoverRadius: "2"
     }
   ];
 
