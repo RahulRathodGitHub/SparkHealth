@@ -1,20 +1,20 @@
 <div class="tile is-ancestor">
     <div class="tile is-parent">
-        <article class="tile is-child box">
+        <article class="tile is-child box" click="app-appointment">
             <p class="title">Next Appointment</p>
             <p class="subtitle">Time:  {{(nextAppointment==null)?"No Appointments":((nextAppointment.start !=null)?nextAppointment.start:"Time Unknown")}}</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="subtitle">Current Weight</p>
+            <p class="subtitle">Current Weight: {{patientHealthStats.currentWeight}}</p>
             <p class="subtitle">Current Height</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
                 <p class="subtitle">BMI</p>
-                <p class="subtitle">Ideal weight</p>
+                <p class="subtitle">Ideal weight: {{patientHealthStats.idealWeight}}</p>
         </article>
     </div>
 </div>
@@ -22,13 +22,14 @@
 <div class="tile is-ancestor">
     <div class="tile is-parent">
         <article class="tile is-child box">
-                <p class="title">One</p>
-                <p class="subtitle">Subtitle</p>
+                <p class="title">Today's calories</p>
+                <p class="subtitle">Intake:</p>
+                <p class="subtitle">Burn:</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="title">Two</p>
+            <p class="title">Food of the month</p>
             <p class="subtitle">Subtitle</p>
         </article>
     </div>
@@ -38,8 +39,6 @@
 <div class="tile is-ancestor">
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="title">One</p>
-            <p class="subtitle">Subtitle</p>
             <div class="content">
                     <div class="graph">
                             <canvas
