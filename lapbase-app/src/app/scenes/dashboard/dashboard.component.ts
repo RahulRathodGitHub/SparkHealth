@@ -35,6 +35,8 @@ export class DashboardComponent {
       
     });
 
+    this.patientHealthStats = null;
+
     this.getReport(0);
 
     this.dashboardService.getPatientHealthDetails(patientId, organizationCode).then(result => {

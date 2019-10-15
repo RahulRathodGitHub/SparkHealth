@@ -205,4 +205,14 @@ export class TasksComponent implements OnInit {
       console.log(this.taskInput);
     });
   };
+
+  canDeactivate() {
+
+    this.save();
+    return true;
+
+
+   // return confirm("Your changes will be lost. Are you sure you want to leave without saving?");
+  }
+
 }

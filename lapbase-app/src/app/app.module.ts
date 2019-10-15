@@ -31,6 +31,7 @@ import { FoodChoicesComponent } from './scenes/tasks/food-choices/food-choices.c
 import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/food-choice.component';
 import { ExerciseChoicesComponent } from './scenes/tasks/exercise-choices/exercise-choices.component';
 import { ExerciseChoiceComponent } from './scenes/tasks/exercise-choices/exercise-choice/exercise-choice.component';
+import { DeactivateGuard } from './scenes/tasks/deactivate-guard';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,7 @@ import { ExerciseChoiceComponent } from './scenes/tasks/exercise-choices/exercis
     MyDateRangePickerModule,
     MyDatePickerModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, DeactivateGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

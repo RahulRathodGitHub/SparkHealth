@@ -7,14 +7,14 @@
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="subtitle">Current Weight: {{patientHealthStats.currentWeight}}</p>
+            <p class="subtitle">Current Weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.currentWeight}}</p>
             <p class="subtitle">Current Height</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
                 <p class="subtitle">BMI</p>
-                <p class="subtitle">Ideal weight: {{patientHealthStats.idealWeight}}</p>
+                <p class="subtitle">Ideal weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.idealWeight}}</p>
         </article>
     </div>
 </div>
@@ -41,14 +41,14 @@
         <article class="tile is-child box">
             <div class="content">
                     <div class="graph">
-                            <canvas
-                              baseChart
-                              [chartType]="'line'"
-                              [datasets]="chartData"
-                              [labels]="chartLabels"
-                              [colors]="lineChartColors"
-                            >
-                            </canvas>
+                        <canvas
+                        baseChart
+                        [chartType]="'line'"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [colors]="lineChartColors"
+                      >
+                      </canvas>
                           </div>
                   </div>
         </article>
