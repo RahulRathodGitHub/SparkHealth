@@ -20,7 +20,7 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organizationCode)
+        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int organizationCode, int patientId)
         {
 
             TaskInput taskInput = await lapbaseNewContext.TaskInput.Where(t =>
