@@ -8,6 +8,7 @@ using Lapbase.Models;
 using Lapbase.LapbaseModels;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Lapbase.OutputModels;
 
 namespace Lapbase.Services
 {
@@ -60,12 +61,23 @@ namespace Lapbase.Services
             {
                 patientFullName[0] = p.Firstname;
                 patientFullName[1] = p.Surname;
-            });
+                
+            });  
 
             return patientFullName;
 
         }
 
+        public async Task<Boolean?> GetPatientImperial(int id, int organizationCode)
+        {
+            return await lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == id && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefaultAsync();
+        }
+
+        public async Task<Decimal?> GetPatientHeight(int id, int organizationCode)
+        {
+            return await lapbaseContext.TblPatientWeightData.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).Select(p => p.Height).FirstOrDefaultAsync();
+           
+        }
        
 
 

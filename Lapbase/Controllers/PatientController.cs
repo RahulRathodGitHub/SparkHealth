@@ -36,7 +36,7 @@ namespace Lapbase.Controllers
         }
 
         [HttpGet("[Action]/{id}/{organizationCode}")]
-        public async Task<string[]> GetPatientLapbaseById(int id ,int organizationCode)
+        public async Task<Object> GetPatientLapbaseById(int id ,int organizationCode)
         {
             return await patientService.GetPatientLapbaseById(id, organizationCode);
         }
@@ -88,6 +88,31 @@ namespace Lapbase.Controllers
             }
 
             return Ok(ExerciseList);
+        }
+
+        [HttpGet("Height")]
+        public async Task<ActionResult<Decimal>> GetPatientHeight()
+        {
+            var Height = await patientService.GetPatientHeight(2756, 2);
+
+            if(Height == null)
+            {
+                return 0;
+            }
+
+            return Ok(Height);
+        }
+
+        [HttpGet("Imperial")]
+        public async Task<ActionResult<Boolean?>> GetPatientImperial()
+        {
+            var ImperialFlag = await patientService.GetPatientImperial(2756, 2);
+
+            if (ImperialFlag == null) return false;
+
+            return Ok(ImperialFlag);
+
+
         }
 
         // POST api/Patient

@@ -7,11 +7,13 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent {
   title = 'LapBase';
 
   patientFirstName: String;
   patientLastName: String;
+  patientImperialFlag: Boolean;
 
   constructor(private patientService: PatientService) {
     const organizationCode = 2;

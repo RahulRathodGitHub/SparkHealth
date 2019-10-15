@@ -1,9 +1,10 @@
+import { PatientService } from './../../services/patient.service';
 import { IHealthStats } from './../../models/healthStats';
 import { IReport } from 'src/app/models/report';
 import { ReportService } from './../../services/report.service';
 import { DashboardService} from './../../services/dashboard.service';
 import { Component, OnInit } from '@angular/core';
-import { IAppointment} from 'src/app/models';
+import { IAppointment, IFood} from 'src/app/models';
 import { asRoughMinutes } from '@fullcalendar/core';
 import { DatePipe } from "@angular/common";
 
@@ -22,7 +23,9 @@ export class DashboardComponent {
   chartLabels = [];
   patientHealthStats: IHealthStats;
 
-  constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private reportService: ReportService) 
+  availableFoods: IFood[];
+
+  constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private reportService: ReportService, private patientService: PatientService) 
   {
     const organizationCode = 2;
     const patientId = 2756; //Ricky Perez
@@ -38,7 +41,15 @@ export class DashboardComponent {
       this.patientHealthStats = result;
     })
 
+    this.patientService.getFoodList().then(foodChoiceList => {
+      this.availableFoods = foodChoiceList;
+    });
+
   }
+
+  getFoodInfo = (foodId: string): IFood =>
+    this.availableFoods.find(food => food.id === foodId);
+
   changeDateFormat(date: Date) {
     return this.datepipe.transform(date, "yyyy-MM-dd");
   }
@@ -72,7 +83,9 @@ export class DashboardComponent {
             break;
         }
 
-        this.chartData = [{ data: this.report.data1, label: chartType }];
+        // data2 is the data for weight. This is hardcoded for dashboard as the dashboard is only supposed to show the weight graph.
+        this.chartData = [{ data: this.report.data2, label: this.report.dataLabel2 }];
+        
         this.chartLabels = this.report.timeLabels;
       });
   }
