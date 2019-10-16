@@ -252,19 +252,23 @@
 
 {{ calculateCaloriesIntake() }}
 {{ calculateCaloriesBurned() }}
+<div class="field is-horizontal">
 <div class="manual-inputs">
-  <div class="fields">
+<div class="field-body">
+  <div class="field">
     <label class="label">Calories Intake: </label>
     <input type="text" class="input" [(ngModel)]="totalCalories" />
   </div>
-  <div class="fields">
+  <div class="field">
     <label class="label">Calories Burned: </label>
     <input type="text" class="input" [(ngModel)]="totalCaloriesBurned" />
   </div>
-  <div class="fields">
+  <div class="field">
     <label class="label">Weight</label>
     <input type="text" class="input" placeholder="kg" />
   </div>
+</div>
+</div>
 </div>
 
 <a (click)="save()" class="button is-success is-pulled-right">Save</a>
