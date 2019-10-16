@@ -53,18 +53,30 @@ namespace Lapbase.Services
             return await lapbaseNewContext.Patient.SingleOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<string[]> GetPatientLapbaseById(int id, int organizationCode)
+        public async Task<PatientDto> GetPatientLapbaseById(int id, int organizationCode)
         {
-            string[] patientFullName = new string[2];
+            PatientDto patientDto = new PatientDto();
 
             await lapbaseContext.TblPatients.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).ForEachAsync(p =>
             {
-                patientFullName[0] = p.Firstname;
-                patientFullName[1] = p.Surname;
+                patientDto.Firstname = p.Firstname;
+                patientDto.Surname = p.Surname;
+                patientDto.Title = p.Title;
+                patientDto.WorkPhone = p.WorkPhone;
+                patientDto.Suburb = p.Suburb;
+                patientDto.Street = p.Street;
+                patientDto.State = p.State;
+                patientDto.Sex = p.Sex;
+                patientDto.Race = p.Race;
+                patientDto.Postcode = p.Postcode;
+                patientDto.MobilePhone = p.MobilePhone;
+                patientDto.HomePhone = p.HomePhone;
+                patientDto.EmailAddress = p.EmailAddress;
+                patientDto.Birthdate = p.Birthdate;
                 
             });  
 
-            return patientFullName;
+            return patientDto;
 
         }
 

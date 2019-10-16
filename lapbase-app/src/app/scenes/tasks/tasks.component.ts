@@ -73,6 +73,10 @@ export class TasksComponent implements OnInit {
   }
 
   changeDate(forward: boolean) {
+
+    //TODO: Uncomment the line below and experiment to make the save more robust
+    //this.save();
+
     if (forward) {
       this.date = new Date(this.date.setDate(this.date.getDate() + 1));
     } else {

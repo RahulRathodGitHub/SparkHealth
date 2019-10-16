@@ -2,7 +2,7 @@ import { IFoodIntakeList } from "./../models/foodIntakeList";
 import { environment } from "./../../environments/environment";
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
-import { IPatient, IFood, IExercise, IFoodQuantity } from "../models";
+import { IPatient, IFood, IExercise, IFoodQuantity, Patient } from "../models";
 import { async } from "@angular/core/testing";
 
 @Injectable({
@@ -39,7 +39,7 @@ export class PatientService {
   getPatientLapbaseById = async (
     patientId: number,
     organizationCode: number
-  ): Promise<String[]> => {
+  ): Promise<Patient> => {
     return await this.httpClient
       .get(
         environment.LAPBASE_API_ADDRESS +

@@ -20,8 +20,8 @@ export class AppComponent {
     const patientId = 2756;
 
     this.patientService.getPatientLapbaseById(patientId, organizationCode).then(result =>{
-        this.patientFirstName = result[0];
-        this.patientLastName = result[1];
+        this.patientFirstName = result.Firstname;
+        this.patientLastName = result.Surname;
     });
 
   }

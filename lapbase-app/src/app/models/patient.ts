@@ -9,3 +9,7 @@ export interface IPatient {
     deleted: boolean;
     advisorId: number;
 }
+
+export class Patient {
+    
+}
