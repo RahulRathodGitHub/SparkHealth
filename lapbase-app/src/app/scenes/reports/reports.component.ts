@@ -47,7 +47,7 @@ export class ReportsComponent implements OnInit {
 
   setChartType(selectedChartType) {
     this.typeOfReport = +reporttype[selectedChartType];
-
+    this.chartType = selectedChartType;
     this.getReport();
   }
 
@@ -67,7 +67,6 @@ export class ReportsComponent implements OnInit {
 
       this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
       this.endDate = this.changeDateFormat(lastAvailableDate);
-    
     }
 
     this.loading = true;

@@ -20,16 +20,31 @@
     </form>
   </div>
 </div>
-<div class="tabs is-centered is-hidden-mobile">
+<div class="tabs is-centered  is-boxed is-hidden-mobile">
   <ul class="options">
     <!-- <li (click)="setChartType('adverseEventSummary')">
       <a>Adverse Event Summary</a>
     </li> -->
-    <li (click)="setChartType('EWL_WL')"><a>Weight & EWL</a></li>
+    <li
+      [ngClass]="{ 'is-active': chartType === 'EWL_WL' }"
+      (click)="setChartType('EWL_WL')"
+    >
+      <a>Weight & EWL</a>
+    </li>
 
-    <li (click)="setChartType('BMI')"><a>BMI</a></li>
+    <li
+      [ngClass]="{ 'is-active': chartType === 'BMI' }"
+      (click)="setChartType('BMI')"
+    >
+      <a>BMI</a>
+    </li>
 
-    <li (click)="setChartType('Calorie')"><a>Calorie</a></li>
+    <li
+      [ngClass]="{ 'is-active': chartType === 'Calorie' }"
+      (click)="setChartType('Calorie')"
+    >
+      <a>Calorie</a>
+    </li>
     <!-- <li (click)="setChartType('operationDetails')"><a>Operation Details</a></li>
     <li (click)="setChartType('Progress')"><a>Progress</a></li> -->
   </ul>

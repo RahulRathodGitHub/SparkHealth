@@ -16,19 +16,17 @@
   </div>
 </div>
 
-<nav
-  class="breadcrumb is-medium has-bullet-separator is-centered"
-  aria-label="breadcrumbs"
->
+<div class="tabs is-toggle is-centered">
   <ul>
-    <li [class.is-active]="foodActive">
+    <li [ngClass]="{ 'is-active': foodActive }">
       <a (click)="changeFoodExercises()">Food</a>
     </li>
-    <li [class.is-active]="!foodActive">
+    <li [ngClass]="{ 'is-active': !foodActive }">
       <a (click)="changeFoodExercises()">Exercises</a>
     </li>
   </ul>
-</nav>
+</div>
+
 <div [class.is-hidden]="foodFlag">
   <!-- Food entry below this point -->
 

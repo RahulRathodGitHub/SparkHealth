@@ -1,0 +1,33 @@
+.profile-pic {
+  height: 11rem;
+  width: 11rem;
+  border-radius: 50%;
+  border: solid 1px black;
+  margin-left: 10px;
+}
+
+.profile {
+  margin-top: 30px;
+}
+
+.profile-detail {
+  font-size: 1.2rem;
+  line-height: 2.5;
+}
+
+.title.is-5 {
+  margin-bottom: 4px;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.title {
+  font-size: 2.5rem;
+}
+
+.label {
+  display: inline;
+  color: #808080;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
