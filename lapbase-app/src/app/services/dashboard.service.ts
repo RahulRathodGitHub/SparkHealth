@@ -19,4 +19,12 @@ export class DashboardService {
   getPatientHealthDetails = async (patientId, organizationCode): Promise<IHealthStats> => {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Report/healthStats/'+ patientId +"/"+ organizationCode).toPromise<any>();
   }
+
+  getPatientHeight = async (): Promise<number> =>{
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS+'Patient/Height/').toPromise<any>();
+  }
+
+  getFoodOfTheMonth = async (): Promise<string> =>{
+    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS+'TaskInput/foodOfTheMonth/').toPromise<any>();
+  } 
 }

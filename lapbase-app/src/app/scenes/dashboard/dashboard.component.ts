@@ -1,4 +1,5 @@
 import { PatientService } from './../../services/patient.service';
+import { TaskService } from './../../services/task.service';
 import { IHealthStats } from './../../models/healthStats';
 import { IReport } from 'src/app/models/report';
 import { ReportService } from './../../services/report.service';
@@ -22,14 +23,18 @@ export class DashboardComponent {
   chartData = [];
   chartLabels = [];
   patientHealthStats: IHealthStats;
-
+  patientHeight: number;
+  patientBMI:number;
+  foodOfTheMonthId:string;
+  foodOfTheMonth:IFood;
+  calorieBurn:number;
+  calorieIntake:number;
   availableFoods: IFood[];
 
-  constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private reportService: ReportService, private patientService: PatientService) 
+  constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private taskService: TaskService,private reportService: ReportService, private patientService: PatientService) 
   {
     const organizationCode = 2;
     const patientId = 2756; //Ricky Perez
-
     this.dashboardService.getNextAppointment(patientId, organizationCode).then(result => {
       this.nextAppointment = result;
       
@@ -41,16 +46,27 @@ export class DashboardComponent {
 
     this.dashboardService.getPatientHealthDetails(patientId, organizationCode).then(result => {
       this.patientHealthStats = result;
+      this.patientBMI = this.patientHealthStats.weight/(this.patientHeight)^2;
     })
 
     this.patientService.getFoodList().then(foodChoiceList => {
       this.availableFoods = foodChoiceList;
     });
+    this.dashboardService.getPatientHeight().then(patientHeight =>{
+      this.patientHeight = patientHeight;
+    })
+    this.dashboardService.getFoodOfTheMonth().then(foodOfTheMonthId =>{
+      this.foodOfTheMonth = this.availableFoods.find(food => food.id === foodOfTheMonthId);
+      console.log("Hello i am bridge "+this.foodOfTheMonth);
+
+    })
+    this.taskService.getTaskByDate(new Date().toISOString()).then(input =>{
+      this.calorieBurn = input.caloriesLost;
+      this.calorieIntake = input.caloriesGained
+    })
 
   }
 
-  getFoodInfo = (foodId: string): IFood =>
-    this.availableFoods.find(food => food.id === foodId);
 
   changeDateFormat(date: Date) {
     return this.datepipe.transform(date, "yyyy-MM-dd");

@@ -8,12 +8,12 @@
     <div class="tile is-parent">
         <article class="tile is-child box">
             <p class="subtitle">Current Weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.currentWeight}}</p>
-            <p class="subtitle">Current Height</p>
+            <p class="subtitle">Current Height: {{patientHeight}}</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-                <p class="subtitle">BMI</p>
+                <p class="subtitle">BMI: {{patientBMI}}</p>
                 <p class="subtitle">Ideal weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.idealWeight}}</p>
         </article>
     </div>
@@ -23,14 +23,13 @@
     <div class="tile is-parent">
         <article class="tile is-child box">
                 <p class="title">Today's calories</p>
-                <p class="subtitle">Intake:</p>
-                <p class="subtitle">Burn:</p>
+                <p class="subtitle">Intake: {{calorieIntake}}</p>
+                <p class="subtitle">Burn: {{calorieBurn}}</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="title">Food of the month</p>
-            <p class="subtitle">Subtitle</p>
+            <p class="title">Food of the month:{{foodOfTheMonth.name}}</p>
         </article>
     </div>
 </div>

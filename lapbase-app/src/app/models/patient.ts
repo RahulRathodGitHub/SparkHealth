@@ -11,5 +11,6 @@ export interface IPatient {
 }
 
 export class Patient {
-    
+    Firstname: string;
+    Surname: string;
 }
