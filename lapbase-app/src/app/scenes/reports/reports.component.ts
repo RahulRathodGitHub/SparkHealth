@@ -122,7 +122,7 @@ export class ReportsComponent implements OnInit {
   }
   public lineChartColors: Array<any> = [
     {
-      backgroundColor: "#ff9999",
+      backgroundColor: "#ff999990",
       borderColor: "#cc003355",
       pointBackgroundColor: "#ff9999",
       pointBorderColor: "#cc0033",
