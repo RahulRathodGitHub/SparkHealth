@@ -18,14 +18,12 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // this.patientService.getPatientLapbaseById(2756, 2).then(pData => {
-    //   this.patientData = pData;
-    //   console.log(pData);
-    // });
-
-    this.patientData = this.patientService.getPatientLapbaseByIdTest();
-    console.log(this.patientData);
-    this.calculateAge(this.patientData.birthDate);
+    this.patientService.getPatientLapbaseById(2756, 2).then(pData => {
+      this.patientData = pData;
+      console.log(pData);
+      console.log(this.patientData);
+      this.calculateAge(this.patientData.birthDate);
+    });
   }
 
   changeDateFormat(date: Date) {
