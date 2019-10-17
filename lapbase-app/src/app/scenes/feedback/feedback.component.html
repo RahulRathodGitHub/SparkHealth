@@ -1,3 +1,18 @@
-<p>
-  feedback works!
-</p>
+<div class="columns is-mobile is-centered">
+  <div class="column is-half">
+    <div class="feedback-page">
+      <h5>Your Feedback</h5>
+      <p>How do you rate our page?</p>
+      <label class="label">Please leave your feedback below</label>
+      <textarea class="textarea"></textarea>
+    </div>
+
+    <div class="submit-button">
+      <button class="button" (click)="changeShow()">Send</button>
+    </div>
+
+    <div *ngIf="show">
+      <h1>Succesfull</h1>
+    </div>
+  </div>
+</div>
