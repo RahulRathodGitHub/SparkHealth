@@ -8,7 +8,6 @@ import { async } from "@angular/core/testing";
 @Injectable({
   providedIn: "root"
 })
-
 export class PatientService {
   constructor(private httpClient: HttpClient) {}
 
@@ -24,11 +23,11 @@ export class PatientService {
       .toPromise<any>();
   };
 
-  getPatientImperialFlag = async(): Promise<Boolean> => {
+  getPatientImperialFlag = async (): Promise<Boolean> => {
     return await this.httpClient
-                 .get(environment.LAPBASE_API_ADDRESS + "Patient/Imperial")
-                 .toPromise<any>();
-  }
+      .get(environment.LAPBASE_API_ADDRESS + "Patient/Imperial")
+      .toPromise<any>();
+  };
 
   getPatientsLapbase = async (): Promise<string[]> => {
     return await this.httpClient
@@ -51,6 +50,24 @@ export class PatientService {
       .toPromise<any>();
   };
 
+  getPatientLapbaseByIdTest() {
+    return {
+      surname: "Perez",
+      firstName: "Ricky",
+      title: 1,
+      street: "King St",
+      suburb: "Bundoora",
+      state: "Vic",
+      postcode: 3754,
+      homePhone: 12345678,
+      workPhone: 8888888,
+      mobilePhone: 87123456,
+      emailAddress: "123@test.com",
+      birthDate: new Date(),
+      sex: "Male",
+      race: "Human"
+    };
+  }
   getFoodList = async (): Promise<IFood[]> => {
     return await this.httpClient
       .get(environment.LAPBASE_API_ADDRESS + "Patient/Food/")
@@ -62,6 +79,4 @@ export class PatientService {
       .get(environment.LAPBASE_API_ADDRESS + "Patient/Exercise/")
       .toPromise<any>();
   };
-
- 
 }
