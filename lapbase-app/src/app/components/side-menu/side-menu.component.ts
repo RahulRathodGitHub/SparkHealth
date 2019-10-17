@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { inspectNativeElement } from '@angular/platform-browser/src/dom/debug/ng_probe';
 
 @Component({
   selector: 'app-side-menu',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent implements OnInit {
+
+  isActive = true;
+
   generalRoutes = [
     { linkName: 'Dashboard', url: '/dashboard', icon: 'fas fa-columns fa-lg'},
     { linkName: 'Tasks', url: '/tasks', icon: 'fas fa-tasks fa-lg'},
@@ -24,6 +28,10 @@ export class SideMenuComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  toggleNavbar(){
+    this.isActive = !this.isActive;
   }
 
 }
