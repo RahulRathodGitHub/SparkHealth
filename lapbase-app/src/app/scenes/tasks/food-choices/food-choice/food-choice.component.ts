@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IFood } from 'src/app/models';
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { IFood } from "src/app/models";
 
 @Component({
-  selector: 'app-food-choice',
-  templateUrl: './food-choice.component.html',
-  styleUrls: ['./food-choice.component.scss']
+  selector: "app-food-choice",
+  templateUrl: "./food-choice.component.html",
+  styleUrls: ["./food-choice.component.scss"]
 })
 export class FoodChoiceComponent implements OnInit {
   @Output() decreasedCount = new EventEmitter();

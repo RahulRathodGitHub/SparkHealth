@@ -3,9 +3,20 @@
     <div class="media-content">
       <div class="content">
         <div class="columns  is-mobile">
-          <div class="column is-4" *ngFor="let foodChoice of availableFoodChoices">
-            <app-food-choice [foodChoice]="foodChoice" [count]="getCount(foodChoice.id)"
-              (increasedCount)="increaseQuantity(foodChoice.id)" (decreasedCount)="decreaseQuantity(foodChoice.id)">
+          <div
+            class="column is-4"
+            *ngFor="let foodChoice of availableFoodChoices"
+          >
+            <app-food-choice
+              [foodChoice]="foodChoice"
+              [count]="getCount(foodChoice.id)"
+              (increasedCount)="
+                increaseQuantity(foodChoice.id, foodChoice.calorieCount)
+              "
+              (decreasedCount)="
+                decreaseQuantity(foodChoice.id, foodChoice.calorieCount)
+              "
+            >
             </app-food-choice>
           </div>
         </div>

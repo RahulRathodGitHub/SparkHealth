@@ -1,22 +1,23 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IFood, Food } from 'src/app/models';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { IFood, Food } from "src/app/models";
 
 @Component({
-  selector: 'app-food-choices',
-  templateUrl: './food-choices.component.html',
-  styleUrls: ['./food-choices.component.scss']
+  selector: "app-food-choices",
+  templateUrl: "./food-choices.component.html",
+  styleUrls: ["./food-choices.component.scss"]
 })
 export class FoodChoicesComponent implements OnInit {
   @Input() availableFoodChoices: IFood[];
   @Input() selectedFoods: Food[];
+  @Input() totalCalories: number;
+  @Output() increaseCalorie = new EventEmitter();
+  @Output() decreaseCalorie = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
-  increaseQuantity(foodId: string) {
+  increaseQuantity(foodId: string, calorieCount: number) {
     if (this.selectedFoods === null) {
       this.selectedFoods.push({
         id: foodId,
@@ -33,9 +34,12 @@ export class FoodChoicesComponent implements OnInit {
         });
       }
     }
+    this.totalCalories += calorieCount;
+
+    this.increaseCalorie.emit(this.totalCalories);
   }
 
-  decreaseQuantity(foodId: string) {
+  decreaseQuantity(foodId: string, calorieCount: number) {
     const index = this.findFoodById(foodId);
 
     if (this.selectedFoods[index].quantity < 2) {
@@ -43,6 +47,9 @@ export class FoodChoicesComponent implements OnInit {
     } else {
       this.selectedFoods[index].quantity--;
     }
+    this.totalCalories -= calorieCount;
+
+    this.decreaseCalorie.emit(this.totalCalories);
   }
 
   getCount(foodChoiceId) {
