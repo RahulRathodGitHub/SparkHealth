@@ -5,7 +5,7 @@
         <div class="columns  is-mobile">
           <div class="column is-4" *ngFor="let exerciseChoice of availableExerciseChoices">
             <app-exercise-choice [exerciseChoice]="exerciseChoice" [count]="getCount(exerciseChoice.id)"
-              (increasedCount)="increaseQuantity(exerciseChoice.id)" (decreasedCount)="decreaseQuantity(exerciseChoice.id)">
+              (increasedCount)="increaseQuantity(exerciseChoice.id, exerciseChoice.calorieCount)" (decreasedCount)="decreaseQuantity(exerciseChoice.id, exerciseChoice.calorieCount)">
             </app-exercise-choice>
           </div>
         </div>

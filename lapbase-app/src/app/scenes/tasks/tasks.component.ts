@@ -73,7 +73,6 @@ export class TasksComponent implements OnInit {
   }
 
   changeDate(forward: boolean) {
-
     //TODO: Uncomment the line below and experiment to make the save more robust
     //this.save();
 
@@ -90,27 +89,35 @@ export class TasksComponent implements OnInit {
 
   //#region Exercise Input
   changeReps = (exerciseId: string, increase: boolean) => {
+    let exercise = this.taskInput.exercises.find(
+      exercise => exercise.id === exerciseId
+    );
+    let calorieCount = this.getExerciseInfo(exercise.id).calorieCount;
     if (increase) {
-      this.taskInput.exercises.find(exercise => exercise.id === exerciseId)
-        .quantity++;
+      exercise.quantity++;
+      this.totalCaloriesBurned += calorieCount;
     } else {
-      const quantity = this.taskInput.exercises.find(
-        exercise => exercise.id === exerciseId
-      ).quantity;
+      const quantity = exercise.quantity;
       if (quantity < 2) {
         this.removeExercise(exerciseId);
       } else {
-        this.taskInput.exercises.find(exercise => exercise.id === exerciseId)
-          .quantity--;
+        this.totalCaloriesBurned -= calorieCount;
+        exercise.quantity--;
       }
     }
   };
 
   removeExercise(exerciseId: string) {
-    const index = this.taskInput.exercises.findIndex(
-      exercise => exercise.id === exerciseId
-    );
+    let exercises = this.taskInput.exercises;
+
+    const index = exercises.findIndex(exercise => exercise.id === exerciseId);
+
+    const quantity = exercises[index].quantity;
+    const calorieCount = this.getExerciseInfo(exercises[index].id).calorieCount;
+    this.totalCaloriesBurned -= quantity * calorieCount;
     this.taskInput.exercises.splice(index, 1);
+
+    // this.calculateCaloriesBurned();
   }
 
   calculateCaloriesBurned() {
@@ -133,30 +140,42 @@ export class TasksComponent implements OnInit {
   //#endregion
 
   //#region FoodInput
+
   changeQuantity = (mealTime: MealTime, foodId: string, increase: boolean) => {
+    var food;
+    var calorieCount = this.getFoodInfo(foodId).calorieCount;
     if (increase) {
-      this.getMeal(mealTime).find(food => food.id === foodId).quantity++;
+      food = this.getMeal(mealTime).find(food => food.id === foodId);
+      this.totalCalories += calorieCount;
+      food.quantity++;
     } else {
-      const quantity = this.taskInput.meals
+      food = this.taskInput.meals
         .find(meal => meal.mealTime === mealTime)
-        .foods.find(food => food.id === foodId).quantity;
+        .foods.find(food => food.id === foodId);
+
+      const quantity = food.quantity;
       if (quantity < 2) {
         this.removeFood(mealTime, foodId);
       } else {
-        this.taskInput.meals
-          .find(meal => meal.mealTime === mealTime)
-          .foods.find(food => food.id === foodId).quantity--;
+        this.totalCalories -= calorieCount;
+        food.quantity--;
       }
     }
   };
 
   removeFood(mealTime: MealTime, foodId: string) {
-    const index = this.taskInput.meals
-      .find(meal => meal.mealTime === mealTime)
-      .foods.findIndex(food => food.id === foodId);
-    this.taskInput.meals
-      .find(meal => meal.mealTime === mealTime)
-      .foods.splice(index, 1);
+    let foods = this.taskInput.meals.find(meal => meal.mealTime === mealTime)
+      .foods;
+
+    const index = foods.findIndex(food => food.id === foodId);
+
+    let quantity = foods[index].quantity;
+    let calorieCount = this.getFoodInfo(foods[index].id).calorieCount;
+
+    this.totalCalories -= quantity * calorieCount;
+    this.taskInput.caloriesGained = this.totalCalories;
+
+    foods.splice(index, 1);
   }
 
   calculateCaloriesIntake() {
@@ -168,10 +187,18 @@ export class TasksComponent implements OnInit {
             food.quantity * this.getFoodInfo(food.id).calorieCount;
       }
     }
+
     this.totalCalories = totalCalories;
-    this.taskInput.caloriesGained = totalCalories;
+    this.taskInput.caloriesGained = this.totalCalories;
   }
 
+  updateCalories(newTotalCalories: number) {
+    this.totalCalories = newTotalCalories;
+  }
+
+  updateCaloriesBurned(newTotalCaloriesBurned: number) {
+    this.totalCaloriesBurned = newTotalCaloriesBurned;
+  }
   toggleModal(mealTime: MealTime) {
     this.selectedMealTime = mealTime;
     this.isModalActive = !this.isModalActive;
@@ -204,19 +231,19 @@ export class TasksComponent implements OnInit {
   //#endregion
 
   save = () => {
-    this.taskService.sendFoodIntake(this.taskInput).then(value => {
-      this.taskInput = value;
-      console.log(this.taskInput);
-    });
+    // this.taskService.sendFoodIntake(this.taskInput).then(value => {
+    //   this.taskInput = value;
+    //   console.log(this.taskInput);
+    // });
+
+    this.totalCalories = 8;
+    console.log(this.totalCalories);
   };
 
   canDeactivate() {
-
     this.save();
     return true;
 
-
-   // return confirm("Your changes will be lost. Are you sure you want to leave without saving?");
+    // return confirm("Your changes will be lost. Are you sure you want to leave without saving?");
   }
-
 }

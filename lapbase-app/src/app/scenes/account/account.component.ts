@@ -22,7 +22,7 @@ export class AccountComponent implements OnInit {
       this.patientData = pData;
       console.log(pData);
       console.log(this.patientData);
-      this.calculateAge(this.patientData.birthDate);
+      this.calculateAge(this.patientData.birthdate);
     });
   }
 

@@ -5,12 +5,12 @@
   <div class="profile-detail tile is-parent is-vertical">
     <div class="tile is-child">
       <div class="title is-2">
-        {{ patientData.firstName }} {{ patientData.surname }}
+        {{ patientData.firstname }} {{ patientData.surname }}
       </div>
     </div>
     <div class="tile is-child">
       <label class="label"> birthday:</label>
-      {{ changeDateFormat(patientData.birthDate) }}
+      {{ changeDateFormat(patientData.birthdate) }}
     </div>
     <div class="tile is-child">
       <label class="label"> age: </label>
@@ -30,14 +30,15 @@
       <div class=" tile">
         <h5 class="title is-5">Contact</h5>
       </div>
-      <div class="tile is-parent is-horizontal">
-        <div class="tile is-child">
+      <div class="tile  is-horizontal">
+        <div class="tile ">
           <label class="label">mobile:</label>{{ patientData.mobilePhone }}
         </div>
-        <div class="tile is-child">
-          <label class="label">home:</label>{{ patientData.homePhone }}
+        <div class="tile ">
+          <label class="label">home: {{ " " }}</label
+          >{{ patientData.homePhone }}
         </div>
-        <div class="tile is-child">
+        <div class="tile ">
           <label class="label">email:</label>{{ patientData.emailAddress }}
         </div>
       </div>
@@ -47,14 +48,14 @@
       <div class=" tile">
         <h5 class="title is-5">Address</h5>
       </div>
-      <div class="tile is-parent is-horizontal">
-        <div class="tile is-child">
+      <div class="tile is-horizontal">
+        <div class="tile ">
           <label class="label">street:</label>{{ patientData.street }}
         </div>
-        <div class="tile is-child">
+        <div class="tile ">
           <label class="label">suburb:</label>{{ patientData.suburb }}
         </div>
-        <div class="tile is-child">
+        <div class="tile">
           <label class="label">postcode:</label>{{ patientData.postcode }}
         </div>
       </div>

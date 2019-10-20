@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IExercise } from 'src/app/models';
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
+import { IExercise } from "src/app/models";
 
 @Component({
-  selector: 'app-exercise-choice',
-  templateUrl: './exercise-choice.component.html',
-  styleUrls: ['./exercise-choice.component.scss']
+  selector: "app-exercise-choice",
+  templateUrl: "./exercise-choice.component.html",
+  styleUrls: ["./exercise-choice.component.scss"]
 })
 export class ExerciseChoiceComponent implements OnInit {
   @Output() decreasedCount = new EventEmitter();
@@ -16,6 +16,8 @@ export class ExerciseChoiceComponent implements OnInit {
   ngOnInit() {}
 
   increaseCount() {
+    console.log(this.exerciseChoice);
+
     this.increasedCount.emit();
   }
 
@@ -23,4 +25,3 @@ export class ExerciseChoiceComponent implements OnInit {
     this.decreasedCount.emit();
   }
 }
-

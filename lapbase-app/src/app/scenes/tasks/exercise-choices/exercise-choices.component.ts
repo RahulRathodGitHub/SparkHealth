@@ -1,22 +1,24 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IExercise, Exercise } from 'src/app/models';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { IExercise, Exercise } from "src/app/models";
 
 @Component({
-  selector: 'app-exercise-choices',
-  templateUrl: './exercise-choices.component.html',
-  styleUrls: ['./exercise-choices.component.scss']
+  selector: "app-exercise-choices",
+  templateUrl: "./exercise-choices.component.html",
+  styleUrls: ["./exercise-choices.component.scss"]
 })
 export class ExerciseChoicesComponent implements OnInit {
   @Input() availableExerciseChoices: IExercise[];
   @Input() selectedExercises: Exercise[];
+  @Input() totalCaloriesBurned: number;
 
-  constructor() {
-  }
+  @Output() increaseCalorieBurned = new EventEmitter();
+  @Output() decreaseCalorieBurned = new EventEmitter();
 
-  ngOnInit() {
-  }
+  constructor() {}
 
-  increaseQuantity(exerciseId: string) {
+  ngOnInit() {}
+
+  increaseQuantity(exerciseId: string, calorieCount: number) {
     if (this.selectedExercises === null) {
       this.selectedExercises.push({
         id: exerciseId,
@@ -33,9 +35,12 @@ export class ExerciseChoicesComponent implements OnInit {
         });
       }
     }
+    this.totalCaloriesBurned += calorieCount;
+
+    this.increaseCalorieBurned.emit(this.totalCaloriesBurned);
   }
 
-  decreaseQuantity(exerciseId: string) {
+  decreaseQuantity(exerciseId: string, calorieCount: number) {
     const index = this.findExerciseById(exerciseId);
 
     if (this.selectedExercises[index].quantity < 2) {
@@ -43,6 +48,10 @@ export class ExerciseChoicesComponent implements OnInit {
     } else {
       this.selectedExercises[index].quantity--;
     }
+
+    this.totalCaloriesBurned -= calorieCount;
+
+    this.decreaseCalorieBurned.emit(this.totalCaloriesBurned);
   }
 
   getCount(exerciseChoiceId) {

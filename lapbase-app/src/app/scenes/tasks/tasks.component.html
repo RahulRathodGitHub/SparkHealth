@@ -248,25 +248,23 @@
   </table>
 </div>
 
-{{ calculateCaloriesIntake() }}
-{{ calculateCaloriesBurned() }}
 <div class="field is-horizontal">
-<div class="manual-inputs">
-<div class="field-body">
-  <div class="field">
-    <label class="label">Calories Intake: </label>
-    <input type="text" class="input" [(ngModel)]="totalCalories" />
+  <div class="manual-inputs">
+    <div class="field-body">
+      <div class="field">
+        <label class="label">Calories Intake: </label>
+        <input type="number" class="input" [(ngModel)]="totalCalories" />
+      </div>
+      <div class="field">
+        <label class="label">Calories Burned: </label>
+        <input type="number" class="input" [(ngModel)]="totalCaloriesBurned" />
+      </div>
+      <div class="field">
+        <label class="label">Weight</label>
+        <input type="number" class="input" placeholder="kg" />
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <label class="label">Calories Burned: </label>
-    <input type="text" class="input" [(ngModel)]="totalCaloriesBurned" />
-  </div>
-  <div class="field">
-    <label class="label">Weight</label>
-    <input type="text" class="input" placeholder="kg" />
-  </div>
-</div>
-</div>
 </div>
 
 <a (click)="save()" class="button is-success is-pulled-right">Save</a>
@@ -281,7 +279,9 @@
     <app-food-choices
       [selectedFoods]="getMeal(selectedMealTime)"
       [availableFoodChoices]="availableFoodChoices"
-      (submitFoodSelection)="getFoodSelection($event)"
+      [totalCalories]="totalCalories"
+      (increaseCalorie)="updateCalories($event)"
+      (decreaseCalorie)="updateCalories($event)"
     ></app-food-choices>
   </div>
   <button
@@ -297,6 +297,9 @@
     <app-exercise-choices
       [selectedExercises]="getExercises()"
       [availableExerciseChoices]="availableExerciseChoices"
+      [totalCaloriesBurned]="totalCaloriesBurned"
+      (increaseCalorieBurned)="updateCaloriesBurned($event)"
+      (decreaseCalorieBurned)="updateCaloriesBurned($event)"
     ></app-exercise-choices>
   </div>
   <button
