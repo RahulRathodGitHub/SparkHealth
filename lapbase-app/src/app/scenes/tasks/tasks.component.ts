@@ -56,6 +56,8 @@ export class TasksComponent implements OnInit {
       this.taskInput = taskInput;
       this.totalCalories = taskInput.caloriesGained;
       this.totalCaloriesBurned = taskInput.caloriesLost;
+      console.log(this.taskInput);
+      
     });
     this.foodActive = true;
     this.foodFlag = false;
@@ -84,6 +86,10 @@ export class TasksComponent implements OnInit {
 
     this.taskService.getTaskByDate(this.date.toISOString()).then(taskInput => {
       this.taskInput = taskInput;
+      this.totalCalories = taskInput.caloriesGained;
+      this.totalCaloriesBurned = taskInput.caloriesLost;
+      console.log(this.taskInput);
+      
     });
   }
 
@@ -194,10 +200,13 @@ export class TasksComponent implements OnInit {
 
   updateCalories(newTotalCalories: number) {
     this.totalCalories = newTotalCalories;
+    this.taskInput.caloriesGained = this.totalCalories;
+
   }
 
   updateCaloriesBurned(newTotalCaloriesBurned: number) {
     this.totalCaloriesBurned = newTotalCaloriesBurned;
+    this.taskInput.caloriesLost = newTotalCaloriesBurned;
   }
   toggleModal(mealTime: MealTime) {
     this.selectedMealTime = mealTime;
@@ -231,12 +240,18 @@ export class TasksComponent implements OnInit {
   //#endregion
 
   save = () => {
-    // this.taskService.sendFoodIntake(this.taskInput).then(value => {
-    //   this.taskInput = value;
-    //   console.log(this.taskInput);
-    // });
+    this.taskInput.caloriesLost = this.totalCaloriesBurned;
+    this.taskInput.caloriesGained = this.totalCalories;
+    console.log(this.taskInput);
+    
+    this.taskService.sendFoodIntake(this.taskInput).then(value => {
+      this.taskInput = value;
+      console.log(this.taskInput);
+    });
 
-    this.totalCalories = 8;
+   
+
+    
     console.log(this.totalCalories);
   };
 

@@ -1,0 +1,35 @@
+import { PatientService } from "src/app/services";
+import { Component } from "@angular/core";
+
+@Component({
+  selector: "app-root",
+  templateUrl: "./app.component.html",
+  styleUrls: ["./app.component.scss"]
+})
+export class AppComponent {
+  title = "LapBase";
+
+  patientFirstName: String;
+  patientLastName: String;
+  patientImperialFlag: Boolean;
+
+  constructor(private patientService: PatientService) {
+    const organizationCode = 2;
+    const patientId = 2756;
+
+<<<<<<< HEAD
+    this.patientService.getPatientLapbaseById(patientId, organizationCode).then(result =>{
+        this.patientFirstName = "Ricky";//result.firstname;
+        this.patientLastName = "Perez";//result.Surname;
+    });
+
+=======
+    this.patientService
+      .getPatientLapbaseById(patientId, organizationCode)
+      .then(result => {
+        // this.patientFirstName = result.Firstname;
+        // this.patientLastName = result.Surname;
+      });
+>>>>>>> origin/Make_Patient_Details_Available
+  }
+}
