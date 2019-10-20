@@ -21,6 +21,29 @@ namespace Lapbase.Models
         public DateTime? Birthdate { get; set; }
         public string Sex { get; set; }
         public string Race { get; set; }
+        public string Insurance { get; set; }
+        public DateTime? DateFirstVisit { get; set; }
+        public DateTime? DateLastVisit { get; set; }
+        public string MaritalStatus { get; set; }
+        public string MedicalSummary { get; set; }
+        public string DoctorName { get; set; }
+        public string DoctorTelephone { get; set; }
+        public string DoctorFax { get; set; }
+        public DateTime? LapBandDate { get; set; }
+        public string Notes { get; set; }
+        public decimal? Height { get; set; }
+        public decimal? StartWeight { get; set; }
+        public DateTime? StartWeightDate { get; set; }
+        public decimal? IdealWeight { get; set; }
+        public decimal? CurrentWeight { get; set; }
+        public decimal? OpWeight { get; set; }
+        public decimal? TargetWeight { get; set; }
+        public string SurgeryType { get; set; }
+        public string Approach { get; set; }
+        public decimal? StartBmiweight { get; set; }
+        public int? VisitWeeksFlag { get; set; }
+        public string LapbandType { get; set; }
+        public string LapbandSize { get; set; }
 
     }
 }

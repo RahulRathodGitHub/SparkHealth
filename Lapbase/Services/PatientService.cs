@@ -55,28 +55,51 @@ namespace Lapbase.Services
 
         public async Task<PatientDto> GetPatientLapbaseById(int id, int organizationCode)
         {
-            PatientDto patientDto = new PatientDto();
+            return await (from p in lapbaseContext.TblPatients
+                            join d in lapbaseContext.TblDoctors on p.DoctorId equals d.DoctorId
+                            join pw in lapbaseContext.TblPatientWeightData on new { p.PatientId, p.OrganizationCode} equals new { pw.PatientId, pw.OrganizationCode }
+                            where  p.PatientId == id && p.OrganizationCode == organizationCode
+                            select new PatientDto
+                            {
+                                Firstname = p.Firstname,
+                                Surname = p.Surname,
+                                Title = p.Title,
+                                WorkPhone = p.WorkPhone,
+                                Suburb = p.Suburb,
+                                Street = p.Street,
+                                State = p.State,
+                                Sex = p.Sex,
+                                Race = p.Race,
+                                Postcode = p.Postcode,
+                                MobilePhone = p.MobilePhone,
+                                HomePhone = p.HomePhone,
+                                EmailAddress = p.EmailAddress,
+                                Birthdate = p.Birthdate,
+                                DateFirstVisit = p.DateFirstVisit,
+                                DateLastVisit = p.DateLastVisit,
+                                MaritalStatus = p.MaritalStatus,
+                                MedicalSummary = p.MedicalSummary,
+                                Insurance = p.Insurance,
+                                DoctorName = d.DoctorName,
+                                DoctorFax = d.Fax,
+                                DoctorTelephone = d.Telephone,
+                                LapBandDate = pw.LapBandDate,
+                                Notes = pw.Notes,
+                                Height = pw.Height,
+                                StartWeight = pw.StartWeight,
+                                StartWeightDate = pw.StartWeightDate,
+                                IdealWeight = pw.IdealWeight,
+                                CurrentWeight = pw.CurrentWeight,
+                                OpWeight = pw.OpWeight,
+                                TargetWeight = pw.TargetWeight,
+                                SurgeryType = pw.SurgeryType,
+                                Approach = pw.Approach,
+                                StartBmiweight = pw.StartBmiweight,
+                                VisitWeeksFlag = pw.VisitWeeksFlag,
+                                LapbandType = pw.LapbandType,
+                                LapbandSize =pw.LapbandSize
+                            }).FirstOrDefaultAsync();
 
-            await lapbaseContext.TblPatients.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).ForEachAsync(p =>
-            {
-                patientDto.Firstname = p.Firstname;
-                patientDto.Surname = p.Surname;
-                patientDto.Title = p.Title;
-                patientDto.WorkPhone = p.WorkPhone;
-                patientDto.Suburb = p.Suburb;
-                patientDto.Street = p.Street;
-                patientDto.State = p.State;
-                patientDto.Sex = p.Sex;
-                patientDto.Race = p.Race;
-                patientDto.Postcode = p.Postcode;
-                patientDto.MobilePhone = p.MobilePhone;
-                patientDto.HomePhone = p.HomePhone;
-                patientDto.EmailAddress = p.EmailAddress;
-                patientDto.Birthdate = p.Birthdate;
-                
-            });  
-
-            return patientDto;
 
         }
 
