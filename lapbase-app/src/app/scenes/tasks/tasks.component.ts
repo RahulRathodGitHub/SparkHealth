@@ -57,7 +57,6 @@ export class TasksComponent implements OnInit {
       this.totalCalories = taskInput.caloriesGained;
       this.totalCaloriesBurned = taskInput.caloriesLost;
       console.log(this.taskInput);
-      
     });
     this.foodActive = true;
     this.foodFlag = false;
@@ -89,7 +88,6 @@ export class TasksComponent implements OnInit {
       this.totalCalories = taskInput.caloriesGained;
       this.totalCaloriesBurned = taskInput.caloriesLost;
       console.log(this.taskInput);
-      
     });
   }
 
@@ -107,7 +105,10 @@ export class TasksComponent implements OnInit {
       if (quantity < 2) {
         this.removeExercise(exerciseId);
       } else {
-        this.totalCaloriesBurned -= calorieCount;
+        if (this.totalCaloriesBurned >= calorieCount) {
+          this.totalCaloriesBurned -= calorieCount;
+        }
+
         exercise.quantity--;
       }
     }
@@ -119,11 +120,14 @@ export class TasksComponent implements OnInit {
     const index = exercises.findIndex(exercise => exercise.id === exerciseId);
 
     const quantity = exercises[index].quantity;
-    const calorieCount = this.getExerciseInfo(exercises[index].id).calorieCount;
-    this.totalCaloriesBurned -= quantity * calorieCount;
-    this.taskInput.exercises.splice(index, 1);
+    var calorieCount = this.getExerciseInfo(exercises[index].id).calorieCount;
+    calorieCount *= quantity;
 
-    // this.calculateCaloriesBurned();
+    if (this.totalCaloriesBurned >= calorieCount) {
+      this.totalCaloriesBurned -= calorieCount;
+    }
+
+    this.taskInput.exercises.splice(index, 1);
   }
 
   calculateCaloriesBurned() {
@@ -163,7 +167,9 @@ export class TasksComponent implements OnInit {
       if (quantity < 2) {
         this.removeFood(mealTime, foodId);
       } else {
-        this.totalCalories -= calorieCount;
+        if (this.totalCalories >= calorieCount) {
+          this.totalCalories -= calorieCount;
+        }
         food.quantity--;
       }
     }
@@ -176,9 +182,13 @@ export class TasksComponent implements OnInit {
     const index = foods.findIndex(food => food.id === foodId);
 
     let quantity = foods[index].quantity;
-    let calorieCount = this.getFoodInfo(foods[index].id).calorieCount;
+    var calorieCount = this.getFoodInfo(foods[index].id).calorieCount;
+    calorieCount *= quantity;
 
-    this.totalCalories -= quantity * calorieCount;
+    if (this.totalCalories >= calorieCount) {
+      this.totalCalories -= calorieCount;
+    }
+
     this.taskInput.caloriesGained = this.totalCalories;
 
     foods.splice(index, 1);
@@ -201,7 +211,6 @@ export class TasksComponent implements OnInit {
   updateCalories(newTotalCalories: number) {
     this.totalCalories = newTotalCalories;
     this.taskInput.caloriesGained = this.totalCalories;
-
   }
 
   updateCaloriesBurned(newTotalCaloriesBurned: number) {
@@ -243,15 +252,12 @@ export class TasksComponent implements OnInit {
     this.taskInput.caloriesLost = this.totalCaloriesBurned;
     this.taskInput.caloriesGained = this.totalCalories;
     console.log(this.taskInput);
-    
+
     this.taskService.sendFoodIntake(this.taskInput).then(value => {
       this.taskInput = value;
       console.log(this.taskInput);
     });
 
-   
-
-    
     console.log(this.totalCalories);
   };
 
