@@ -1,29 +1,112 @@
-<div class=" profile tile is-ancestor">
-  <div class="tile is-parent is-4">
-    <i class="fas fa-10x fa-user-circle"></i>
-  </div>
-  <div class="profile-detail tile is-parent is-vertical">
+<!-- <div class=" profile tile is-ancestor">
+  <div class="tile is-parent ">
+    <div class="tile is-child ">
+      <i class="fas fa-10x fa-user-circle"></i>
+    </div>
+    <div class="profile-detail tile is-parent is-vertical">
     <div class="tile is-child">
       <div class="title is-2">
         {{ patientData.firstname }} {{ patientData.surname }}
       </div>
     </div>
     <div class="tile is-child">
-      <label class="label"> birthday:</label>
-      {{ changeDateFormat(patientData.birthdate) }}
+      <label class="label"> Birthday:</label>
+      {{ getBirthDate() }}
     </div>
     <div class="tile is-child">
-      <label class="label"> age: </label>
+      <label class="label"> Age: </label>
       {{ patientAge }}
     </div>
 
     <div class="tile is-child">
-      <label class="label">sex: </label>
+      <label class="label">Sex: </label>
       {{ patientData.sex }}
     </div>
     <div class="tile is-child">
-      <label class="label">race:</label>
+      <label class="label">Race:</label>
       {{ patientData.race }}
+    </div>
+    <div class="tile is-child">
+      <label class="label">Martial Status:</label>
+      {{ patientData.maritalStatus }}
+    </div>
+    <div class="tile is-child">
+      <label class="label">Insurance:</label>
+      {{ patientData.insurance }}
+    </div>
+    </div>
+  </div>
+
+  <div class="tile is-parent">
+    <div class="tile is-child is-vertical">
+      <div class=" tile">
+        <h5 class="title is-5">Stats</h5>
+      </div>
+      <div class="tile is-horizontal">
+        <div class="tile ">
+          <label class="label">Height:</label>{{ patientData.height }}
+        </div>
+        <div class="tile ">
+          <label class="label">Current Weight:</label
+          >{{ patientData.currentWeight }}
+        </div>
+        <div class="tile">
+          <label class="label">Target Weight:</label
+          >{{ patientData.targetWeight }}
+        </div>
+        <div class="tile">
+          <label class="label">Op Weight:</label>{{ patientData.opWeight }}
+        </div>
+      </div>
+    </div>
+
+    <div class="tile is-child is-vertical">
+      <div class=" tile">
+        <h5 class="title is-5">Medical History</h5>
+      </div>
+      <div class="tile is-horizontal">
+        <div class="tile ">
+          <label class="label">First Visit:</label
+          >{{ patientData.dateFirstVisit }}
+        </div>
+        <div class="tile ">
+          <label class="label">Last Visit:</label
+          >{{ patientData.dateLastVisit }}
+        </div>
+        <div class="tile">
+          <label class="label">Starting Weight:</label
+          >{{ patientData.startingWeight }}
+        </div>
+        <div class="tile">
+          <label class="label">Starting BMI Weight:</label
+          >{{ patientData.startingBmiWeight }}
+        </div>
+        <div class="tile">
+          <label class="label">Surgery Type:</label
+          >{{ patientData.surgeryType }}
+        </div>
+      </div>
+    </div>
+
+    <div class="tile is-child is-vertical">
+      <div class=" tile">
+        <h5 class="title is-5">Doctor Info</h5>
+      </div>
+      <div class="tile is-horizontal">
+        <div class="tile ">
+          <label class="label">Doctor Name:</label>{{ patientData.doctorName }}
+        </div>
+        <div class="tile ">
+          <label class="label">Doctor Tel:</label
+          >{{ patientData.doctorTelephone }}
+        </div>
+        <div class="tile">
+          <label class="label">Doctor Fax:</label>{{ patientData.doctorFax }}
+        </div>
+        <div class="tile">
+          <label class="label">Notes:</label>{{ patientData.notes }}
+        </div>
+      </div>
     </div>
 
     <div class="tile is-child is-vertical">
@@ -32,14 +115,13 @@
       </div>
       <div class="tile  is-horizontal">
         <div class="tile ">
-          <label class="label">mobile:</label>{{ patientData.mobilePhone }}
+          <label class="label">Mobile:</label>{{ patientData.mobilePhone }}
         </div>
         <div class="tile ">
-          <label class="label">home: {{ " " }}</label
-          >{{ patientData.homePhone }}
+          <label class="label">Home:</label>{{ patientData.homePhone }}
         </div>
         <div class="tile ">
-          <label class="label">email:</label>{{ patientData.emailAddress }}
+          <label class="label">Email:</label>{{ patientData.emailAddress }}
         </div>
       </div>
     </div>
@@ -50,13 +132,162 @@
       </div>
       <div class="tile is-horizontal">
         <div class="tile ">
-          <label class="label">street:</label>{{ patientData.street }}
+          <label class="label">Street:</label>{{ patientData.street }}
         </div>
         <div class="tile ">
-          <label class="label">suburb:</label>{{ patientData.suburb }}
+          <label class="label">Suburb:</label>{{ patientData.suburb }}
         </div>
         <div class="tile">
-          <label class="label">postcode:</label>{{ patientData.postcode }}
+          <label class="label">Postcode:</label>{{ patientData.postcode }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical ">
+    <div class="tile">
+      <div class="tile is-parent is-vertical is-4">
+        <i class="fas fa-10x fa-user-circle"></i>
+      </div>
+      <div class="profile-detail tile is-parent is-vertical">
+        <div class="tile is-child">
+          <div class="title is-2">
+            {{ patientData.firstname }} {{ patientData.surname }}
+          </div>
+        </div>
+        <div class="tile is-child">
+          <label class="label"> Birthday:</label>
+          {{ getBirthDate() }}
+        </div>
+        <div class="tile is-child">
+          <label class="label"> Age: </label>
+          {{ patientAge }}
+        </div>
+
+        <div class="tile is-child">
+          <label class="label">Sex: </label>
+          {{ patientData.sex }}
+        </div>
+        <div class="tile is-child">
+          <label class="label">Race:</label>
+          {{ patientData.race }}
+        </div>
+        <div class="tile is-child">
+          <label class="label">Martial Status:</label>
+          {{ patientData.maritalStatus }}
+        </div>
+        <div class="tile is-child">
+          <label class="label">Insurance:</label>
+          {{ patientData.insurance }}
+        </div>
+      </div>
+    </div>
+    <div class="tile is-parent  is-vertical">
+      <div class="tile is-child is-vertical">
+        <div class=" tile">
+          <h5 class="title is-5">Stats</h5>
+        </div>
+        <div class="tile is-horizontal">
+          <div class="tile ">
+            <label class="label">Height:</label>{{ patientData.height }}
+          </div>
+          <div class="tile ">
+            <label class="label">Current Weight:</label
+            >{{ patientData.currentWeight }}
+          </div>
+          <div class="tile">
+            <label class="label">Target Weight:</label
+            >{{ patientData.targetWeight }}
+          </div>
+          <div class="tile">
+            <label class="label">Op Weight:</label>{{ patientData.opWeight }}
+          </div>
+        </div>
+      </div>
+
+      <div class="tile is-child is-vertical">
+        <div class=" tile">
+          <h5 class="title is-5">Medical History</h5>
+        </div>
+        <div class="tile is-horizontal">
+          <div class="tile ">
+            <label class="label">First Visit:</label
+            >{{ patientData.dateFirstVisit }}
+          </div>
+          <div class="tile ">
+            <label class="label">Last Visit:</label
+            >{{ patientData.dateLastVisit }}
+          </div>
+          <div class="tile">
+            <label class="label">Starting Weight:</label
+            >{{ patientData.startingWeight }}
+          </div>
+          <div class="tile">
+            <label class="label">Starting BMI Weight:</label
+            >{{ patientData.startingBmiWeight }}
+          </div>
+          <div class="tile">
+            <label class="label">Surgery Type:</label
+            >{{ patientData.surgeryType }}
+          </div>
+        </div>
+      </div>
+
+      <div class="tile is-child is-vertical">
+        <div class=" tile">
+          <h5 class="title is-5">Doctor Info</h5>
+        </div>
+        <div class="tile is-horizontal">
+          <div class="tile ">
+            <label class="label">Doctor Name:</label
+            >{{ patientData.doctorName }}
+          </div>
+          <div class="tile ">
+            <label class="label">Doctor Tel:</label
+            >{{ patientData.doctorTelephone }}
+          </div>
+          <div class="tile">
+            <label class="label">Doctor Fax:</label>{{ patientData.doctorFax }}
+          </div>
+          <div class="tile">
+            <label class="label">Notes:</label>{{ patientData.notes }}
+          </div>
+        </div>
+      </div>
+
+      <div class="tile is-child is-vertical">
+        <div class=" tile">
+          <h5 class="title is-5">Contact</h5>
+        </div>
+        <div class="tile  is-horizontal">
+          <div class="tile ">
+            <label class="label">Mobile:</label>{{ patientData.mobilePhone }}
+          </div>
+          <div class="tile ">
+            <label class="label">Home:</label>{{ patientData.homePhone }}
+          </div>
+          <div class="tile ">
+            <label class="label">Email:</label>{{ patientData.emailAddress }}
+          </div>
+        </div>
+      </div>
+
+      <div class="tile is-child is-vertical">
+        <div class=" tile">
+          <h5 class="title is-5">Address</h5>
+        </div>
+        <div class="tile is-horizontal">
+          <div class="tile ">
+            <label class="label">Street:</label>{{ patientData.street }}
+          </div>
+          <div class="tile ">
+            <label class="label">Suburb:</label>{{ patientData.suburb }}
+          </div>
+          <div class="tile">
+            <label class="label">Postcode:</label>{{ patientData.postcode }}
+          </div>
         </div>
       </div>
     </div>

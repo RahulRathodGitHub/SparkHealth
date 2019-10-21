@@ -53,7 +53,7 @@ export class PatientService {
   getPatientLapbaseByIdTest() {
     return {
       surname: "Perez",
-      firstName: "Ricky",
+      firstname: "Ricky",
       title: 1,
       street: "King St",
       suburb: "Bundoora",
