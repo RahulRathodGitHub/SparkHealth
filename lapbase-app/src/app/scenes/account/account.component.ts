@@ -27,11 +27,18 @@ export class AccountComponent implements OnInit {
   }
 
   changeDateFormat(date: Date) {
-    let tempDate = this.datePipe.transform(date, "dd-MMMM-yyyy").split("-");
+    return this.datePipe.transform(date, "dd/MM/yyyy");
+  }
+
+  getBirthDate() {
+    const tempDate = this.datePipe
+      .transform(this.patientData.birthdate, "dd-MMMM-yyyy")
+      .split("-");
     return tempDate[0] + " " + tempDate[1] + " " + tempDate[2];
   }
 
   calculateAge(date: Date) {
-    this.patientAge = Math.abs(Date.now() - date.getTime());
+    const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
+    this.patientAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
   }
 }

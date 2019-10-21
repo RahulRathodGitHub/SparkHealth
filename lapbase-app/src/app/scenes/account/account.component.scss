@@ -7,12 +7,16 @@
 }
 
 .profile {
-  margin-top: 30px;
+  font-size: 1.1rem;
 }
 
 .profile-detail {
   font-size: 1.2rem;
   line-height: 2.5;
+}
+
+.profile-bottom {
+  line-height: 2.7rem;
 }
 
 .title.is-5 {
@@ -24,10 +28,19 @@
 .title {
   font-size: 2.5rem;
 }
+.tile.is-vertical > .tile.is-child:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
 
 .label {
   display: inline;
   color: #808080;
   font-size: 1.2rem;
   font-weight: 400;
+}
+
+.notes {
+  line-height: 1.5;
+  margin-top: 10px;
+  width: 40rem;
 }
