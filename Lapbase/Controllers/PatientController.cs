@@ -53,7 +53,7 @@ namespace Lapbase.Controllers
             var patient = await patientService.GetPatientById(id);
 
             if (patient == null)
-            {
+            { 
                 return NotFound();
             }
 
