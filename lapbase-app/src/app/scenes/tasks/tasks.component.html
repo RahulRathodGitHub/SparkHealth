@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="tabs is-toggle is-centered">
+<div class="tabs is-toggle is-toggle-rounded is-centered  is-fullwidth">
   <ul>
     <li [ngClass]="{ 'is-active': foodActive }">
       <a (click)="changeFoodExercises()">Food</a>
@@ -35,7 +35,7 @@
       <h2 class="subtitle">
         Breakfast
         <a class="button is-pulled-right" (click)="toggleModal(0)"
-          >Add food for breakfast
+          >Add Breakfast
         </a>
       </h2>
     </div>
@@ -88,7 +88,7 @@
       <h2 class="subtitle">
         Lunch
         <a class="button is-pulled-right" (click)="toggleModal(1)"
-          >Add food for lunch
+          >Add Lunch
         </a>
       </h2>
     </div>
@@ -141,7 +141,7 @@
       <h2 class="subtitle">
         Dinner
         <a class="button is-pulled-right" (click)="toggleModal(2)"
-          >Add food for dinner
+          >Add Dinner
         </a>
       </h2>
     </div>
@@ -194,7 +194,6 @@
   <div class="columns is-mobile">
     <div class="column is-12">
       <h2 class="subtitle">
-        Exercises
         <a class="button is-pulled-right" (click)="toggleExercises()">
           Add Exercises
         </a>
