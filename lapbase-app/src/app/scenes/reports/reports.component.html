@@ -6,6 +6,7 @@
         [options]="startDateOptions"
         [placeholder]="startDatePlaceholder"
         (dateChanged)="onStartDateChanged($event)"
+        [(ngModel)]="startDateModel" 
       ></my-date-picker>
     </form>
   </div>

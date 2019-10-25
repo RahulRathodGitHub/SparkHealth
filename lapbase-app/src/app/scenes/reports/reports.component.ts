@@ -22,6 +22,7 @@ export class ReportsComponent implements OnInit {
   chartType = "";
   dropdownActive = false;
   weightLossData = [{}];
+  public startDateModel: any ;
 
   constructor(
     private datepipe: DatePipe,
@@ -66,6 +67,7 @@ export class ReportsComponent implements OnInit {
       twoYearsBeforeLatestDate.setFullYear(lastAvailableDate.getFullYear() - 2);
 
       this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
+      this.startDateModel={ date: { year: twoYearsBeforeLatestDate.getFullYear(), month: twoYearsBeforeLatestDate.getMonth(), day: twoYearsBeforeLatestDate.getDay() } };
       this.endDate = this.changeDateFormat(lastAvailableDate);
     }
 
