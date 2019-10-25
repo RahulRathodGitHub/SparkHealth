@@ -18,7 +18,7 @@
     height: 100vh;
     padding: 1.5em 0 0 0.5em;
     background: var(--side-menu-gradient);
-    z-index: 99 !important; // Navigation will be on the foreground with this.
+    z-index: 3 !important; // Navigation will be on the foreground with this.
 }
 
 .mobile-side-menu {
@@ -27,6 +27,7 @@
     height: 100vh;
     padding: 1.5em 0 0 0.5em;
     background: var(--side-menu-gradient);
+    
 }
 
 .menu-list {

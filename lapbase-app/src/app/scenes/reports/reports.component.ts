@@ -22,6 +22,7 @@ export class ReportsComponent implements OnInit {
   chartType = "";
   dropdownActive = false;
   weightLossData = [{}];
+  public startDateModel: any ;
 
   constructor(
     private datepipe: DatePipe,
@@ -54,7 +55,7 @@ export class ReportsComponent implements OnInit {
   getReport() {
     if (this.startDate == null) {
       //Setting default dates for when patient first visit page
-      console.log("here");
+     
 
       var lastAvailableDate = new Date();
 
@@ -66,6 +67,7 @@ export class ReportsComponent implements OnInit {
       twoYearsBeforeLatestDate.setFullYear(lastAvailableDate.getFullYear() - 2);
 
       this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
+      this.startDateModel={ date: { year: twoYearsBeforeLatestDate.getFullYear(), month: twoYearsBeforeLatestDate.getMonth(), day: twoYearsBeforeLatestDate.getDay() } };
       this.endDate = this.changeDateFormat(lastAvailableDate);
     }
 
@@ -82,10 +84,7 @@ export class ReportsComponent implements OnInit {
       )
       .then(p => {
         this.report = p;
-        console.log(p);
-
-        console.log(this.report.data1);
-        console.log(this.report.timeLabels);
+      
 
         var chartType;
         switch (this.typeOfReport) {
@@ -152,7 +151,7 @@ export class ReportsComponent implements OnInit {
     dateFormat: "dd.mm.yyyy"
   };
   public onStartDateChanged(event) {
-    //console.log(this.changeDateFormat(new Date(event.jsdate)));
+   
     this.startDate = this.changeDateFormat(new Date(event.jsdate));
     this.getReport();
   }

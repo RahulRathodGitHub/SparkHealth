@@ -57,7 +57,7 @@ export class DashboardComponent {
     })
     this.dashboardService.getFoodOfTheMonth().then(foodOfTheMonthId =>{
       this.foodOfTheMonth = this.availableFoods.find(food => food.id === foodOfTheMonthId);
-      console.log("Hello i am bridge "+this.foodOfTheMonth);
+     
 
     })
     this.taskService.getTaskByDate(new Date().toISOString()).then(input =>{
@@ -83,10 +83,7 @@ export class DashboardComponent {
       )
       .then(p => {
         this.report = p;
-        console.log(p);
-
-        console.log(this.report.data1);
-        console.log(this.report.timeLabels);
+      
 
         var chartType;
         switch (typeOfReport) {

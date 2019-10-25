@@ -56,7 +56,7 @@ export class TasksComponent implements OnInit {
       this.taskInput = taskInput;
       this.totalCalories = taskInput.caloriesGained;
       this.totalCaloriesBurned = taskInput.caloriesLost;
-      console.log(this.taskInput);
+    
     });
     this.foodActive = true;
     this.foodFlag = false;
@@ -87,7 +87,7 @@ export class TasksComponent implements OnInit {
       this.taskInput = taskInput;
       this.totalCalories = taskInput.caloriesGained;
       this.totalCaloriesBurned = taskInput.caloriesLost;
-      console.log(this.taskInput);
+     
     });
   }
 
@@ -251,14 +251,14 @@ export class TasksComponent implements OnInit {
   save = () => {
     this.taskInput.caloriesLost = this.totalCaloriesBurned;
     this.taskInput.caloriesGained = this.totalCalories;
-    console.log(this.taskInput);
+   
 
     this.taskService.sendFoodIntake(this.taskInput).then(value => {
       this.taskInput = value;
-      console.log(this.taskInput);
+  
     });
 
-    console.log(this.totalCalories);
+  
   };
 
   canDeactivate() {
