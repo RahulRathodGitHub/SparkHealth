@@ -10,6 +10,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lapbase.Controllers
 {
+    /*
+         Controller to expose all the endpoints for Appointments
+     */
     [Route("api/[controller]")]
     [ApiController]
     public class AppointmentController : Controller

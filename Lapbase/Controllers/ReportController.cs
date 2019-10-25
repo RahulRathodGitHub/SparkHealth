@@ -12,6 +12,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Lapbase.Controllers
 {
+    /*
+     * Controller to expose all the endpoints regarding the reports.
+     */
     [Route("api/[controller]")]
     [ApiController]
     public class ReportController : ControllerBase
@@ -23,27 +26,22 @@ namespace Lapbase.Controllers
             this.reportService = reportService;
         }
 
-        // GET: api/Report
-        /*[HttpGet]
-        public async Task<ActionResult<WeightReport>> GetReports()
-        {
-            return await reportService.GetReports();
-        }*/
 
-        // GET: api/Report/5
+        // GET: api/Report/2756/2
         [HttpGet("{id}/{organizationCode}")] 
         public async Task<Report> GetReport([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
         {
             return await reportService.GetReportById(id, organizationCode, startDate, endDate, reportType);
         }
 
-
+        // GET: api/Report/lastDate/2756/2
         [HttpGet("lastDate/{id}/{organizationCode}")]
         public async Task<DateTime?> GetReportLastAvailableDate([FromRoute] int id, int organizationCode, [FromQuery] ReportType reportType)
         {
             return await reportService.GetReportLastAvailableDate(id, organizationCode, reportType);
         }
 
+        // GET: api/Report/healthStats/2756/2
         [HttpGet("healthStats/{id}/{organizationCode}")]
         public async Task<EWL_WL_GraphReport> GetPatientHealthStats([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
         {

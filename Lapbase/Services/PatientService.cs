@@ -33,26 +33,41 @@ namespace Lapbase.Services
             return await lapbaseNewContext.Patient.ToListAsync();
         }
 
+        /*
+         * Obtain all available foods for a particular patient
+         */ 
         public async Task<List<Food>> GetPatientFood()
         {
             return await lapbaseNewContext.Food.ToListAsync();
         }
 
+        /*
+         * Obtain all the available exercises for a particular patient
+         */ 
         public async Task<List<Exercise>> GetPatientExercise()
         {
             return await lapbaseNewContext.Exercise.ToListAsync();
         }
 
+        /*
+         * Obtain all the available data for a particular patient
+         */ 
         public async Task<List<string>> GetPatientsLapbase()
         {
             return await lapbaseContext.TblPatients.Select(p => p.Firstname).ToListAsync();
         }
 
+        /*
+         * Get a particular patient from the list of patients
+         */ 
         public async Task<Patient> GetPatientById(int id)
         {
             return await lapbaseNewContext.Patient.SingleOrDefaultAsync(p => p.Id == id);
         }
 
+        /*
+         * Get the required set of details for the logged in Patient.
+         */ 
         public async Task<PatientDto> GetPatientLapbaseById(int id, int organizationCode)
         {
             return await (from p in lapbaseContext.TblPatients
@@ -103,19 +118,29 @@ namespace Lapbase.Services
 
         }
 
+        #region Helper Methods
+        /*
+         * Get the imperial flag for the logged in Patient
+         */
         public async Task<Boolean?> GetPatientImperial(int id, int organizationCode)
         {
             return await lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == id && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefaultAsync();
         }
 
+        /*
+        * Get the Height for the logged in Patient
+        */
         public async Task<Decimal?> GetPatientHeight(int id, int organizationCode)
         {
             return await lapbaseContext.TblPatientWeightData.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).Select(p => p.Height).FirstOrDefaultAsync();
            
         }
-       
+        #endregion
 
 
+        /*
+         *  Creates a patient
+         */
         public async Task<Patient> CreatePatient(Patient patient)
         {
             patient.WhenCreated = DateTimeOffset.UtcNow;
@@ -126,13 +151,5 @@ namespace Lapbase.Services
             return result.Entity;
         }
 
-        public async Task<Food> CreatePatientFood(Food food)
-        {
-            var result = await lapbaseNewContext.Food.AddAsync(food);
-
-            await lapbaseNewContext.SaveChangesAsync();
-
-            return result.Entity;
-        }
     }
 }

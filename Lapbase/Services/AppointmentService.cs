@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Lapbase.Services
 {
+    /*
+     *  Services to facilitate processings related to the Appointment requests.
+     */
     public class AppointmentService
     {
         private readonly LapbaseContext lapbaseContext;
@@ -24,6 +27,10 @@ namespace Lapbase.Services
             this.config = config;
         }
 
+        /*
+         *  Provides a List of Appointment Objects corresponding to the logged in Patient’s Id
+         *  and his/her Organization Code.
+         */
         public async Task<List<Appointment>> GetAppointmentById(int id, int organizationCode)
         {
             var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id && c.OrganizationCode == organizationCode);
@@ -38,7 +45,7 @@ namespace Lapbase.Services
                         PatientId = consult.PatientId,
                         Start = consult.DateSeen,
                         End = consult.DateSeen,
-                        Description = consult.Notes,// == null ? "No Notes were provided" : consult.Notes,
+                        Description = consult.Notes,
                         DoctorName = doctor.DoctorName,
                         Location = doctor.Address1 + ", " + doctor.Suburb + ", " + doctor.Country,
                         Weight = consult.Weight,
@@ -46,7 +53,6 @@ namespace Lapbase.Services
                     }
                 ).ToListAsync();
 
-            //Below logic needs to be cleaned
             TblPatientConsult lastConsult = patientAppointments.Last();
             Appointment futureAppointment = new Appointment(result.Last());
             futureAppointment.Start = lastConsult.DateNextVisit;
@@ -60,6 +66,9 @@ namespace Lapbase.Services
             return result;
         }
 
+        /*
+         * Provides the logged in Patient’s Next Appointment on being called.
+         */
         public async Task<Appointment> GetNextAppointment(int id, int organizationCode)
         {
             var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id && c.OrganizationCode == organizationCode);
@@ -82,7 +91,7 @@ namespace Lapbase.Services
                     }
                 ).ToListAsync();
 
-            //Below logic needs to be cleaned
+
             TblPatientConsult lastConsult = patientAppointments.Last();
             Appointment futureAppointment = new Appointment(result.Last());
             futureAppointment.Start = lastConsult.DateNextVisit;

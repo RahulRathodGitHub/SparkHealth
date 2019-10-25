@@ -12,10 +12,11 @@ export class AppointmentService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getAppointments = async (): Promise<IAppointment[]> => {
+ /* getAppointments = async (): Promise<IAppointment[]> => {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/').toPromise<any>();
-  }
+  }*/
 
+  // Get the appointments for a particular patient.
   getAppointmentsById = async (id: number, organizationCode): Promise<IAppointment[]> => {
     return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/' + id + '/' + organizationCode).toPromise<any>();
   }

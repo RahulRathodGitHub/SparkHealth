@@ -42,24 +42,33 @@ export class DashboardComponent {
 
     this.patientHealthStats = null;
 
+    // We will only show reportType 0: Weight report on the dashboard.
     this.getReport(0);
 
+    // Call to the services to get all the patient Health details.
     this.dashboardService.getPatientHealthDetails(patientId, organizationCode).then(result => {
       this.patientHealthStats = result;
       this.patientBMI = this.patientHealthStats.weight/(this.patientHeight)^2;
     })
 
+    // Get all available foods for the particular patient.
     this.patientService.getFoodList().then(foodChoiceList => {
       this.availableFoods = foodChoiceList;
     });
+
+    // Get patient Height
     this.dashboardService.getPatientHeight().then(patientHeight =>{
       this.patientHeight = patientHeight;
     })
+
+    // Get Patient's most consumed food for the entire month.
     this.dashboardService.getFoodOfTheMonth().then(foodOfTheMonthId =>{
       this.foodOfTheMonth = this.availableFoods.find(food => food.id === foodOfTheMonthId);
      
 
     })
+
+    // Get calorie intake and burnt for today corresponding to the logged in patient.
     this.taskService.getTaskByDate(new Date().toISOString()).then(input =>{
       this.calorieBurn = input.caloriesLost;
       this.calorieIntake = input.caloriesGained
@@ -67,10 +76,12 @@ export class DashboardComponent {
 
   }
 
-
+  // Helper method to format date.
   changeDateFormat(date: Date) {
     return this.datepipe.transform(date, "yyyy-MM-dd");
   }
+
+  // Method to get the Report data from the backend.
   getReport(typeOfReport)
   {
     this.reportService
@@ -105,6 +116,7 @@ export class DashboardComponent {
       });
   }
 
+  // Variable representing the graph library's configuration.
   public lineChartColors: Array<any> = [
     {
       backgroundColor: '#ff9999',

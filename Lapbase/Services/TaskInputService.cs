@@ -9,6 +9,9 @@ using System.Collections.Generic;
 
 namespace Lapbase.Services
 {
+    /*
+     * Services correponding to a providing logic for the Task Input Endpoint
+     */
     public class TaskInputService
     {
         private readonly LapbaseNewContext lapbaseNewContext;
@@ -20,6 +23,9 @@ namespace Lapbase.Services
             this.config = config;
         }
 
+        /*
+         * Provides a TaskInputDto object of the logged in Patient for a particular date.
+         */
         public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organizationCode)
         {
 
@@ -37,7 +43,9 @@ namespace Lapbase.Services
             return new TaskInputDto(taskInput);
         }
 
-        // Creates a TaskInput by taking a taskInput instance as an argumnet.
+        /*
+         *  Creates a TaskInput by taking a taskInputDto instance as an argumnet.
+         */
         public async Task<TaskInputDto> UpdateTaskInput(TaskInputDto taskInputDto)
         {
             Guid id;
@@ -60,6 +68,9 @@ namespace Lapbase.Services
 
         #region Helper Methods
 
+        /*
+         *  Provides a TaskInput object on receiving a TaskInputDto object and a corresponding Guid
+         */
         private TaskInput GetTaskInputFromDto(TaskInputDto dto, Guid id)
         {
             var result = new TaskInput();
@@ -70,6 +81,9 @@ namespace Lapbase.Services
             return result;
         }
 
+        /*
+         *  Returns the Guid of the most consumed food in terms of gross calories in a month for the logged in Patient.
+         */
         public Guid GetFoodOfTheMonth(int patientId, int organizationCode) // TODO make it to be used for the food of the month/day/week.. etc
         {
             // A Dictionary to store key value pairs of foods and quantities

@@ -14,7 +14,7 @@ export interface IPatient {
 export class Patient{
 
     surname: string;
-    firstName: string;
+    firstname: string;
     title: number;
     street: string;
     suburb: string;

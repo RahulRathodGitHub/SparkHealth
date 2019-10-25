@@ -20,8 +20,9 @@ export class AppComponent {
     this.patientService
       .getPatientLapbaseById(patientId, organizationCode)
       .then(result => {
-        // this.patientFirstName = result.Firstname;
-        // this.patientLastName = result.Surname;
+        console.log("Hey its "+ result.firstname);
+         this.patientFirstName = result.firstname;
+         this.patientLastName = result.surname;
       });
   }
 }

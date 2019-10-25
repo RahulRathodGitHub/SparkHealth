@@ -35,15 +35,13 @@ export class AppointmentsComponent {
   constructor(private appointmentService: AppointmentService) {
     const organizationCode = 2;
     const patientId = 2756; //Ricky Perez
-    //107057612;
-    // this.calendarEvents = this.appointmentService.getAppointmentsDemo();
-    // this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
+    
+    // Get the appointment for the particular patient
     this.appointmentService.getAppointmentsById(patientId, organizationCode).then(result => this.calendarEvents = result);
-    // 107068092 -> Another good patient ID with a description.
-    // The description is provided in the notes part of the DB; especially deleted by wayne
-    // console.log(this.calendarEvents);
+
   }
 
+  // Access advanced configuration for the appointment calendar.
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   // The plugins can be added if we want more calendar functionality
@@ -52,7 +50,7 @@ export class AppointmentsComponent {
     interactionPlugin
   ];
 
-
+  // Function to handle the event of a date being clicked.
   handleDateClick(event) {
     this.eventClicked = true;
     this.eventTitle = event.event.title;

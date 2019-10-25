@@ -11,6 +11,9 @@ using Lapbase.Services;
 
 namespace Lapbase.Controllers
 {
+    /*
+     * Controller to expose all the endpoints corresponding to a patient.
+     */
     [Route("api/[controller]")]
     public class PatientController : Controller
     {
@@ -90,6 +93,7 @@ namespace Lapbase.Controllers
             return Ok(ExerciseList);
         }
 
+        // GET api/Patient/Height
         [HttpGet("Height")]
         public async Task<ActionResult<Decimal>> GetPatientHeight()
         {

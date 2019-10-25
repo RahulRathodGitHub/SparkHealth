@@ -10,6 +10,9 @@ using System.Threading.Tasks;
 
 namespace Lapbase.Services
 {
+    /*
+     *  Currently Supported Report Types
+     */
     public enum ReportType
     {
        EWL_WL,
@@ -33,7 +36,10 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-
+        /*
+         *  Returns the date which has the last recorded data for a particular Report Type corresponding to the 
+         *  currently logged in Patient
+         */
         public async Task<DateTime?> GetReportLastAvailableDate(int patientId, int organizationCode, ReportType reportType)
         {
             byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientId && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefault());
@@ -73,7 +79,10 @@ namespace Lapbase.Services
 
         }
 
-
+        /*
+         *  Gets a requested report provided a given filter for the data corresponding to the 
+         *  logged in patient
+         */  
         public async Task<Report> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
         {
             byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientId && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefault());
@@ -116,6 +125,9 @@ namespace Lapbase.Services
 
         }
 
+        /*  
+         *  Get the weight report of the logged in Patient given the date filters.
+         */  
         public async Task<WeightReport> GetWeightReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate)
         {
             //This is the demo list of the weights
