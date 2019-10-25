@@ -15,10 +15,10 @@
         <div class="columns is-desktop">
           <div class="column">
 
-              <span class="icon is-large">
-                <i class="fas fa-map-marker-alt fa-lg"></i>
-              </span>
-              <strong>Location</strong>
+            <span class="icon is-large">
+              <i class="fas fa-map-marker-alt fa-lg"></i>
+            </span>
+            <strong>Location</strong>
 
             <p>
               <small>
@@ -28,16 +28,16 @@
           </div>
           <div class="column">
 
-              <span class="icon is-large">
-                <i class="fas fa-calendar-alt fa-lg"></i>
-              </span>
-              <strong>Date & Time</strong>
-              <p>
-                <small>
-                  {{ eventTime}}
-                </small>
+            <span class="icon is-large">
+              <i class="fas fa-calendar-alt fa-lg"></i>
+            </span>
+            <strong>Date & Time</strong>
+            <p>
+              <small>
+                {{ eventTime}}
+              </small>
 
-              </p>
+            </p>
           </div>
         </div>
 
@@ -45,32 +45,32 @@
         <div class="columns is-desktop">
           <div class="column">
 
-              <span class="icon is-large">
-                <i class="fas fa-user-md fa-lg"></i>
-              </span>
-              <strong>Doctor</strong>
-              <p>
-                <small>
-                  {{ eventDoctorName}}
-                </small>
+            <span class="icon is-large">
+              <i class="fas fa-user-md fa-lg"></i>
+            </span>
+            <strong>Doctor</strong>
+            <p>
+              <small>
+                {{ eventDoctorName}}
+              </small>
 
-              </p>
+            </p>
           </div>
           <div *ngIf="eventWeight !== 0" class="column">
 
-              <span class="icon is-large">
-                <i class="fas fa-weight fa-lg"></i>
-              </span>
-              <strong>BMI & Weight</strong>
-              <p>
-                <small>
-                  BMI: {{ eventBmi}}
-                </small>
-                <small>
-                  Weight: {{ eventWeight }}
-                </small>
+            <span class="icon is-large">
+              <i class="fas fa-weight fa-lg"></i>
+            </span>
+            <strong>BMI & Weight</strong>
+            <p>
+              <small>
+                BMI: {{ eventBmi}}
+              </small>
+              <small>
+                Weight: {{ eventWeight }}
+              </small>
 
-              </p>
+            </p>
 
           </div>
         </div>
@@ -85,9 +85,9 @@
           <p>
             <small>{{ eventDescription }}</small>
           </p>
-          
+
         </div>
-        
+
       </div>
 
     </div>
@@ -95,30 +95,16 @@
   <button class="modal-close is-large" aria-label="close" (click)="eventClicked = false;"></button>
 </div>
 
-<full-calendar class="is-hidden-mobile"
-              #calendar 
-              defaultView="dayGridMonth" 
-              [aspectRatio]="1.8" 
-              [header]="{
+<full-calendar class="is-hidden-mobile" #calendar defaultView="dayGridMonth" [aspectRatio]="1.8" [header]="{
                   left: 'prev,next today prevYear nextYear',
                   center: 'title',
                   right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                }" 
-              [plugins]="calendarPlugins" 
-              [events]="calendarEvents" 
-              (eventClick)="handleDateClick($event)"
-  ></full-calendar>
+                }" [plugins]="calendarPlugins" [events]="calendarEvents" (eventClick)="handleDateClick($event)">
+</full-calendar>
 
-  <full-calendar class="is-hidden-tablet" 
-                 defaultView="dayGridMonth" 
-                 contentHeight="auto" 
-                 [height]="500" 
-                 [header]="{
+<full-calendar class="is-hidden-tablet" defaultView="dayGridMonth" contentHeight="auto" [height]="500" [header]="{
                     left: 'prev,next today prevYear nextYear',
                     center: 'title',
                     right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-                  }" 
-                  [plugins]="calendarPlugins" 
-                  [events]="calendarEvents" 
-                  (eventClick)="handleDateClick($event)"
-    ></full-calendar>
+                  }" [plugins]="calendarPlugins" [events]="calendarEvents" (eventClick)="handleDateClick($event)">
+</full-calendar>

@@ -21,6 +21,18 @@
                 <span>{{ route.linkName }}</span>
             </a>
         </li>
+        <li *ngIf="!loggedIn">
+            <a (click)="login()">
+                <i class="fas fa-sign-in-alt fa-lg"></i>
+                <span>Signin</span>
+            </a>
+        </li>
+        <li *ngIf="loggedIn">
+            <a (click)="logout()">
+                <i class="fas fa-sign-out-alt fa-lg"></i>
+                <span>Signout</span>
+            </a>
+        </li>
     </ul>
 </aside>
 

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Lapbase.Services;
 using Microsoft.AspNetCore.Mvc;
 using Lapbase.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lapbase.Controllers
 {

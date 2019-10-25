@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 
 using Lapbase.Models;
 using Lapbase.Services;
 using Lapbase.LapbaseModels;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Lapbase
 {
@@ -50,7 +47,7 @@ namespace Lapbase
             services.AddTransient<AppointmentService>();
             services.AddTransient<ReportService>();
 
-            services.AddDbContext<LapbaseNewContext>(options => 
+            services.AddDbContext<LapbaseNewContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("LapbaseNew")))
                     .AddDbContext<LapbaseContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Lapbase")));
@@ -59,6 +56,27 @@ namespace Lapbase
                 // Automatically perform database migration
                 services.BuildServiceProvider().GetService<LapbaseNewContext>().Database.Migrate();
             }
+
+            //services
+                //.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
+                //.AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+                //.AddJwtBearer("azuread", options =>
+                //    {
+                //        options.Audience = Configuration.GetValue<string>("AzureAd:Audience");
+                //        options.Authority = Configuration.GetValue<string>("AzureAd:instance") + Configuration.GetValue<string>("AzureAd:tenantid");
+                //        options.TokenValidationParameters = new TokenValidationParameters
+                //        {
+                //            ValidIssuer = Configuration.GetValue<string>("AzureAd:issuer"),
+                //            ValidAudience = Configuration.GetValue<string>("AzureAd:audience")
+                //        };
+                //    });
+
+            services.AddAuthentication(sharedOptions =>
+            {
+                sharedOptions.DefaultScheme = AzureADDefaults.BearerAuthenticationScheme;
+            })
+            .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

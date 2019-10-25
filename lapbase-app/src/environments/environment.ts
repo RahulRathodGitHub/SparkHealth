@@ -4,7 +4,14 @@
 
 export const environment = {
   production: false,
-  LAPBASE_API_ADDRESS: 'https://localhost:5001/api/'
+  LAPBASE_API_ADDRESS: 'https://localhost:5001/api/',
+  AZURE_AD_CLIENTID: '8c692cb0-4826-466d-8b95-8805ee1e6a93',
+  AZURE_AD_TENANTID: '2e833ca0-6a32-45e7-b968-1faae0218ea4',
+  REDIRECT_URI: 'http://localhost:4200/Dashboard',
+  POST_LOGOUT_REDIRECT_URI: 'http://localhost:4200',
+  AUTHORITY: 'https://login.microsoftonline.com/2e833ca0-6a32-45e7-b968-1faae0218ea4',
+  CONSENT_SCOPES: ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/user_impersonation']
+
 };
 
 /*
