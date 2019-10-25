@@ -16,7 +16,7 @@ export class ExerciseChoiceComponent implements OnInit {
   ngOnInit() {}
 
   increaseCount() {
-    console.log(this.exerciseChoice);
+ 
 
     this.increasedCount.emit();
   }

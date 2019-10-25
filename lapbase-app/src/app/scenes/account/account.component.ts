@@ -20,8 +20,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.patientService.getPatientLapbaseById(2756, 2).then(pData => {
       this.patientData = pData;
-      console.log(pData);
-      console.log(this.patientData);
+   
       this.calculateAge(this.patientData.birthdate);
     });
   }
