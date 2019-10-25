@@ -11,7 +11,6 @@ export const environment = {
   POST_LOGOUT_REDIRECT_URI: 'http://localhost:4200',
   AUTHORITY: 'https://login.microsoftonline.com/2e833ca0-6a32-45e7-b968-1faae0218ea4',
   CONSENT_SCOPES: ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/user_impersonation']
-
 };
 
 /*

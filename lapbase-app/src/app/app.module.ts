@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { MyDateRangePickerModule } from 'mydaterangepicker';
 import { MyDatePickerModule } from 'mydatepicker';
-import { MsalModule, MsalInterceptor  } from '@azure/msal-angular';
+import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
 import { environment } from 'src/environments/environment';
 import {
   HeaderComponent,
@@ -65,24 +65,28 @@ import { LogLevel } from 'msal';
     MyDatePickerModule,
     MsalModule.forRoot({
       clientID: environment.AZURE_AD_CLIENTID,
-      popUp: true,
+      popUp: false,
       redirectUri: environment.REDIRECT_URI,
       postLogoutRedirectUri: environment.POST_LOGOUT_REDIRECT_URI,
       authority: environment.AUTHORITY,
       validateAuthority: true,
       consentScopes: environment.CONSENT_SCOPES,
+      logger : loggerCallback,
       level: LogLevel.Verbose,
       protectedResourceMap: [
-          ['https://localhost:5001/api/Appointment', ['user_impersonation']],
-          ['https://localhost:5001/api', ['user_impersonation']]
-        ]
+        ['https://localhost:5001/api', ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/user_impersonation']]
+      ]
     }),
   ],
   providers: [DatePipe, {
     provide: HTTP_INTERCEPTORS,
     useClass: MsalInterceptor,
     multi: true
-}],
+  }],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
+
+export function loggerCallback(logLevel, message, piiEnabled) {
+  console.log(message);
+}
