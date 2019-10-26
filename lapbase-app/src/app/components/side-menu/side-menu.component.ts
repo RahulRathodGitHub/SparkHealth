@@ -10,6 +10,7 @@ export class SideMenuComponent implements OnInit {
 
   isActive = true;
 
+
   generalRoutes = [
     { linkName: 'Dashboard', url: '/dashboard', icon: 'fas fa-columns fa-lg'},
     { linkName: 'Tasks', url: '/tasks', icon: 'fas fa-tasks fa-lg'},
@@ -33,5 +34,7 @@ export class SideMenuComponent implements OnInit {
   toggleNavbar(){
     this.isActive = !this.isActive;
   }
+
+
 
 }

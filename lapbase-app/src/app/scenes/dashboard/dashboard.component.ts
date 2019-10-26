@@ -30,6 +30,7 @@ export class DashboardComponent {
   calorieBurn:number;
   calorieIntake:number;
   availableFoods: IFood[];
+  patientInitBmi: number;
 
   constructor(  private datepipe: DatePipe,private dashboardService: DashboardService, private taskService: TaskService,private reportService: ReportService, private patientService: PatientService) 
   {
@@ -49,6 +50,7 @@ export class DashboardComponent {
     this.dashboardService.getPatientHealthDetails(patientId, organizationCode).then(result => {
       this.patientHealthStats = result;
       this.patientBMI = this.patientHealthStats.weight/(this.patientHeight)^2;
+      this.patientInitBmi = this.patientHealthStats.initBMI;
     })
 
     // Get all available foods for the particular patient.

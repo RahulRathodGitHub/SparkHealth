@@ -12,7 +12,7 @@
     </p>
     <ul class="menu-list">
         <li *ngFor="let route of generalRoutes">
-            <a [routerLink]="route.url">
+            <a [routerLink]="route.url" routerLinkActive="is-active" >
                 <i [class]="route.icon"></i>
                 <span>{{ route.linkName }}</span>
             </a>
@@ -23,7 +23,7 @@
     </p>
     <ul class="menu-list">
         <li *ngFor="let route of managementRoutes">
-            <a [routerLink]="route.url">
+            <a [routerLink]="route.url" routerLinkActive="is-active">
                 <i [class]="route.icon"></i>
                 <span>{{ route.linkName }}</span>
             </a>
