@@ -35,13 +35,33 @@
 </div>
 
 
-<div class="tile is-ancestor">
+<div class="tile is-ancestor is-hidden-mobile">
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <div class="content">
+                        <div class="graph">
+                            <canvas
+                            baseChart
+                            [chartType]="'line'"
+                            [datasets]="chartData"
+                            [labels]="chartLabels"
+                            [colors]="lineChartColors"
+                          >
+                          </canvas>
+                              </div>
+                      </div>
+            </article>
+        </div>
+    </div>
+
+<div class="tile is-ancestor is-hidden-tablet">
     <div class="tile is-parent">
         <article class="tile is-child box">
             <div class="content">
                     <div class="graph">
                         <canvas
                         baseChart
+                        height="150vh" width="80vw"
                         [chartType]="'line'"
                         [datasets]="chartData"
                         [labels]="chartLabels"
