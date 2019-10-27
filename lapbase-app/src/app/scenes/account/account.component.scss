@@ -1,6 +1,6 @@
 .profile-pic {
-  height: 11rem;
-  width: 11rem;
+  height: 15rem;
+  width: 15rem;
   border-radius: 50%;
   border: solid 1px black;
   margin-left: 10px;
@@ -22,10 +22,11 @@
 .title.is-5 {
   margin-bottom: 4px;
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 400;
+  color: #808080;
 }
 
-.title {
+.title.is-3 {
   font-size: 2.5rem;
 }
 .tile.is-vertical > .tile.is-child:not(:last-child) {
