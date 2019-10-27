@@ -57,7 +57,8 @@ namespace Lapbase.Migrations
                     OrganizationCode = table.Column<int>(nullable: false),
                     DateAssigned = table.Column<DateTimeOffset>(nullable: false),
                     Completed = table.Column<bool>(nullable: false),
-                    Calories = table.Column<decimal>(nullable: false),
+                    CaloriesGained = table.Column<decimal>(nullable: false),
+                    CaloriesLost = table.Column<decimal>(nullable: false),
                     Weight = table.Column<decimal>(nullable: false),
                     Foods = table.Column<string>(nullable: true),
                     FoodQuantities = table.Column<string>(nullable: true),
@@ -123,27 +124,27 @@ namespace Lapbase.Migrations
             migrationBuilder.InsertData(
                 table: "Exercise",
                 columns: new[] { "Id", "CalorieCount", "Name", "pictureUrl" },
-                values: new object[] { new Guid("806985f7-3350-41ce-ba9f-d7405897e7b2"), 54, "PUSHUPS", null });
+                values: new object[] { new Guid("3a913ad6-ef97-46fa-a8f1-e7fca79d7e85"), 54, "PUSHUPS", null });
 
             migrationBuilder.InsertData(
                 table: "Food",
                 columns: new[] { "Id", "CalorieCount", "Name", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("218947dc-0943-434a-ba62-c07451b22dd5"), 295, "Burger", "piece" },
-                    { new Guid("3d33bf0d-c112-4d32-96bc-73c92ca8060b"), 40, "Onion", "piece" },
-                    { new Guid("98eac67f-ef73-4a33-9404-1e863b780875"), 90, "Uncle Keith's Kappuccino", "cup" },
-                    { new Guid("5a32e492-e2d3-4cf8-9359-837112cb1d95"), 96, "White bread", "slice" },
-                    { new Guid("cd0274ea-3552-4b9e-ba57-313b6490836d"), 44, "Apple", "apple" },
-                    { new Guid("5bf7fdbf-fc4d-4196-ae39-72b819b305fe"), 107, "Banana", "banana" },
-                    { new Guid("353b57cb-827e-4644-8cc0-e42e3db38ab3"), 30, "Tomato", "tomato" },
-                    { new Guid("1d21a5b2-0a1f-4045-a807-92027fd450d4"), 50, "Roti", "slice" },
-                    { new Guid("d9a296f2-7e8a-457d-9da0-85e7d35012d0"), 40, "Rice", "cup" },
-                    { new Guid("e5acb476-8bba-4278-b35e-20fa5b60e904"), 600, "Halal Pork", "piece" },
-                    { new Guid("cf366673-7b3c-4c46-9f3e-7fe5ea598143"), 300, "Habib-Style Shwarma", "shwarma" },
-                    { new Guid("9c3c7f4c-6738-47e3-8c8a-f5c82a576082"), 300, "Meat Platter", "platter" },
-                    { new Guid("7c6f60cc-c0d9-4208-be5e-535796f478da"), 350, "Mooncake", "mooncake" },
-                    { new Guid("b6b7dad4-a4ca-4f53-bb4d-8aadb1d41e4a"), 400, "HSP", "box" }
+                    { new Guid("dbbf5c2a-f196-422e-96e0-51d991f315e9"), 295, "Burger", "piece" },
+                    { new Guid("e404ff6d-7e8d-4d71-8b3b-7e62c7e2b8ab"), 40, "Onion", "piece" },
+                    { new Guid("09ba286a-2073-4e0c-8c43-aa4804c73c99"), 90, "Uncle Keith's Kappuccino", "cup" },
+                    { new Guid("214b732e-3597-4042-af6e-b37fa063f121"), 96, "White bread", "slice" },
+                    { new Guid("95987751-a24e-4475-8ed5-ae82469487a8"), 44, "Apple", "apple" },
+                    { new Guid("e0d6cce6-7b40-4eda-ae9d-35dcd222baf6"), 107, "Banana", "banana" },
+                    { new Guid("0b4a59e1-a74d-4372-9aa7-d9d840db89c4"), 30, "Tomato", "tomato" },
+                    { new Guid("c6707ce0-9dce-4167-aae3-f72db5dd567d"), 50, "Roti", "slice" },
+                    { new Guid("54d03758-b450-46d2-8421-dabde77db003"), 40, "Rice", "cup" },
+                    { new Guid("449ba1c0-b2ea-4aa6-b001-34b966904533"), 600, "Halal Pork", "piece" },
+                    { new Guid("7e824698-63ff-4743-ba45-8aecd5270c6b"), 300, "Habib-Style Shwarma", "shwarma" },
+                    { new Guid("395a9bff-9279-44bb-8170-7ec9b4fde192"), 300, "Meat Platter", "platter" },
+                    { new Guid("d76bd3b3-7caf-4092-a1a4-753b6a2748c6"), 350, "Mooncake", "mooncake" },
+                    { new Guid("2be9f841-c2db-4807-8110-6d698a21749c"), 400, "HSP", "box" }
                 });
 
             migrationBuilder.InsertData(

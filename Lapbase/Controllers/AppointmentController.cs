@@ -31,7 +31,6 @@ namespace Lapbase.Controllers
         [HttpGet("{id}/{organizationCode}")]
         public async Task<ActionResult<List<Appointment>>> GetAppointmentsById(int id, int organizationCode)
         {
-            string name = (User.FindFirst(ClaimTypes.NameIdentifier))?.Value;
             return await appointmentService.GetAppointmentById(id, organizationCode);
         }
 

@@ -1,7 +1,4 @@
-$ServicePrincipal_App_ID="61ff10ba-5b86-4b20-8dde-9ca53c6a6586"
-$ServicePrincipal_TENANT_ID="9aee26d8-97c2-4fad-8900-96735f6dc73f"
-$ServicePrincipal_PASSWORD="69ef97df-d5c1-491c-a888-d2289d21dd9e"
-$DbPasswordText = (New-Object PSCredential $DbUsername, $DbPassword).GetNetworkCredential().Password
+$DbPassword=ConvertTo-SecureString -String "Bestpassword1" -AsPlainText -Force
 $AppNameSuffix="test"
 $Location = "australiaeast"
 
@@ -15,7 +12,7 @@ function Get-UniqueString ([string] $Id, $Length=13)
 
 Write-Output "------------------------Provisioning [Started]------------------------"
 # Static config values
-$BaseAppName = "Lapbase"
+$BaseAppName = "SparkHealth"
 $ResourceGroupName = $BaseAppName + $AppNameSuffix
 $WebAppServicePlan = "$($ResourceGroupName)ServicePlan"
 $DbName = $BaseAppName
@@ -27,7 +24,8 @@ $DbNewName = $BaseAppName + "New"
 Write-Output "------------------------Resource Group Provisioning [Started]------------------------"
 # Login to Azure
 Write-Output "Logging in to Azure [Started]"
-az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
+# az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
+az login
 Write-Output "Logging in to Azure [Done]"
 
 # Create a resource group
@@ -150,8 +148,17 @@ Write-Output "Generate Web App Environment Settings [Started]"
 Push-Location $WebAppPath
 $AngularConfig = @"
 export const environment = {
-    production: true,
-    LAPBASE_API_ADDRESS: '$($WebApiAddress)/api/'
+  production: true,
+  LAPBASE_API_ADDRESS: '$($WebApiAddress)/api/',
+  AZURE_AD_CLIENTID: '8c692cb0-4826-466d-8b95-8805ee1e6a93',
+  AZURE_AD_TENANTID: '2e833ca0-6a32-45e7-b968-1faae0218ea4',
+  REDIRECT_URI: '$($WebAppAddress)/Dashboard',
+  POST_LOGOUT_REDIRECT_URI: '$($WebAppAddress)',
+  AUTHORITY: 'https://login.microsoftonline.com/2e833ca0-6a32-45e7-b968-1faae0218ea4',
+  CONSENT_SCOPES: ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/.default'],
+    PROTECTED_RESOURCE_MAP: [
+    ['$($WebApiAddress)/api/', ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/.default']]
+  ]
 };
 "@
 Out-File -FilePath "src\environments\environment.prod.ts" -InputObject $AngularConfig -Encoding "UTF8"

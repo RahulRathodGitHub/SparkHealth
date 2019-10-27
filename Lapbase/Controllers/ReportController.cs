@@ -16,8 +16,8 @@ namespace Lapbase.Controllers
      * Controller to expose all the endpoints regarding the reports.
      */
     [Route("api/[controller]")]
-    [Authorize]
     [ApiController]
+    [Authorize]
     public class ReportController : ControllerBase
     {
         private readonly ReportService reportService;

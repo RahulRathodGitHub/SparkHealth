@@ -13,13 +13,7 @@ namespace Lapbase.Models
         public DateTimeOffset ValidTo { get; set; }
         public bool Deleted { get; set; }
 
-        public int AdvisorId { get; set; }
-        public Advisor Advisor { get; set; }
-
-        // public ICollection<Food> Food { get; set; }
-        // public ICollection<Exercise> Exercise { get; set; }
-        // public ICollection<Feedback> Feedback { get; set; }
-        // public ICollection<Task> Tasks { get; set; }
-        // public ICollection<TaskInput> TaskInput { get; set; }
+        public int PatientCode { get; set; }
+        public int OrganisationCode { get; set; }
     }
 }

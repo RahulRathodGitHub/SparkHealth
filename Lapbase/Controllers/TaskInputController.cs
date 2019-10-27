@@ -9,6 +9,7 @@ namespace Lapbase.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class TaskInputController : ControllerBase
     {
         private readonly TaskInputService taskInputService;

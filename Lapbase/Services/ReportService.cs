@@ -43,9 +43,6 @@ namespace Lapbase.Services
         public async Task<DateTime?> GetReportLastAvailableDate(int patientId, int organizationCode, ReportType reportType)
         {
             byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientId && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefault());
-
-            DateTime? result = new DateTime?();
-
             if (reportType == ReportType.EWL_WL)
             {
 

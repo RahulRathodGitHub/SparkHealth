@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 using Lapbase.Models;
 using Lapbase.Services;
+using Microsoft.AspNetCore.Authorization;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,6 +16,7 @@ namespace Lapbase.Controllers
      * Controller to expose all the endpoints corresponding to a patient.
      */
     [Route("api/[controller]")]
+    [Authorize]
     public class PatientController : Controller
     {
         private readonly PatientService patientService;

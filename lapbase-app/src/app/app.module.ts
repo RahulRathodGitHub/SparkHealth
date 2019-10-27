@@ -65,7 +65,7 @@ import { LogLevel } from 'msal';
     MyDatePickerModule,
     MsalModule.forRoot({
       clientID: environment.AZURE_AD_CLIENTID,
-      popUp: false,
+      popUp: true,
       redirectUri: environment.REDIRECT_URI,
       postLogoutRedirectUri: environment.POST_LOGOUT_REDIRECT_URI,
       authority: environment.AUTHORITY,
@@ -73,9 +73,8 @@ import { LogLevel } from 'msal';
       consentScopes: environment.CONSENT_SCOPES,
       logger : loggerCallback,
       level: LogLevel.Verbose,
-      protectedResourceMap: [
-        ['https://localhost:5001/api', ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/user_impersonation']]
-      ]
+      //@ts-ignore
+      protectedResourceMap: environment.PROTECTED_RESOURCE_MAP
     }),
   ],
   providers: [DatePipe, {

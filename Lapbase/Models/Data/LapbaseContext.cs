@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lapbase.Models
@@ -19,15 +18,12 @@ namespace Lapbase.Models
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
 
-            modelBuilder.Entity<Advisor>().HasData(new Advisor
-            {
-                Id = 1
-            });
             modelBuilder.Entity<Patient>().HasData(new Patient
             {
                 Id = 1,
-                Username = "test@test.com",
-                AdvisorId = 1,
+                Username = "Test@SparkHealthhotmailcom.onmicrosoft.com",
+                PatientCode = 2756,
+                OrganisationCode = 1,
                 Deleted = false
             });
 
@@ -140,7 +136,6 @@ namespace Lapbase.Models
             modelBuilder.Entity<Food>().HasData(foodList);
         }
 
-        public DbSet<Advisor> Advisor { get; set; }
         public DbSet<Exercise> Exercise { get; set; }
         public DbSet<Feedback> Feedback { get; set; }
         public DbSet<Food> Food { get; set; }

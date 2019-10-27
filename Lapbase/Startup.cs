@@ -57,25 +57,21 @@ namespace Lapbase
                 services.BuildServiceProvider().GetService<LapbaseNewContext>().Database.Migrate();
             }
 
-            //services
-                //.AddAuthentication(AzureADDefaults.BearerAuthenticationScheme)
-                //.AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
-                //.AddJwtBearer("azuread", options =>
-                //    {
-                //        options.Audience = Configuration.GetValue<string>("AzureAd:Audience");
-                //        options.Authority = Configuration.GetValue<string>("AzureAd:instance") + Configuration.GetValue<string>("AzureAd:tenantid");
-                //        options.TokenValidationParameters = new TokenValidationParameters
-                //        {
-                //            ValidIssuer = Configuration.GetValue<string>("AzureAd:issuer"),
-                //            ValidAudience = Configuration.GetValue<string>("AzureAd:audience")
-                //        };
-                //    });
-
             services.AddAuthentication(sharedOptions =>
             {
                 sharedOptions.DefaultScheme = AzureADDefaults.BearerAuthenticationScheme;
             })
             .AddAzureADBearer(options => Configuration.Bind("AzureAd", options));
+
+            services.Configure<JwtBearerOptions>(AzureADDefaults.JwtBearerAuthenticationScheme, options =>
+            {
+                // The web API accepts as audiences both the Client ID (options.Audience) and api://{ClientID}.
+                options.TokenValidationParameters.ValidAudiences = new[]
+                {
+                 options.Audience,
+                 $"api://{options.Audience}"
+                };
+            });
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -93,6 +89,7 @@ namespace Lapbase
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            app.UseAuthentication();
             app.UseCors(AllowAllOrigins);
             app.UseHttpsRedirection();
             app.UseMvc();
