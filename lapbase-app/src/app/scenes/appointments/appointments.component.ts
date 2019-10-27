@@ -25,18 +25,23 @@ export class AppointmentsComponent {
 
   constructor(private appointmentService: AppointmentService) {
     const organizationCode = 2;
-    const patientId = 2756; // Ricky Perez
-    this.appointmentService.getAppointmentsById(patientId, organizationCode)
-      .then(result => this.calendarEvents = result).then(() => console.log(this.calendarEvents));
+    const patientId = 2756; //Ricky Perez
+    
+    // Get the appointment for the particular patient
+    this.appointmentService.getAppointmentsById(patientId, organizationCode).then(result => this.calendarEvents = result);
+
   }
 
+  // Access advanced configuration for the appointment calendar.
   @ViewChild('calendar') calendarComponent: FullCalendarComponent;
-  calendarPlugins = [
-    dayGridPlugin,
+
+  // The plugins can be added if we want more calendar functionality
+  calendarPlugins = [dayGridPlugin,      // For normal Day Grid Calendar View
     timeGrigPlugin,
     interactionPlugin
   ];
 
+  // Function to handle the event of a date being clicked.
   handleDateClick(event) {
     this.eventClicked = true;
     this.eventTitle = event.event.title;

@@ -1,3 +1,232 @@
-<p>
-  Settings page
-</p>
+
+<div class="columns">
+  <div class="column">
+    <h5 class="title is-3">Profile Picture</h5>
+    <i class="fas fa-10x fa-user-circle"></i>
+  </div>
+  <div class="column">
+    <div class="columns">
+      <div class="column">
+        <h5 class="title is-3">{{ patientData.firstname }} {{ patientData.surname }}</h5>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Birthday: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ getBirthDate() }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Age: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientAge }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Sex: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.sex }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Race: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.race }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Martial Status: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.maritalStatus }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Insurance: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.insurance }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="columns">
+  <div class="column">
+    <div class="columns">
+      <div class="column">
+        <h5 class="title is-3">Stats</h5>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Height: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientData.height }} </p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Current Weight: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientData.currentWeight }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Target Weight: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.targetWeight }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Op Weight:</h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.opWeight }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="columns">
+      <div class="column">
+        <h5 class="title is-3">Medical History</h5>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">First Visit: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ changeDateFormat(patientData.dateFirstVisit) }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Last Visit: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ changeDateFormat(patientData.dateLastVisit) }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Starting Weight:</h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.startWeight }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Starting BMI Weight: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.startBmiweight }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Surgery Type:</h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.surgeryType }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="columns">
+  <div class="column">
+    <div class="columns">
+      <div class="column">
+        <h5 class="title is-3">Doctor Info</h5>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Doctor Name:</h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientData.doctorName }} </p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Doctor Tel:</h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientData.doctorTelephone }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Doctor Fax: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.doctorFax }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="column">
+    <div class="columns">
+      <div class="column">
+        <h5 class="title is-3">Contact</h5>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Mobile: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientData.mobilePhone }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Home: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info">{{ patientData.homePhone }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Email:</h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> {{ patientData.emailAddress }}</p>
+          </div>
+        </div>
+        <div class="columns is-mobile">
+          <div class="column">
+            <h5 class="title is-5">Address: </h5>
+          </div>
+          <div class="column">
+            <p class="bd-notification is-info"> >{{
+                        patientData.street +
+                          " " +
+                          patientData.suburb +
+                          " " +
+                          patientData.postcode
+                      }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

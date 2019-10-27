@@ -29,9 +29,15 @@ $menu-item-color: #ffffff;
 $menu-item-active-color: #ffffff;
 $menu-item-active-background-color: #cc0033;
 $menu-item-hover-background-color: #cc0033;
-$menu-item-hover-color: #FFFFcc;
+$menu-item-hover-color: #ffffff;
 
 $menu-item-radius: 2px;
+
+$tabs-toggle-link-active-background-color:#cc0033;
+$tabs-toggle-link-active-border-color:#cc0033;
+$tabs-link-active-border-bottom-color:#cc0033;
+$tabs-link-active-color:#cc0033;
+
 // This import should be last
 @import '~bulma';
 @import '~bulma-switch';

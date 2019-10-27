@@ -54,7 +54,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("806985f7-3350-41ce-ba9f-d7405897e7b2"),
+                            Id = new Guid("886a3747-c1da-474d-8a94-4f0a285c019a"),
                             CalorieCount = 54,
                             Name = "PUSHUPS"
                         });
@@ -98,98 +98,98 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("218947dc-0943-434a-ba62-c07451b22dd5"),
+                            Id = new Guid("52319486-3481-4591-b7cc-5b630ab321a3"),
                             CalorieCount = 295,
                             Name = "Burger",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("3d33bf0d-c112-4d32-96bc-73c92ca8060b"),
+                            Id = new Guid("a4de84bb-dc77-4462-bf03-ec93992ef9de"),
                             CalorieCount = 40,
                             Name = "Onion",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("98eac67f-ef73-4a33-9404-1e863b780875"),
+                            Id = new Guid("3cc5b1ab-7753-4234-bd6c-73087387a63e"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("5a32e492-e2d3-4cf8-9359-837112cb1d95"),
+                            Id = new Guid("540915e2-3f4d-436b-ae5c-7dc6c2be7f32"),
                             CalorieCount = 96,
                             Name = "White bread",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("cd0274ea-3552-4b9e-ba57-313b6490836d"),
+                            Id = new Guid("55a002a7-b4bf-4b83-b8ab-b0c28e62e545"),
                             CalorieCount = 44,
                             Name = "Apple",
                             Unit = "apple"
                         },
                         new
                         {
-                            Id = new Guid("5bf7fdbf-fc4d-4196-ae39-72b819b305fe"),
+                            Id = new Guid("34e5fa59-c6d5-48d3-86ed-cfc0ffd6bdfc"),
                             CalorieCount = 107,
                             Name = "Banana",
                             Unit = "banana"
                         },
                         new
                         {
-                            Id = new Guid("353b57cb-827e-4644-8cc0-e42e3db38ab3"),
+                            Id = new Guid("5e3bc61a-a4ca-45f6-8268-35674cdca1d5"),
                             CalorieCount = 30,
                             Name = "Tomato",
                             Unit = "tomato"
                         },
                         new
                         {
-                            Id = new Guid("1d21a5b2-0a1f-4045-a807-92027fd450d4"),
+                            Id = new Guid("c29c8b5d-25b7-48cc-b249-5082b97cb87a"),
                             CalorieCount = 50,
                             Name = "Roti",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("d9a296f2-7e8a-457d-9da0-85e7d35012d0"),
+                            Id = new Guid("319ce7d3-b52b-4784-96be-9d51442d3d82"),
                             CalorieCount = 40,
                             Name = "Rice",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("e5acb476-8bba-4278-b35e-20fa5b60e904"),
+                            Id = new Guid("3a31f91c-182c-4abb-9c98-6b51db3e1a6d"),
                             CalorieCount = 600,
                             Name = "Halal Pork",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("cf366673-7b3c-4c46-9f3e-7fe5ea598143"),
+                            Id = new Guid("01dd60b0-330d-4d65-a468-845183e84b2a"),
                             CalorieCount = 300,
                             Name = "Habib-Style Shwarma",
                             Unit = "shwarma"
                         },
                         new
                         {
-                            Id = new Guid("9c3c7f4c-6738-47e3-8c8a-f5c82a576082"),
+                            Id = new Guid("d63a1b25-edfa-487c-abb1-db7601948bd6"),
                             CalorieCount = 300,
                             Name = "Meat Platter",
                             Unit = "platter"
                         },
                         new
                         {
-                            Id = new Guid("7c6f60cc-c0d9-4208-be5e-535796f478da"),
+                            Id = new Guid("b4363f25-695d-4417-bedf-b8dd71a87a4f"),
                             CalorieCount = 350,
                             Name = "Mooncake",
                             Unit = "mooncake"
                         },
                         new
                         {
-                            Id = new Guid("b6b7dad4-a4ca-4f53-bb4d-8aadb1d41e4a"),
+                            Id = new Guid("ae6cac3d-8825-4ac9-9f5a-1c7f3de95725"),
                             CalorieCount = 400,
                             Name = "HSP",
                             Unit = "box"
@@ -238,7 +238,9 @@ namespace Lapbase.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<decimal>("Calories");
+                    b.Property<decimal>("CaloriesGained");
+
+                    b.Property<decimal>("CaloriesLost");
 
                     b.Property<bool>("Completed");
 

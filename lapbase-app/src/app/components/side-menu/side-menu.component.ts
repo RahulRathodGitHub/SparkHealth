@@ -8,19 +8,17 @@ import { MsalService } from '@azure/msal-angular';
 })
 export class SideMenuComponent implements OnInit {
   @Input() loggedIn: boolean;
+  isActive = true;
 
   generalRoutes = [
     { linkName: 'Dashboard', url: '/dashboard', icon: 'fas fa-columns fa-lg' },
     { linkName: 'Tasks', url: '/tasks', icon: 'fas fa-tasks fa-lg' },
     { linkName: 'Reports', url: '/reports', icon: 'fas fa-chart-area fa-lg' },
     { linkName: 'Appointments', url: '/appointments', icon: 'fas fa-calendar-alt fa-lg' },
-    { linkName: 'Timeline', url: '/timeline', icon: 'fas fa-stream fa-lg' },
   ];
 
   managementRoutes = [
-    { linkName: 'Settings', url: '/account', icon: 'fas fa-cog fa-lg' },
-    { linkName: 'Help', url: '/help', icon: 'fas fa-info-circle fa-lg' },
-    { linkName: 'Feedback', url: '/feedback', icon: 'fas fa-star fa-lg' },
+    { linkName: 'Account', url: '/account', icon: 'fas fa-user fa-lg'},
   ];
 
   constructor(private authService: MsalService) {  }
@@ -28,6 +26,9 @@ export class SideMenuComponent implements OnInit {
   ngOnInit() {
   }
 
+  toggleNavbar(){
+    this.isActive = !this.isActive;
+  }
   login = () => this.authService.loginRedirect();
 
   logout = () => this.authService.logout();

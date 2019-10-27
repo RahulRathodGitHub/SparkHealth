@@ -1,11 +1,18 @@
+<!-- Mobile Header -->
+<nav class="navbar mobileNav is-hidden-tablet is-fixed-top">
+    <div class="hamburger" (click)="toggleNavbar()">
+        <i role="button" class="fas fa-bars fa-lg"></i>
+    </div>
+</nav>
+
 <!-- Desktop Menu -->
-<aside class="menu is-hidden-mobile side-menu">
+<aside [class.is-hidden-mobile]="isActive" class="menu side-menu">
     <p class="menu-label">
         General
     </p>
     <ul class="menu-list">
         <li *ngFor="let route of generalRoutes">
-            <a [routerLink]="route.url">
+            <a [routerLink]="route.url" routerLinkActive="is-active" >
                 <i [class]="route.icon"></i>
                 <span>{{ route.linkName }}</span>
             </a>
@@ -16,7 +23,7 @@
     </p>
     <ul class="menu-list">
         <li *ngFor="let route of managementRoutes">
-            <a [routerLink]="route.url">
+            <a [routerLink]="route.url" routerLinkActive="is-active">
                 <i [class]="route.icon"></i>
                 <span>{{ route.linkName }}</span>
             </a>
@@ -36,7 +43,7 @@
     </ul>
 </aside>
 
-<!-- Mobile Menu -->
+<!-- Mobile Menu 
 <aside class="menu is-hidden-tablet mobile-side-menu">
     <ul class="menu-list">
         <li *ngFor="let route of generalRoutes"><a [routerLink]="route.url"><i [class]="route.icon"></i></a></li>
@@ -44,4 +51,4 @@
     <ul class="menu-list">
         <li *ngFor="let route of managementRoutes"><a [routerLink]="route.url"><i [class]="route.icon"></i></a></li>
     </ul>
-</aside>
+</aside>-->

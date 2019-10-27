@@ -1,9 +1,24 @@
+.mobileNav {
+   // width: var(--side-menu-width);  
+    background-color: crimson;
+}
+
+.hamburger {
+    color: black;
+    padding-top: 0.55em;
+    padding-left: 0.93em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    font-weight: 100;
+}
+
 .side-menu {
     position: fixed;
     width: var(--side-menu-width);
     height: 100vh;
     padding: 1.5em 0 0 0.5em;
     background: var(--side-menu-gradient);
+    z-index: 3 !important; // Navigation will be on the foreground with this.
 }
 
 .mobile-side-menu {
@@ -12,6 +27,7 @@
     height: 100vh;
     padding: 1.5em 0 0 0.5em;
     background: var(--side-menu-gradient);
+    
 }
 
 .menu-list {

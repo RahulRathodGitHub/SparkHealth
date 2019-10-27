@@ -1,45 +1,78 @@
 <div class="tile is-ancestor">
-  <div class="tile is-vertical is-8">
-      <div class="tile">
-          <div class="tile is-parent is-vertical">
-              <article class="tile is-child notification is-primary">
-                  <p class="title">Vertical...</p>
-                  <p class="subtitle">Top tile</p>
-              </article>
-              <article class="tile is-child notification is-warning">
-                  <p class="title">...tiles</p>
-                  <p class="subtitle">Bottom tile</p>
-              </article>
-          </div>
-          <div class="tile is-parent">
-              <article class="tile is-child notification is-info">
-                  <p class="title">Middle tile</p>
-                  <p class="subtitle">With an image</p>
-                  <figure class="image is-4by3">
-                      <img src="https://bulma.io/images/placeholders/640x480.png">
-                  </figure>
-              </article>
-          </div>
-      </div>
-      <div class="tile is-parent">
-          <article class="tile is-child notification is-danger">
-              <p class="title">Wide tile</p>
-              <p class="subtitle">Aligned with the right tile</p>
-              <div class="content">
-                  <!-- Content -->
-              </div>
-          </article>
-      </div>
-  </div>
-  <div class="tile is-parent">
-      <article class="tile is-child notification is-success">
-          <div class="content">
-              <p class="title">Tall tile</p>
-              <p class="subtitle">With even more content</p>
-              <div class="content">
-                  <!-- Content -->
-              </div>
-          </div>
-      </article>
-  </div>
+    <div class="tile is-parent">
+        <article class="tile is-child box" click="app-appointment">
+            <p class="title is-4">Appointment</p>
+            <p class="subtitle">{{(nextAppointment==null)?"No Appointments":((nextAppointment.start !=null)?"Time: "+nextAppointment.start:"Next Appointment Time Unknown")}}</p>
+        </article>
+    </div>
+    <div class="tile is-parent">
+        <article class="tile is-child box">
+                <p class="title is-4">Today's calories</p>
+                <div class="subtitle">
+                <p class="is-size-5">Intake: {{calorieIntake}}</p>
+                <p class="is-size-5">Burn: {{calorieBurn}}</p>
+            </div>
+        </article>
+    </div>
+    <div class="tile is-parent">
+        <article class="tile is-child box">
+                <p class="title is-4">Food of the month:</p>
+                <p class="subtitle"> {{foodOfTheMonth.name}}</p>
+            </article>
+    </div>
+</div>
+
+<div class="tile is-ancestor">
+    <div class="tile is-parent">
+            <article class="tile is-child box">
+                    <p class="is-size-5">Current Weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.currentWeight}}</p>
+                    <p class="is-size-5">Ideal Weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.idealWeight}}</p>
+                </article>
+    </div>
+    <div class="tile is-parent">
+            <article class="tile is-child box">
+                    <p class="is-size-5">BMI: {{patientBMI}}</p>
+                    <p class="is-size-5">Initial BMI:{{patientInitBmi}}</p>
+            </article>
+    </div>
+</div>
+
+
+<div class="tile is-ancestor is-hidden-mobile">
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <div class="content">
+                        <div class="graph">
+                            <canvas
+                            baseChart
+                            [chartType]="'line'"
+                            [datasets]="chartData"
+                            [labels]="chartLabels"
+                            [colors]="lineChartColors"
+                          >
+                          </canvas>
+                              </div>
+                      </div>
+            </article>
+        </div>
+    </div>
+
+<div class="tile is-ancestor is-hidden-tablet">
+    <div class="tile is-parent">
+        <article class="tile is-child box">
+            <div class="content">
+                    <div class="graph">
+                        <canvas
+                        baseChart
+                        height="150vh" width="80vw"
+                        [chartType]="'line'"
+                        [datasets]="chartData"
+                        [labels]="chartLabels"
+                        [colors]="lineChartColors"
+                      >
+                      </canvas>
+                          </div>
+                  </div>
+        </article>
+    </div>
 </div>

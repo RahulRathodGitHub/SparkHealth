@@ -1,12 +1,14 @@
-nav {
+.desktopNav {
     background-color: var(--header-bg-color);
     width: var(--side-menu-width);
 }
 
-.label {
+
+.label{
+
     color: #FFFFFF;
-    padding-left: 35px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 20px;
     font-weight: 100;
+
 }

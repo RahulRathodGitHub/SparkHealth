@@ -1,0 +1,195 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Lapbase.Models
+{
+    public class TaskInputDto
+    {
+        public Guid Id { get; set; }
+        public DateTimeOffset DateAssigned { get; set; }
+
+        public decimal CaloriesGained { get; set; }
+        public decimal CaloriesLost { get; set; }
+        public decimal Weight { get; set; }
+
+        public List<FoodInfo> Foods { get; set; }
+        public List<ExerciseInfo> Exercises { get; set; }
+
+        public TaskInputDto() { }
+
+        public TaskInputDto(DateTimeOffset dateAssigned)
+        {
+            Id = Guid.Empty;
+            DateAssigned = dateAssigned;
+            CaloriesGained = 0;
+            CaloriesLost = 0;
+            Weight = 0;
+            Meals = new List<FoodInfo>() {
+                new FoodInfo() {
+                    Foods = new List<FoodQuantity>(),
+                    MealTime = MealTime.BREAKFAST
+                },
+                new FoodInfo() {
+                    Foods = new List<FoodQuantity>(),
+                    MealTime = MealTime.LUNCH
+                },
+                new FoodInfo() {
+                    Foods = new List<FoodQuantity>(),
+                    MealTime = MealTime.DINNER
+                }
+            };
+            Exercises = new List<ExerciseInfo>();
+        }
+
+        public TaskInputDto(TaskInput taskInput)
+        {
+<<<<<<< HEAD
+            Id = taskInput.Id;
+            DateAssigned = taskInput.DateAssigned;
+            CaloriesGained = taskInput.CaloriesGained;
+            CaloriesLost = taskInput.CaloriesLost;
+            Weight = taskInput.Weight;
+            Meals = GetMeals(taskInput);
+            Exercises = GetExercises(taskInput);
+        }
+
+        #region Helper Methods for Exercises
+        private List<ExerciseInfo> GetExercises(TaskInput taskInput)
+        {
+
+            var Exercises = new List<ExerciseInfo>();
+=======
+            this.Id = taskInput.Id;
+            this.PatientId = taskInput.PatientId;
+            this.OrganizationCode = taskInput.OrganizationCode;
+            this.DateAssigned = taskInput.DateAssigned;
+            this.Completed = taskInput.Completed;
+            this.Calories = taskInput.Calories;
+            this.Weight = taskInput.Weight;
+            this.Foods = new List<FoodInfo>();
+            this.Exercises = new List<ExerciseInfo>();
+
+            String[] foodIds = taskInput.Foods.Split(",");
+            String[] foodQuantities = taskInput.FoodQuantities.Split(",");
+
+            String[] exerciseNames = taskInput.Exercises.Split(",");
+            String[] exerciseQuantities = taskInput.ExerciseReps.Split(",");
+
+            String breakfastFoods = "";
+            String breakfastFoodQuantities = "";
+
+            String lunchFoods = "";
+            String lunchFoodQuantities = "";
+
+            String dinnerFoods = "";
+            String dinnerFoodQuantities = "";
+>>>>>>> TEAM-133_Multiple_trends_in_one_graph
+
+            var extractedExerciseIds = taskInput.Exercises.Split(',');
+            var extractedExerciseQuantity = taskInput.ExerciseReps.Split(',');
+
+            for (int i = 0; i < extractedExerciseIds.Length; i++)
+            {
+<<<<<<< HEAD
+                if(extractedExerciseIds[i] != default && extractedExerciseIds[i].Length > 0)
+                {
+                    Exercises.Add(new ExerciseInfo()
+                    {
+                        Id = Guid.Parse(extractedExerciseIds[i]),
+                        Quantity = int.Parse(extractedExerciseQuantity[i])
+                    });
+=======
+                if (s.ToLower().Equals("breakfast"))
+                {
+                    breakfastFoods += "," + foodIds[i];
+                    breakfastFoodQuantities += "," + foodQuantities[i];
+                }
+                else if (s.ToLower().Equals("lunch"))
+                {
+                    lunchFoods += "," + foodIds[i];
+                    lunchFoodQuantities += "," + foodQuantities[i];
+                }
+                else if (s.ToLower().Equals("dinner"))
+                { 
+                    dinnerFoods += "," + foodIds[i];
+                    dinnerFoodQuantities += "," + foodQuantities[i];
+                }
+               
+>>>>>>> TEAM-133_Multiple_trends_in_one_graph
+
+                }
+                    
+            }
+<<<<<<< HEAD
+            return Exercises;
+=======
+
+            if(!breakfastFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(breakfastFoods.Substring(1), breakfastFoodQuantities.Substring(1), IntakeTime.BREAKFAST));
+
+            if(!lunchFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(lunchFoods.Substring(1), lunchFoodQuantities.Substring(1), IntakeTime.LUNCH));
+
+            if(!dinnerFoods.Equals(""))
+            this.Foods.Add(new FoodInfo(dinnerFoods.Substring(1), dinnerFoodQuantities.Substring(1), IntakeTime.DINNER));
+
+            this.Exercises.Add(new ExerciseInfo(taskInput.Exercises, taskInput.ExerciseReps));
+>>>>>>> TEAM-133_Multiple_trends_in_one_graph
+        }
+        #endregion
+
+        #region Helper Methods for foods
+        private List<FoodInfo> GetMeals(TaskInput taskInput)
+        {
+            var Foods = new List<FoodInfo>() {
+                new FoodInfo() {
+                    Foods = new List<FoodQuantity>(),
+                    MealTime = MealTime.BREAKFAST
+                },
+                new FoodInfo() {
+                    Foods = new List<FoodQuantity>(),
+                    MealTime = MealTime.LUNCH
+                },
+                new FoodInfo() {
+                    Foods = new List<FoodQuantity>(),
+                    MealTime = MealTime.DINNER
+                }
+            };
+
+            var extractedFoodIds = taskInput.Foods.Split(',');
+            var extractedFoodQuantity = taskInput.FoodQuantities.Split(',');
+            var extractedMealTime = taskInput.MealTimes.Split(',');
+
+            for (int i = 0; i < extractedFoodIds.Length; i++)
+            {
+                if(extractedFoodIds[i] != default && extractedFoodIds[i].Length > 0)
+                switch ((MealTime)int.Parse(extractedMealTime[i]))
+                {
+                    case MealTime.BREAKFAST:
+                        Foods.Find(f => f.MealTime == MealTime.BREAKFAST).Foods.Add(new FoodQuantity()
+                        {
+                            Id = Guid.Parse(extractedFoodIds[i]),
+                            Quantity = int.Parse(extractedFoodQuantity[i])
+                        });
+                        break;
+                    case MealTime.LUNCH:
+                        Foods.Find(f => f.MealTime == MealTime.LUNCH).Foods.Add(new FoodQuantity()
+                        {
+                            Id = Guid.Parse(extractedFoodIds[i]),
+                            Quantity = int.Parse(extractedFoodQuantity[i])
+                        });
+                        break;
+                    case MealTime.DINNER:
+                        Foods.Find(f => f.MealTime == MealTime.DINNER).Foods.Add(new FoodQuantity()
+                        {
+                            Id = Guid.Parse(extractedFoodIds[i]),
+                            Quantity = int.Parse(extractedFoodQuantity[i])
+                        });
+                        break;
+                }
+            }
+            return Foods;
+        }
+        #endregion
+    }
+}

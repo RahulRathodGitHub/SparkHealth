@@ -1,0 +1,51 @@
+.profile-pic {
+  height: 15rem;
+  width: 15rem;
+  border-radius: 50%;
+  border: solid 1px black;
+  margin-left: 10px;
+}
+
+.profile {
+  font-size: 1.1rem;
+}
+
+.profile-detail {
+  font-size: 1.2rem;
+  line-height: 2.5;
+}
+
+.profile-bottom {
+  line-height: 2.7rem;
+}
+
+.title.is-5 {
+  margin-bottom: 4px;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #808080;
+}
+
+.title.is-3 {
+  font-size: 2.5rem;
+}
+.tile.is-vertical > .tile.is-child:not(:last-child) {
+  margin-bottom: 2.5rem;
+}
+
+.label {
+  display: inline;
+  color: #808080;
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.notes {
+  line-height: 1.5;
+  margin-top: 10px;
+  width: 40rem;
+}
+$tabs-toggle-link-active-background-color:red;
+$tabs-toggle-link-active-border-color:red;
+$tabs-link-active-border-bottom-color:red;
+$tabs-link-active-color:red;

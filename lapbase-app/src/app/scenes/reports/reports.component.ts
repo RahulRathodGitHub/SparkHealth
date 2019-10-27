@@ -13,15 +13,16 @@ import { SwitchView } from "@angular/common/src/directives/ng_switch";
 })
 export class ReportsComponent implements OnInit {
   report: IReport;
-  chartData = {};
+  chartData = [];
   chartLabels = {};
   typeOfReport: Number;
   startDate: String;
   endDate: String;
   loading = false;
-  chartType = '';
+  chartType = "";
   dropdownActive = false;
   weightLossData = [{}];
+  public startDateModel: any ;
 
   constructor(
     private datepipe: DatePipe,
@@ -29,12 +30,11 @@ export class ReportsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    
     this.startDate = null;
     this.endDate = null;
 
     //Retrieving weight data as default data when users visit the Report page
-    this.setChartType("WeightLoss");
+    this.setChartType("EWL_WL");
   }
 
   chartOptions = {
@@ -48,32 +48,28 @@ export class ReportsComponent implements OnInit {
 
   setChartType(selectedChartType) {
     this.typeOfReport = +reporttype[selectedChartType];
-    console.log(typeof this.typeOfReport);
-
+    this.chartType = selectedChartType;
     this.getReport();
   }
 
   getReport() {
-
-    if(this.startDate == null)
-    {
+    if (this.startDate == null) {
       //Setting default dates for when patient first visit page
+     
+
       var lastAvailableDate = new Date();
-      
-      this.reportService.getLastAvailableDate(
-                                                2756,
-                                                2,
-                                                this.typeOfReport
-  
-                                              ).then( p => lastAvailableDate = p);
-  
+
+      this.reportService
+        .getLastAvailableDate(2756, 2, this.typeOfReport)
+        .then(p => (lastAvailableDate = p));
+
       var twoYearsBeforeLatestDate = new Date();
       twoYearsBeforeLatestDate.setFullYear(lastAvailableDate.getFullYear() - 2);
-  
+
       this.startDate = this.changeDateFormat(twoYearsBeforeLatestDate);
+      this.startDateModel={ date: { year: twoYearsBeforeLatestDate.getFullYear(), month: twoYearsBeforeLatestDate.getMonth(), day: twoYearsBeforeLatestDate.getDay() } };
       this.endDate = this.changeDateFormat(lastAvailableDate);
     }
-
 
     this.loading = true;
     this.reportService
@@ -88,26 +84,33 @@ export class ReportsComponent implements OnInit {
       )
       .then(p => {
         this.report = p;
-        console.log(p);
-
-        console.log(this.report.data);
-        console.log(this.report.labels);
+      
 
         var chartType;
         switch (this.typeOfReport) {
           case 0:
-            chartType = "Weigth Loss (kg)";
+            chartType = "Weight Loss & EWL (kg)";
             break;
           case 1:
-            chartType = "EWL (kg)";
+            chartType = "BMI";
             break;
           case 2:
-            chartType = "BMI";
+            chartType = "Calorie";
             break;
         }
 
-        this.chartData = [{ data: this.report.data, label: chartType }];
-        this.chartLabels = this.report.labels;
+        this.chartData = [
+          { data: this.report.data1, label: this.report.dataLabel1 }
+        ];
+        // Have to see the format for passing data2
+        if (this.report.dataLabel2.length > 0) {
+          this.chartData.push({
+            data: this.report.data2,
+            label: this.report.dataLabel2
+          });
+        }
+
+        this.chartLabels = this.report.timeLabels;
         this.loading = false;
       });
   }
@@ -117,15 +120,15 @@ export class ReportsComponent implements OnInit {
   }
   public lineChartColors: Array<any> = [
     {
-      backgroundColor: '#ff9999',
-      borderColor: '#cc003355',
-      pointBackgroundColor: '#ff9999',
-      pointBorderColor: '#cc0033',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      borderWidth: '1',
-      radius:'2',
-      hoverRadius:'2'
+      backgroundColor: "#ff999990",
+      borderColor: "#cc003355",
+      pointBackgroundColor: "#ff9999",
+      pointBorderColor: "#cc0033",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(148,159,177,0.8)",
+      borderWidth: "1",
+      radius: "2",
+      hoverRadius: "2"
     }
   ];
 
@@ -148,7 +151,7 @@ export class ReportsComponent implements OnInit {
     dateFormat: "dd.mm.yyyy"
   };
   public onStartDateChanged(event) {
-    //console.log(this.changeDateFormat(new Date(event.jsdate)));
+   
     this.startDate = this.changeDateFormat(new Date(event.jsdate));
     this.getReport();
   }
