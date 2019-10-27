@@ -1,14 +1,13 @@
-import { IHealthStats } from './../models/healthStats';
-import { IAppointment } from 'src/app/models';
-import { Injectable } from '@angular/core';
+import { IHealthStats } from "./../models/healthStats";
+import { IAppointment } from "src/app/models";
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "./../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DashboardService {
-
   constructor(private httpClient: HttpClient) {}
 
   // Get the patient's next appointment.

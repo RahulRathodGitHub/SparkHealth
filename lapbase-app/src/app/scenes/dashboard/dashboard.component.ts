@@ -1,23 +1,20 @@
-import { PatientService } from './../../services/patient.service';
-import { TaskService } from './../../services/task.service';
-import { IHealthStats } from './../../models/healthStats';
-import { IReport } from 'src/app/models/report';
-import { ReportService } from './../../services/report.service';
-import { DashboardService} from './../../services/dashboard.service';
-import { Component, OnInit } from '@angular/core';
-import { IAppointment, IFood} from 'src/app/models';
-import { asRoughMinutes } from '@fullcalendar/core';
+import { PatientService } from "./../../services/patient.service";
+import { TaskService } from "./../../services/task.service";
+import { IHealthStats } from "./../../models/healthStats";
+import { IReport } from "src/app/models/report";
+import { ReportService } from "./../../services/report.service";
+import { DashboardService } from "./../../services/dashboard.service";
+import { Component, OnInit } from "@angular/core";
+import { IAppointment, IFood } from "src/app/models";
+import { asRoughMinutes } from "@fullcalendar/core";
 import { DatePipe } from "@angular/common";
 
-
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: "app-dashboard",
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent {
-
-
   nextAppointment: IAppointment;
   report: IReport;
   chartData = [];
@@ -36,10 +33,11 @@ export class DashboardComponent {
   {
     const organizationCode = 2;
     const patientId = 2756; //Ricky Perez
-    this.dashboardService.getNextAppointment(patientId, organizationCode).then(result => {
-      this.nextAppointment = result;
-      
-    });
+    this.dashboardService
+      .getNextAppointment(patientId, organizationCode)
+      .then(result => {
+        this.nextAppointment = result;
+      });
 
     this.patientHealthStats = null;
 
@@ -92,7 +90,7 @@ export class DashboardComponent {
         2,
         typeOfReport,
         this.changeDateFormat(new Date(new Date().getDate() - 300000)), // A month Ago
-        this.changeDateFormat(new Date())         // Today
+        this.changeDateFormat(new Date()) // Today
       )
       .then(p => {
         this.report = p;
@@ -112,8 +110,10 @@ export class DashboardComponent {
         }
 
         // data2 is the data for weight. This is hardcoded for dashboard as the dashboard is only supposed to show the weight graph.
-        this.chartData = [{ data: this.report.data2, label: this.report.dataLabel2 }];
-        
+        this.chartData = [
+          { data: this.report.data2, label: this.report.dataLabel2 }
+        ];
+
         this.chartLabels = this.report.timeLabels;
       });
   }
@@ -121,15 +121,15 @@ export class DashboardComponent {
   // Variable representing the graph library's configuration.
   public lineChartColors: Array<any> = [
     {
-      backgroundColor: '#ff9999',
-      borderColor: '#cc003355',
-      pointBackgroundColor: '#ff9999',
-      pointBorderColor: '#cc0033',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(148,159,177,0.8)',
-      borderWidth: '1',
-      radius:'2',
-      hoverRadius:'2'
+      backgroundColor: "#ff9999",
+      borderColor: "#cc003355",
+      pointBackgroundColor: "#ff9999",
+      pointBorderColor: "#cc0033",
+      pointHoverBackgroundColor: "#fff",
+      pointHoverBorderColor: "rgba(148,159,177,0.8)",
+      borderWidth: "1",
+      radius: "2",
+      hoverRadius: "2"
     }
   ];
-  }
+}
