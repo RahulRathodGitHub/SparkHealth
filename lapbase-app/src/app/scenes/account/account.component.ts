@@ -18,6 +18,7 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    //Retrieving data from backend through patient service
     this.patientService.getPatientLapbaseById(2756, 2).then(pData => {
       this.patientData = pData;
       console.log(pData);
@@ -27,10 +28,12 @@ export class AccountComponent implements OnInit {
   }
 
   changeDateFormat(date: Date) {
+    //Returns date in day/month/year format
     return this.datePipe.transform(date, "dd/MM/yyyy");
   }
 
   getBirthDate() {
+    //Get BirthDate in format:  "5 September 1996"
     const tempDate = this.datePipe
       .transform(this.patientData.birthdate, "dd-MMMM-yyyy")
       .split("-");
@@ -38,6 +41,7 @@ export class AccountComponent implements OnInit {
   }
 
   calculateAge(date: Date) {
+    //Calculate age from their birthday to today's date
     const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
     this.patientAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
   }

@@ -19,28 +19,30 @@
   line-height: 2.7rem;
 }
 
-.title.is-5 {
-  margin-bottom: 4px;
-  font-size: 1.5rem;
-  font-weight: 500;
+.title.is-4 {
+  margin-bottom: 8px;
+  margin-top: 20px;
+  font-size: 1.8rem;
 }
 
 .title {
-  font-size: 2.5rem;
-}
-.tile.is-vertical > .tile.is-child:not(:last-child) {
-  margin-bottom: 2.5rem;
+  font-weight: 600;
 }
 
 .label {
   display: inline;
-  color: #808080;
+  color: #708090;
   font-size: 1.2rem;
-  font-weight: 400;
+  font-weight: 500;
+  margin-right: 15px;
 }
 
 .notes {
   line-height: 1.5;
   margin-top: 10px;
   width: 40rem;
+}
+
+p {
+  font-weight: 500;
 }

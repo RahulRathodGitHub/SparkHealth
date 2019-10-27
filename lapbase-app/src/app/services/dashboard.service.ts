@@ -1,30 +1,55 @@
-import { IHealthStats } from './../models/healthStats';
-import { IAppointment } from 'src/app/models';
-import { Injectable } from '@angular/core';
+import { IHealthStats } from "./../models/healthStats";
+import { IAppointment } from "src/app/models";
+import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "./../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class DashboardService {
-
   constructor(private httpClient: HttpClient) {}
 
-  getNextAppointment = async (patientId, organizationCode): Promise<IAppointment> => {
+  getNextAppointment = async (
+    patientId,
+    organizationCode
+  ): Promise<IAppointment> => {
     //TODO Enter the patient id and the organization code throught the token
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Appointment/Next/' + patientId +"/"+ organizationCode).toPromise<any>();
-  }
+    return await this.httpClient
+      .get(
+        environment.LAPBASE_API_ADDRESS +
+          "Appointment/Next/" +
+          patientId +
+          "/" +
+          organizationCode
+      )
+      .toPromise<any>();
+  };
 
-  getPatientHealthDetails = async (patientId, organizationCode): Promise<IHealthStats> => {
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS + 'Report/healthStats/'+ patientId +"/"+ organizationCode).toPromise<any>();
-  }
+  getPatientHealthDetails = async (
+    patientId,
+    organizationCode
+  ): Promise<IHealthStats> => {
+    return await this.httpClient
+      .get(
+        environment.LAPBASE_API_ADDRESS +
+          "Report/healthStats/" +
+          patientId +
+          "/" +
+          organizationCode
+      )
+      .toPromise<any>();
+  };
 
-  getPatientHeight = async (): Promise<number> =>{
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS+'Patient/Height/').toPromise<any>();
-  }
+  getPatientHeight = async (): Promise<number> => {
+    return await this.httpClient
+      .get(environment.LAPBASE_API_ADDRESS + "Patient/Height/")
+      .toPromise<any>();
+  };
 
-  getFoodOfTheMonth = async (): Promise<string> =>{
-    return await this.httpClient.get(environment.LAPBASE_API_ADDRESS+'TaskInput/foodOfTheMonth/').toPromise<any>();
-  } 
+  getFoodOfTheMonth = async (): Promise<string> => {
+    return await this.httpClient
+      .get(environment.LAPBASE_API_ADDRESS + "TaskInput/foodOfTheMonth/")
+      .toPromise<any>();
+  };
 }
