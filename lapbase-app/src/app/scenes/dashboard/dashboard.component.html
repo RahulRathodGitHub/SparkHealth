@@ -1,20 +1,20 @@
 <div class="tile is-ancestor">
     <div class="tile is-parent">
         <article class="tile is-child box" click="app-appointment">
-            <p class="title">Next Appointment</p>
+            <p class="title is-4">Next Appointment</p>
             <p class="subtitle">Time:  {{(nextAppointment==null)?"No Appointments":((nextAppointment.start !=null)?nextAppointment.start:"Time Unknown")}}</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="subtitle">Current Weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.currentWeight}}</p>
-            <p class="subtitle">Current Height: {{patientHeight}}</p>
+            <p class="is-size-5">Current Weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.currentWeight}}</p>
+            <p class="is-size-5">Current Height: {{patientHeight}}</p>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-                <p class="subtitle">BMI: {{patientBMI}}</p>
-                <p class="subtitle">Ideal weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.idealWeight}}</p>
+                <p class="is-size-5">BMI: {{patientBMI}}</p>
+                <p class="is-size-5">Ideal weight: {{(patientHealthStats == null)?"Unknown":patientHealthStats.idealWeight}}</p>
         </article>
     </div>
 </div>
@@ -22,14 +22,17 @@
 <div class="tile is-ancestor">
     <div class="tile is-parent">
         <article class="tile is-child box">
-                <p class="title">Today's calories</p>
-                <p class="subtitle">Intake: {{calorieIntake}}</p>
-                <p class="subtitle">Burn: {{calorieBurn}}</p>
+                <p class="title is-4">Today's calories</p>
+                <div class="subtitle">
+                <p class="is-size-5">Intake: {{calorieIntake}}</p>
+                <p class="is-size-5">Burn: {{calorieBurn}}</p>
+            </div>
         </article>
     </div>
     <div class="tile is-parent">
         <article class="tile is-child box">
-            <p class="title">Food of the month:{{foodOfTheMonth.name}}</p>
+            <p class="title is-4">Food of the month:</p>
+            <p class="subtitle"> {{foodOfTheMonth.name}}</p>
         </article>
     </div>
 </div>
