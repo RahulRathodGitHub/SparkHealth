@@ -70,7 +70,6 @@ import { LogLevel } from 'msal';
       postLogoutRedirectUri: environment.POST_LOGOUT_REDIRECT_URI,
       authority: environment.AUTHORITY,
       validateAuthority: true,
-      consentScopes: environment.CONSENT_SCOPES,
       logger : loggerCallback,
       level: LogLevel.Verbose,
       //@ts-ignore

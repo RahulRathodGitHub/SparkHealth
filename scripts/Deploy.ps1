@@ -155,7 +155,6 @@ export const environment = {
   REDIRECT_URI: '$($WebAppAddress)/Dashboard',
   POST_LOGOUT_REDIRECT_URI: '$($WebAppAddress)',
   AUTHORITY: 'https://login.microsoftonline.com/2e833ca0-6a32-45e7-b968-1faae0218ea4',
-  CONSENT_SCOPES: ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/user_impersonation'],
     PROTECTED_RESOURCE_MAP: [
     ['$($WebApiAddress)/api/', ['api://b9e4a478-e93e-4bea-bb73-cf23d5bfefe0/user_impersonation']]
   ]
