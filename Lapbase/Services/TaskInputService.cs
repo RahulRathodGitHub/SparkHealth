@@ -46,7 +46,7 @@ namespace Lapbase.Services
         /*
          *  Creates a TaskInput by taking a taskInputDto instance as an argumnet.
          */
-        public async Task<TaskInputDto> UpdateTaskInput(TaskInputDto taskInputDto)
+        public async Task<TaskInputDto> UpdateTaskInput(TaskInputDto taskInputDto, int patientId, int organizationCode)
         {
             Guid id;
             var result = lapbaseNewContext.TaskInput.FirstOrDefault(f => f.Id == taskInputDto.Id);
@@ -54,7 +54,7 @@ namespace Lapbase.Services
             if (result == null)
             {
                 id = Guid.Empty;
-                result = lapbaseNewContext.TaskInput.Add(GetTaskInputFromDto(taskInputDto, id)).Entity;
+                result = lapbaseNewContext.TaskInput.Add(GetTaskInputFromDto(taskInputDto, id, patientId, organizationCode)).Entity;
             }
             else
             {
@@ -71,12 +71,14 @@ namespace Lapbase.Services
         /*
          *  Provides a TaskInput object on receiving a TaskInputDto object and a corresponding Guid
          */
-        private TaskInput GetTaskInputFromDto(TaskInputDto dto, Guid id)
+        private TaskInput GetTaskInputFromDto(TaskInputDto dto, Guid id, int patientId, int organizationCode)
         {
             var result = new TaskInput();
             result.Id = id;
 
             adaptTaskInput(result, dto);
+            result.PatientId = patientId;
+            result.OrganizationCode = organizationCode;
 
             return result;
         }
@@ -98,15 +100,16 @@ namespace Lapbase.Services
                 t.OrganizationCode.Equals(organizationCode));
 
             // Loop through each of them and make a list of taskInputDtos.
-            foreach(var taskInputObject in listOfFoodandQuantityStrings)
+            foreach (var taskInputObject in listOfFoodandQuantityStrings)
             {
                 listOfTaskInputDtos.Add(new TaskInputDto(taskInputObject));
             }
 
             // For each task inout dto, add/Update the dictionary
-            foreach(var taskInputDtoObject in listOfTaskInputDtos)
+            foreach (var taskInputDtoObject in listOfTaskInputDtos)
             {
-                taskInputDtoObject.Meals.ForEach(meal => meal.Foods.ForEach(food => {
+                taskInputDtoObject.Meals.ForEach(meal => meal.Foods.ForEach(food =>
+                {
 
                     FoodQuantityOfMonthDictionary = incrementFoodQuantity(FoodQuantityOfMonthDictionary, food.Id, food.Quantity);
 
@@ -114,14 +117,14 @@ namespace Lapbase.Services
             }
 
             // return the key with max value.
-            if(FoodQuantityOfMonthDictionary.Count() > 0)
+            if (FoodQuantityOfMonthDictionary.Count() > 0)
                 return FoodQuantityOfMonthDictionary.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
 
             return default;
-                                       
+
         }
 
-        private Dictionary<Guid,int> incrementFoodQuantity(Dictionary<Guid, int> dict, Guid food, int quantity)
+        private Dictionary<Guid, int> incrementFoodQuantity(Dictionary<Guid, int> dict, Guid food, int quantity)
         {
             if (!dict.ContainsKey(food))
                 dict.Add(food, quantity);
@@ -133,11 +136,8 @@ namespace Lapbase.Services
         }
 
 
-        private void adaptTaskInput(TaskInput result, TaskInputDto dto) {
-
-            // TODO PatientId & OrganizationCode should come from token
-            result.PatientId = 2756;
-            result.OrganizationCode = 2;
+        private void adaptTaskInput(TaskInput result, TaskInputDto dto)
+        {
             result.DateAssigned = dto.DateAssigned;
             result.CaloriesGained = dto.CaloriesGained;
             result.CaloriesLost = dto.CaloriesLost;
@@ -152,15 +152,18 @@ namespace Lapbase.Services
 
             string extractedMealTime = "";
 
-            foreach (FoodInfo foodInfo in dto.Meals)
+            if (dto.Meals != default)
             {
-                for (int i = 0; i < foodInfo.Foods.Count; i++)
+                foreach (FoodInfo foodInfo in dto.Meals)
                 {
-                    extractedFoodIds += foodInfo.Foods[i].Id.ToString() + ",";
-                    extractedFoodQuantity += foodInfo.Foods[i].Quantity + ",";
-                    extractedMealTime += (int)foodInfo.MealTime + ",";
-                }
-            };
+                    for (int i = 0; i < foodInfo.Foods.Count; i++)
+                    {
+                        extractedFoodIds += foodInfo.Foods[i].Id.ToString() + ",";
+                        extractedFoodQuantity += foodInfo.Foods[i].Quantity + ",";
+                        extractedMealTime += (int)foodInfo.MealTime + ",";
+                    }
+                };
+            }
 
             if (!string.IsNullOrEmpty(extractedFoodIds))
             {
@@ -173,12 +176,13 @@ namespace Lapbase.Services
             result.FoodQuantities = extractedFoodQuantity;
             result.MealTimes = extractedMealTime;
 
-            foreach(ExerciseInfo exerciseInfo in dto.Exercises)
+            if (dto.Exercises != default)
             {
-               
-                extractedExerciseIds += exerciseInfo.Id.ToString() + ",";
-                extractedExerciseQuantity += exerciseInfo.Quantity + ",";  
-                
+                foreach (ExerciseInfo exerciseInfo in dto.Exercises)
+                {
+                    extractedExerciseIds += exerciseInfo.Id.ToString() + ",";
+                    extractedExerciseQuantity += exerciseInfo.Quantity + ",";
+                }
             }
 
             if (!string.IsNullOrEmpty(extractedExerciseIds))

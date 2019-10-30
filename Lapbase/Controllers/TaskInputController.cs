@@ -51,7 +51,7 @@ namespace Lapbase.Controllers
         [HttpPost]
         public async Task<ActionResult> Update([FromBody]TaskInputDto taskInputDto)
         {
-            return Ok(await taskInputService.UpdateTaskInput(taskInputDto));
+            return Ok(await taskInputService.UpdateTaskInput(taskInputDto , 1, 1));
         }
     }
  }

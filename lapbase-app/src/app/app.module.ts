@@ -65,14 +65,12 @@ import { LogLevel } from 'msal';
     MyDatePickerModule,
     MsalModule.forRoot({
       clientID: environment.AZURE_AD_CLIENTID,
-      popUp: true,
+      popUp: false,
       redirectUri: environment.REDIRECT_URI,
       postLogoutRedirectUri: environment.POST_LOGOUT_REDIRECT_URI,
       authority: environment.AUTHORITY,
       validateAuthority: true,
-      logger : loggerCallback,
-      level: LogLevel.Verbose,
-      //@ts-ignore
+      // @ts-ignore
       protectedResourceMap: environment.PROTECTED_RESOURCE_MAP
     }),
   ],
@@ -84,7 +82,3 @@ import { LogLevel } from 'msal';
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-export function loggerCallback(logLevel, message, piiEnabled) {
-  console.log(message);
-}

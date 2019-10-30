@@ -56,7 +56,10 @@ namespace Lapbase.Models
         #region Helper Methods for Exercises
         private List<ExerciseInfo> GetExercises(TaskInput taskInput)
         {
-
+            if (taskInput.Exercises == default)
+            {
+                return default;
+            }
             var Exercises = new List<ExerciseInfo>();
 
             var extractedExerciseIds = taskInput.Exercises.Split(',');
@@ -82,6 +85,9 @@ namespace Lapbase.Models
         #region Helper Methods for foods
         private List<FoodInfo> GetMeals(TaskInput taskInput)
         {
+            if (taskInput.Foods == default) {
+                return default;
+            }
             var Foods = new List<FoodInfo>() {
                 new FoodInfo() {
                     Foods = new List<FoodQuantity>(),

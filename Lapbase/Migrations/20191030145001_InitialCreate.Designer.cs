@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Lapbase.Migrations
 {
     [DbContext(typeof(LapbaseNewContext))]
-    [Migration("20191027104337_InitialCreate")]
+    [Migration("20191030145001_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,23 +20,6 @@ namespace Lapbase.Migrations
                 .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Lapbase.Models.Advisor", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Advisor");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1
-                        });
-                });
 
             modelBuilder.Entity("Lapbase.Models.Exercise", b =>
                 {
@@ -56,7 +39,7 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("3a913ad6-ef97-46fa-a8f1-e7fca79d7e85"),
+                            Id = new Guid("942f4c92-4b34-4ee4-bd29-572a550c3496"),
                             CalorieCount = 54,
                             Name = "PUSHUPS"
                         });
@@ -100,98 +83,98 @@ namespace Lapbase.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("dbbf5c2a-f196-422e-96e0-51d991f315e9"),
+                            Id = new Guid("9e35c9ea-6c17-4f0a-8256-a4c23ba9d87b"),
                             CalorieCount = 295,
                             Name = "Burger",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("e404ff6d-7e8d-4d71-8b3b-7e62c7e2b8ab"),
+                            Id = new Guid("b13c3e1c-e8d6-4982-a321-34276bf3d3ea"),
                             CalorieCount = 40,
                             Name = "Onion",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("09ba286a-2073-4e0c-8c43-aa4804c73c99"),
+                            Id = new Guid("96d5e6d4-0d90-48b6-9b58-e5144fc44ac2"),
                             CalorieCount = 90,
                             Name = "Uncle Keith's Kappuccino",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("214b732e-3597-4042-af6e-b37fa063f121"),
+                            Id = new Guid("32360a6f-3ca2-4d9a-b1aa-ba8742332241"),
                             CalorieCount = 96,
                             Name = "White bread",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("95987751-a24e-4475-8ed5-ae82469487a8"),
+                            Id = new Guid("71626fab-e107-40d0-8ce1-50f49bd4f0e3"),
                             CalorieCount = 44,
                             Name = "Apple",
                             Unit = "apple"
                         },
                         new
                         {
-                            Id = new Guid("e0d6cce6-7b40-4eda-ae9d-35dcd222baf6"),
+                            Id = new Guid("666b24da-5d12-4121-9e16-8fa1fbfaeac1"),
                             CalorieCount = 107,
                             Name = "Banana",
                             Unit = "banana"
                         },
                         new
                         {
-                            Id = new Guid("0b4a59e1-a74d-4372-9aa7-d9d840db89c4"),
+                            Id = new Guid("3182ac0b-f6db-4206-aefc-cb46d01900c8"),
                             CalorieCount = 30,
                             Name = "Tomato",
                             Unit = "tomato"
                         },
                         new
                         {
-                            Id = new Guid("c6707ce0-9dce-4167-aae3-f72db5dd567d"),
+                            Id = new Guid("abdd086b-1648-415c-9299-12b881c46e48"),
                             CalorieCount = 50,
                             Name = "Roti",
                             Unit = "slice"
                         },
                         new
                         {
-                            Id = new Guid("54d03758-b450-46d2-8421-dabde77db003"),
+                            Id = new Guid("cc1a64ec-952f-4c5f-85af-8476cf1fe13d"),
                             CalorieCount = 40,
                             Name = "Rice",
                             Unit = "cup"
                         },
                         new
                         {
-                            Id = new Guid("449ba1c0-b2ea-4aa6-b001-34b966904533"),
+                            Id = new Guid("ae00c3bc-72b6-4249-b89e-93397777aac6"),
                             CalorieCount = 600,
                             Name = "Halal Pork",
                             Unit = "piece"
                         },
                         new
                         {
-                            Id = new Guid("7e824698-63ff-4743-ba45-8aecd5270c6b"),
+                            Id = new Guid("a79ff234-6ae7-4a76-8097-315f1bbb4a3d"),
                             CalorieCount = 300,
                             Name = "Habib-Style Shwarma",
                             Unit = "shwarma"
                         },
                         new
                         {
-                            Id = new Guid("395a9bff-9279-44bb-8170-7ec9b4fde192"),
+                            Id = new Guid("70b97884-f185-4845-90ea-12267c2bf35c"),
                             CalorieCount = 300,
                             Name = "Meat Platter",
                             Unit = "platter"
                         },
                         new
                         {
-                            Id = new Guid("d76bd3b3-7caf-4092-a1a4-753b6a2748c6"),
+                            Id = new Guid("a72d995f-72a3-4ba5-bb1c-fb75a538cbbb"),
                             CalorieCount = 350,
                             Name = "Mooncake",
                             Unit = "mooncake"
                         },
                         new
                         {
-                            Id = new Guid("2be9f841-c2db-4807-8110-6d698a21749c"),
+                            Id = new Guid("afcd9845-71ea-4982-b5ef-c2a3842cdb4e"),
                             CalorieCount = 400,
                             Name = "HSP",
                             Unit = "box"
@@ -204,9 +187,11 @@ namespace Lapbase.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AdvisorId");
-
                     b.Property<bool>("Deleted");
+
+                    b.Property<int>("OrganisationCode");
+
+                    b.Property<int>("PatientCode");
 
                     b.Property<string>("Username");
 
@@ -218,17 +203,16 @@ namespace Lapbase.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AdvisorId");
-
                     b.ToTable("Patient");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            AdvisorId = 1,
                             Deleted = false,
-                            Username = "test@test.com",
+                            OrganisationCode = 1,
+                            PatientCode = 2756,
+                            Username = "Test@SparkHealthhotmailcom.onmicrosoft.com",
                             ValidFrom = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             ValidTo = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
                             WhenCreated = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0))
@@ -274,14 +258,6 @@ namespace Lapbase.Migrations
                     b.HasOne("Lapbase.Models.Patient", "Patient")
                         .WithMany()
                         .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Lapbase.Models.Patient", b =>
-                {
-                    b.HasOne("Lapbase.Models.Advisor", "Advisor")
-                        .WithMany("Patients")
-                        .HasForeignKey("AdvisorId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618

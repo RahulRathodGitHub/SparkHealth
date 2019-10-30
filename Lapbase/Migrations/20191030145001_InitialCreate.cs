@@ -9,18 +9,6 @@ namespace Lapbase.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Advisor",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Advisor", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Exercise",
                 columns: table => new
                 {
@@ -49,6 +37,25 @@ namespace Lapbase.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Patient",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Username = table.Column<string>(nullable: true),
+                    WhenCreated = table.Column<DateTimeOffset>(nullable: false),
+                    ValidFrom = table.Column<DateTimeOffset>(nullable: false),
+                    ValidTo = table.Column<DateTimeOffset>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false),
+                    PatientCode = table.Column<int>(nullable: false),
+                    OrganisationCode = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Patient", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TaskInput",
                 columns: table => new
                 {
@@ -69,30 +76,6 @@ namespace Lapbase.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TaskInput", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Patient",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Username = table.Column<string>(nullable: true),
-                    WhenCreated = table.Column<DateTimeOffset>(nullable: false),
-                    ValidFrom = table.Column<DateTimeOffset>(nullable: false),
-                    ValidTo = table.Column<DateTimeOffset>(nullable: false),
-                    Deleted = table.Column<bool>(nullable: false),
-                    AdvisorId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Patient", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Patient_Advisor_AdvisorId",
-                        column: x => x.AdvisorId,
-                        principalTable: "Advisor",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -117,50 +100,40 @@ namespace Lapbase.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Advisor",
-                column: "Id",
-                value: 1);
-
-            migrationBuilder.InsertData(
                 table: "Exercise",
                 columns: new[] { "Id", "CalorieCount", "Name", "pictureUrl" },
-                values: new object[] { new Guid("3a913ad6-ef97-46fa-a8f1-e7fca79d7e85"), 54, "PUSHUPS", null });
+                values: new object[] { new Guid("942f4c92-4b34-4ee4-bd29-572a550c3496"), 54, "PUSHUPS", null });
 
             migrationBuilder.InsertData(
                 table: "Food",
                 columns: new[] { "Id", "CalorieCount", "Name", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("dbbf5c2a-f196-422e-96e0-51d991f315e9"), 295, "Burger", "piece" },
-                    { new Guid("e404ff6d-7e8d-4d71-8b3b-7e62c7e2b8ab"), 40, "Onion", "piece" },
-                    { new Guid("09ba286a-2073-4e0c-8c43-aa4804c73c99"), 90, "Uncle Keith's Kappuccino", "cup" },
-                    { new Guid("214b732e-3597-4042-af6e-b37fa063f121"), 96, "White bread", "slice" },
-                    { new Guid("95987751-a24e-4475-8ed5-ae82469487a8"), 44, "Apple", "apple" },
-                    { new Guid("e0d6cce6-7b40-4eda-ae9d-35dcd222baf6"), 107, "Banana", "banana" },
-                    { new Guid("0b4a59e1-a74d-4372-9aa7-d9d840db89c4"), 30, "Tomato", "tomato" },
-                    { new Guid("c6707ce0-9dce-4167-aae3-f72db5dd567d"), 50, "Roti", "slice" },
-                    { new Guid("54d03758-b450-46d2-8421-dabde77db003"), 40, "Rice", "cup" },
-                    { new Guid("449ba1c0-b2ea-4aa6-b001-34b966904533"), 600, "Halal Pork", "piece" },
-                    { new Guid("7e824698-63ff-4743-ba45-8aecd5270c6b"), 300, "Habib-Style Shwarma", "shwarma" },
-                    { new Guid("395a9bff-9279-44bb-8170-7ec9b4fde192"), 300, "Meat Platter", "platter" },
-                    { new Guid("d76bd3b3-7caf-4092-a1a4-753b6a2748c6"), 350, "Mooncake", "mooncake" },
-                    { new Guid("2be9f841-c2db-4807-8110-6d698a21749c"), 400, "HSP", "box" }
+                    { new Guid("9e35c9ea-6c17-4f0a-8256-a4c23ba9d87b"), 295, "Burger", "piece" },
+                    { new Guid("b13c3e1c-e8d6-4982-a321-34276bf3d3ea"), 40, "Onion", "piece" },
+                    { new Guid("96d5e6d4-0d90-48b6-9b58-e5144fc44ac2"), 90, "Uncle Keith's Kappuccino", "cup" },
+                    { new Guid("32360a6f-3ca2-4d9a-b1aa-ba8742332241"), 96, "White bread", "slice" },
+                    { new Guid("71626fab-e107-40d0-8ce1-50f49bd4f0e3"), 44, "Apple", "apple" },
+                    { new Guid("666b24da-5d12-4121-9e16-8fa1fbfaeac1"), 107, "Banana", "banana" },
+                    { new Guid("3182ac0b-f6db-4206-aefc-cb46d01900c8"), 30, "Tomato", "tomato" },
+                    { new Guid("abdd086b-1648-415c-9299-12b881c46e48"), 50, "Roti", "slice" },
+                    { new Guid("cc1a64ec-952f-4c5f-85af-8476cf1fe13d"), 40, "Rice", "cup" },
+                    { new Guid("ae00c3bc-72b6-4249-b89e-93397777aac6"), 600, "Halal Pork", "piece" },
+                    { new Guid("a79ff234-6ae7-4a76-8097-315f1bbb4a3d"), 300, "Habib-Style Shwarma", "shwarma" },
+                    { new Guid("70b97884-f185-4845-90ea-12267c2bf35c"), 300, "Meat Platter", "platter" },
+                    { new Guid("a72d995f-72a3-4ba5-bb1c-fb75a538cbbb"), 350, "Mooncake", "mooncake" },
+                    { new Guid("afcd9845-71ea-4982-b5ef-c2a3842cdb4e"), 400, "HSP", "box" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Patient",
-                columns: new[] { "Id", "AdvisorId", "Deleted", "Username", "ValidFrom", "ValidTo", "WhenCreated" },
-                values: new object[] { 1, 1, false, "test@test.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
+                columns: new[] { "Id", "Deleted", "OrganisationCode", "PatientCode", "Username", "ValidFrom", "ValidTo", "WhenCreated" },
+                values: new object[] { 1, false, 1, 2756, "Test@SparkHealthhotmailcom.onmicrosoft.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedback_PatientId",
                 table: "Feedback",
                 column: "PatientId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Patient_AdvisorId",
-                table: "Patient",
-                column: "AdvisorId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -179,9 +152,6 @@ namespace Lapbase.Migrations
 
             migrationBuilder.DropTable(
                 name: "Patient");
-
-            migrationBuilder.DropTable(
-                name: "Advisor");
         }
     }
 }
