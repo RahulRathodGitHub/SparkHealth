@@ -32,7 +32,6 @@ import { FoodChoicesComponent } from './scenes/tasks/food-choices/food-choices.c
 import { FoodChoiceComponent } from './scenes/tasks/food-choices/food-choice/food-choice.component';
 import { ExerciseChoicesComponent } from './scenes/tasks/exercise-choices/exercise-choices.component';
 import { ExerciseChoiceComponent } from './scenes/tasks/exercise-choices/exercise-choice/exercise-choice.component';
-import { LogLevel } from 'msal';
 
 @NgModule({
   declarations: [

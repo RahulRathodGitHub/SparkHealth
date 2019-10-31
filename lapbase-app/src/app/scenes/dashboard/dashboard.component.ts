@@ -16,7 +16,7 @@ import { DatePipe } from '@angular/common';
 export class DashboardComponent {
   nextAppointment: IAppointment;
   report: IReport;
-  chartData = [];
+  chartData = undefined;
   chartLabels = [];
   patientHealthStats: IHealthStats;
   patientHeight: number;

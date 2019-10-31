@@ -1,7 +1,6 @@
 
 export interface IPatient {
     id: number;
-
     userName: string;
     whenCreated: Date;
     validFrom: Date;
@@ -10,22 +9,42 @@ export interface IPatient {
     advisorId: number;
 }
 
-
-export class Patient{
-
+export class Patient {
     surname: string;
     firstname: string;
-    title: number;
+    title: string;
     street: string;
     suburb: string;
     state: string;
-    postcode: number;
-    homePhone: number;
-    workPhone: number;
-    mobilePhone: number;
+    postcode: string;
+    homePhone: string;
+    workPhone: string;
+    mobilePhone: string;
     emailAddress: string;
-    birthDate: Date;
+    birthdate: Date;
     sex: string;
-    race: string
-
+    race: string;
+    insurance: string;
+    dateFirstVisit: Date;
+    dateLastVisit: Date;
+    maritalStatus: string;
+    medicalSummary: string;
+    doctorName: string;
+    doctorTelephone: string;
+    doctorFax: string;
+    lapBandDate: Date;
+    notes: string;
+    height: number;
+    startWeight: number;
+    startWeightDate: Date;
+    idealWeight: number;
+    currentWeight: number;
+    opWeight: number;
+    targetWeight: number;
+    surgeryType: string;
+    approach: string;
+    startBmiweight: number;
+    visitWeeksFlag: number;
+    lapbandType: string;
+    lapbandSize: string;
 }

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Lapbase.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -102,33 +102,33 @@ namespace Lapbase.Migrations
             migrationBuilder.InsertData(
                 table: "Exercise",
                 columns: new[] { "Id", "CalorieCount", "Name", "pictureUrl" },
-                values: new object[] { new Guid("942f4c92-4b34-4ee4-bd29-572a550c3496"), 54, "PUSHUPS", null });
+                values: new object[] { new Guid("e0eb0e85-86c3-4dd0-a5ac-1720b3567d3e"), 54, "PUSHUPS", null });
 
             migrationBuilder.InsertData(
                 table: "Food",
                 columns: new[] { "Id", "CalorieCount", "Name", "Unit" },
                 values: new object[,]
                 {
-                    { new Guid("9e35c9ea-6c17-4f0a-8256-a4c23ba9d87b"), 295, "Burger", "piece" },
-                    { new Guid("b13c3e1c-e8d6-4982-a321-34276bf3d3ea"), 40, "Onion", "piece" },
-                    { new Guid("96d5e6d4-0d90-48b6-9b58-e5144fc44ac2"), 90, "Uncle Keith's Kappuccino", "cup" },
-                    { new Guid("32360a6f-3ca2-4d9a-b1aa-ba8742332241"), 96, "White bread", "slice" },
-                    { new Guid("71626fab-e107-40d0-8ce1-50f49bd4f0e3"), 44, "Apple", "apple" },
-                    { new Guid("666b24da-5d12-4121-9e16-8fa1fbfaeac1"), 107, "Banana", "banana" },
-                    { new Guid("3182ac0b-f6db-4206-aefc-cb46d01900c8"), 30, "Tomato", "tomato" },
-                    { new Guid("abdd086b-1648-415c-9299-12b881c46e48"), 50, "Roti", "slice" },
-                    { new Guid("cc1a64ec-952f-4c5f-85af-8476cf1fe13d"), 40, "Rice", "cup" },
-                    { new Guid("ae00c3bc-72b6-4249-b89e-93397777aac6"), 600, "Halal Pork", "piece" },
-                    { new Guid("a79ff234-6ae7-4a76-8097-315f1bbb4a3d"), 300, "Habib-Style Shwarma", "shwarma" },
-                    { new Guid("70b97884-f185-4845-90ea-12267c2bf35c"), 300, "Meat Platter", "platter" },
-                    { new Guid("a72d995f-72a3-4ba5-bb1c-fb75a538cbbb"), 350, "Mooncake", "mooncake" },
-                    { new Guid("afcd9845-71ea-4982-b5ef-c2a3842cdb4e"), 400, "HSP", "box" }
+                    { new Guid("224714ed-535f-48ff-a600-443728337842"), 295, "Burger", "piece" },
+                    { new Guid("8c53e9d7-35de-4fa9-a028-e6acee4cc1f4"), 40, "Onion", "piece" },
+                    { new Guid("9a318bcf-7d1e-42ce-83ad-b3f3a466dd38"), 90, "Uncle Keith's Kappuccino", "cup" },
+                    { new Guid("6219da55-c3df-4f63-b516-6e361de844aa"), 96, "White bread", "slice" },
+                    { new Guid("bbafc491-064e-4359-87ec-d29305e2496c"), 44, "Apple", "apple" },
+                    { new Guid("a6e94c5b-e33b-4d26-8995-ed7cffe5ceac"), 107, "Banana", "banana" },
+                    { new Guid("a27329b4-5615-43c1-845c-7b04e8f1a81a"), 30, "Tomato", "tomato" },
+                    { new Guid("28d7c9f0-20f1-4a59-8502-7e183cb4194c"), 50, "Roti", "slice" },
+                    { new Guid("b1810de1-7b44-4118-91f4-e912d98e0aaa"), 40, "Rice", "cup" },
+                    { new Guid("c5f3bc2f-85f4-48d4-90c0-a537e7ff0522"), 600, "Halal Pork", "piece" },
+                    { new Guid("10c613e8-fb51-43d1-8d7f-ef73f19e42da"), 300, "Habib-Style Shwarma", "shwarma" },
+                    { new Guid("8bd9d2d0-9902-4219-8d9e-16e38bbee07f"), 300, "Meat Platter", "platter" },
+                    { new Guid("190c9565-8a77-4e26-9cbc-df919f75688f"), 350, "Mooncake", "mooncake" },
+                    { new Guid("ad6aa00a-e643-45f5-b919-05e8ddbee7f2"), 400, "HSP", "box" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Patient",
                 columns: new[] { "Id", "Deleted", "OrganisationCode", "PatientCode", "Username", "ValidFrom", "ValidTo", "WhenCreated" },
-                values: new object[] { 1, false, 1, 2756, "Test@SparkHealthhotmailcom.onmicrosoft.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
+                values: new object[] { 1, false, 2, 2756, "Test@SparkHealthhotmailcom.onmicrosoft.com", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Feedback_PatientId",

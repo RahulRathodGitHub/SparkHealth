@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientService } from 'src/app/services';
 import { DatePipe } from '@angular/common';
+import { Patient } from 'src/app/models';
 
 @Component({
   selector: 'app-account',
@@ -8,13 +9,13 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
-  patientData;
+  public patientData: Patient = new Patient();
   patientAge;
 
   constructor(
     private patientService: PatientService,
     private datePipe: DatePipe
-  ) {}
+  ) { }
 
   ngOnInit() {
     // Retrieving data from backend through patient service
@@ -31,6 +32,9 @@ export class AccountComponent implements OnInit {
   }
 
   getBirthDate() {
+    if (this.patientData.birthdate === undefined) {
+      return '';
+    }
     // Get BirthDate in format:  "5 September 1996"
     const tempDate = this.datePipe
       .transform(this.patientData.birthdate, 'dd-MMMM-yyyy')
