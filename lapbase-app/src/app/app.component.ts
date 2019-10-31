@@ -17,18 +17,13 @@ export class AppComponent implements OnInit, OnDestroy {
 
   patientFirstName: string;
   patientLastName: string;
-patientImperialFlag: Boolean;
+  patientImperialFlag: boolean;
 
-  constructor(private patientService: PatientService, private broadcastService: BroadcastService, private authService: MsalService) {
-    const organizationCode = 2;
-    const patientId = 2756;
-
-    this.patientService
-      .getPatientLapbaseById(patientId, organizationCode)
-      .then(result => {
-         this.patientFirstName = result.firstname;
-         this.patientLastName = result.surname;
-      });
+  constructor(private patientService: PatientService, private broadcastService: BroadcastService) {
+    this.patientService.getPatientLapbase().then(result => {
+      this.patientFirstName = result.firstname;
+      this.patientLastName = result.surname;
+    });
   }
 
   ngOnInit() {

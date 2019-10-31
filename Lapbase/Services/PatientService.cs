@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 using Lapbase.Models;
 using Lapbase.LapbaseModels;
-using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Lapbase.OutputModels;
 
 namespace Lapbase.Services
 {
@@ -28,14 +26,9 @@ namespace Lapbase.Services
             this.config = config;
         }
 
-        public async Task<List<Patient>> GetPatients()
-        {
-            return await lapbaseNewContext.Patient.ToListAsync();
-        }
-
         /*
          * Obtain all available foods for a particular patient
-         */ 
+         */
         public async Task<List<Food>> GetPatientFood()
         {
             return await lapbaseNewContext.Food.ToListAsync();
@@ -43,103 +36,97 @@ namespace Lapbase.Services
 
         /*
          * Obtain all the available exercises for a particular patient
-         */ 
+         */
         public async Task<List<Exercise>> GetPatientExercise()
         {
             return await lapbaseNewContext.Exercise.ToListAsync();
         }
 
         /*
-         * Obtain all the available data for a particular patient
-         */ 
-        public async Task<List<string>> GetPatientsLapbase()
-        {
-            return await lapbaseContext.TblPatients.Select(p => p.Firstname).ToListAsync();
-        }
-
-        /*
          * Get a particular patient from the list of patients
-         */ 
-        public async Task<Patient> GetPatientById(int id)
+         */
+        public async Task<Patient> GetPatient(string userName)
         {
-            return await lapbaseNewContext.Patient.SingleOrDefaultAsync(p => p.Id == id);
+            return await lapbaseNewContext.Patient.SingleOrDefaultAsync(p => p.Username == userName);
         }
 
         /*
          * Get the required set of details for the logged in Patient.
-         */ 
-        public async Task<PatientDto> GetPatientLapbaseById(int id, int organizationCode)
+         */
+        public async Task<PatientDto> GetPatientLapbase(string userName)
         {
-            return await (from p in lapbaseContext.TblPatients
-                            join d in lapbaseContext.TblDoctors on p.DoctorId equals d.DoctorId
-                            join pw in lapbaseContext.TblPatientWeightData on new { p.PatientId, p.OrganizationCode} equals new { pw.PatientId, pw.OrganizationCode }
-                            where  p.PatientId == id && p.OrganizationCode == organizationCode
-                            select new PatientDto
-                            {
-                                Firstname = p.Firstname,
-                                Surname = p.Surname,
-                                Title = p.Title,
-                                WorkPhone = p.WorkPhone,
-                                Suburb = p.Suburb,
-                                Street = p.Street,
-                                State = p.State,
-                                Sex = p.Sex,
-                                Race = p.Race,
-                                Postcode = p.Postcode,
-                                MobilePhone = p.MobilePhone,
-                                HomePhone = p.HomePhone,
-                                EmailAddress = p.EmailAddress,
-                                Birthdate = p.Birthdate,
-                                DateFirstVisit = p.DateFirstVisit,
-                                DateLastVisit = p.DateLastVisit,
-                                MaritalStatus = p.MaritalStatus,
-                                MedicalSummary = p.MedicalSummary,
-                                Insurance = p.Insurance,
-                                DoctorName = d.DoctorName,
-                                DoctorFax = d.Fax,
-                                DoctorTelephone = d.Telephone,
-                                LapBandDate = pw.LapBandDate,
-                                Notes = pw.Notes,
-                                Height = pw.Height,
-                                StartWeight = pw.StartWeight,
-                                StartWeightDate = pw.StartWeightDate,
-                                IdealWeight = pw.IdealWeight,
-                                CurrentWeight = pw.CurrentWeight,
-                                OpWeight = pw.OpWeight,
-                                TargetWeight = pw.TargetWeight,
-                                SurgeryType = pw.SurgeryType,
-                                Approach = pw.Approach,
-                                StartBmiweight = pw.StartBmiweight,
-                                VisitWeeksFlag = pw.VisitWeeksFlag,
-                                LapbandType = pw.LapbandType,
-                                LapbandSize =pw.LapbandSize
-                            }).FirstOrDefaultAsync();
-
-
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            var patientDto = await (from p in lapbaseContext.TblPatients
+                          join d in lapbaseContext.TblDoctors on p.DoctorId equals d.DoctorId
+                          join pw in lapbaseContext.TblPatientWeightData on new { p.PatientId, p.OrganizationCode } equals new { pw.PatientId, pw.OrganizationCode }
+                          where p.PatientId == patientDetails.PatientCode && p.OrganizationCode == patientDetails.OrganisationCode
+                          select new PatientDto
+                          {
+                              Firstname = p.Firstname,
+                              Surname = p.Surname,
+                              Title = p.Title,
+                              WorkPhone = p.WorkPhone,
+                              Suburb = p.Suburb,
+                              Street = p.Street,
+                              State = p.State,
+                              Sex = p.Sex,
+                              Race = p.Race,
+                              Postcode = p.Postcode,
+                              MobilePhone = p.MobilePhone,
+                              HomePhone = p.HomePhone,
+                              EmailAddress = p.EmailAddress,
+                              Birthdate = p.Birthdate,
+                              DateFirstVisit = p.DateFirstVisit,
+                              DateLastVisit = p.DateLastVisit,
+                              MaritalStatus = p.MaritalStatus,
+                              MedicalSummary = p.MedicalSummary,
+                              Insurance = p.Insurance,
+                              DoctorName = d.DoctorName,
+                              DoctorFax = d.Fax,
+                              DoctorTelephone = d.Telephone,
+                              LapBandDate = pw.LapBandDate,
+                              Notes = pw.Notes,
+                              Height = pw.Height,
+                              StartWeight = pw.StartWeight,
+                              StartWeightDate = pw.StartWeightDate,
+                              IdealWeight = pw.IdealWeight,
+                              CurrentWeight = pw.CurrentWeight,
+                              OpWeight = pw.OpWeight,
+                              TargetWeight = pw.TargetWeight,
+                              SurgeryType = pw.SurgeryType,
+                              Approach = pw.Approach,
+                              StartBmiweight = pw.StartBmiweight,
+                              VisitWeeksFlag = pw.VisitWeeksFlag,
+                              LapbandType = pw.LapbandType,
+                              LapbandSize = pw.LapbandSize
+                          }).FirstOrDefaultAsync();
+            return patientDto;
         }
 
         #region Helper Methods
         /*
          * Get the imperial flag for the logged in Patient
          */
-        public async Task<Boolean?> GetPatientImperial(int id, int organizationCode)
+        public async Task<bool?> GetPatientImperial(string userName)
         {
-            return await lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == id && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefaultAsync();
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            return await lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientDetails.PatientCode &&
+                u.OrganizationCode == patientDetails.OrganisationCode).Select(P => P.Imperial).FirstOrDefaultAsync();
         }
 
         /*
         * Get the Height for the logged in Patient
         */
-        public async Task<Decimal?> GetPatientHeight(int id, int organizationCode)
+        public async Task<decimal?> GetPatientHeight(string userName)
         {
-            return await lapbaseContext.TblPatientWeightData.Where(p => p.PatientId == id && p.OrganizationCode == organizationCode).Select(p => p.Height).FirstOrDefaultAsync();
-           
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            return await lapbaseContext.TblPatientWeightData.Where(p => p.PatientId == patientDetails.PatientCode &&
+                p.OrganizationCode == patientDetails.OrganisationCode).Select(p => p.Height).FirstOrDefaultAsync();
         }
         #endregion
 
-
         /*
-         *  Creates a patient
+         *  Creates a patient (Can be used by admins to create a new patient in database)
          */
         public async Task<Patient> CreatePatient(Patient patient)
         {

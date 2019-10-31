@@ -8,8 +8,6 @@ using Lapbase.Models;
 using Lapbase.Services;
 using Microsoft.AspNetCore.Authorization;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace Lapbase.Controllers
 {
     /*
@@ -26,28 +24,14 @@ namespace Lapbase.Controllers
             this.patientService = patientService;
         }
 
-        // GET: api/Patient
-        [HttpGet]
-        public async Task<ActionResult<List<Patient>>> GetPatients()
-        {
-            return await patientService.GetPatients();
-        }
-
-        // GET: api/Patient/GetPatientsLapbase
         [HttpGet("[Action]")]
-        public async Task<List<string>> GetPatientsLapbase()
+        public async Task<PatientDto> GetPatientLapbase()
         {
-            return await patientService.GetPatientsLapbase();
+            return await patientService.GetPatientLapbase(User.Identity.Name);
         }
 
-        [HttpGet("[Action]/{id}/{organizationCode}")]
-        public async Task<PatientDto> GetPatientLapbaseById(int id ,int organizationCode)
-        {
-            return await patientService.GetPatientLapbaseById(id, organizationCode);
-        }
-
-        // GET api/Patient/{int}
-        [HttpGet("{id}")]
+        // GET api/Patient/
+        [HttpGet]
         public async Task<ActionResult<Patient>> GetPatient(int id)
         {
             if (id == default)
@@ -55,10 +39,10 @@ namespace Lapbase.Controllers
                 return BadRequest();
             }
 
-            var patient = await patientService.GetPatientById(id);
+            var patient = await patientService.GetPatient(User.Identity.Name);
 
             if (patient == null)
-            { 
+            {
                 return NotFound();
             }
 
@@ -69,7 +53,6 @@ namespace Lapbase.Controllers
         [HttpGet("Food")]
         public async Task<ActionResult<Food>> GetFoodList()
         {
-
             var FoodList = await patientService.GetPatientFood();
 
             if (FoodList == null)
@@ -84,7 +67,6 @@ namespace Lapbase.Controllers
         [HttpGet("Exercise")]
         public async Task<ActionResult<Exercise>> GetExerciseList()
         {
-
             var ExerciseList = await patientService.GetPatientExercise();
 
             if (ExerciseList == null)
@@ -97,11 +79,11 @@ namespace Lapbase.Controllers
 
         // GET api/Patient/Height
         [HttpGet("Height")]
-        public async Task<ActionResult<Decimal>> GetPatientHeight()
+        public async Task<ActionResult<decimal>> GetPatientHeight()
         {
-            var Height = await patientService.GetPatientHeight(2756, 2);
+            var Height = await patientService.GetPatientHeight(User.Identity.Name);
 
-            if(Height == null)
+            if (Height == null)
             {
                 return 0;
             }
@@ -110,15 +92,13 @@ namespace Lapbase.Controllers
         }
 
         [HttpGet("Imperial")]
-        public async Task<ActionResult<Boolean?>> GetPatientImperial()
+        public async Task<ActionResult<bool?>> GetPatientImperial()
         {
-            var ImperialFlag = await patientService.GetPatientImperial(2756, 2);
+            var ImperialFlag = await patientService.GetPatientImperial(User.Identity.Name);
 
             if (ImperialFlag == null) return false;
 
             return Ok(ImperialFlag);
-
-
         }
 
         // POST api/Patient

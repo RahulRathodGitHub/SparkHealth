@@ -28,25 +28,25 @@ namespace Lapbase.Controllers
         }
 
 
-        // GET: api/Report/2756/2
-        [HttpGet("{id}/{organizationCode}")] 
-        public async Task<Report> GetReport([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
+        // GET: api/Report/
+        [HttpGet] 
+        public async Task<Report> GetReport([FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
         {
-            return await reportService.GetReportById(id, organizationCode, startDate, endDate, reportType);
+            return await reportService.GetReport(User.Identity.Name, startDate, endDate, reportType);
         }
 
-        // GET: api/Report/lastDate/2756/2
-        [HttpGet("lastDate/{id}/{organizationCode}")]
-        public async Task<DateTime?> GetReportLastAvailableDate([FromRoute] int id, int organizationCode, [FromQuery] ReportType reportType)
+        // GET: api/Report/lastDate
+        [HttpGet("lastDate")]
+        public async Task<DateTime?> GetReportLastAvailableDate([FromQuery] ReportType reportType)
         {
-            return await reportService.GetReportLastAvailableDate(id, organizationCode, reportType);
+            return await reportService.GetReportLastAvailableDate(User.Identity.Name, reportType);
         }
 
-        // GET: api/Report/healthStats/2756/2
-        [HttpGet("healthStats/{id}/{organizationCode}")]
-        public async Task<EWL_WL_GraphReport> GetPatientHealthStats([FromRoute] int id, int organizationCode, [FromQuery] DateTime startDate, DateTime endDate, ReportType reportType)
+        // GET: api/Report/healthStats
+        [HttpGet("healthStats")]
+        public async Task<EWL_WL_GraphReport> GetPatientHealthStats()
         {
-            return await reportService.GetPatientHealthStats(id, organizationCode);
+            return await reportService.GetPatientHealthStats(User.Identity.Name);
         }
 
 

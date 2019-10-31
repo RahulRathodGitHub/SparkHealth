@@ -1,12 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { PatientService } from "src/app/services";
-import { Patient } from "src/app/models";
-import { DatePipe } from "@angular/common";
+import { Component, OnInit } from '@angular/core';
+import { PatientService } from 'src/app/services';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: "app-account",
-  templateUrl: "./account.component.html",
-  styleUrls: ["./account.component.scss"]
+  selector: 'app-account',
+  templateUrl: './account.component.html',
+  styleUrls: ['./account.component.scss']
 })
 export class AccountComponent implements OnInit {
   patientData;
@@ -18,29 +17,29 @@ export class AccountComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    //Retrieving data from backend through patient service
-    this.patientService.getPatientLapbaseById(2756, 2).then(pData => {
+    // Retrieving data from backend through patient service
+    this.patientService.getPatientLapbase().then(pData => {
       this.patientData = pData;
-   
+
       this.calculateAge(this.patientData.birthdate);
     });
   }
 
   changeDateFormat(date: Date) {
-    //Returns date in day/month/year format
-    return this.datePipe.transform(date, "dd/MM/yyyy");
+    // Returns date in day/month/year format
+    return this.datePipe.transform(date, 'dd/MM/yyyy');
   }
 
   getBirthDate() {
-    //Get BirthDate in format:  "5 September 1996"
+    // Get BirthDate in format:  "5 September 1996"
     const tempDate = this.datePipe
-      .transform(this.patientData.birthdate, "dd-MMMM-yyyy")
-      .split("-");
-    return tempDate[0] + " " + tempDate[1] + " " + tempDate[2];
+      .transform(this.patientData.birthdate, 'dd-MMMM-yyyy')
+      .split('-');
+    return tempDate[0] + ' ' + tempDate[1] + ' ' + tempDate[2];
   }
 
   calculateAge(date: Date) {
-    //Calculate age from their birthday to today's date
+    // Calculate age from their birthday to today's date
     const timeDiff = Math.abs(Date.now() - new Date(date).getTime());
     this.patientAge = Math.floor(timeDiff / (1000 * 3600 * 24) / 365.25);
   }

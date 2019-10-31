@@ -31,9 +31,11 @@ namespace Lapbase.Services
          *  Provides a List of Appointment Objects corresponding to the logged in Patient’s Id
          *  and his/her Organization Code.
          */
-        public async Task<List<Appointment>> GetAppointmentById(int id, int organizationCode)
+        public async Task<List<Appointment>> GetAppointments(string userName)
         {
-            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id && c.OrganizationCode == organizationCode);
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == patientDetails.PatientCode &&
+                c.OrganizationCode == patientDetails.OrganisationCode);
             var result = await patientAppointments.Join(
                     lapbaseContext.TblDoctors,
                     c => c.Seenby,
@@ -62,16 +64,17 @@ namespace Lapbase.Services
             futureAppointment.Bmi = 0;
 
             result.Add(futureAppointment);
-
             return result;
         }
 
         /*
          * Provides the logged in Patient’s Next Appointment on being called.
          */
-        public async Task<Appointment> GetNextAppointment(int id, int organizationCode)
+        public async Task<Appointment> GetNextAppointment(string userName)
         {
-            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == id && c.OrganizationCode == organizationCode);
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            var patientAppointments = lapbaseContext.TblPatientConsult.Where(c => c.PatientId == patientDetails.PatientCode &&
+                c.OrganizationCode == patientDetails.OrganisationCode);
             var result = await patientAppointments.Join(
                     lapbaseContext.TblDoctors,
                     c => c.Seenby,
@@ -83,14 +86,13 @@ namespace Lapbase.Services
                         PatientId = consult.PatientId,
                         Start = consult.DateSeen,
                         End = consult.DateSeen,
-                        Description = consult.Notes,// == null ? "No Notes were provided" : consult.Notes,
+                        Description = consult.Notes,
                         DoctorName = doctor.DoctorName,
                         Location = doctor.Address1 + ", " + doctor.Suburb + ", " + doctor.Country,
                         Weight = consult.Weight,
                         Bmi = consult.Bmiweight
                     }
                 ).ToListAsync();
-
 
             TblPatientConsult lastConsult = patientAppointments.Last();
             Appointment futureAppointment = new Appointment(result.Last());
@@ -100,13 +102,7 @@ namespace Lapbase.Services
             futureAppointment.Weight = 0;
             futureAppointment.Bmi = 0;
 
-          //  if (futureAppointment.Start >= System.DateTime.Now)
-           // {
-                return futureAppointment;
-           // }
-           // else return null;
-           
-
+            return futureAppointment;
         }
     }
 }

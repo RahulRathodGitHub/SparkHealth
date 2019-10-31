@@ -23,7 +23,7 @@ namespace Lapbase.Models
                 Id = 1,
                 Username = "Test@SparkHealthhotmailcom.onmicrosoft.com",
                 PatientCode = 2756,
-                OrganisationCode = 1,
+                OrganisationCode = 2,
                 Deleted = false
             });
 

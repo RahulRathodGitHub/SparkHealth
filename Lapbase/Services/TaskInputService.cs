@@ -26,13 +26,13 @@ namespace Lapbase.Services
         /*
          * Provides a TaskInputDto object of the logged in Patient for a particular date.
          */
-        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, int patientId, int organizationCode)
+        public async Task<TaskInputDto> GetTaskInputByDate(DateTimeOffset date, string userName)
         {
-
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
             TaskInput taskInput = await lapbaseNewContext.TaskInput.Where(t =>
                 t.DateAssigned.Date.ToShortDateString().Equals(date.Date.ToShortDateString()) &&
-                t.PatientId.Equals(patientId) &&
-                t.OrganizationCode.Equals(organizationCode)
+                t.PatientId.Equals(patientDetails.PatientCode) &&
+                t.OrganizationCode.Equals(patientDetails.OrganisationCode)
             ).FirstOrDefaultAsync();
 
             if (taskInput == default)
@@ -46,15 +46,16 @@ namespace Lapbase.Services
         /*
          *  Creates a TaskInput by taking a taskInputDto instance as an argumnet.
          */
-        public async Task<TaskInputDto> UpdateTaskInput(TaskInputDto taskInputDto, int patientId, int organizationCode)
+        public async Task<TaskInputDto> UpdateTaskInput(TaskInputDto taskInputDto, string userName)
         {
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
             Guid id;
             var result = lapbaseNewContext.TaskInput.FirstOrDefault(f => f.Id == taskInputDto.Id);
 
             if (result == null)
             {
                 id = Guid.Empty;
-                result = lapbaseNewContext.TaskInput.Add(GetTaskInputFromDto(taskInputDto, id, patientId, organizationCode)).Entity;
+                result = lapbaseNewContext.TaskInput.Add(GetTaskInputFromDto(taskInputDto, id, patientDetails.PatientCode, patientDetails.OrganisationCode)).Entity;
             }
             else
             {
@@ -66,28 +67,12 @@ namespace Lapbase.Services
             return new TaskInputDto(result);
         }
 
-        #region Helper Methods
-
-        /*
-         *  Provides a TaskInput object on receiving a TaskInputDto object and a corresponding Guid
-         */
-        private TaskInput GetTaskInputFromDto(TaskInputDto dto, Guid id, int patientId, int organizationCode)
-        {
-            var result = new TaskInput();
-            result.Id = id;
-
-            adaptTaskInput(result, dto);
-            result.PatientId = patientId;
-            result.OrganizationCode = organizationCode;
-
-            return result;
-        }
-
         /*
          *  Returns the Guid of the most consumed food in terms of gross calories in a month for the logged in Patient.
          */
-        public Guid GetFoodOfTheMonth(int patientId, int organizationCode) // TODO make it to be used for the food of the month/day/week.. etc
+        public Guid GetFoodOfTheMonth(string userName)
         {
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
             // A Dictionary to store key value pairs of foods and quantities
             Dictionary<Guid, int> FoodQuantityOfMonthDictionary = new Dictionary<Guid, int>();
 
@@ -96,8 +81,8 @@ namespace Lapbase.Services
 
             // Get all the task inputs in the whole month.
             var listOfFoodandQuantityStrings = lapbaseNewContext.TaskInput.Where(t => t.DateAssigned.CompareTo(DateTime.Now.AddDays(-30)) >= 0 &&
-                t.PatientId.Equals(patientId) &&
-                t.OrganizationCode.Equals(organizationCode));
+                t.PatientId.Equals(patientDetails.PatientCode) &&
+                t.OrganizationCode.Equals(patientDetails.OrganisationCode));
 
             // Loop through each of them and make a list of taskInputDtos.
             foreach (var taskInputObject in listOfFoodandQuantityStrings)
@@ -124,6 +109,22 @@ namespace Lapbase.Services
 
         }
 
+        #region Helper Methods
+        /*
+         *  Provides a TaskInput object on receiving a TaskInputDto object and a corresponding Guid
+         */
+        private TaskInput GetTaskInputFromDto(TaskInputDto dto, Guid id, int patientId, int organizationCode)
+        {
+            var result = new TaskInput();
+            result.Id = id;
+
+            adaptTaskInput(result, dto);
+            result.PatientId = patientId;
+            result.OrganizationCode = organizationCode;
+
+            return result;
+        }
+
         private Dictionary<Guid, int> incrementFoodQuantity(Dictionary<Guid, int> dict, Guid food, int quantity)
         {
             if (!dict.ContainsKey(food))
@@ -132,9 +133,7 @@ namespace Lapbase.Services
                 dict[food] += quantity;
 
             return dict;
-
         }
-
 
         private void adaptTaskInput(TaskInput result, TaskInputDto dto)
         {

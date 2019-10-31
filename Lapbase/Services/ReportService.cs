@@ -15,9 +15,9 @@ namespace Lapbase.Services
      */
     public enum ReportType
     {
-       EWL_WL,
-       BMI,
-       Calorie
+        EWL_WL,
+        BMI,
+        Calorie
     }
 
     public class ReportService
@@ -40,15 +40,17 @@ namespace Lapbase.Services
          *  Returns the date which has the last recorded data for a particular Report Type corresponding to the 
          *  currently logged in Patient
          */
-        public async Task<DateTime?> GetReportLastAvailableDate(int patientId, int organizationCode, ReportType reportType)
+        public async Task<DateTime?> GetReportLastAvailableDate(string userName, ReportType reportType)
         {
-            byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientId && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefault());
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientDetails.PatientCode &&
+                u.OrganizationCode == patientDetails.OrganisationCode).Select(P => P.Imperial).FirstOrDefault());
             if (reportType == ReportType.EWL_WL)
             {
 
 
                 return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
-                                                                           new object[] { organizationCode, patientId, imperialFlag })
+                                                                           new object[] { patientDetails.OrganisationCode, patientDetails.PatientCode, imperialFlag })
                                                                            .Select(p => p.DateSeen)
                                                                            .OrderByDescending(p => p.Value)
                                                                            .FirstOrDefaultAsync();
@@ -57,20 +59,21 @@ namespace Lapbase.Services
             else if (reportType == ReportType.BMI)
             {
 
-                return await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode)
+                return await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientDetails.PatientCode && p.OrganizationCode == patientDetails.OrganisationCode)
                                                        .Select(p => p.DateSeen)
                                                        .OrderByDescending(p => p.Value)
                                                        .FirstOrDefaultAsync();
 
             }
 
-            else if( reportType == ReportType.Calorie)
+            else if (reportType == ReportType.Calorie)
             {
-                return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && (p.CaloriesGained > 0 || p.CaloriesLost>0))
+                return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientDetails.PatientCode &&
+                    p.OrganizationCode == patientDetails.OrganisationCode && (p.CaloriesGained > 0 || p.CaloriesLost > 0))
                                                     .Select(p => new DateTime(p.DateAssigned.Ticks))
                                                     .FirstOrDefaultAsync();
             }
-            
+
 
             return new DateTime();
 
@@ -79,100 +82,69 @@ namespace Lapbase.Services
         /*
          *  Gets a requested report provided a given filter for the data corresponding to the 
          *  logged in patient
-         */  
-        public async Task<Report> GetReportById(int patientId, int organizationCode, DateTime startDate, DateTime endDate, ReportType reportType)
+         */
+        public async Task<Report> GetReport(string userName, DateTime startDate, DateTime endDate, ReportType reportType)
         {
-            byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientId && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefault());
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientDetails.PatientCode &&
+                u.OrganizationCode == patientDetails.OrganisationCode).Select(P => P.Imperial).FirstOrDefault());
 
             Report result = new Report();
             if (reportType == ReportType.EWL_WL)
             {
-                var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.EWL, "EWL (" + res.WeightMeasurment + ")", res.Weight, "Weight ("+res.WeightMeasurment+")", res.strDateSeen)); //ToList<IReport>();
+                var graphDetails = await GetPatientEWL_WL_GraphReport(patientDetails.PatientCode, patientDetails.OrganisationCode, startDate, endDate, imperialFlag);
+                graphDetails.ForEach(res => result.AddEntry(res.EWL, "EWL (" + res.WeightMeasurment + ")", res.Weight, "Weight (" + res.WeightMeasurment + ")", res.strDateSeen)); //ToList<IReport>();
                 return result;
             }
             else if (reportType == ReportType.BMI)
             {
-                 await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateSeen >= startDate && p.DateSeen <= endDate)
-                                                       .OrderBy(p => p.DateSeen)
-                                                       .ForEachAsync(res => result.AddEntry(res.Bmiweight, ReportType.BMI.ToString(), new DateTimeOffset((DateTime)res.DateSeen).ToString("dd MMM yyyy")));
-                //GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag)
+                await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientDetails.PatientCode && p.OrganizationCode == patientDetails.OrganisationCode &&
+                    p.DateSeen >= startDate && p.DateSeen <= endDate)
+                                                      .OrderBy(p => p.DateSeen)
+                                                      .ForEachAsync(res => result.AddEntry(res.Bmiweight, ReportType.BMI.ToString(), new DateTimeOffset((DateTime)res.DateSeen).ToString("dd MMM yyyy")));
                 return result;
             }
             else if (reportType == ReportType.Calorie)
             {
-                Console.WriteLine(endDate);
-
-                //TODO: Find a way to not hardcode calries as KJ or add a data validation that only allows users to enter in KJ
-
-                await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateAssigned >= startDate && p.DateAssigned.Date <= endDate.Date)
+                await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientDetails.PatientCode && p.OrganizationCode == patientDetails.OrganisationCode &&
+                    p.DateAssigned >= startDate && p.DateAssigned.Date <= endDate.Date)
                                                  .OrderBy(p => p.DateAssigned)
-                                                 .ForEachAsync(res => result.AddEntry(res.CaloriesGained, "Calories Gained (kJ)", res.CaloriesLost, "Calories Lost (kJ)", res.DateAssigned.Date.ToString("dd MMM yyyy")));
+                                                 .ForEachAsync(res => result.AddEntry(res.CaloriesGained, "Calories Gained (kJ)",
+                                                    res.CaloriesLost, "Calories Lost (kJ)", res.DateAssigned.Date.ToString("dd MMM yyyy")));
 
                 return result;
-                                                 
+
             }
             else// (reportType == ReportType.WeightLoss) UNUSED BLOCK
             {
-                var graphDetails = await GetPatientEWL_WL_GraphReport(patientId, organizationCode, startDate, endDate, imperialFlag);
-                graphDetails.ForEach(res => result.AddEntry(res.Weight, "Weight (haha" + res.WeightMeasurment + ")", res.strDateSeen)); //ToList<IReport>();
+                var graphDetails = await GetPatientEWL_WL_GraphReport(patientDetails.PatientCode, patientDetails.OrganisationCode, startDate, endDate, imperialFlag);
+                graphDetails.ForEach(res => result.AddEntry(res.Weight, "Weight (" + res.WeightMeasurment + ")", res.strDateSeen)); //ToList<IReport>();
                 return result;
                 //    return await GetWeightReport(patientId, organizationCode, startDate, endDate);
             }
 
         }
 
-        /*  
-         *  Get the weight report of the logged in Patient given the date filters.
-         */  
-        public async Task<WeightReport> GetWeightReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate)
+        public async Task<EWL_WL_GraphReport> GetPatientHealthStats(string userName)
         {
-            //This is the demo list of the weights
-            WeightReport weightReport = new WeightReport();
-            //var consults = await lapbaseContext.TblPatientConsult.Where(p => p.PatientId == patientId && (p.DateSeen >= startDate && p.DateSeen <= endDate)).ToListAsync();
-            await lapbaseContext.TblPatientConsult.Where(p => (p.PatientId == patientId && p.OrganizationCode == organizationCode) && (p.DateSeen >= startDate && p.DateSeen <= endDate))
-                                                  .ForEachAsync(p => {
-
-                                                      weightReport.Weight.Add(p.Weight);
-                                                      weightReport.weightRecordedTime.Add(p.DateSeen);
-
-                                                  });
-
-            return weightReport;
-        }
-
-        
-
-        public async Task<List<EWL_WL_GraphReport>> GetPatientEWL_WL_GraphReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
-        {
-            //Create a var that stores the output from the logic and then run a foreach loop 
+            var patientDetails = lapbaseNewContext.Patient.Where(p => p.Username == userName).FirstOrDefault();
+            byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientDetails.PatientCode &&
+                u.OrganizationCode == patientDetails.OrganisationCode).Select(P => P.Imperial).FirstOrDefault());
 
             return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
-                                                                       new object[] { organizationCode, patientId, imperialFlag})
+                                                                          new object[] { patientDetails.OrganisationCode, patientDetails.PatientCode, imperialFlag })
+                                                                          .OrderByDescending(p => p.DateSeen)
+                                                                          .FirstOrDefaultAsync();
+
+        }
+
+        private async Task<List<EWL_WL_GraphReport>> GetPatientEWL_WL_GraphReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
+        {
+            return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
+                                                                       new object[] { organizationCode, patientId, imperialFlag })
                                                                        .Where(p => p.DateSeen >= startDate && p.DateSeen <= endDate)
                                                                        .OrderBy(p => p.DateSeen)
                                                                        .ToListAsync();
         }
-
-		public async Task<List<Decimal[]>> GetCalorieReport(int patientId, int organizationCode, DateTime startDate, DateTime endDate, byte imperialFlag)
-        {
-            
-            return await lapbaseNewContext.TaskInput.Where(p => p.PatientId == patientId && p.OrganizationCode == organizationCode && p.DateAssigned >= startDate && p.DateAssigned <= endDate)
-                                                    .Select(p => new Decimal[] { p.CaloriesGained, p.CaloriesLost })
-                                                    .ToListAsync();
-        }
-
-        public async Task<EWL_WL_GraphReport> GetPatientHealthStats(int patientId, int organizationCode)
-        {
-
-            byte imperialFlag = Convert.ToByte(lapbaseContext.TblUserApplicationData.Where(u => u.PatientId == patientId && u.OrganizationCode == organizationCode).Select(P => P.Imperial).FirstOrDefault());
-
-            return await lapbaseContext.Query<EWL_WL_GraphReport>().FromSql("RPT.sp_Rep_EWL_WLGraphFullPage @p0, @p1, @p2",
-                                                                          new object[] { organizationCode, patientId, imperialFlag })
-                                                                          .OrderByDescending(p => p.DateSeen)
-                                                                          .FirstOrDefaultAsync();
-                                                                      
-        }
-
     }
 }

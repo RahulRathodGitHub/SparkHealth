@@ -24,12 +24,8 @@ export class AppointmentsComponent {
   eventWeight = 0;
 
   constructor(private appointmentService: AppointmentService) {
-    const organizationCode = 2;
-    const patientId = 2756; //Ricky Perez
-    
     // Get the appointment for the particular patient
-    this.appointmentService.getAppointmentsById(patientId, organizationCode).then(result => this.calendarEvents = result);
-
+    this.appointmentService.getAppointments().then(result => this.calendarEvents = result);
   }
 
   // Access advanced configuration for the appointment calendar.

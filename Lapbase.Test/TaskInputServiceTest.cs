@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using Microsoft.EntityFrameworkCore;
 using Lapbase.Models;
-using System.Linq;
 using Lapbase.Services;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -58,7 +57,7 @@ namespace Lapbase.Tests
             TaskInputService service = new TaskInputService(config, context);
 
             // Act
-            var result = await service.GetTaskInputByDate(new DateTimeOffset(), patient.PatientCode, patient.OrganisationCode);
+            var result = await service.GetTaskInputByDate(new DateTimeOffset(), patient.Username);
 
             // Assert
             Assert.That(result.Id, Is.EqualTo(Guid.Empty));
@@ -79,7 +78,7 @@ namespace Lapbase.Tests
             context.SaveChanges();
 
             // Act
-            var result = await service.GetTaskInputByDate(new DateTimeOffset(2019, 05, 05, 0, 0, 0, new TimeSpan()), patient.PatientCode, patient.OrganisationCode);
+            var result = await service.GetTaskInputByDate(new DateTimeOffset(2019, 05, 05, 0, 0, 0, new TimeSpan()), patient.Username);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -98,7 +97,7 @@ namespace Lapbase.Tests
                 Id = Guid.NewGuid(),
                 Weight = 75,
                 DateAssigned = new DateTimeOffset(2019, 05, 05, 0, 0, 0, new TimeSpan())
-            }, patient.PatientCode, patient.OrganisationCode);
+            }, patient.Username);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -127,7 +126,7 @@ namespace Lapbase.Tests
                 Id = taskInput.Id,
                 Weight = 75,
                 DateAssigned = new DateTimeOffset(2019, 05, 05, 0, 0, 0, new TimeSpan())
-            }, patient.PatientCode, patient.OrganisationCode);
+            }, patient.Username);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -142,7 +141,7 @@ namespace Lapbase.Tests
             TaskInputService service = new TaskInputService(config, context);
 
             // Act
-            var result = service.GetFoodOfTheMonth(patient.PatientCode, patient.OrganisationCode);
+            var result = service.GetFoodOfTheMonth(patient.Username);
 
             // Assert
             Assert.That(result, Is.Not.Null);
@@ -178,7 +177,7 @@ namespace Lapbase.Tests
             context.SaveChanges();
 
             // Act
-            var result = service.GetFoodOfTheMonth(patient.PatientCode, patient.OrganisationCode);
+            var result = service.GetFoodOfTheMonth(patient.Username);
 
             // Assert
             Assert.That(result, Is.Not.Null);

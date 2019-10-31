@@ -23,15 +23,12 @@ namespace Lapbase.Controllers
         [HttpGet("{date}")]
         public async Task<ActionResult<TaskInputDto>> GetByDate(DateTimeOffset date)
         {
-            int patientId = 2756;
-            int organizationCode = 2;
-
             if (date == default)
             {
                 return BadRequest();
             }
 
-            var task = await taskInputService.GetTaskInputByDate(date, patientId, organizationCode);
+            var task = await taskInputService.GetTaskInputByDate(date, User.Identity.Name);
 
             return Ok(task);
         }
@@ -39,10 +36,7 @@ namespace Lapbase.Controllers
         [HttpGet("foodOfTheMonth")]
         public Guid GetFoodOfTheMonth()
         {
-            int patientId = 2756;
-            int organizationCode = 2;
-
-            var foodOfTheMonth =  taskInputService.GetFoodOfTheMonth(patientId, organizationCode);
+            var foodOfTheMonth =  taskInputService.GetFoodOfTheMonth(User.Identity.Name);
 
             return foodOfTheMonth;
         }
@@ -51,7 +45,7 @@ namespace Lapbase.Controllers
         [HttpPost]
         public async Task<ActionResult> Update([FromBody]TaskInputDto taskInputDto)
         {
-            return Ok(await taskInputService.UpdateTaskInput(taskInputDto , 1, 1));
+            return Ok(await taskInputService.UpdateTaskInput(taskInputDto , User.Identity.Name));
         }
     }
  }
