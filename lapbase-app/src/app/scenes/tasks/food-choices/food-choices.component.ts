@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { IFood, Food } from "src/app/models";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IFood, Food } from 'src/app/models';
 
 @Component({
-  selector: "app-food-choices",
-  templateUrl: "./food-choices.component.html",
-  styleUrls: ["./food-choices.component.scss"]
+  selector: 'app-food-choices',
+  templateUrl: './food-choices.component.html',
+  styleUrls: ['./food-choices.component.scss']
 })
 export class FoodChoicesComponent implements OnInit {
   @Input() availableFoodChoices: IFood[];

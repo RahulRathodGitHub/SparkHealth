@@ -133,6 +133,8 @@ $WebApiPath = '..\Lapbase'
 $BacpacFileName = 'Lapbase.bacpac'
 
 Write-Output "Publish Directory: $BuildArtifactsPath"
+Remove-Item $BuildArtifactsPath -Recurse -ErrorAction Ignore
+New-Item -ItemType directory -Path $BuildArtifactsPath
 
 Write-Output "------------------------Building [Started]------------------------"
 Write-Output "Building WebApi [Started]"

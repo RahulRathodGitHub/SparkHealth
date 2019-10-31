@@ -1,10 +1,10 @@
-import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
-import { IExercise, Exercise } from "src/app/models";
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IExercise, Exercise } from 'src/app/models';
 
 @Component({
-  selector: "app-exercise-choices",
-  templateUrl: "./exercise-choices.component.html",
-  styleUrls: ["./exercise-choices.component.scss"]
+  selector: 'app-exercise-choices',
+  templateUrl: './exercise-choices.component.html',
+  styleUrls: ['./exercise-choices.component.scss']
 })
 export class ExerciseChoicesComponent implements OnInit {
   @Input() availableExerciseChoices: IExercise[];
