@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using System;
 using System.Threading.Tasks;
 
-namespace Lapbase.Tests
+namespace Lapbase.Test
 {
     [TestFixture]
     public class TaskInputServiceTest

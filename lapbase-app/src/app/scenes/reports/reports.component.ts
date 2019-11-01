@@ -65,10 +65,6 @@ export class ReportsComponent implements OnInit {
     this.setChartType('EWL_WL');
   }
 
-  onChartClick(event) {
-    console.log(event);
-  }
-
   setChartType(selectedChartType) {
     this.typeOfReport = +reporttype[selectedChartType];
     this.chartType = selectedChartType;

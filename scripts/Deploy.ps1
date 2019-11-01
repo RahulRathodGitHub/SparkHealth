@@ -24,7 +24,6 @@ $DbNewName = $BaseAppName + "New"
 Write-Output "------------------------Resource Group Provisioning [Started]------------------------"
 # Login to Azure
 Write-Output "Logging in to Azure [Started]"
-# az login --service-principal --username $ServicePrincipal_App_ID --password $ServicePrincipal_PASSWORD --tenant $ServicePrincipal_TENANT_ID
 az login
 Write-Output "Logging in to Azure [Done]"
 
